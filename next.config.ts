@@ -1,7 +1,3 @@
-node_modules/
-.next/
-out/
-.env
-.env.local
-.vercel/
-*.log
+import type { NextConfig } from "next";
+const nextConfig: NextConfig = { poweredByHeader: false };
+export default nextConfig;
