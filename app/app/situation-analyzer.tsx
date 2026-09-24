@@ -255,10 +255,17 @@ export default function SituationAnalyzer() {
               </div>
 
               <div className="result-block">
+                <small className="muted">ROUTING BASIS</small>
+                <strong>
+                  Stage ini dicadangkan berdasarkan signal dalam situasi dan Lead State yang dipilih. Ia bukan keputusan muktamad.
+                </strong>
+              </div>
+
+              <div className="result-block">
                 <small className="muted">LEAD QUALITY LENS</small>
                 <div className="dimension-grid">
                   {dimensions.map(({ dimension, status }) => (
-                    <div className={status === "Signal" ? "dimension signal" : "dimension"}>
+                    <div key={dimension} className={status === "Signal" ? "dimension signal" : "dimension"}>
                       <span>{dimension}</span>
                       <small>{status}</small>
                     </div>
