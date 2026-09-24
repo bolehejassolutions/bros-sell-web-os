@@ -60,3 +60,7 @@ button:disabled{opacity:.45;cursor:not-allowed}
 }
 
 .execution-grid{grid-template-columns:1fr 1fr}.execution-outcome{display:grid;gap:8px;margin-top:10px}.execution-outcome label{display:grid;gap:7px;color:#a1a1aa;font-size:13px}
+
+
+.resource-section{margin-top:16px}.resource-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:14px}.resource-card{border:1px solid #242428;border-radius:14px;padding:16px;background:#111113;display:grid;gap:14px;min-height:180px}.resource-card h2{font-size:18px;margin:8px 0}.resource-file{font-size:11px;line-height:1.45;color:#8f8f98;overflow-wrap:anywhere;border-top:1px solid #242428;padding-top:10px}.resource-section>.eyebrow{margin-bottom:4px}
+@media(max-width:800px){.resource-grid{grid-template-columns:1fr}}
