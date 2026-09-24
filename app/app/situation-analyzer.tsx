@@ -11,17 +11,57 @@ const stages: Stage[] = [
   "VALUE","CLOSE","FOLLOW-UP","MULTIPLY","OPERATE"
 ];
 
-const resourceMap: Record<Stage, { chapter: string; asset: string }> = {
-  TARGET: { chapter: "Chapters 2–3", asset: "Sales Target Calculator + Operator Dashboard" },
-  BUYER: { chapter: "Chapters 4–6", asset: "Buyer Intelligence Canvas + BROS 5Q Worksheet" },
-  OFFER: { chapter: "Chapters 7–9", asset: "Offer Stack Builder" },
-  LEAD: { chapter: "Chapters 10–12", asset: "Lead State Classifier + Dashboard" },
-  QUALIFY: { chapter: "Chapters 13–15", asset: "Qualification workflow + qualification assets" },
-  VALUE: { chapter: "Chapters 16–18", asset: "Value Bridge Worksheet" },
-  CLOSE: { chapter: "Chapters 19–21", asset: "Close Path Decision Tree + Objection Playbook" },
-  "FOLLOW-UP": { chapter: "Chapters 22–24", asset: "Follow-Up Ladder Library" },
-  MULTIPLY: { chapter: "Chapters 31–33", asset: "Customer Multiplication Planner" },
-  OPERATE: { chapter: "Chapters 34–36", asset: "Operator Dashboard + 30-Day Implementation Tracker" },
+const resourceMap: Record<Stage, { chapter: string; asset: string; file: string }> = {
+  TARGET: {
+    chapter: "Chapters 2–3",
+    asset: "Sales Target Calculator + Operator Dashboard",
+    file: "BROS_SELL_ASSET_01_Sales_Target_Calculator_Operator_Dashboard.xlsx",
+  },
+  BUYER: {
+    chapter: "Chapters 4–6",
+    asset: "Buyer Intelligence Canvas + BROS 5Q Worksheet",
+    file: "BROS_SELL_ASSET_03_Buyer_Intelligence_Canvas.xlsx + BROS_SELL_ASSET_04_BROS_5Q_Worksheet.xlsx",
+  },
+  OFFER: {
+    chapter: "Chapters 7–9",
+    asset: "Offer Stack Builder",
+    file: "BROS_SELL_ASSET_05_Offer_Stack_Builder.xlsx",
+  },
+  LEAD: {
+    chapter: "Chapters 10–12",
+    asset: "Lead State Classifier",
+    file: "BROS_SELL_ASSET_07_Lead_State_Classifier.xlsx",
+  },
+  QUALIFY: {
+    chapter: "Chapters 13–15",
+    asset: "BROS 5Q Worksheet + qualification workflow",
+    file: "BROS_SELL_ASSET_04_BROS_5Q_Worksheet.xlsx",
+  },
+  VALUE: {
+    chapter: "Chapters 16–18",
+    asset: "Value Bridge Worksheet",
+    file: "BROS_SELL_ASSET_06_Value_Bridge_Worksheet.xlsx",
+  },
+  CLOSE: {
+    chapter: "Chapters 19–21",
+    asset: "Close Path Decision Tree + Objection Playbook",
+    file: "BROS_SELL_ASSET_08_Close_Path_Decision_Tree.xlsx + BROS_SELL_ASSET_09_Objection_Playbook.xlsx",
+  },
+  "FOLLOW-UP": {
+    chapter: "Chapters 22–24",
+    asset: "Follow-Up Ladder",
+    file: "BROS_SELL_ASSET_11_Follow_Up_Ladder_Library.xlsx",
+  },
+  MULTIPLY: {
+    chapter: "Chapters 31–33",
+    asset: "Customer Multiplication Planner",
+    file: "BROS_SELL_ASSET_12_Customer_Multiplication_Planner.xlsx",
+  },
+  OPERATE: {
+    chapter: "Chapters 34–36",
+    asset: "30-Day Implementation Tracker + Operator Dashboard",
+    file: "BROS_SELL_ASSET_13_30-Day_Implementation_Tracker.xlsx + BROS_SELL_ASSET_01_Sales_Target_Calculator_Operator_Dashboard.xlsx",
+  },
 };
 
 const rules: Record<Stage, { keywords: string[]; diagnosis: string; action: string; question: string }> = {
@@ -352,7 +392,8 @@ export default function SituationAnalyzer() {
               <div className="result-block">
                 <small className="muted">ROUTED RESOURCE</small>
                 <strong>{resourceMap[primary].asset}</strong>
-                <p className="field-note">{resourceMap[primary].chapter} · Gunakan resource ini selepas diagnosis untuk bergerak daripada masalah kepada tindakan.</p>
+                <p className="field-note">{resourceMap[primary].chapter} · Customer Package → 04_TOOLKIT → {resourceMap[primary].file}</p>
+                <p className="field-note">Path C — EXECUTE: buka asset ini, gunakan pada situasi sebenar, kemudian kembali ke Web OS untuk tindakan seterusnya.</p>
               </div>
 
               {!refined ? (
