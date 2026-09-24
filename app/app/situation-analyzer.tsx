@@ -139,6 +139,8 @@ export default function SituationAnalyzer() {
   ];
   const [leadState, setLeadState] = useState("Unknown");
   const [leadSource, setLeadSource] = useState("Unknown");
+  const [answer, setAnswer] = useState("");
+  const [refined, setRefined] = useState(false);
 
   const leadSourceOptions = [
     "Unknown",
@@ -164,9 +166,33 @@ export default function SituationAnalyzer() {
   }, [situation, leadState]);
 
   const dimensions = useMemo(
-    () => diagnoseDimensions(situation, leadState),
-    [situation, leadState]
+    () => diagnoseDimensions(situation + " " + answer, leadState),
+    [situation, answer, leadState]
   );
+
+  const missingDimension = dimensions.find((item) => item.status === "Gap / Unknown")?.dimension ?? "Readiness";
+
+  const diagnosticQuestions: Record<Dimension, string> = {
+    Relevance: "Siapa buyer ini, dan apa yang menjadikan situasi atau offer ini relevan kepada mereka?",
+    Need: "Masalah atau keperluan apa yang buyer sendiri nyatakan atau tunjukkan?",
+    Readiness: "Apakah signal bahawa buyer mahu membuat keputusan sekarang, kemudian, atau belum bersedia?",
+    Fit: "Adakah offer, scope dan bajet sesuai dengan situasi buyer?",
+    Access: "Adakah orang yang kita sedang berurusan mempunyai kuasa atau akses untuk membuat keputusan?",
+    Engagement: "Apakah tindakan atau respons terakhir buyer yang menunjukkan tahap engagement mereka?"
+  };
+
+  const followUpQuestion = diagnosticQuestions[missingDimension];
+
+  const refinedAction = refined
+    ? ({
+        Relevance: "Pastikan buyer yang sedang dilayan benar-benar sepadan dengan offer sebelum meneruskan.",
+        Need: "Kembalikan conversation kepada masalah atau outcome buyer sebelum menambah penerangan tentang produk.",
+        Readiness: "Tentukan timing keputusan dan next step yang realistik. Jangan menganggap silence sebagai rejection.",
+        Fit: "Semak fit antara buyer, scope, offer dan bajet sebelum cuba memujuk atau memberi diskaun.",
+        Access: "Kenal pasti siapa yang membuat keputusan dan apa yang diperlukan untuk membawa decision-maker masuk.",
+        Engagement: "Gunakan respons terakhir sebagai signal untuk menentukan follow-up seterusnya, bukan sekadar menghantar mesej berulang."
+      } as Record<Dimension, string>)[missingDimension]
+    : result.action;
 
   const primary = ranked[0]?.stage ?? "LEAD";
   const result = rules[primary];
@@ -174,6 +200,14 @@ export default function SituationAnalyzer() {
   function analyze(event: React.FormEvent) {
     event.preventDefault();
     setAnalyzed(Boolean(situation.trim()));
+    setRefined(false);
+    setAnswer("");
+  }
+
+  function refine(event: React.FormEvent) {
+    event.preventDefault();
+    if (!answer.trim()) return;
+    setRefined(true);
   }
 
   return (
@@ -250,14 +284,39 @@ export default function SituationAnalyzer() {
               </div>
 
               <div className="result-block">
-                <small className="muted">CHECK THIS</small>
+                <small className="muted">INITIAL CHECK</small>
                 <strong>{result.question}</strong>
               </div>
+
+              {!refined ? (
+                <div className="result-block">
+                  <small className="muted">ONE MISSING PIECE</small>
+                  <strong>{followUpQuestion}</strong>
+                  <form onSubmit={refine} style={{display:"grid",gap:10,marginTop:10}}>
+                    <textarea
+                      className="input textarea compact"
+                      value={answer}
+                      onChange={(e) => setAnswer(e.target.value)}
+                      placeholder="Jawapan berdasarkan apa yang buyer sebenar cakap / buat..."
+                      rows={4}
+                    />
+                    <button className="btn" type="submit" disabled={!answer.trim()}>
+                      Refine Diagnosis
+                    </button>
+                  </form>
+                </div>
+              ) : (
+                <div className="result-block refined">
+                  <small className="muted">REFINED NEXT ACTION</small>
+                  <strong>{refinedAction}</strong>
+                  <p className="field-note">Diagnosis diperhalusi berdasarkan jawapan tambahan. Jika maklumat masih tidak lengkap, kembali kepada soalan yang belum terjawab.</p>
+                </div>
+              )}
 
               <div className="result-block">
                 <small className="muted">ROUTING BASIS</small>
                 <strong>
-                  Stage ini dicadangkan berdasarkan signal dalam situasi dan Lead State yang dipilih. Ia bukan keputusan muktamad.
+                  Stage ini dicadangkan berdasarkan signal dalam situasi, Lead State dan maklumat tambahan yang tersedia. Ia bukan keputusan muktamad.
                 </strong>
               </div>
 
