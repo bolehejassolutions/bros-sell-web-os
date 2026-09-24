@@ -99,6 +99,22 @@ export default function SituationAnalyzer() {
     "Other",
   ];
   const [leadState, setLeadState] = useState("Unknown");
+  const [leadSource, setLeadSource] = useState("Unknown");
+
+  const leadSourceOptions = [
+    "Unknown",
+    "Organic Social",
+    "Paid Ads",
+    "Search / Google",
+    "Referral",
+    "Existing Customer",
+    "Marketplace",
+    "Website / Form",
+    "Walk-in",
+    "Outbound",
+    "Networking / Event",
+    "Other",
+  ];
   const [analyzed, setAnalyzed] = useState(false);
 
   const ranked = useMemo(() => {
@@ -136,7 +152,7 @@ export default function SituationAnalyzer() {
             />
 
             <p className="field-note">
-              Channel ialah tempat situasi berlaku. Dalam OS, WhatsApp ↔ Phone kekal sebagai channel layer utama; pilihan lain membolehkan diagnosis digunakan pada situasi jualan sebenar di platform yang berbeza.
+              Channel = tempat interaction berlaku. Lead Source = bagaimana prospect mula datang kepada business.
             </p>
 
             <div className="form-grid">
@@ -151,6 +167,12 @@ export default function SituationAnalyzer() {
                 <select className="input" value={leadState} onChange={(e) => setLeadState(e.target.value)}>
                   <option>Unknown</option>
                   {stateOptions.map((state) => <option key={state}>{state}</option>)}
+                </select>
+              </label>
+              <label>
+                <span>Lead Source</span>
+                <select className="input" value={leadSource} onChange={(e) => setLeadSource(e.target.value)}>
+                  {leadSourceOptions.map((source) => <option key={source}>{source}</option>)}
                 </select>
               </label>
             </div>
@@ -191,6 +213,7 @@ export default function SituationAnalyzer() {
               <div className="meta-row">
                 <span>Channel: <b>{channel}</b></span>
                 <span>Lead State: <b>{leadState}</b></span>
+                <span>Lead Source: <b>{leadSource}</b></span>
               </div>
 
               <p className="disclaimer">
