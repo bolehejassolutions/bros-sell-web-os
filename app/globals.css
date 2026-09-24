@@ -24,7 +24,7 @@ button:disabled{opacity:.45;cursor:not-allowed}
 .eyebrow{font-size:11px;letter-spacing:.14em;font-weight:800;color:#a1a1aa;margin-bottom:10px}
 .analyzer h2,.os-overview h2{margin:0 0 10px;font-size:22px;letter-spacing:-.02em}
 .analyzer p{line-height:1.55}
-.field-note{font-size:11px!important;color:#71717a;margin:0}.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.field-note{font-size:11px!important;color:#71717a;margin:0}.form-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
 .form-grid label{display:grid;gap:7px;color:#a1a1aa;font-size:13px}
 .result-stage{display:inline-flex;padding:8px 11px;border:1px solid #3f3f46;border-radius:999px;font-size:12px;font-weight:800;letter-spacing:.08em;margin:4px 0 14px}
 .result-block{display:grid;gap:6px;padding:14px 0;border-top:1px solid #27272a}
@@ -42,6 +42,7 @@ button:disabled{opacity:.45;cursor:not-allowed}
 .os-overview{display:grid;gap:22px;margin-top:16px}
 @media(max-width:800px){
   .analyzer-grid{grid-template-columns:1fr}
+  .form-grid{grid-template-columns:1fr 1fr}
   .analyzer-input,.analyzer-result{min-height:0}
 }
 @media(max-width:700px){
