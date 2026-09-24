@@ -1,5 +1,5 @@
 import { createClient } from "@/lib/supabase/server";
-import { hasCoreAccess } from "@/lib/supabase/entitlement";
+import { hasWebOSAccess } from "@/lib/supabase/entitlement";
 import { redirect } from "next/navigation";
 import SituationAnalyzer from "./situation-analyzer";
 
@@ -9,7 +9,7 @@ export default async function AppHome(){
   const supabase=await createClient();
   const {data:{user}}=await supabase.auth.getUser();
   if(!user) redirect("/login");
-  if(!(await hasCoreAccess())) redirect("/activate");
+  if(!(await hasWebOSAccess())) redirect("/activate");
 
   return (
     <main className="container" style={{padding:"28px 0 60px"}}>
