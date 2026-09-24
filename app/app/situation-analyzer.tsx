@@ -11,6 +11,19 @@ const stages: Stage[] = [
   "VALUE","CLOSE","FOLLOW-UP","MULTIPLY","OPERATE"
 ];
 
+const resourceMap: Record<Stage, { chapter: string; asset: string }> = {
+  TARGET: { chapter: "Chapters 2–3", asset: "Sales Target Calculator + Operator Dashboard" },
+  BUYER: { chapter: "Chapters 4–6", asset: "Buyer Intelligence Canvas + BROS 5Q Worksheet" },
+  OFFER: { chapter: "Chapters 7–9", asset: "Offer Stack Builder" },
+  LEAD: { chapter: "Chapters 10–12", asset: "Lead State Classifier + Dashboard" },
+  QUALIFY: { chapter: "Chapters 13–15", asset: "Qualification workflow + qualification assets" },
+  VALUE: { chapter: "Chapters 16–18", asset: "Value Bridge Worksheet" },
+  CLOSE: { chapter: "Chapters 19–21", asset: "Close Path Decision Tree + Objection Playbook" },
+  "FOLLOW-UP": { chapter: "Chapters 22–24", asset: "Follow-Up Ladder Library" },
+  MULTIPLY: { chapter: "Chapters 31–33", asset: "Customer Multiplication Planner" },
+  OPERATE: { chapter: "Chapters 34–36", asset: "Operator Dashboard + 30-Day Implementation Tracker" },
+};
+
 const rules: Record<Stage, { keywords: string[]; diagnosis: string; action: string; question: string }> = {
   TARGET: {
     keywords: ["target", "audience", "sasaran", "orang yang betul", "customer mana", "siapa nak jual"],
@@ -334,6 +347,12 @@ export default function SituationAnalyzer() {
               <div className="result-block">
                 <small className="muted">INITIAL CHECK</small>
                 <strong>{result.question}</strong>
+              </div>
+
+              <div className="result-block">
+                <small className="muted">ROUTED RESOURCE</small>
+                <strong>{resourceMap[primary].asset}</strong>
+                <p className="field-note">{resourceMap[primary].chapter} · Gunakan resource ini selepas diagnosis untuk bergerak daripada masalah kepada tindakan.</p>
               </div>
 
               {!refined ? (
