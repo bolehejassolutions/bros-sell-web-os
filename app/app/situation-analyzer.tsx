@@ -337,13 +337,14 @@ export default function SituationAnalyzer() {
                   </form>
                 </div>
               ) : (
-                <div className="result-block refined">
-                  <small className="muted">REFINED NEXT ACTION</small>
-                  <strong>{refinedAction}</strong>
-                  <p className="field-note">Diagnosis diperhalusi berdasarkan jawapan tambahan. Jika maklumat masih tidak lengkap, kembali kepada soalan yang belum terjawab.</p>
-                </div>
+                <>
+                  <div className="result-block refined">
+                    <small className="muted">REFINED NEXT ACTION</small>
+                    <strong>{refinedAction}</strong>
+                    <p className="field-note">Diagnosis diperhalusi berdasarkan jawapan tambahan. Jika maklumat masih tidak lengkap, kembali kepada soalan yang belum terjawab.</p>
+                  </div>
 
-                <div className="result-block">
+                  <div className="result-block">
                   <small className="muted">NEXT MOVE</small>
                   <strong>{refinedAction}</strong>
                   <div className="form-grid execution-grid">
@@ -380,8 +381,9 @@ export default function SituationAnalyzer() {
                         </p>
                       )}
                     </div>
-                  )}
-                </div>
+                    )}
+                  </div>
+                </>
               )}
 
               <div className="result-block">
