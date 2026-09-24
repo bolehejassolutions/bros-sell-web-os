@@ -84,6 +84,20 @@ function scoreStage(text: string, stage: Stage) {
 export default function SituationAnalyzer() {
   const [situation, setSituation] = useState("");
   const [channel, setChannel] = useState("WhatsApp");
+
+  const channelOptions = [
+    "WhatsApp",
+    "Phone",
+    "Instagram DM",
+    "Facebook Messenger",
+    "TikTok DM",
+    "Marketplace Chat",
+    "Email",
+    "Website / Form",
+    "In-person",
+    "SMS",
+    "Other",
+  ];
   const [leadState, setLeadState] = useState("Unknown");
   const [analyzed, setAnalyzed] = useState(false);
 
@@ -121,12 +135,15 @@ export default function SituationAnalyzer() {
               rows={6}
             />
 
+            <p className="field-note">
+              Channel ialah tempat situasi berlaku. Dalam OS, WhatsApp ↔ Phone kekal sebagai channel layer utama; pilihan lain membolehkan diagnosis digunakan pada situasi jualan sebenar di platform yang berbeza.
+            </p>
+
             <div className="form-grid">
               <label>
-                <span>Channel</span>
+                <span>Interaction Channel</span>
                 <select className="input" value={channel} onChange={(e) => setChannel(e.target.value)}>
-                  <option>WhatsApp</option>
-                  <option>Phone</option>
+                  {channelOptions.map((option) => <option key={option}>{option}</option>)}
                 </select>
               </label>
               <label>
