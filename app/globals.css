@@ -10,7 +10,7 @@ button:disabled{opacity:.45;cursor:not-allowed}
 .btn{display:inline-flex;align-items:center;justify-content:center;border:0;border-radius:12px;padding:12px 18px;background:#f5c542;color:#111;font-weight:700;cursor:pointer}
 .btn.secondary{background:#27272a;color:#fff}
 .input{width:100%;padding:13px 14px;border-radius:12px;border:1px solid #3f3f46;background:#09090b;color:#fff}
-.textarea{resize:vertical;min-height:150px;line-height:1.5}
+.textarea{resize:vertical;min-height:150px;line-height:1.5}.textarea.compact{min-height:90px}.refined{border-color:#3f3f46}
 .stage{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}
 .stage div{padding:14px;border:1px solid #27272a;border-radius:14px;background:#111113}
 .brand{font-weight:800;letter-spacing:-.03em}
