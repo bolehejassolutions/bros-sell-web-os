@@ -76,9 +76,48 @@ const rules: Record<Stage, { keywords: string[]; diagnosis: string; action: stri
 
 const stateOptions = ["Aware", "Engaged", "Qualified", "Active", "Decision"];
 
-function scoreStage(text: string, stage: Stage) {
+function scoreStage(text: string, stage: Stage, leadState: string) {
   const normalized = text.toLowerCase();
-  return rules[stage].keywords.reduce((score, keyword) => score + (normalized.includes(keyword) ? 1 : 0), 0);
+  let score = rules[stage].keywords.reduce((total, keyword) => total + (normalized.includes(keyword) ? 1 : 0), 0);
+
+  const stateWeights: Record<string, Partial<Record<Stage, number>>> = {
+    Aware: { TARGET: 2, BUYER: 1, LEAD: 2 },
+    Engaged: { BUYER: 1, LEAD: 2, QUALIFY: 2 },
+    Qualified: { QUALIFY: 2, VALUE: 2, CLOSE: 1 },
+    Active: { VALUE: 1, CLOSE: 2, "FOLLOW-UP": 1 },
+    Decision: { CLOSE: 3, "FOLLOW-UP": 2 },
+  };
+
+  score += stateWeights[leadState]?.[stage] ?? 0;
+  return score;
+}
+
+type Dimension = "Relevance" | "Need" | "Readiness" | "Fit" | "Access" | "Engagement";
+
+const dimensionRules: Record<Dimension, string[]> = {
+  Relevance: ["sesuai", "relevan", "target", "sasaran", "siapa", "fit"],
+  Need: ["perlu", "masalah", "problem", "need", "nak", "perlukan", "sakit"],
+  Readiness: ["serius", "sekarang", "bila", "proceed", "confirm", "booking", "bayar", "decision"],
+  Fit: ["sesuai", "bajet", "budget", "scope", "package", "pakej", "fit"],
+  Access: ["owner", "decision maker", "bos", "pengurus", "approval", "approve", "team"],
+  Engagement: ["reply", "balas", "tanya", "respond", "engaged", "follow up", "follow-up", "meeting", "call"],
+};
+
+function diagnoseDimensions(text: string, leadState: string) {
+  const normalized = text.toLowerCase();
+
+  return (Object.keys(dimensionRules) as Dimension[]).map((dimension) => {
+    const signal = dimensionRules[dimension].some((keyword) => normalized.includes(keyword));
+    const stateSignal =
+      (dimension === "Engagement" && leadState !== "Unknown") ||
+      (dimension === "Readiness" && ["Qualified", "Active", "Decision"].includes(leadState)) ||
+      (dimension === "Relevance" && ["Aware", "Engaged", "Qualified", "Active", "Decision"].includes(leadState));
+
+    return {
+      dimension,
+      status: signal || stateSignal ? "Signal" : "Gap / Unknown",
+    };
+  });
 }
 
 export default function SituationAnalyzer() {
@@ -120,9 +159,14 @@ export default function SituationAnalyzer() {
   const ranked = useMemo(() => {
     if (!situation.trim()) return [];
     return stages
-      .map((stage) => ({ stage, score: scoreStage(situation, stage) }))
+      .map((stage) => ({ stage, score: scoreStage(situation, stage, leadState) }))
       .sort((a, b) => b.score - a.score);
-  }, [situation]);
+  }, [situation, leadState]);
+
+  const dimensions = useMemo(
+    () => diagnoseDimensions(situation, leadState),
+    [situation, leadState]
+  );
 
   const primary = ranked[0]?.stage ?? "LEAD";
   const result = rules[primary];
@@ -210,6 +254,18 @@ export default function SituationAnalyzer() {
                 <strong>{result.question}</strong>
               </div>
 
+              <div className="result-block">
+                <small className="muted">LEAD QUALITY LENS</small>
+                <div className="dimension-grid">
+                  {dimensions.map(({ dimension, status }) => (
+                    <div className={status === "Signal" ? "dimension signal" : "dimension"}>
+                      <span>{dimension}</span>
+                      <small>{status}</small>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
               <div className="meta-row">
                 <span>Channel: <b>{channel}</b></span>
                 <span>Lead State: <b>{leadState}</b></span>
@@ -217,7 +273,7 @@ export default function SituationAnalyzer() {
               </div>
 
               <p className="disclaimer">
-                Ini ialah signal awal untuk membantu diagnosis, bukan verdict. Semak konteks sebenar sebelum membuat keputusan.
+                Diagnosis ini menggunakan signal yang tersedia. “Gap / Unknown” bermaksud maklumat belum cukup, bukan bahawa prospek itu tidak berkualiti. Semak konteks sebenar sebelum membuat keputusan.
               </p>
             </>
           )}
