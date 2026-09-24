@@ -16,6 +16,6 @@ export default function LoginForm(){
     if(error){setError(error.message);return}
     setSent(true);
   }
-  if(sent) return <div><h2>Semak email.</h2><p className="muted">Pautan login telah dihantar. Buka email untuk meneruskan.</p></div>;
+  if(sent) return <div><h2>Semak email.</h2><p className="muted">Pautan login telah dihantar. Buka email yang sama pada peranti ini untuk meneruskan.</p></div>;
   return <form onSubmit={submit} style={{display:"grid",gap:14}}><label>Email</label><input className="input" type="email" value={email} onChange={e=>setEmail(e.target.value)} required placeholder="nama@email.com"/>{error&&<p style={{color:"#ff8a8a"}}>{error}</p>}<button className="btn">Hantar Magic Link</button></form>
 }
