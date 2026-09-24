@@ -19,7 +19,7 @@ const rules: Record<Stage, { keywords: string[]; diagnosis: string; action: stri
     question: "Siapa yang paling relevan untuk offer ini, dan apa yang menjadikan mereka sesuai?"
   },
   BUYER: {
-    keywords: ["buyer", "customer", "faham customer", "keperluan", "masalah customer", "nak apa", "need"],
+    keywords: ["buyer", "faham customer", "keperluan", "masalah customer", "nak apa", "need"],
     diagnosis: "Isu mungkin berkait dengan pemahaman buyer: konteks, masalah atau outcome yang mereka cari belum cukup jelas.",
     action: "Kenal pasti konteks buyer, masalah utama dan outcome yang mereka mahu sebelum menerangkan offer.",
     question: "Apa yang buyer cuba selesaikan, dan apa outcome yang mereka mahu?"
@@ -79,6 +79,23 @@ const stateOptions = ["Aware", "Engaged", "Qualified", "Active", "Decision"];
 function scoreStage(text: string, stage: Stage, leadState: string) {
   const normalized = text.toLowerCase();
   let score = rules[stage].keywords.reduce((total, keyword) => total + (normalized.includes(keyword) ? 1 : 0), 0);
+
+  // High-signal selling moments should outrank generic words such as "customer".
+  const highSignalWeights: Partial<Record<Stage, { phrases: string[]; weight: number }[]>> = {
+    "FOLLOW-UP": [
+      { phrases: ["tak reply", "tak balas", "senyap", "ghost", "diam"], weight: 3 },
+    ],
+    OFFER: [
+      { phrases: ["harga", "quotation", "sebut harga", "pakej", "package", "scope"], weight: 2 },
+    ],
+    LEAD: [
+      { phrases: ["tanya", "enquiry", "inquiry", "masuk whatsapp", "prospek"], weight: 2 },
+    ],
+  };
+
+  for (const signal of highSignalWeights[stage] ?? []) {
+    if (signal.phrases.some((phrase) => normalized.includes(phrase))) score += signal.weight;
+  }
 
   const stateWeights: Record<string, Partial<Record<Stage, number>>> = {
     Aware: { TARGET: 2, BUYER: 1, LEAD: 2 },
