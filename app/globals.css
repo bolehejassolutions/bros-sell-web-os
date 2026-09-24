@@ -58,3 +58,5 @@ button:disabled{opacity:.45;cursor:not-allowed}
   .form-grid{grid-template-columns:1fr}
   .app-header{margin-bottom:30px}
 }
+
+.execution-grid{grid-template-columns:1fr 1fr}.execution-outcome{display:grid;gap:8px;margin-top:10px}.execution-outcome label{display:grid;gap:7px;color:#a1a1aa;font-size:13px}
