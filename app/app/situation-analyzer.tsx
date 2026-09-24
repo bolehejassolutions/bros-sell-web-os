@@ -183,6 +183,9 @@ export default function SituationAnalyzer() {
 
   const followUpQuestion = diagnosticQuestions[missingDimension];
 
+  const primary = ranked[0]?.stage ?? "LEAD";
+  const result = rules[primary];
+
   const refinedAction = refined
     ? ({
         Relevance: "Pastikan buyer yang sedang dilayan benar-benar sepadan dengan offer sebelum meneruskan.",
@@ -194,20 +197,48 @@ export default function SituationAnalyzer() {
       } as Record<Dimension, string>)[missingDimension]
     : result.action;
 
-  const primary = ranked[0]?.stage ?? "LEAD";
-  const result = rules[primary];
+  const actionOptions = [
+    "Clarify",
+    "Qualify",
+    "Explain Value",
+    "Close",
+    "Follow Up",
+    "Stop & Reassess",
+  ];
+  const timingOptions = ["Now", "Today", "24 hours", "2–3 days", "Later"];
+  const outcomeOptions = [
+    "No response",
+    "Replied",
+    "Qualified",
+    "Offer sent",
+    "Closed",
+    "Not fit",
+    "Other",
+  ];
+
+  const [actionType, setActionType] = useState("Clarify");
+  const [timing, setTiming] = useState("Now");
+  const [actionDone, setActionDone] = useState(false);
+  const [outcome, setOutcome] = useState("");
+
+  function resetExecution() {
+    setActionDone(false);
+    setOutcome("");
+  }
 
   function analyze(event: React.FormEvent) {
     event.preventDefault();
     setAnalyzed(Boolean(situation.trim()));
     setRefined(false);
     setAnswer("");
+    resetExecution();
   }
 
   function refine(event: React.FormEvent) {
     event.preventDefault();
     if (!answer.trim()) return;
     setRefined(true);
+    resetExecution();
   }
 
   return (
@@ -310,6 +341,46 @@ export default function SituationAnalyzer() {
                   <small className="muted">REFINED NEXT ACTION</small>
                   <strong>{refinedAction}</strong>
                   <p className="field-note">Diagnosis diperhalusi berdasarkan jawapan tambahan. Jika maklumat masih tidak lengkap, kembali kepada soalan yang belum terjawab.</p>
+                </div>
+
+                <div className="result-block">
+                  <small className="muted">NEXT MOVE</small>
+                  <strong>{refinedAction}</strong>
+                  <div className="form-grid execution-grid">
+                    <label>
+                      <span>Action Type</span>
+                      <select className="input" value={actionType} onChange={(e) => { setActionType(e.target.value); setActionDone(false); setOutcome(""); }}>
+                        {actionOptions.map((option) => <option key={option}>{option}</option>)}
+                      </select>
+                    </label>
+                    <label>
+                      <span>Timing</span>
+                      <select className="input" value={timing} onChange={(e) => { setTiming(e.target.value); setActionDone(false); setOutcome(""); }}>
+                        {timingOptions.map((option) => <option key={option}>{option}</option>)}
+                      </select>
+                    </label>
+                  </div>
+                  <p className="field-note">Jalankan satu tindakan yang paling dekat dengan diagnosis. Jangan menambah aktiviti hanya untuk nampak sibuk.</p>
+                  <button className="btn" type="button" onClick={() => setActionDone(true)}>
+                    {actionDone ? "Action Marked Done" : "Mark Action Done"}
+                  </button>
+
+                  {actionDone && (
+                    <div className="execution-outcome">
+                      <label>
+                        <span>Outcome</span>
+                        <select className="input" value={outcome} onChange={(e) => setOutcome(e.target.value)}>
+                          <option value="">Pilih outcome selepas tindakan...</option>
+                          {outcomeOptions.map((option) => <option key={option}>{option}</option>)}
+                        </select>
+                      </label>
+                      {outcome && (
+                        <p className="field-note">
+                          Outcome direkod secara sementara dalam sesi ini. Gunakan hasil sebenar untuk menentukan langkah seterusnya.
+                        </p>
+                      )}
+                    </div>
+                  )}
                 </div>
               )}
 
