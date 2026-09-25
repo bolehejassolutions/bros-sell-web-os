@@ -23,7 +23,7 @@ export default async function AppHome(){
 
       <section className="hero">
         <p className="muted">LEARN IT. RUN IT. KEEP IT UPDATED.</p><div className="hub-grid"><article className="card hub-card"><div><div className="eyebrow">WEB OS · EXECUTION</div><h2>Teruskan operasi</h2><p className="muted">Mulakan dengan situasi jualan sebenar dan bergerak melalui diagnosis → action → outcome → next action.</p></div><a className="btn" href="#analyzer">Buka Situation Analyzer</a></article><article className="card hub-card"><div><div className="eyebrow">CLOSING OS · KNOWLEDGE</div><h2>Closing OS v2.5</h2><p className="muted">Rujukan metodologi semasa apabila anda perlukan penjelasan lebih mendalam.</p></div><a className="btn secondary" href="/app/resources#closing-os">Lihat resource</a></article><article className="card hub-card"><div><div className="eyebrow">MY ACCESS</div><h2>BROS SELL™ — Full Early Bird Access</h2><p className="muted">Web OS dan Closing OS berada di bawah satu pengalaman produk.</p></div><span className="status-pill">ACTIVE</span></article></div>
-        <h1>Sales Operating System</h1>
+        <h1>Customer Hub</h1>
         <p className="muted hero-copy">
           Mulakan dengan situasi jualan sebenar. Gunakan sistem untuk menjelaskan keputusan, bukan memujuk.
         </p>
