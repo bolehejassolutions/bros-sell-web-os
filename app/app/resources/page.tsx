@@ -55,6 +55,45 @@ export default async function ResourcesPage() {
         </p>
       </section>
 
+      <section className="card resource-section">
+        <div className="eyebrow">RECOMMENDED PATH</div>
+        <h2>Jangan mula dengan semua 36 chapter.</h2>
+        <div className="resource-grid">
+          <article className="resource-card">
+            <div>
+              <small className="muted">01 · THINK</small>
+              <h2>Quick Start</h2>
+              <p className="muted">Fahami cara menggunakan sistem dan pilih satu situasi jualan sebenar.</p>
+            </div>
+            <a className="btn secondary" href="/app">Buka Situation Analyzer</a>
+          </article>
+          <article className="resource-card">
+            <div>
+              <small className="muted">02 · SEE</small>
+              <h2>Diagnose</h2>
+              <p className="muted">Kenal pasti stage, missing information dan next action berdasarkan signal sebenar.</p>
+            </div>
+            <a className="btn secondary" href="/app">Diagnose satu situasi</a>
+          </article>
+          <article className="resource-card">
+            <div>
+              <small className="muted">03 · USE</small>
+              <h2>Use the routed resource</h2>
+              <p className="muted">Gunakan resource yang dirouting untuk menyelesaikan masalah yang sedang berlaku.</p>
+            </div>
+            <span className="field-note">Ikut path C — EXECUTE dalam Customer Package.</span>
+          </article>
+          <article className="resource-card">
+            <div>
+              <small className="muted">04 · DO</small>
+              <h2>Execute and observe</h2>
+              <p className="muted">Jalankan satu tindakan, rekod outcome dan gunakan hasil sebenar untuk langkah berikutnya.</p>
+            </div>
+            <a className="btn secondary" href="/app">Kembali ke Analyzer</a>
+          </article>
+        </div>
+      </section>
+
       {groups.map((group) => (
         <section className="card resource-section" key={group}>
           <div className="eyebrow">{group}</div>
