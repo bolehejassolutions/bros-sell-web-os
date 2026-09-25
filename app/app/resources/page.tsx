@@ -33,6 +33,7 @@ const resources: Resource[] = [
   { area: "TOOLKIT", title: "Customer Multiplication Planner", file: "04_TOOLKIT/BROS_SELL_ASSET_12_Customer_Multiplication_Planner.xlsx", use: "Terjemahkan sale yang berjaya kepada pattern yang boleh diulang." },
   { area: "NATIVE TOOLS", title: "Native Customer Multiplication", file: "/app/customer-multiplication", use: "Capture result, build real proof dan tentukan referral, repeat atau expansion berdasarkan trigger sebenar." },
   { area: "TOOLKIT", title: "30-Day Implementation Tracker", file: "04_TOOLKIT/BROS_SELL_ASSET_13_30-Day_Implementation_Tracker.xlsx", use: "Pantau pelaksanaan sistem selama 30 hari." },
+  { area: "NATIVE TOOLS", title: "Native 30-Day Implementation Tracker", file: "/app/implementation-tracker", use: "Jalankan implementation cycle 30 hari dengan evidence, bottleneck, metric dan audit." },
 ];
 
 export default async function ResourcesPage() {
