@@ -14,6 +14,7 @@ const resources: Resource[] = [
   { area: "BOOK", title: "Closing OS v2.5", file: "02_BOOK/BROS_SELL_02_Closing_OS_v2.5.pdf", use: "Rujukan utama untuk memahami keseluruhan Sales Operating System." },
   { area: "VISUAL SYSTEM", title: "Visual System V01–V12", file: "03_VISUAL_SYSTEM/BROS_SELL_03_Visual_System_V01-V12.pdf", use: "Peta visual untuk melihat hubungan antara komponen sistem." },
   { area: "TOOLKIT", title: "Sales Target Calculator + Operator Dashboard", file: "04_TOOLKIT/BROS_SELL_ASSET_01_Sales_Target_Calculator_Operator_Dashboard.xlsx", use: "Tetapkan sasaran dan pantau operasi jualan." },
+  { area: "NATIVE TOOLS", title: "Native Operator Dashboard", file: "/app/operator-dashboard", use: "Bandingkan target dan actual, lihat variance/status dan tentukan bottleneck operasi." },
   { area: "TOOLKIT", title: "Visual System Index", file: "04_TOOLKIT/BROS_SELL_ASSET_02_Visual_System_Index.xlsx", use: "Indeks pantas untuk sistem visual." },
   { area: "TOOLKIT", title: "Buyer Intelligence Canvas", file: "04_TOOLKIT/BROS_SELL_ASSET_03_Buyer_Intelligence_Canvas.xlsx", use: "Fahami konteks, masalah dan outcome buyer." },
   { area: "TOOLKIT", title: "BROS 5Q Worksheet", file: "04_TOOLKIT/BROS_SELL_ASSET_04_BROS_5Q_Worksheet.xlsx", use: "Soalan teras untuk mendapatkan maklumat yang diperlukan." },
