@@ -4,7 +4,11 @@ import { useMemo, useState } from "react";
 import { BROS_SALES_FUNNEL_FORMULAS } from "@/lib/bros-sell/system-registry";
 import { calculateSalesTarget } from "@/lib/bros-sell/sales-target";
 
-function whole(value: number) {\n  return Math.ceil(value);\n}\n\nexport default function TargetCalculatorPage() {
+function whole(value: number) {
+  return Math.ceil(value);
+}
+
+export default function TargetCalculatorPage() {
   const [revenueTarget, setRevenueTarget] = useState("10000");
   const [averageDealSize, setAverageDealSize] = useState("500");
   const [closeRate, setCloseRate] = useState("25");
