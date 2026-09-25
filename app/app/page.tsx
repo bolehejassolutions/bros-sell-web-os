@@ -18,7 +18,7 @@ export default async function AppHome(){
           <div className="brand" style={{fontSize:24}}>BROS SELL™</div>
           <div className="muted">Closing OS</div>
         </div>
-        <div style={{display:"flex",gap:8}}><a className="btn secondary" href="/app/resources">Resources</a><a className="btn secondary" href="/auth/signout">Keluar</a></div>
+        <div style={{display:"flex",gap:8}}><a className="btn secondary" href="/app/resources">Resources</a><a className="btn secondary" href="/app/target-calculator">Target</a><a className="btn secondary" href="/auth/signout">Keluar</a></div>
       </header>
 
       <section className="hero">
