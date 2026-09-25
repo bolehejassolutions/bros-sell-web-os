@@ -296,9 +296,9 @@ export default function SituationAnalyzer() {
     createdAt: new Date().toISOString()
   };
 
-  function saveCase(nextOutcome = outcome) {
+  function saveCase(overrides: Partial<CaseState> = {}) {
     try {
-      const nextCase = { ...caseState, outcome: nextOutcome, createdAt: new Date().toISOString() };
+      const nextCase = { ...caseState, ...overrides, createdAt: new Date().toISOString() };
       window.localStorage.setItem("bros_sell_current_case", JSON.stringify(nextCase));
       setSavedCase(nextCase);
     } catch {}
@@ -330,12 +330,12 @@ export default function SituationAnalyzer() {
 
   function markActionDone() {
     setActionDone(true);
-    saveCase();
+    saveCase({ actionDone: true });
   }
 
   function handleOutcome(value: string) {
     setOutcome(value);
-    saveCase(value);
+    saveCase({ outcome: value, actionDone: true });
     if (value) setNextRoute(outcomeRoute(value));
   }
 
