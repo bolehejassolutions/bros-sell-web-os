@@ -27,6 +27,7 @@ const resources: Resource[] = [
   { area: "TOOLKIT", title: "Objection Playbook", file: "04_TOOLKIT/BROS_SELL_ASSET_09_Objection_Playbook.xlsx", use: "Gunakan apabila barrier atau objection perlu dijelaskan." },
   { area: "NATIVE TOOLS", title: "Native Objection Playbook", file: "/app/objection-playbook", use: "Diagnose → Clarify → Answer → Confirm berdasarkan evidence sebenar." },
   { area: "TOOLKIT", title: "WhatsApp Script Vault", file: "04_TOOLKIT/BROS_SELL_ASSET_10_WhatsApp_Script_Vault.xlsx", use: "Rujukan script untuk conversation WhatsApp." },
+  { area: "NATIVE TOOLS", title: "Native WhatsApp Script Vault", file: "/app/whatsapp-scripts", use: "Pilih pattern conversation, adapt ikut context dan semak mesej sebelum dihantar." },
   { area: "TOOLKIT", title: "Follow-Up Ladder Library", file: "04_TOOLKIT/BROS_SELL_ASSET_11_Follow_Up_Ladder_Library.xlsx", use: "Struktur follow-up berdasarkan sebab dan timing." },
   { area: "TOOLKIT", title: "Customer Multiplication Planner", file: "04_TOOLKIT/BROS_SELL_ASSET_12_Customer_Multiplication_Planner.xlsx", use: "Terjemahkan sale yang berjaya kepada pattern yang boleh diulang." },
   { area: "TOOLKIT", title: "30-Day Implementation Tracker", file: "04_TOOLKIT/BROS_SELL_ASSET_13_30-Day_Implementation_Tracker.xlsx", use: "Pantau pelaksanaan sistem selama 30 hari." },
