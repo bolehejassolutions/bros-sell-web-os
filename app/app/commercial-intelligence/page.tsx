@@ -2,11 +2,18 @@ import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import CommercialIntelligence from "./commercial-intelligence";
 
+const BOOTSTRAP_INTERNAL_EMAIL = "bolehejassolutions@gmail.com";
+
 function isInternalEmail(email: string | null) {
   if (!email) return false;
   const allowed = (process.env.BROS_INTERNAL_EMAILS ?? "")
     .split(",").map((value) => value.trim().toLowerCase()).filter(Boolean);
-  return allowed.includes(email.toLowerCase());
+
+  // Keep the primary owner account available while Vercel environment
+  // configuration is being stabilized. Additional internal accounts remain
+  // configurable through BROS_INTERNAL_EMAILS.
+  return allowed.includes(email.toLowerCase()) ||
+    email.toLowerCase() === BOOTSTRAP_INTERNAL_EMAIL;
 }
 
 export default async function CommercialIntelligencePage() {
