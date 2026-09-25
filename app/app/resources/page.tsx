@@ -47,10 +47,10 @@ export default async function ResourcesPage() {
       <header className="app-header">
         <div>
           <div className="brand" style={{fontSize:24}}>BROS SELL™</div>
-          <div className="muted">Resource Hub</div>
+          <div className="muted">Web OS Resource Hub</div>
         </div>
         <div style={{display:"flex",gap:8}}>
-          <a className="btn secondary" href="/app">Analyzer</a>
+          <a className="btn secondary" href="/app">Customer Hub</a>
           <a className="btn secondary" href="/auth/signout">Keluar</a>
         </div>
       </header>
