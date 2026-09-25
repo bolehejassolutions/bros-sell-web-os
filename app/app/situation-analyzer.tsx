@@ -1,10 +1,9 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
+import { BROS_LEAD_STATES, BROS_STAGES, type BrosStage } from "@/lib/bros-sell/system-registry";
 
-type Stage =
-  | "TARGET" | "BUYER" | "OFFER" | "LEAD" | "QUALIFY"
-  | "VALUE" | "CLOSE" | "FOLLOW-UP" | "MULTIPLY" | "OPERATE";
+type Stage = BrosStage;
 
 type Dimension = "Relevance" | "Need" | "Readiness" | "Fit" | "Access" | "Engagement";
 type SignalStatus = "Signal" | "Gap / Unknown";
@@ -25,10 +24,7 @@ type CaseState = {
   createdAt: string;
 };
 
-const stages: Stage[] = [
-  "TARGET","BUYER","OFFER","LEAD","QUALIFY",
-  "VALUE","CLOSE","FOLLOW-UP","MULTIPLY","OPERATE"
-];
+const stages: Stage[] = BROS_STAGES;
 
 const resourceMap: Record<Stage, { chapter: string; asset: string; file: string }> = {
   TARGET: { chapter: "Chapters 2–3", asset: "Sales Target Calculator + Operator Dashboard", file: "BROS_SELL_ASSET_01_Sales_Target_Calculator_Operator_Dashboard.xlsx" },
@@ -116,7 +112,7 @@ const rules: Record<Stage, { keywords: string[]; diagnosis: string; action: stri
   }
 };
 
-const stateOptions = ["Aware", "Engaged", "Qualified", "Active", "Decision"];
+const stateOptions = [...BROS_LEAD_STATES];
 const actionOptions = ["Clarify", "Qualify", "Explain Value", "Close", "Follow Up", "Stop & Reassess"];
 const timingOptions = ["Now", "Today", "24 hours", "2–3 days", "Later"];
 const outcomeOptions = ["No response", "Replied", "Qualified", "Offer sent", "Closed", "Not fit", "Other"];
