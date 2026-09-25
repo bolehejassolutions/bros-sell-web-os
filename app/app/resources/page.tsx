@@ -1,120 +1,103 @@
 import { redirect } from "next/navigation";
 import { hasWebOSAccess } from "@/lib/supabase/entitlement";
 
-type Resource = {
-  area: string;
-  title: string;
-  file: string;
-  use: string;
-};
+const nativeTools = [
+  ["/app/target-calculator","Target Calculator","Tetapkan sasaran dan kira operating volume."],
+  ["/app/operator-dashboard","Operator Dashboard","Pantau target, actual, variance dan bottleneck."],
+  ["/app/buyer-intelligence","Buyer Intelligence","Fahami buyer, problem, impact, outcome dan decision context."],
+  ["/app/offer-stack","Offer Stack Builder","Bina offer yang jelas dan mudah difahami."],
+  ["/app/value-bridge","Value Bridge","Hubungkan problem → outcome → solution → investment."],
+  ["/app/lead-state","Lead State Classifier","Klasifikasikan lead berdasarkan signal sebenar."],
+  ["/app/close-path","Close Path","Tentukan apa yang perlu dijelaskan sebelum decision."],
+  ["/app/objection-playbook","Objection Playbook","Diagnose dan jawab barrier berdasarkan evidence."],
+  ["/app/whatsapp-scripts","WhatsApp Script Vault","Adapt pattern conversation ikut context."],
+  ["/app/follow-up","Follow-Up Ladder","Bina follow-up dengan purpose, signal dan stop condition."],
+  ["/app/customer-multiplication","Customer Multiplication","Tukar result sebenar kepada repeat, referral atau expansion."],
+  ["/app/implementation-tracker","30-Day Implementation","Jalankan implementation cycle dengan evidence dan audit."]
+] as const;
 
-const resources: Resource[] = [
-  { area: "START HERE", title: "Quick Start Guide", file: "00_START_HERE/BROS_SELL_00_Quick_Start_Guide_v2.5.docx", use: "Orientasi dan cara menggunakan BROS SELL™." },
-  { area: "IMPLEMENTATION", title: "Implementation Playbook + Scenario Launch Cards", file: "01_IMPLEMENTATION/BROS_SELL_01_Implementation_Playbook_v1.1_Scenario_Launch_Cards.docx", use: "Terjemahkan sistem kepada rutin dan situasi jualan sebenar." },
-  { area: "BOOK", title: "Closing OS v2.5", file: "02_BOOK/BROS_SELL_02_Closing_OS_v2.5.pdf", use: "Rujukan utama untuk memahami keseluruhan Sales Operating System." },
-  { area: "VISUAL SYSTEM", title: "Visual System V01–V12", file: "03_VISUAL_SYSTEM/BROS_SELL_03_Visual_System_V01-V12.pdf", use: "Peta visual untuk melihat hubungan antara komponen sistem." },
-  { area: "TOOLKIT", title: "Sales Target Calculator + Operator Dashboard", file: "04_TOOLKIT/BROS_SELL_ASSET_01_Sales_Target_Calculator_Operator_Dashboard.xlsx", use: "Tetapkan sasaran dan pantau operasi jualan." },
-  { area: "NATIVE TOOLS", title: "Native Operator Dashboard", file: "/app/operator-dashboard", use: "Bandingkan target dan actual, lihat variance/status dan tentukan bottleneck operasi." },
-  { area: "TOOLKIT", title: "Visual System Index", file: "04_TOOLKIT/BROS_SELL_ASSET_02_Visual_System_Index.xlsx", use: "Indeks pantas untuk sistem visual." },
-  { area: "TOOLKIT", title: "Buyer Intelligence Canvas", file: "04_TOOLKIT/BROS_SELL_ASSET_03_Buyer_Intelligence_Canvas.xlsx", use: "Fahami konteks, masalah dan outcome buyer." },
-  { area: "TOOLKIT", title: "BROS 5Q Worksheet", file: "04_TOOLKIT/BROS_SELL_ASSET_04_BROS_5Q_Worksheet.xlsx", use: "Soalan teras untuk mendapatkan maklumat yang diperlukan." },
-  { area: "TOOLKIT", title: "Offer Stack Builder", file: "04_TOOLKIT/BROS_SELL_ASSET_05_Offer_Stack_Builder.xlsx", use: "Bina offer yang lebih jelas dan mudah difahami." },
-  { area: "NATIVE TOOLS", title: "Native Offer Stack Builder", file: "/app/offer-stack", use: "Bina offer secara interaktif tanpa bergantung pada fail Customer Package." },
-  { area: "TOOLKIT", title: "Value Bridge Worksheet", file: "04_TOOLKIT/BROS_SELL_ASSET_06_Value_Bridge_Worksheet.xlsx", use: "Hubungkan masalah buyer kepada nilai dan outcome." },
-  { area: "NATIVE TOOLS", title: "Native Value Bridge", file: "/app/value-bridge", use: "Hubungkan problem, impact, outcome, solution dan investment secara interaktif." },
-  { area: "TOOLKIT", title: "Lead State Classifier", file: "04_TOOLKIT/BROS_SELL_ASSET_07_Lead_State_Classifier.xlsx", use: "Klasifikasikan state lead berdasarkan signal sebenar." },
-  { area: "TOOLKIT", title: "Close Path Decision Tree", file: "04_TOOLKIT/BROS_SELL_ASSET_08_Close_Path_Decision_Tree.xlsx", use: "Tentukan laluan keputusan dan next step." },
-  { area: "NATIVE TOOLS", title: "Native Close Path", file: "/app/close-path", use: "Jalankan Close Path secara interaktif berdasarkan fit, clarity, barrier dan decision." },
-  { area: "TOOLKIT", title: "Objection Playbook", file: "04_TOOLKIT/BROS_SELL_ASSET_09_Objection_Playbook.xlsx", use: "Gunakan apabila barrier atau objection perlu dijelaskan." },
-  { area: "NATIVE TOOLS", title: "Native Objection Playbook", file: "/app/objection-playbook", use: "Diagnose → Clarify → Answer → Confirm berdasarkan evidence sebenar." },
-  { area: "TOOLKIT", title: "WhatsApp Script Vault", file: "04_TOOLKIT/BROS_SELL_ASSET_10_WhatsApp_Script_Vault.xlsx", use: "Rujukan script untuk conversation WhatsApp." },
-  { area: "NATIVE TOOLS", title: "Native WhatsApp Script Vault", file: "/app/whatsapp-scripts", use: "Pilih pattern conversation, adapt ikut context dan semak mesej sebelum dihantar." },
-  { area: "TOOLKIT", title: "Follow-Up Ladder Library", file: "04_TOOLKIT/BROS_SELL_ASSET_11_Follow_Up_Ladder_Library.xlsx", use: "Struktur follow-up berdasarkan sebab dan timing." },
-  { area: "NATIVE TOOLS", title: "Native Follow-Up Ladder", file: "/app/follow-up", use: "Pilih purpose follow-up, bina mesej bercontext dan tetapkan signal, next move serta stop condition." },
-  { area: "TOOLKIT", title: "Customer Multiplication Planner", file: "04_TOOLKIT/BROS_SELL_ASSET_12_Customer_Multiplication_Planner.xlsx", use: "Terjemahkan sale yang berjaya kepada pattern yang boleh diulang." },
-  { area: "NATIVE TOOLS", title: "Native Customer Multiplication", file: "/app/customer-multiplication", use: "Capture result, build real proof dan tentukan referral, repeat atau expansion berdasarkan trigger sebenar." },
-  { area: "TOOLKIT", title: "30-Day Implementation Tracker", file: "04_TOOLKIT/BROS_SELL_ASSET_13_30-Day_Implementation_Tracker.xlsx", use: "Pantau pelaksanaan sistem selama 30 hari." },
-  { area: "NATIVE TOOLS", title: "Native 30-Day Implementation Tracker", file: "/app/implementation-tracker", use: "Jalankan implementation cycle 30 hari dengan evidence, bottleneck, metric dan audit." },
-];
+const packageResources = [
+  ["START HERE","Quick Start Guide","Orientasi dan cara menggunakan BROS SELL™."],
+  ["IMPLEMENTATION","Implementation Playbook + Scenario Launch Cards","Terjemahkan sistem kepada rutin dan situasi jualan sebenar."],
+  ["VISUAL SYSTEM","Visual System V01–V12","Peta visual untuk melihat hubungan antara komponen sistem."],
+  ["TOOLKIT","Sales Target Calculator + Operator Dashboard","Fail spreadsheet untuk sasaran dan operasi."],
+  ["TOOLKIT","Visual System Index","Indeks pantas untuk sistem visual."],
+  ["TOOLKIT","Buyer Intelligence Canvas","Fahami konteks, masalah dan outcome buyer."],
+  ["TOOLKIT","BROS 5Q Worksheet","Soalan teras untuk mendapatkan maklumat yang diperlukan."],
+  ["TOOLKIT","Offer Stack Builder","Worksheet untuk membina offer."],
+  ["TOOLKIT","Value Bridge Worksheet","Worksheet untuk menghubungkan problem kepada value."],
+  ["TOOLKIT","Lead State Classifier","Spreadsheet klasifikasi lead."],
+  ["TOOLKIT","Close Path Decision Tree","Decision tree untuk laluan close."],
+  ["TOOLKIT","Objection Playbook","Rujukan untuk barrier dan objection."],
+  ["TOOLKIT","WhatsApp Script Vault","Rujukan pattern conversation WhatsApp."],
+  ["TOOLKIT","Follow-Up Ladder Library","Library follow-up berdasarkan sebab dan timing."],
+  ["TOOLKIT","Customer Multiplication Planner","Planner untuk repeat, referral dan expansion."],
+  ["TOOLKIT","30-Day Implementation Tracker","Tracker pelaksanaan 30 hari."]
+] as const;
 
 export default async function ResourcesPage() {
   if (!(await hasWebOSAccess())) redirect("/activate");
 
-  const groups = ["START HERE", "IMPLEMENTATION", "BOOK", "VISUAL SYSTEM", "TOOLKIT", "NATIVE TOOLS"];
-
   return (
     <main className="container" style={{padding:"28px 0 60px"}}>
-      <header className="app-header">
-        <div>
-          <div className="brand" style={{fontSize:24}}>BROS SELL™</div>
-          <div className="muted">Web OS Resource Hub</div>
-        </div>
-        <nav className="hub-nav" aria-label="Customer Hub">
-          <a className="btn secondary" href="/app">Home</a>
-          <a className="btn secondary" href="/app/resources">Resources</a>
-          <a className="btn secondary" href="/app#updates">Updates</a>
-          <a className="btn secondary" href="/app#account">Account</a>
-          <a className="btn secondary" href="/auth/signout">Keluar</a>
-        </nav>
-      </header>
-
       <section className="hero">
         <p className="muted">THINK → SEE → USE → DO</p>
-        <h1>Resource Hub</h1>
-        <p className="muted hero-copy">Gunakan hub ini untuk mencari resource yang sesuai dengan masalah atau stage jualan anda. Resource Hub membezakan tool Web OS daripada fail Customer Package.</p>
+        <h1>Resources</h1>
+        <p className="muted hero-copy">Gunakan resource berdasarkan masalah yang sedang berlaku. Anda tidak perlu membuka semuanya.</p>
       </section>
 
       <section className="card resource-section">
-        <div className="eyebrow">RECOMMENDED PATH</div>
-        <h2>Jangan mula dengan semua 36 chapter.</h2>
-        <div className="resource-grid">
-          <article className="resource-card">
-            <div><small className="muted">01 · THINK</small><h2>Quick Start</h2><p className="muted">Fahami cara menggunakan sistem dan pilih satu situasi jualan sebenar.</p></div>
-            <a className="btn secondary" href="/app">Buka Situation Analyzer</a>
-          </article>
-          <article className="resource-card">
-            <div><small className="muted">02 · SEE</small><h2>Diagnose</h2><p className="muted">Kenal pasti stage, missing information dan next action berdasarkan signal sebenar.</p></div>
-            <a className="btn secondary" href="/app">Diagnose satu situasi</a>
-          </article>
-          <article className="resource-card">
-            <div><small className="muted">03 · USE</small><h2>Use the routed resource</h2><p className="muted">Gunakan resource yang dirouting untuk menyelesaikan masalah yang sedang berlaku.</p></div>
-            <span className="field-note">Fail Customer Package tersedia dalam pakej pembelian.</span>
-          </article>
-          <article className="resource-card">
-            <div><small className="muted">04 · DO</small><h2>Execute and observe</h2><p className="muted">Jalankan satu tindakan, rekod outcome dan gunakan hasil sebenar untuk langkah berikutnya.</p></div>
-            <a className="btn secondary" href="/app">Kembali ke Analyzer</a>
-          </article>
+        <div className="eyebrow">START HERE</div>
+        <h2>Mulakan dengan satu situasi.</h2>
+        <p className="muted">Situation Analyzer membantu anda menentukan stage dan next action sebelum anda memilih tool lain.</p>
+        <div className="resource-actions">
+          <a className="btn" href="/app">Buka Situation Analyzer</a>
+          <a className="btn secondary" href="/app/implementation-tracker">Mulakan 30-Day Implementation</a>
         </div>
       </section>
 
-      {groups.map((group) => (
-        <section className="card resource-section" key={group}>
-          <div className="eyebrow">{group}</div>
-          <div className="resource-grid">
-            {resources.filter((resource) => resource.area === group).map((resource) => (
-              <article className="resource-card" key={resource.file}>
-                <div>
-                  <small className="muted">{resource.file.startsWith("/app/") ? "WEB OS · NATIVE TOOL" : "CUSTOMER PACKAGE FILE"}</small>
-                  <h2>{resource.title}</h2>
-                  <p className="muted">{resource.use}</p>
-                </div>
-                {resource.file.startsWith("/app/") ? (
-                  <a className="btn secondary" href={resource.file}>Buka native tool</a>
-                ) : resource.title === "Closing OS v2.5" ? (
-                  <a className="btn" href="/api/customer/closing-os">Download Closing OS v2.5</a>
-                ) : (
-                  <div className="resource-file">Dalam Customer Package · {resource.file}</div>
-                )}
-              </article>
-            ))}
-          </div>
-        </section>
-      ))}
+      <section className="card resource-section">
+        <div className="eyebrow">WEB OS · NATIVE TOOLS</div>
+        <h2>Run the system</h2>
+        <p className="muted">Tool interaktif ini ialah execution layer. Pilih berdasarkan stage atau masalah anda.</p>
+        <div className="resource-grid native-tool-grid">
+          {nativeTools.map(([href,title,use])=>(
+            <a className="resource-card tool-card" href={href} key={href}>
+              <div><small className="muted">WEB OS TOOL</small><h2>{title}</h2><p className="muted">{use}</p></div>
+              <span className="btn secondary">Buka tool</span>
+            </a>
+          ))}
+        </div>
+      </section>
 
-      <section className="card">
-        <div className="eyebrow">EXECUTION RULE</div>
+      <section className="card resource-section compact-resource">
+        <div>
+          <div className="eyebrow">CLOSING OS · KNOWLEDGE</div>
+          <h2>Closing OS v2.5</h2>
+          <p className="muted">Rujukan metodologi apabila anda perlukan penjelasan yang lebih mendalam.</p>
+        </div>
+        <a className="btn" href="/api/customer/closing-os">Download Closing OS v2.5</a>
+      </section>
+
+      <details className="card resource-section package-details">
+        <summary>
+          <span><strong>Customer Package resources</strong><small>Quick Start, Implementation, Visual System & Toolkit files</small></span>
+          <span className="details-toggle">View files</span>
+        </summary>
+        <div className="package-list">
+          {packageResources.map(([area,title,use])=>(
+            <div className="package-item" key={area+title}>
+              <div><small className="muted">{area}</small><strong>{title}</strong><span className="muted">{use}</span></div>
+              <span className="field-note">Included in Customer Package v2.5</span>
+            </div>
+          ))}
+        </div>
+      </details>
+
+      <section className="card resource-section">
+        <div className="eyebrow">RULE</div>
         <h2>Jangan buka semua resource serentak.</h2>
-        <p className="muted">Mulakan dengan Situation Analyzer. Gunakan diagnosis untuk menentukan stage, kemudian buka resource yang dirouting. Native tools boleh digunakan terus di Web OS; fail asal kekal dalam Customer Package.</p>
+        <p className="muted">Situation → Diagnose → Tool → Action → Outcome → Next Action.</p>
       </section>
     </main>
   );
