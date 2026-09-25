@@ -41,6 +41,12 @@ export default async function AppHome(){
           {stages.map((s,i)=><div key={s}><small className="muted">{String(i+1).padStart(2,"0")}</small><div style={{marginTop:6,fontWeight:700}}>{s}</div></div>)}
         </div>
       </section>
+      <section id="updates" className="card hub-section"><div className="eyebrow">UPDATES</div><h2>Product change log</h2><div className="update-item"><strong>25 Sep 2026 · Architecture clarification</strong><p className="muted">BROS SELL™ is one product with two complementary surfaces. Web OS standalone means operational independence, not duplication of the 36-chapter Closing OS.</p></div><div className="update-item"><strong>25 Sep 2026 · Closing OS v2.5</strong><p className="muted">Current customer reference version. Future changes should remain visible here.</p></div></section>
+
+      <section id="account" className="card hub-section"><div className="eyebrow">ACCOUNT</div><h2>My account</h2><p className="muted">{user.email ?? "Signed-in account"}</p><a className="btn secondary" href="/auth/signout">Keluar</a></section>
+
+      <section className="card hub-section"><div className="eyebrow">SUPPORT</div><h2>Something unclear or broken?</h2><p className="muted">Gunakan support channel yang diberikan bersama pembelian anda. Sertakan page/resource dan apa yang berlaku.</p></section>
+
     </main>
   );
 }
