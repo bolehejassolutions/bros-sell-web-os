@@ -453,7 +453,7 @@ export default function SituationAnalyzer() {
                   rows={4}
                 />
                 <p className="field-note">Jika anda belum tahu, tulis “belum tahu”. Sistem akan treat perkara itu sebagai Gap / Unknown.</p>
-                <button className="btn" type="button" disabled={!evidence.trim()} onClick={() => { setRefined(true); resetExecution(); saveCase(""); }}>
+                <button className="btn" type="button" disabled={!evidence.trim()} onClick={() => { setRefined(true); resetExecution(); saveCase({ refined: true, evidence, outcome: "", actionDone: false }); }}>
                   Refine Diagnosis
                 </button>
               </div>
