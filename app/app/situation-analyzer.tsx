@@ -317,7 +317,7 @@ export default function SituationAnalyzer() {
     setRefined(false);
     setEvidence("");
     resetExecution();
-    saveCase("");
+    saveCase({ refined: false, evidence: "", outcome: "", actionDone: false });
   }
 
   function refine(event: React.FormEvent) {
@@ -325,7 +325,7 @@ export default function SituationAnalyzer() {
     if (!evidence.trim()) return;
     setRefined(true);
     resetExecution();
-    setTimeout(() => saveCase(""), 0);
+    saveCase({ refined: true, evidence, outcome: "", actionDone: false });
   }
 
   function markActionDone() {
