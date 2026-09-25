@@ -31,6 +31,7 @@ const resources: Resource[] = [
   { area: "TOOLKIT", title: "Follow-Up Ladder Library", file: "04_TOOLKIT/BROS_SELL_ASSET_11_Follow_Up_Ladder_Library.xlsx", use: "Struktur follow-up berdasarkan sebab dan timing." },
   { area: "NATIVE TOOLS", title: "Native Follow-Up Ladder", file: "/app/follow-up", use: "Pilih purpose follow-up, bina mesej bercontext dan tetapkan signal, next move serta stop condition." },
   { area: "TOOLKIT", title: "Customer Multiplication Planner", file: "04_TOOLKIT/BROS_SELL_ASSET_12_Customer_Multiplication_Planner.xlsx", use: "Terjemahkan sale yang berjaya kepada pattern yang boleh diulang." },
+  { area: "NATIVE TOOLS", title: "Native Customer Multiplication", file: "/app/customer-multiplication", use: "Capture result, build real proof dan tentukan referral, repeat atau expansion berdasarkan trigger sebenar." },
   { area: "TOOLKIT", title: "30-Day Implementation Tracker", file: "04_TOOLKIT/BROS_SELL_ASSET_13_30-Day_Implementation_Tracker.xlsx", use: "Pantau pelaksanaan sistem selama 30 hari." },
 ];
 
