@@ -25,6 +25,7 @@ const resources: Resource[] = [
   { area: "TOOLKIT", title: "Close Path Decision Tree", file: "04_TOOLKIT/BROS_SELL_ASSET_08_Close_Path_Decision_Tree.xlsx", use: "Tentukan laluan keputusan dan next step." },
   { area: "NATIVE TOOLS", title: "Native Close Path", file: "/app/close-path", use: "Jalankan Close Path secara interaktif berdasarkan fit, clarity, barrier dan decision." },
   { area: "TOOLKIT", title: "Objection Playbook", file: "04_TOOLKIT/BROS_SELL_ASSET_09_Objection_Playbook.xlsx", use: "Gunakan apabila barrier atau objection perlu dijelaskan." },
+  { area: "NATIVE TOOLS", title: "Native Objection Playbook", file: "/app/objection-playbook", use: "Diagnose → Clarify → Answer → Confirm berdasarkan evidence sebenar." },
   { area: "TOOLKIT", title: "WhatsApp Script Vault", file: "04_TOOLKIT/BROS_SELL_ASSET_10_WhatsApp_Script_Vault.xlsx", use: "Rujukan script untuk conversation WhatsApp." },
   { area: "TOOLKIT", title: "Follow-Up Ladder Library", file: "04_TOOLKIT/BROS_SELL_ASSET_11_Follow_Up_Ladder_Library.xlsx", use: "Struktur follow-up berdasarkan sebab dan timing." },
   { area: "TOOLKIT", title: "Customer Multiplication Planner", file: "04_TOOLKIT/BROS_SELL_ASSET_12_Customer_Multiplication_Planner.xlsx", use: "Terjemahkan sale yang berjaya kepada pattern yang boleh diulang." },
