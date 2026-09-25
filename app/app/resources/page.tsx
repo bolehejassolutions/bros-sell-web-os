@@ -49,19 +49,19 @@ export default async function ResourcesPage() {
           <div className="brand" style={{fontSize:24}}>BROS SELL™</div>
           <div className="muted">Web OS Resource Hub</div>
         </div>
-        <div style={{display:"flex",gap:8}}>
-          <a className="btn secondary" href="/app">Customer Hub</a>
+        <nav className="hub-nav" aria-label="Customer Hub">
+          <a className="btn secondary" href="/app">Home</a>
+          <a className="btn secondary" href="/app/resources">Resources</a>
+          <a className="btn secondary" href="/app#updates">Updates</a>
+          <a className="btn secondary" href="/app#account">Account</a>
           <a className="btn secondary" href="/auth/signout">Keluar</a>
-        </div>
+        </nav>
       </header>
 
       <section className="hero">
         <p className="muted">THINK → SEE → USE → DO</p>
         <h1>Resource Hub</h1>
-        <p className="muted hero-copy">
-          Gunakan hub ini untuk mencari resource yang sesuai dengan masalah atau stage jualan anda.
-          Fail asal berada dalam Customer Package v2.5.
-        </p>
+        <p className="muted hero-copy">Gunakan hub ini untuk mencari resource yang sesuai dengan masalah atau stage jualan anda. Resource Hub membezakan tool Web OS daripada fail Customer Package.</p>
       </section>
 
       <section className="card resource-section">
@@ -69,35 +69,19 @@ export default async function ResourcesPage() {
         <h2>Jangan mula dengan semua 36 chapter.</h2>
         <div className="resource-grid">
           <article className="resource-card">
-            <div>
-              <small className="muted">01 · THINK</small>
-              <h2>Quick Start</h2>
-              <p className="muted">Fahami cara menggunakan sistem dan pilih satu situasi jualan sebenar.</p>
-            </div>
+            <div><small className="muted">01 · THINK</small><h2>Quick Start</h2><p className="muted">Fahami cara menggunakan sistem dan pilih satu situasi jualan sebenar.</p></div>
             <a className="btn secondary" href="/app">Buka Situation Analyzer</a>
           </article>
           <article className="resource-card">
-            <div>
-              <small className="muted">02 · SEE</small>
-              <h2>Diagnose</h2>
-              <p className="muted">Kenal pasti stage, missing information dan next action berdasarkan signal sebenar.</p>
-            </div>
+            <div><small className="muted">02 · SEE</small><h2>Diagnose</h2><p className="muted">Kenal pasti stage, missing information dan next action berdasarkan signal sebenar.</p></div>
             <a className="btn secondary" href="/app">Diagnose satu situasi</a>
           </article>
           <article className="resource-card">
-            <div>
-              <small className="muted">03 · USE</small>
-              <h2>Use the routed resource</h2>
-              <p className="muted">Gunakan resource yang dirouting untuk menyelesaikan masalah yang sedang berlaku.</p>
-            </div>
-            <span className="field-note">Ikut path C — EXECUTE dalam Customer Package.</span>
+            <div><small className="muted">03 · USE</small><h2>Use the routed resource</h2><p className="muted">Gunakan resource yang dirouting untuk menyelesaikan masalah yang sedang berlaku.</p></div>
+            <span className="field-note">Fail Customer Package tersedia dalam pakej pembelian.</span>
           </article>
           <article className="resource-card">
-            <div>
-              <small className="muted">04 · DO</small>
-              <h2>Execute and observe</h2>
-              <p className="muted">Jalankan satu tindakan, rekod outcome dan gunakan hasil sebenar untuk langkah berikutnya.</p>
-            </div>
+            <div><small className="muted">04 · DO</small><h2>Execute and observe</h2><p className="muted">Jalankan satu tindakan, rekod outcome dan gunakan hasil sebenar untuk langkah berikutnya.</p></div>
             <a className="btn secondary" href="/app">Kembali ke Analyzer</a>
           </article>
         </div>
@@ -110,11 +94,17 @@ export default async function ResourcesPage() {
             {resources.filter((resource) => resource.area === group).map((resource) => (
               <article className="resource-card" key={resource.file}>
                 <div>
-                  <small className="muted">CUSTOMER PACKAGE</small>
+                  <small className="muted">{resource.file.startsWith("/app/") ? "WEB OS · NATIVE TOOL" : "CUSTOMER PACKAGE FILE"}</small>
                   <h2>{resource.title}</h2>
                   <p className="muted">{resource.use}</p>
                 </div>
-                {resource.file.startsWith("/app/") ? <a className="btn secondary" href={resource.file}>Buka native tool</a> : resource.title === "Closing OS v2.5" ? <a className="btn" href="/api/customer/closing-os">Download Closing OS v2.5</a> : <div className="resource-file">{resource.file}</div>}
+                {resource.file.startsWith("/app/") ? (
+                  <a className="btn secondary" href={resource.file}>Buka native tool</a>
+                ) : resource.title === "Closing OS v2.5" ? (
+                  <a className="btn" href="/api/customer/closing-os">Download Closing OS v2.5</a>
+                ) : (
+                  <div className="resource-file">Dalam Customer Package · {resource.file}</div>
+                )}
               </article>
             ))}
           </div>
@@ -124,10 +114,7 @@ export default async function ResourcesPage() {
       <section className="card">
         <div className="eyebrow">EXECUTION RULE</div>
         <h2>Jangan buka semua resource serentak.</h2>
-        <p className="muted">
-          Mulakan dengan Situation Analyzer. Gunakan diagnosis untuk menentukan stage, kemudian buka resource yang dirouting.
-          Resource Hub ialah indeks; Customer Package kekal sebagai sumber fail utama.
-        </p>
+        <p className="muted">Mulakan dengan Situation Analyzer. Gunakan diagnosis untuk menentukan stage, kemudian buka resource yang dirouting. Native tools boleh digunakan terus di Web OS; fail asal kekal dalam Customer Package.</p>
       </section>
     </main>
   );
