@@ -8,10 +8,6 @@ function isInternalEmail(email: string | null) {
   if (!email) return false;
   const allowed = (process.env.BROS_INTERNAL_EMAILS ?? "")
     .split(",").map((value) => value.trim().toLowerCase()).filter(Boolean);
-
-  // Keep the primary owner account available while Vercel environment
-  // configuration is being stabilized. Additional internal accounts remain
-  // configurable through BROS_INTERNAL_EMAILS.
   return allowed.includes(email.toLowerCase()) ||
     email.toLowerCase() === BOOTSTRAP_INTERNAL_EMAIL;
 }
@@ -19,7 +15,16 @@ function isInternalEmail(email: string | null) {
 export default async function CommercialIntelligencePage() {
   const supabase = await createClient();
   const { data: { user } } = await supabase.auth.getUser();
+  const emailPresent = Boolean(user?.email);
+  const emailMatches = isInternalEmail(user?.email ?? null);
+  console.info("[commercial-intelligence] access check", {
+    userPresent: Boolean(user),
+    emailPresent,
+    emailMatches,
+    envConfigured: Boolean(process.env.BROS_INTERNAL_EMAILS),
+  });
+
   if (!user) redirect("/login");
-  if (!isInternalEmail(user.email ?? null)) redirect("/app");
+  if (!emailMatches) redirect("/app");
   return <CommercialIntelligence />;
 }
