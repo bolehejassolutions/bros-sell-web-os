@@ -27,7 +27,7 @@ The legacy `/auth/callback` route remains for code-based redirects.
 
 ## Access model
 
-Authentication does not grant product access. The application checks the active `BROS_SELL_CORE` entitlement before entering `/app`.
+Authentication does not grant product access. The application checks the active `BROS_SELL_WEB_OS` entitlement before entering `/app` and `/app/resources`.
 
 ## Environment
 
