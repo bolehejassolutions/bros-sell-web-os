@@ -1,31 +1,102 @@
-# BROS SELL Standalone Product Readiness
+# BROS SELL™ Web OS Standalone Product Readiness
 
-BROS SELL Closing OS and BROS SELL Web OS are separate standalone products.
+BROS SELL™ is one product delivered through two complementary surfaces.
 
-Closing OS is the knowledge and methodology product. Web OS is the interactive execution and operating product. A Web OS-only customer must be able to understand and execute the system without owning Closing OS.
+- **Closing OS** = Knowledge / Methodology Layer
+- **Web OS** = Execution / Operating Layer
+- **Customer Hub** = Access / Updates / Support control centre
 
-## Parity standard
+## Standalone standard
 
-Web OS requires 100% system parity, not textual duplication. It must independently implement the same doctrine, ten-stage operating system, CONTROL logic, Lead State model, six lead-quality dimensions, diagnostic rules, formulas, worksheets, scenarios, scripts, decision trees, implementation methods, visual system concepts, WhatsApp and Phone methods, and operating/KPI loop.
+Web OS standalone means **operational independence, not textual duplication**.
 
-## Current critical gaps
+A Web OS customer must be able to understand the operating logic and execute the core BROS SELL workflow without needing to open the Closing OS for procedural instructions.
 
-- Core tools still depend on downloadable Customer Package files rather than native Web OS implementations.
-- The methodology needs a structured canonical system registry to prevent logic drift.
-- Malay and English need to become first-class selectable languages across the customer experience.
-- Formula parity needs explicit implementation and test cases against the canonical package.
-- Analyzer, tools, actions and outcomes need one shared system model.
-- Persistent authenticated operating history should replace browser-only case continuity after core tool parity.
-- Standalone onboarding must work without Closing OS.
+The Web OS does not need to reproduce the 36-chapter Closing OS.
 
-## Current strengths
+## Standalone test
 
-Authentication and entitlement protection, Google login, evidence-based Situation Analyzer, ten-stage routing, Lead State and six-dimensional quality lens, channel/source awareness, case continuity, action execution, observed outcomes, outcome re-routing, and protected resource routing are implemented.
+A first-time customer should be able to answer inside Web OS:
 
-## Definition of done
+1. What is BROS SELL™?
+2. Where am I in the sales process?
+3. What evidence do I have?
+4. What is missing?
+5. What is the likely diagnosis?
+6. What should I do next?
+7. Which tool helps me do it?
+8. What happened after I acted?
+9. What should I do next?
+10. Where do I go for deeper methodology?
 
-A Web OS-only customer can complete the ten-stage sales system without requiring Closing OS files; core formulas match the canonical package; core worksheets have native equivalents; scenarios and decision trees are executable; scripts and follow-up resources are contextual; Analyzer and tools share one system registry; actions and outcomes persist to the account; Malay and English are selectable across the customer experience; canonical terminology is controlled; entitlement isolation is secure; and parity QA demonstrates equivalent reasoning and calculation for representative real-world cases.
+Question 10 may point to Closing OS. The first nine should be supported by Web OS.
 
-## Product relationship
+## Current execution layer
 
-Closing OS teaches the system. Web OS runs the system. Together they form the complete BROS SELL experience, but neither product is structurally dependent on the other.
+The current native capabilities include:
+
+- Situation Analyzer
+- Sales Target Calculator
+- Buyer Intelligence + BROS 5Q
+- Offer Stack Builder
+- Value Bridge
+- Lead State Classifier
+- Close Path Decision Tree
+- Objection Playbook
+- WhatsApp Script Vault
+- Follow-Up Ladder
+- Customer Multiplication Planner
+- 30-Day Implementation Tracker
+- Operator Dashboard
+
+These should be evaluated as one connected operating workflow:
+
+**SITUATION → EVIDENCE → DIAGNOSIS → ACTION → OUTCOME → NEXT ACTION**
+
+## High-value embedded guidance
+
+Embed only the methodology required for correct execution:
+
+1. stage definitions
+2. decision rules
+3. diagnosis rules
+4. action instructions
+5. tool instructions
+6. outcome / next-action logic
+
+Avoid long-form duplication of Closing OS.
+
+## Customer continuity
+
+The Web OS should also function as the living customer control centre for:
+
+- current Closing OS version
+- access status
+- updates/changelog
+- issues/support
+- account information
+
+For Early Bird, purchasing either surface grants access to both.
+
+## Pass condition
+
+Web OS passes standalone readiness when a first-time customer can complete a realistic selling situation from:
+
+**SITUATION → EVIDENCE → DIAGNOSIS → ACTION → OUTCOME → NEXT ACTION**
+
+without needing to open Closing OS for procedural instructions.
+
+Closing OS remains available for deeper methodology, learning and reference.
+
+## Non-goals
+
+Do not treat these as current readiness requirements:
+
+- duplicating the 36-chapter Closing OS
+- granular commercial tiers
+- community/membership infrastructure
+- V2 infrastructure
+- unnecessary dashboards or automation
+- enterprise-scale functionality
+
+The objective is a simple, validated customer experience rather than maximal feature parity.
