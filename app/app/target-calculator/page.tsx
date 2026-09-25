@@ -2,16 +2,9 @@
 
 import { useMemo, useState } from "react";
 import { BROS_SALES_FUNNEL_FORMULAS } from "@/lib/bros-sell/system-registry";
+import { calculateSalesTarget } from "@/lib/bros-sell/sales-target";
 
-function positive(value: number) {
-  return Number.isFinite(value) && value > 0;
-}
-
-function whole(value: number) {
-  return Math.ceil(value);
-}
-
-export default function TargetCalculatorPage() {
+function whole(value: number) {\n  return Math.ceil(value);\n}\n\nexport default function TargetCalculatorPage() {
   const [revenueTarget, setRevenueTarget] = useState("10000");
   const [averageDealSize, setAverageDealSize] = useState("500");
   const [closeRate, setCloseRate] = useState("25");
@@ -19,27 +12,13 @@ export default function TargetCalculatorPage() {
   const [conversationRate, setConversationRate] = useState("20");
 
   const result = useMemo(() => {
-    const revenue = Number(revenueTarget);
-    const deal = Number(averageDealSize);
-    const close = Number(closeRate) / 100;
-    const qualify = Number(qualificationRate) / 100;
-    const conversation = Number(conversationRate) / 100;
-
-    if (!positive(revenue) || !positive(deal) || !positive(close) || !positive(qualify) || !positive(conversation)) {
-      return null;
-    }
-
-    const requiredSales = revenue / deal;
-    const requiredOpportunities = requiredSales / close;
-    const requiredConversations = requiredOpportunities / qualify;
-    const requiredLeads = requiredConversations / conversation;
-
-    return {
-      requiredSales,
-      requiredOpportunities,
-      requiredConversations,
-      requiredLeads,
-    };
+    return calculateSalesTarget({
+      revenueTarget: Number(revenueTarget),
+      averageDealSize: Number(averageDealSize),
+      closeRate: Number(closeRate) / 100,
+      qualificationRate: Number(qualificationRate) / 100,
+      conversationRate: Number(conversationRate) / 100,
+    });
   }, [revenueTarget, averageDealSize, closeRate, qualificationRate, conversationRate]);
 
   return (
