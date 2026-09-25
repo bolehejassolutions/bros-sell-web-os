@@ -23,6 +23,7 @@ const resources: Resource[] = [
   { area: "NATIVE TOOLS", title: "Native Value Bridge", file: "/app/value-bridge", use: "Hubungkan problem, impact, outcome, solution dan investment secara interaktif." },
   { area: "TOOLKIT", title: "Lead State Classifier", file: "04_TOOLKIT/BROS_SELL_ASSET_07_Lead_State_Classifier.xlsx", use: "Klasifikasikan state lead berdasarkan signal sebenar." },
   { area: "TOOLKIT", title: "Close Path Decision Tree", file: "04_TOOLKIT/BROS_SELL_ASSET_08_Close_Path_Decision_Tree.xlsx", use: "Tentukan laluan keputusan dan next step." },
+  { area: "NATIVE TOOLS", title: "Native Close Path", file: "/app/close-path", use: "Jalankan Close Path secara interaktif berdasarkan fit, clarity, barrier dan decision." },
   { area: "TOOLKIT", title: "Objection Playbook", file: "04_TOOLKIT/BROS_SELL_ASSET_09_Objection_Playbook.xlsx", use: "Gunakan apabila barrier atau objection perlu dijelaskan." },
   { area: "TOOLKIT", title: "WhatsApp Script Vault", file: "04_TOOLKIT/BROS_SELL_ASSET_10_WhatsApp_Script_Vault.xlsx", use: "Rujukan script untuk conversation WhatsApp." },
   { area: "TOOLKIT", title: "Follow-Up Ladder Library", file: "04_TOOLKIT/BROS_SELL_ASSET_11_Follow_Up_Ladder_Library.xlsx", use: "Struktur follow-up berdasarkan sebab dan timing." },
