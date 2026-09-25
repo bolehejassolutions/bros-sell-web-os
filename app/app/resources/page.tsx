@@ -18,7 +18,9 @@ const resources: Resource[] = [
   { area: "TOOLKIT", title: "Buyer Intelligence Canvas", file: "04_TOOLKIT/BROS_SELL_ASSET_03_Buyer_Intelligence_Canvas.xlsx", use: "Fahami konteks, masalah dan outcome buyer." },
   { area: "TOOLKIT", title: "BROS 5Q Worksheet", file: "04_TOOLKIT/BROS_SELL_ASSET_04_BROS_5Q_Worksheet.xlsx", use: "Soalan teras untuk mendapatkan maklumat yang diperlukan." },
   { area: "TOOLKIT", title: "Offer Stack Builder", file: "04_TOOLKIT/BROS_SELL_ASSET_05_Offer_Stack_Builder.xlsx", use: "Bina offer yang lebih jelas dan mudah difahami." },
+  { area: "NATIVE TOOLS", title: "Native Offer Stack Builder", file: "/app/offer-stack", use: "Bina offer secara interaktif tanpa bergantung pada fail Customer Package." },
   { area: "TOOLKIT", title: "Value Bridge Worksheet", file: "04_TOOLKIT/BROS_SELL_ASSET_06_Value_Bridge_Worksheet.xlsx", use: "Hubungkan masalah buyer kepada nilai dan outcome." },
+  { area: "NATIVE TOOLS", title: "Native Value Bridge", file: "/app/value-bridge", use: "Hubungkan problem, impact, outcome, solution dan investment secara interaktif." },
   { area: "TOOLKIT", title: "Lead State Classifier", file: "04_TOOLKIT/BROS_SELL_ASSET_07_Lead_State_Classifier.xlsx", use: "Klasifikasikan state lead berdasarkan signal sebenar." },
   { area: "TOOLKIT", title: "Close Path Decision Tree", file: "04_TOOLKIT/BROS_SELL_ASSET_08_Close_Path_Decision_Tree.xlsx", use: "Tentukan laluan keputusan dan next step." },
   { area: "TOOLKIT", title: "Objection Playbook", file: "04_TOOLKIT/BROS_SELL_ASSET_09_Objection_Playbook.xlsx", use: "Gunakan apabila barrier atau objection perlu dijelaskan." },
@@ -31,7 +33,7 @@ const resources: Resource[] = [
 export default async function ResourcesPage() {
   if (!(await hasWebOSAccess())) redirect("/activate");
 
-  const groups = ["START HERE", "IMPLEMENTATION", "BOOK", "VISUAL SYSTEM", "TOOLKIT"];
+  const groups = ["START HERE", "IMPLEMENTATION", "BOOK", "VISUAL SYSTEM", "TOOLKIT", "NATIVE TOOLS"];
 
   return (
     <main className="container" style={{padding:"28px 0 60px"}}>
@@ -105,7 +107,7 @@ export default async function ResourcesPage() {
                   <h2>{resource.title}</h2>
                   <p className="muted">{resource.use}</p>
                 </div>
-                <div className="resource-file">{resource.file}</div>
+                {resource.file.startsWith("/app/") ? <a className="btn secondary" href={resource.file}>Buka native tool</a> : <div className="resource-file">{resource.file}</div>}
               </article>
             ))}
           </div>
