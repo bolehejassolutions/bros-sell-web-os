@@ -90,3 +90,41 @@ button:disabled{opacity:.45;cursor:not-allowed}
   .hub-nav .btn{width:100%}
   .tool-grid{grid-template-columns:1fr 1fr}
 }
+
+.global-app-header{border-bottom:1px solid #1f1f22;background:rgba(11,11,12,.96);position:sticky;top:0;z-index:20;backdrop-filter:blur(12px)}
+.global-app-header-inner{width:min(1100px,calc(100% - 32px));margin:auto;min-height:64px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.global-brand{display:inline-flex;align-items:center;gap:10px;min-width:0}
+.global-brand img{width:38px;height:38px;border-radius:50%;display:block}
+.global-brand span{display:grid;line-height:1.05}
+.global-brand strong{font-size:14px;letter-spacing:-.02em}
+.global-brand small{font-size:10px;color:#71717a;margin-top:4px}
+.global-app-nav{display:flex;gap:8px;align-items:center}
+.app-shell-content .app-header{display:none}
+.resource-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
+.native-tool-grid{grid-template-columns:repeat(3,1fr)}
+.tool-card{min-height:170px}
+.tool-card .btn{width:100%;pointer-events:none}
+.compact-resource{display:flex;align-items:center;justify-content:space-between;gap:20px}
+.compact-resource h2{margin:0 0 8px}
+.package-details{padding:0;overflow:hidden}
+.package-details summary{list-style:none;cursor:pointer;padding:22px 24px;display:flex;justify-content:space-between;align-items:center;gap:16px}
+.package-details summary::-webkit-details-marker{display:none}
+.package-details summary span:first-child{display:grid;gap:5px}
+.package-details summary strong{font-size:16px}
+.package-details summary small{color:#71717a}
+.details-toggle{padding:8px 11px;border:1px solid #3f3f46;border-radius:999px;font-size:11px;font-weight:700;white-space:nowrap}
+.package-list{border-top:1px solid #27272a}
+.package-item{display:flex;justify-content:space-between;gap:16px;padding:14px 24px;border-bottom:1px solid #202023}
+.package-item:last-child{border-bottom:0}
+.package-item>div{display:grid;gap:4px}
+.package-item strong{font-size:14px}
+@media(max-width:900px){.native-tool-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:700px){
+  .global-app-header-inner{width:min(100% - 20px,1100px);min-height:58px}
+  .global-brand img{width:34px;height:34px}
+  .global-app-nav .btn{padding:9px 12px}
+  .native-tool-grid{grid-template-columns:1fr}
+  .compact-resource{align-items:stretch;flex-direction:column}
+  .compact-resource .btn{width:100%}
+  .package-item{flex-direction:column}
+}
