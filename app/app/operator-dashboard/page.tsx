@@ -96,7 +96,7 @@ export default function OperatorDashboardPage() {
                     <input className="input" style={{minWidth:120}} type="number" min="0" value={values[row.name].actual} onChange={(e)=>update(row.name,"actual",e.target.value)} />
                   </td>
                   <td style={{padding:"10px 8px",borderBottom:"1px solid #27272a"}}>{row.variance === null ? "—" : row.variance.toLocaleString("en-MY")}</td>
-                  <td style={{padding:"10px 8px",borderBottom:"1px solid #27272a"}}>{row.rate === null ? "—" : \`\${(row.rate * 100).toFixed(1)}%\`}</td>
+                  <td style={{padding:"10px 8px",borderBottom:"1px solid #27272a"}}>{row.rate === null ? "—" : `${(row.rate * 100).toFixed(1)}%`}</td>
                   <td style={{padding:"10px 8px",borderBottom:"1px solid #27272a"}}>
                     {!row.ready ? "—" : row.onTarget ? "ON TARGET" : "REVIEW"}
                   </td>
