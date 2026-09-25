@@ -114,7 +114,7 @@ export default async function ResourcesPage() {
                   <h2>{resource.title}</h2>
                   <p className="muted">{resource.use}</p>
                 </div>
-                {resource.file.startsWith("/app/") ? <a className="btn secondary" href={resource.file}>Buka native tool</a> : <div className="resource-file">{resource.file}</div>}
+                {resource.file.startsWith("/app/") ? <a className="btn secondary" href={resource.file}>Buka native tool</a> : resource.title === "Closing OS v2.5" ? <a className="btn" href="/api/customer/closing-os">Download Closing OS v2.5</a> : <div className="resource-file">{resource.file}</div>}
               </article>
             ))}
           </div>
