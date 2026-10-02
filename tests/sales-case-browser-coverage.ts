@@ -32,7 +32,10 @@ async function layout(page: Page, width: number, name: string) {
       const rect = el.getBoundingClientRect();
       if (!rect.width || !rect.height || getComputedStyle(el).visibility === 'hidden') continue;
       if (rect.left < -1 || rect.right > window.innerWidth + 1) problems.push(`clipped control: ${el.textContent?.trim() || el.getAttribute('aria-label') || el.tagName}`);
-      if (rect.width < 16 || rect.height < 16) problems.push(`unusable control: ${el.tagName}`);
+      // Checkbox/radio activation includes their associated wrapping label.
+      const target = el instanceof HTMLInputElement && ['checkbox', 'radio'].includes(el.type) ? el.closest('label') ?? el : el;
+      const hitArea = target.getBoundingClientRect();
+      if (hitArea.width < 16 || hitArea.height < 16) problems.push(`unusable control: ${el.tagName}`);
     }
     if (document.querySelector('[data-nextjs-dialog], nextjs-portal')) problems.push('Next.js error overlay');
     return problems;
@@ -86,6 +89,11 @@ try {
       await persist(page, () => field(page, 'Adapted message').fill('Adakah servis RM500 masih relevan, atau skop perlu dijelaskan?'));
       await page.reload();
       assert.equal(await field(page, 'Adapted message').inputValue(), 'Adakah servis RM500 masih relevan, atau skop perlu dijelaskan?');
+      const qualityControl = page.getByRole('checkbox').first();
+      await qualityControl.check();
+      assert.equal(await qualityControl.isChecked(), true);
+      await qualityControl.uncheck();
+      await saved(page);
       await layout(page, width, 'follow-up');
       await field(page, 'Tindakan yang telah dilakukan').fill('Sent one contextual clarification on WhatsApp.');
       await persist(page, () => page.getByRole('button', { name: 'Rekod tindakan dilakukan', exact: true }).click());

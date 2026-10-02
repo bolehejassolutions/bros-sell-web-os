@@ -88,6 +88,14 @@ jobs:
           for log in test-results/app.log test-results/fixture.log test-results/errors-*.json; do
             if [[ -f "$log" ]]; then cat "$log"; fi
           done
+      - name: Record dependency advisory evidence without changing dependencies
+        if: always()
+        run: |
+          mkdir -p test-results
+          audit_status=0
+          npm audit --json > test-results/dependency-audit.json || audit_status=$?
+          cat test-results/dependency-audit.json
+          echo "Dependency advisory command exit status: $audit_status (assessment evidence; no audit fix)"
       - name: Keep browser screenshots and verification logs
         if: always()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4

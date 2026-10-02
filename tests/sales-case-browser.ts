@@ -50,6 +50,7 @@ try {
     await page.screenshot({path:`test-results/analyzer-${width}.png`,fullPage:true});
   }
   await page.getByRole('link',{name:'Operasi',exact:true}).click();
+  await page.getByRole('heading',{name:'Sales Cases & langkah seterusnya',exact:true}).waitFor();
   assert.match(await page.locator('body').innerText(),/Case latihan tidak dikira/);
   // Switching identity must never expose the previous account's cases.
   await context.clearCookies(); await context.addCookies([{...fixtureCookie('b'),url:base,sameSite:'Lax'}]);
