@@ -175,7 +175,7 @@ try {
       console.log(`Release browser coverage passed at ${width}px (synthetic fixture sessions).`);
     } catch (error) {
       await page.screenshot({ path: `test-results/failure-${width}.png`, fullPage: true });
-      await writeFile(`test-results/errors-${width}.json`, JSON.stringify({ pageErrors, consoleErrors }, null, 2));
+      await writeFile(`test-results/errors-${width}.json`, JSON.stringify({ url: page.url(), body: await page.locator('body').innerText(), pageErrors, consoleErrors }, null, 2));
       throw error;
     } finally {
       await context.close();

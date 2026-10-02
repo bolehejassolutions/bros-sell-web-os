@@ -77,8 +77,17 @@ jobs:
           # Browser onboarding gets a fresh database, independent of API test data.
           stop_servers
           start_servers
-          npm run test:browser 2>&1 | tee test-results/browser-original.log
-          node --experimental-strip-types tests/sales-case-browser-coverage.ts 2>&1 | tee test-results/browser-coverage.log
+          original_status=0
+          coverage_status=0
+          npm run test:browser 2>&1 | tee test-results/browser-original.log || original_status=$?
+          node --experimental-strip-types tests/sales-case-browser-coverage.ts 2>&1 | tee test-results/browser-coverage.log || coverage_status=$?
+          if [[ "$original_status" -ne 0 || "$coverage_status" -ne 0 ]]; then exit 1; fi
+      - name: Print fixture failure diagnostics
+        if: failure()
+        run: |
+          for log in test-results/app.log test-results/fixture.log test-results/errors-*.json; do
+            if [[ -f "$log" ]]; then cat "$log"; fi
+          done
       - name: Keep browser screenshots and verification logs
         if: always()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
