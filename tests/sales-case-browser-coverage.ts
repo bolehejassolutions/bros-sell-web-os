@@ -12,6 +12,9 @@ const browser = await chromium.launch({ headless: true });
 const results: { width: number; passed: string[] }[] = [];
 const failures: { width: number; error: string }[] = [];
 
+function field(page: Page, name: string) {
+  return page.locator('label').filter({ has: page.getByText(name, { exact: true }) }).locator('input, textarea, select');
+}
 async function saved(page: Page) {
   await page.getByText('Disimpan dalam akaun', { exact: true }).waitFor();
 }
@@ -55,12 +58,12 @@ try {
       await page.getByRole('button', { name: 'Bina case & analisis', exact: true }).waitFor();
       assert.equal(await page.locator('.case-onboarding li').count(), 4, 'First-use operating instructions');
       await layout(page, width, 'onboarding');
-      await page.getByLabel('Tajuk case', { exact: true }).fill(title);
-      await page.getByLabel('Pembeli / nama rujukan', { exact: true }).fill('Buyer RM500');
-      await page.getByLabel('Tawaran / servis', { exact: true }).first().fill('Servis RM500');
-      await page.getByLabel('Harga / investment', { exact: true }).first().fill('RM500');
-      await page.getByLabel('Situasi jualan', { exact: true }).fill('Prospek WhatsApp tanya harga servis. Saya jawab RM500; mesej dibaca tanpa balasan.');
-      await page.getByLabel('Bukti: kata-kata atau tindakan sebenar pembeli', { exact: true }).fill('Buyer bertanya harga, membaca jawapan RM500 dan belum memberi sebab penolakan.');
+      await field(page, 'Tajuk case').fill(title);
+      await field(page, 'Pembeli / nama rujukan').fill('Buyer RM500');
+      await field(page, 'Tawaran / servis').first().fill('Servis RM500');
+      await field(page, 'Harga / investment').first().fill('RM500');
+      await field(page, 'Situasi jualan').fill('Prospek WhatsApp tanya harga servis. Saya jawab RM500; mesej dibaca tanpa balasan.');
+      await field(page, 'Bukti: kata-kata atau tindakan sebenar pembeli').fill('Buyer bertanya harga, membaca jawapan RM500 dan belum memberi sebab penolakan.');
       await page.getByRole('combobox', { name: /^Pemerhatian terakhir/ }).selectOption('no_reply');
       const created = page.waitForResponse(r => r.request().method() === 'POST' && r.url().endsWith('/api/sales-cases'));
       await page.getByRole('button', { name: 'Bina case & analisis', exact: true }).click();
@@ -68,7 +71,7 @@ try {
       assert.equal(createdResponse.status(), 201);
       const initial: SalesCase = (await createdResponse.json()).case;
       const id = initial.id;
-      await page.getByLabel('Tajuk case semasa', { exact: true }).waitFor();
+      await field(page, 'Tajuk case semasa').waitFor();
       await saved(page);
       assert.equal(await page.getByRole('combobox', { name: /^Sales Case semasa/ }).inputValue(), id);
       assert.equal(initial.document.example, false, 'A user-created case participates in actual operating priorities');
@@ -79,23 +82,23 @@ try {
       await layout(page, width, 'diagnosis');
       await page.getByRole('link', { name: 'Buka follow up', exact: true }).click();
       assert.equal(new URL(page.url()).searchParams.get('case'), id);
-      assert.match(await page.getByLabel('Lead / Context', { exact: true }).inputValue(), /RM500/);
-      await persist(page, () => page.getByLabel('Adapted message', { exact: true }).fill('Adakah servis RM500 masih relevan, atau skop perlu dijelaskan?'));
+      assert.match(await field(page, 'Lead / Context').inputValue(), /RM500/);
+      await persist(page, () => field(page, 'Adapted message').fill('Adakah servis RM500 masih relevan, atau skop perlu dijelaskan?'));
       await page.reload();
-      assert.equal(await page.getByLabel('Adapted message', { exact: true }).inputValue(), 'Adakah servis RM500 masih relevan, atau skop perlu dijelaskan?');
+      assert.equal(await field(page, 'Adapted message').inputValue(), 'Adakah servis RM500 masih relevan, atau skop perlu dijelaskan?');
       await layout(page, width, 'follow-up');
-      await page.getByLabel('Tindakan yang telah dilakukan', { exact: true }).fill('Sent one contextual clarification on WhatsApp.');
+      await field(page, 'Tindakan yang telah dilakukan').fill('Sent one contextual clarification on WhatsApp.');
       await persist(page, () => page.getByRole('button', { name: 'Rekod tindakan dilakukan', exact: true }).click());
       await page.getByRole('link', { name: 'Operasi', exact: true }).click();
       await page.locator('.case-operating-row').filter({ hasText: title }).waitFor();
       assert.match(await page.locator('.case-operating-row').filter({ hasText: title }).innerText(), /Hasil tindakan belum direkod/);
       await page.locator('.case-operating-row').filter({ hasText: title }).getByRole('link', { name: 'Teruskan case', exact: true }).click();
       await page.getByRole('combobox', { name: /^Hasil tindakan/ }).selectOption('price_objection');
-      await page.getByLabel('Bukti hasil / respons sebenar', { exact: true }).fill('Buyer berkata mahal, tetapi belum menjelaskan maksud atau halangan.');
+      await field(page, 'Bukti hasil / respons sebenar').fill('Buyer berkata mahal, tetapi belum menjelaskan maksud atau halangan.');
       await persist(page, () => page.getByRole('button', { name: 'Rekod hasil & tentukan next action', exact: true }).click());
       assert.match(await page.locator('.case-diagnosis').innerText(), /VALUE/);
       await page.getByRole('link', { name: 'Buka objection playbook', exact: true }).click();
-      assert.match(await page.getByLabel('Exact buyer statement', { exact: true }).inputValue(), /Buyer berkata mahal/);
+      assert.match(await field(page, 'Exact buyer statement').inputValue(), /Buyer berkata mahal/);
       await layout(page, width, 'objection');
       await page.goto(`${base}/app/buyer-intelligence?case=${id}`);
       const who = page.locator('.resource-card').filter({ has: page.getByText('WHO', { exact: true }) }).locator('textarea');
@@ -103,11 +106,11 @@ try {
       await persist(page, () => who.fill(`Shared buyer ${width}`));
       await layout(page, width, 'buyer-intelligence');
       await page.getByRole('link', { name: 'Analyzer', exact: true }).first().click();
-      assert.equal(await page.getByLabel('Pembeli', { exact: true }).inputValue(), `Shared buyer ${width}`);
+      assert.equal(await field(page, 'Pembeli').inputValue(), `Shared buyer ${width}`);
       await page.reload();
-      assert.equal(await page.getByLabel('Tajuk case semasa', { exact: true }).inputValue(), title);
-      assert.equal(await page.getByLabel('Pembeli', { exact: true }).inputValue(), `Shared buyer ${width}`);
-      await persist(page, () => page.getByLabel('Tarikh susulan yang dipersetujui / dirancang', { exact: true }).fill('2026-01-01T09:00'));
+      assert.equal(await field(page, 'Tajuk case semasa').inputValue(), title);
+      assert.equal(await field(page, 'Pembeli').inputValue(), `Shared buyer ${width}`);
+      await persist(page, () => field(page, 'Tarikh susulan yang dipersetujui / dirancang').fill('2026-01-01T09:00'));
       await page.getByRole('link', { name: 'Operasi', exact: true }).click();
       await page.locator('.case-operating-row').filter({ hasText: title }).waitFor();
       assert.match(await page.locator('.case-operating-row').filter({ hasText: title }).innerText(), /Susulan perlu disemak/);
@@ -120,19 +123,19 @@ try {
           if (route.request().method() === 'PUT') await route.fulfill({ status: 503, contentType: 'application/json', body: JSON.stringify({ error: 'Injected fixture storage failure' }) });
           else await route.continue();
         });
-        await page.getByLabel('Tajuk case semasa', { exact: true }).fill('Unsaved customer draft');
+        await field(page, 'Tajuk case semasa').fill('Unsaved customer draft');
         await page.getByText('Belum disimpan', { exact: true }).waitFor();
-        assert.equal(await page.getByLabel('Tajuk case semasa', { exact: true }).inputValue(), 'Unsaved customer draft');
+        assert.equal(await field(page, 'Tajuk case semasa').inputValue(), 'Unsaved customer draft');
         await page.unroute('**/api/sales-cases/*');
         await persist(page, () => page.getByRole('button', { name: 'Simpan', exact: true }).click());
         const row: SalesCase = (await (await context.request.get(`${base}/api/sales-cases`)).json()).cases.find((r: SalesCase) => r.id === id);
         const writer = await context.request.put(`${base}/api/sales-cases/${id}`, { data: { revision: row.revision, document: { ...row.document, title: 'Other verified writer' } } });
         assert.equal(writer.status(), 200);
         const conflict = page.waitForResponse(r => r.request().method() === 'PUT' && r.url().endsWith(`/api/sales-cases/${id}`));
-        await page.getByLabel('Tajuk case semasa', { exact: true }).fill('Preserved conflicting customer draft');
+        await field(page, 'Tajuk case semasa').fill('Preserved conflicting customer draft');
         assert.equal((await conflict).status(), 409, 'The application must receive an actual 409 from its API');
         await page.getByText('Versi telah berubah', { exact: true }).waitFor();
-        assert.equal(await page.getByLabel('Tajuk case semasa', { exact: true }).inputValue(), 'Preserved conflicting customer draft');
+        assert.equal(await field(page, 'Tajuk case semasa').inputValue(), 'Preserved conflicting customer draft');
         assert.equal(await page.getByRole('button', { name: 'Simpan', exact: true }).isDisabled(), true);
         const download = page.waitForEvent('download');
         await page.getByRole('button', { name: 'Muat turun draft', exact: true }).click();
@@ -141,7 +144,7 @@ try {
         page.once('dialog', dialog => dialog.accept());
         await page.getByRole('button', { name: 'Muat semula versi akaun', exact: true }).click();
         await saved(page);
-        assert.equal(await page.getByLabel('Tajuk case semasa', { exact: true }).inputValue(), 'Other verified writer');
+        assert.equal(await field(page, 'Tajuk case semasa').inputValue(), 'Other verified writer');
       }
 
       const aRow: SalesCase = (await (await context.request.get(`${base}/api/sales-cases`)).json()).cases.find((r: SalesCase) => r.id === id);
@@ -149,12 +152,12 @@ try {
       await context.addCookies([{ ...fixtureCookie('b'), url: base, sameSite: 'Lax' }]);
       await page.goto(`${base}/app?case=${id}`);
       await page.getByRole('button', { name: 'Bina case & analisis', exact: true }).waitFor();
-      assert.equal(await page.getByLabel('Tajuk case semasa', { exact: true }).count(), 0, 'Previous account case must disappear');
+      assert.equal(await field(page, 'Tajuk case semasa').count(), 0, 'Previous account case must disappear');
       const bList = await (await context.request.get(`${base}/api/sales-cases`)).json();
       assert.equal(bList.cases.some((r: SalesCase) => r.id === id), false);
       assert.equal((await context.request.put(`${base}/api/sales-cases/${id}`, { data: { revision: aRow.revision, document: aRow.document } })).status(), 404);
-      await page.getByLabel('Tajuk case', { exact: true }).fill(`Account B private ${width}`);
-      await page.getByLabel('Situasi jualan', { exact: true }).fill('Account B authorized fixture case.');
+      await field(page, 'Tajuk case').fill(`Account B private ${width}`);
+      await field(page, 'Situasi jualan').fill('Account B authorized fixture case.');
       const bCreated = page.waitForResponse(r => r.request().method() === 'POST' && r.url().endsWith('/api/sales-cases'));
       await page.getByRole('button', { name: 'Bina case & analisis', exact: true }).click();
       const bResponse = await bCreated;
@@ -165,7 +168,7 @@ try {
       await context.clearCookies();
       await context.addCookies([{ ...fixtureCookie('a'), url: base, sameSite: 'Lax' }]);
       await page.goto(`${base}/app?case=${id}`);
-      await page.getByLabel('Tajuk case semasa', { exact: true }).waitFor();
+      await field(page, 'Tajuk case semasa').waitFor();
       assert.equal(await page.getByRole('option', { name: `Account B private ${width}`, exact: true }).count(), 0);
       assert.equal((await context.request.put(`${base}/api/sales-cases/${bRow.id}`, { data: { revision: bRow.revision, document: bRow.document } })).status(), 404);
       assert.deepEqual(pageErrors, []);
