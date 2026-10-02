@@ -1,0 +1,89 @@
+name: Sales Case P0 verification
+
+on:
+  pull_request:
+    branches: [main]
+    types: [opened, synchronize, reopened]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: sales-case-p0-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  verify:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    env:
+      NEXT_TELEMETRY_DISABLED: '1'
+      # Isolated fixture values: never live Supabase credentials or Auth evidence.
+      NEXT_PUBLIC_SUPABASE_URL: http://127.0.0.1:54329
+      NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: local-fixture-publishable-key
+      BROS_FIXTURE_PRODUCTION: '1'
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: '24.19.0'
+          cache: npm
+      - name: Use locked npm and install dependencies
+        run: |
+          npm install --global npm@11.9.0
+          node --version
+          npm --version
+          node -e "require('node:assert/strict').equal(require('./package.json').packageManager, 'npm@11.9.0')"
+          npm ci
+          git diff --exit-code -- package.json package-lock.json
+      - name: Lint
+        run: npm run lint
+      - name: TypeScript
+        run: npm run typecheck
+      - name: Deterministic and SQL/RLS tests
+        run: npm test
+      - name: Normal production build
+        run: npm run build
+      - name: Install locked Playwright Chromium
+        run: npx --no-install playwright install --with-deps chromium
+      - name: HTTP/API and browser verification against production bundle
+        shell: bash
+        run: |
+          mkdir -p test-results
+          fixture_pid=''
+          app_pid=''
+          stop_servers() {
+            if [[ -n "$app_pid" ]]; then kill "$app_pid" 2>/dev/null || true; wait "$app_pid" 2>/dev/null || true; fi
+            if [[ -n "$fixture_pid" ]]; then kill "$fixture_pid" 2>/dev/null || true; wait "$fixture_pid" 2>/dev/null || true; fi
+          }
+          trap stop_servers EXIT
+          start_servers() {
+            node --experimental-strip-types tests/fixtures/supabase-server.ts >> test-results/fixture.log 2>&1 &
+            fixture_pid=$!
+            node tests/fixtures/app-server.mjs >> test-results/app.log 2>&1 &
+            app_pid=$!
+            for attempt in {1..60}; do
+              if curl --fail --silent http://127.0.0.1:54329/health >/dev/null && curl --fail --silent http://127.0.0.1:3007/login >/dev/null; then return; fi
+              if ! kill -0 "$fixture_pid" || ! kill -0 "$app_pid"; then cat test-results/fixture.log test-results/app.log; return 1; fi
+              sleep 1
+            done
+            cat test-results/fixture.log test-results/app.log
+            return 1
+          }
+          start_servers
+          npm run test:api 2>&1 | tee test-results/http-api.log
+          # Browser onboarding gets a fresh database, independent of API test data.
+          stop_servers
+          start_servers
+          npm run test:browser 2>&1 | tee test-results/browser-original.log
+          node --experimental-strip-types tests/sales-case-browser-coverage.ts 2>&1 | tee test-results/browser-coverage.log
+      - name: Keep browser screenshots and verification logs
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: sales-case-p0-evidence
+          path: test-results/
+          if-no-files-found: ignore
+          retention-days: 7
