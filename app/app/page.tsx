@@ -1,7 +1,8 @@
 import { createClient } from "@/lib/supabase/server";
 import { hasWebOSAccess } from "@/lib/supabase/entitlement";
 import { redirect } from "next/navigation";
-import SituationAnalyzer from "./situation-analyzer";
+import SalesCaseWorkspace from './sales-case-workspace';
+import Link from 'next/link';
 
 const stages=["TARGET","BUYER","OFFER","LEAD","QUALIFY","VALUE","CLOSE","FOLLOW-UP","MULTIPLY","OPERATE"];
 
@@ -27,17 +28,17 @@ export default async function AppHome(){
           <article className="card hub-card">
             <div>
               <div className="eyebrow">MY ACCESS</div>
-              <h2>Full Early Bird Access</h2>
+              <h2>Akses BROS SELL aktif</h2>
               <p className="muted">Web OS dan Closing OS berada di bawah satu pengalaman produk. Closing OS v2.5 tersedia di Resources apabila anda perlukan rujukan mendalam.</p>
             </div>
-            <a className="btn secondary" href="/app/resources">Buka Resources</a>
+            <Link className="btn secondary" href="/app/resources">Buka Resources</Link>
           </article>
         </div>
         <h1>Customer Hub</h1>
         <p className="muted hero-copy">Mulakan dengan situasi jualan sebenar. Gunakan sistem untuk menjelaskan keputusan, bukan memujuk.</p>
       </section>
 
-      <section id="analyzer"><SituationAnalyzer /></section>
+      <section id="analyzer"><SalesCaseWorkspace /></section>
 
       <section className="card os-overview">
         <div>

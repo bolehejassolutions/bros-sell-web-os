@@ -1,6 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useCaseToolState } from "../sales-case-provider";
+import CaseLink from "../case-link";
+
 
 const motions=[
 ["Repeat","Adakah customer mempunyai recurring need / next cycle?","Evidence / Trigger:"],
@@ -19,19 +21,19 @@ const checks=[
 ];
 
 export default function CustomerMultiplicationPage(){
- const [customer,setCustomer]=useState("");
- const [purchase,setPurchase]=useState("");
- const [expected,setExpected]=useState("");
- const [actual,setActual]=useState("");
- const [proof,setProof]=useState("");
- const [permission,setPermission]=useState("");
- const [referral,setReferral]=useState("");
- const [repeat,setRepeat]=useState("");
- const [expansion,setExpansion]=useState("");
- const [next,setNext]=useState("");
- const [checksState,setChecksState]=useState<boolean[]>([]);
+ const [customer,setCustomer]=useCaseToolState("customer-multiplication","customer","");
+ const [purchase,setPurchase]=useCaseToolState("customer-multiplication","purchase","");
+ const [expected,setExpected]=useCaseToolState("customer-multiplication","expected","");
+ const [actual,setActual]=useCaseToolState("customer-multiplication","actual","");
+ const [proof,setProof]=useCaseToolState("customer-multiplication","proof","");
+ const [permission,setPermission]=useCaseToolState("customer-multiplication","permission","");
+ const [referral,setReferral]=useCaseToolState("customer-multiplication","referral","");
+ const [repeat,setRepeat]=useCaseToolState("customer-multiplication","repeat","");
+ const [expansion,setExpansion]=useCaseToolState("customer-multiplication","expansion","");
+ const [next,setNext]=useCaseToolState("customer-multiplication","next","");
+ const [checksState,setChecksState]=useCaseToolState<boolean[]>("customer-multiplication","checksState",[]);
  return <main className="container" style={{padding:"28px 0 60px"}}>
-  <header className="app-header"><div><div className="brand" style={{fontSize:24}}>BROS SELL™</div><div className="muted">Customer Multiplication Planner</div></div><div style={{display:"flex",gap:8}}><a className="btn secondary" href="/app">Analyzer</a><a className="btn secondary" href="/app/resources">Resources</a></div></header>
+  <header className="app-header"><div><div className="brand" style={{fontSize:24}}>BROS SELL™</div><div className="muted">Customer Multiplication Planner</div></div><div style={{display:"flex",gap:8}}><CaseLink className="btn secondary" href="/app">Analyzer</CaseLink><CaseLink className="btn secondary" href="/app/resources">Resources</CaseLink></div></header>
   <section className="hero"><p className="muted">PURCHASE → RESULT → PROOF → REFERRAL / REPEAT / EXPANSION</p><h1>Customer Multiplication Planner</h1><p className="muted hero-copy">Grow from real customer value. Multiplication begins with customer outcome, not extraction.</p></section>
   <section className="card resource-section"><div className="eyebrow">BROS CUSTOMER MULTIPLICATION LOOP</div><div className="decision-flow">{["CUSTOMER","PURCHASE","RESULT","PROOF","REFERRAL","NEW CUSTOMER"].map((x,i)=><span key={x}><b>{x}</b>{i<5&&<b> → </b>}</span>)}</div><p className="muted" style={{marginTop:18}}>Post-purchase expansion juga termasuk relevant <strong>REPEAT, UPSELL</strong> dan <strong>CROSS-SELL</strong> apabila genuine need atau trigger wujud.</p></section>
   <section className="card resource-section"><div className="eyebrow">CUSTOMER RECORD</div><div className="resource-grid">
@@ -44,7 +46,7 @@ export default function CustomerMultiplicationPage(){
    <label className="field-label"><span>Repeat / Expansion Trigger</span><textarea className="input textarea compact" rows={3} value={expansion} onChange={e=>setExpansion(e.target.value)} /></label>
    <label className="field-label"><span>Next Move</span><textarea className="input textarea compact" rows={3} value={next} onChange={e=>setNext(e.target.value)} /></label>
   </div></section>
-  <section className="card resource-section"><div className="eyebrow">PROOF BUILDER</div><div className="resource-grid">
+  <section className="card resource-section"><div className="eyebrow">PROOF BUILDER</div><label className="field-label"><span>Customer permission for proof usage</span><textarea className="input textarea compact" rows={3} value={permission} onChange={e=>setPermission(e.target.value)} placeholder="What has the customer actually permitted?" /></label><div className="resource-grid">
    {[["Customer Situation","What was the relevant starting context?"],["Solution Delivered","What was actually provided?"],["Observed Result","What changed, based on real evidence?"],["Proof Format","Testimonial / screenshot / before-after / metric / case note / demonstration / other"],["Permission / Usage","Is the proof approved for marketing use? Record only what is actually permitted."]].map(([h,q])=><article className="resource-card" key={h}><h2>{h}</h2><p className="muted">{q}</p></article>)}
   </div><div className="result-block" style={{marginTop:18}}><small className="muted">PROOF RULE</small><p>Jangan jadikan contoh ilustrasi sebagai customer proof. Gunakan evidence sebenar untuk testimonial, case study, metric atau demonstration. Jika tiada proof, gunakan assurance yang jujur — bukan fabricated result.</p></div></section>
   <section className="card resource-section"><div className="eyebrow">EXPANSION DECISION</div><div className="resource-grid">{motions.map(([name,q,label])=><article className="resource-card" key={name}><small className="muted">{name.toUpperCase()}</small><h2>{q}</h2><label className="field-label" style={{marginTop:12}}><span>{label}</span><textarea className="input textarea compact" rows={3} value={name==="Repeat"?repeat:name==="Referral"?referral:expansion} onChange={e=>name==="Repeat"?setRepeat(e.target.value):name==="Referral"?setReferral(e.target.value):setExpansion(e.target.value)} /></label></article>)}</div></section>

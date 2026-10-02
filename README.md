@@ -27,7 +27,7 @@ The legacy `/auth/callback` route remains for code-based redirects.
 
 ## Access model
 
-Authentication does not grant product access. The application checks the active `BROS_SELL_WEB_OS` entitlement before entering `/app` and `/app/resources`.
+Authentication does not grant product access. The application checks the existing canonical `BROS_SELL_CORE/core` entitlement and then legacy `BROS_SELL_WEB_OS/core` entitlement before entering `/app`, resources or the Sales Case API. Logging in alone does not grant product access.
 
 ## Environment
 
@@ -54,7 +54,28 @@ changing dependencies. Use `npm ci` for verification and deployment; use
 `npm install` only to intentionally update the dependency state.
 
 Lint uses the ESLint CLI with Next.js Core Web Vitals and TypeScript flat
-configs. Existing unescaped copy and localStorage state restoration findings
-are scoped to warnings in `eslint.config.mjs`; application code is unchanged.
-Other existing warnings remain visible. Treat these as follow-up work, not a
-clean application audit. Production builds still run TypeScript checking.
+configs. Existing warnings remain visible. Production builds retain TypeScript
+checking. The account-scoped Analyzer replaces the former unscoped localStorage
+Analyzer; it does not silently import old browser data into an account.
+
+## Sales Case operating loop
+
+Situation -> evidence -> diagnosis -> action -> outcome -> next action.
+Existing native tools use the selected account-owned case. Buyer, offer and value
+inputs share facts. Qualification requires explicit evidence in six dimensions.
+Tools do not send messages automatically.
+
+Apply the reviewed additive migration in `supabase/migrations/` to the verified
+Web OS database before releasing this branch. It depends on the existing
+`has_active_bros_sell_entitlement` RPC and never provisions customer access.
+There is no anonymous/delete grant or service-role client. Revision checks prevent
+silent overwrites; failed saves retain visible in-memory drafts with retry/export.
+
+Optional server variable `BROS_SUPPORT_EMAIL` adds a recovery contact only when an
+actual staffed address has been configured. Otherwise customers are directed to
+the support channel in their purchase confirmation; no address is invented.
+
+See [release assessment](docs/sales-case-release-assessment.md) and
+[verification runbook](docs/sales-case-test-runbook.md). The current release gate
+is NOT READY while the actual Supabase project and browser/customer journey
+remain unverified.

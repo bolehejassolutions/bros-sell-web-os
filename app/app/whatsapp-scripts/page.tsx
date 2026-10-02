@@ -1,6 +1,9 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useCaseToolState } from "../sales-case-provider";
+import CaseLink from "../case-link";
+
+import { useMemo } from "react";
 
 const scripts = [
 ["New inquiry / opening","Open conversation without premature pitching","Terima kasih. Boleh saya faham sedikit — anda sedang cari solution untuk perkara apa sekarang?","[Problem / context]","Move to discovery","If clear mismatch, clarify or exit"],
@@ -31,14 +34,14 @@ const scripts = [
 const qa=["Adakah mesej ini ada satu tujuan yang jelas?","Adakah ia menggunakan context conversation sebenar?","Adakah mesej terlalu panjang untuk tindakan yang diperlukan?","Adakah soalan benar-benar diperlukan?","Adakah next move jelas kepada buyer?","Adakah mesej menghormati pilihan buyer?"];
 
 export default function WhatsAppScriptVaultPage(){
- const [selected,setSelected]=useState(0);
- const [context,setContext]=useState("");
- const [custom,setCustom]=useState("");
- const [qaState,setQaState]=useState<boolean[]>([]);
+ const [selected,setSelected]=useCaseToolState("whatsapp-scripts","selected",0);
+ const [context,setContext]=useCaseToolState("whatsapp-scripts","context","");
+ const [custom,setCustom]=useCaseToolState("whatsapp-scripts","custom","");
+ const [qaState,setQaState]=useCaseToolState<boolean[]>("whatsapp-scripts","qaState",[]);
  const s=scripts[selected];
  const rendered=useMemo(()=>custom||s[2], [custom,s]);
  return <main className="container" style={{padding:"28px 0 60px"}}>
-  <header className="app-header"><div><div className="brand" style={{fontSize:24}}>BROS SELL™</div><div className="muted">WhatsApp Script Vault</div></div><div style={{display:"flex",gap:8}}><a className="btn secondary" href="/app">Analyzer</a><a className="btn secondary" href="/app/resources">Resources</a></div></header>
+  <header className="app-header"><div><div className="brand" style={{fontSize:24}}>BROS SELL™</div><div className="muted">WhatsApp Script Vault</div></div><div style={{display:"flex",gap:8}}><CaseLink className="btn secondary" href="/app">Analyzer</CaseLink><CaseLink className="btn secondary" href="/app/resources">Resources</CaseLink></div></header>
   <section className="hero"><p className="muted">OPEN → DISCOVER → QUALIFY → PRESENT → DECIDE → FOLLOW-UP</p><h1>WhatsApp Script Vault</h1><p className="muted hero-copy">Scenario-based swipe file. Adapt to context; do not send scripts mechanically.</p></section>
   <section className="card resource-section"><div className="eyebrow">SCENARIO LIBRARY</div><div className="resource-grid">{scripts.map((x,i)=><button type="button" className={selected===i?"resource-card refined":"resource-card"} key={x[0]} onClick={()=>{setSelected(i);setCustom("");}}><small className="muted">{String(i+1).padStart(2,"0")}</small><h2>{x[0]}</h2><p className="muted">{x[1]}</p></button>)}</div></section>
   <section className="card resource-section"><div className="eyebrow">SELECTED PATTERN</div><div className="resource-grid"><article className="resource-card"><small className="muted">PURPOSE</small><p>{s[1]}</p></article><article className="resource-card"><small className="muted">SUGGESTED SCRIPT</small><p>“{s[2]}”</p></article><article className="resource-card"><small className="muted">PERSONALISE / REPLACE</small><p>{s[3]}</p></article><article className="resource-card"><small className="muted">NEXT MOVE</small><p>{s[4]}</p></article><article className="resource-card"><small className="muted">STOP / EXIT</small><p>{s[5]||"Respect the decision and context."}</p></article></div></section>

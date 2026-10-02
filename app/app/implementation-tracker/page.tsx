@@ -1,6 +1,9 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useCaseToolState } from "../sales-case-provider";
+import CaseLink from "../case-link";
+
+import { useMemo } from "react";
 
 const days=[
 [1,"TARGET","Set monthly revenue target + average deal size","Target numbers","Revenue / deal size"],
@@ -39,18 +42,18 @@ const week=[["WEEK 1","TARGET & NUMBERS",1,7],["WEEK 2","BUYER & QUALIFY",8,14],
 const statuses=["Not Started","In Progress","Done","Skip"] as const;
 
 export default function ImplementationTrackerPage(){
- const [status,setStatus]=useState<Record<number,typeof statuses[number]>>({});
- const [evidence,setEvidence]=useState<Record<number,string>>({});
- const [notes,setNotes]=useState<Record<number,string>>({});
- const [filter,setFilter]=useState("All");
- const [baseline,setBaseline]=useState("");
- const [biggestChange,setBiggestChange]=useState("");
- const [improved,setImproved]=useState("");
- const [notImproved,setNotImproved]=useState("");
- const [keep,setKeep]=useState("");
- const [change,setChange]=useState("");
- const [remove,setRemove]=useState("");
- const [nextTarget,setNextTarget]=useState("");
+ const [status,setStatus]=useCaseToolState<Record<number,typeof statuses[number]>>("implementation-tracker","status",{});
+ const [evidence,setEvidence]=useCaseToolState<Record<number,string>>("implementation-tracker","evidence",{});
+ const [notes,setNotes]=useCaseToolState<Record<number,string>>("implementation-tracker","notes",{});
+ const [filter,setFilter]=useCaseToolState("implementation-tracker","filter","All");
+ const [baseline,setBaseline]=useCaseToolState("implementation-tracker","baseline","");
+ const [biggestChange,setBiggestChange]=useCaseToolState("implementation-tracker","biggestChange","");
+ const [improved,setImproved]=useCaseToolState("implementation-tracker","improved","");
+ const [notImproved,setNotImproved]=useCaseToolState("implementation-tracker","notImproved","");
+ const [keep,setKeep]=useCaseToolState("implementation-tracker","keep","");
+ const [change,setChange]=useCaseToolState("implementation-tracker","change","");
+ const [remove,setRemove]=useCaseToolState("implementation-tracker","remove","");
+ const [nextTarget,setNextTarget]=useCaseToolState("implementation-tracker","nextTarget","");
  const visible=filter==="All"?days:days.filter(d=>d[1]===filter);
  const done=days.filter(d=>status[d[0]]==="Done").length;
  const started=days.filter(d=>status[d[0]]&&status[d[0]]!=="Not Started").length;
@@ -58,7 +61,7 @@ export default function ImplementationTrackerPage(){
  const currentWeek=useMemo(()=>{const first=days.find(d=>status[d[0]]!=="Done");return first?week.find(w=>first[0]>=w[2]&&first[0]<=w[3]):week[4]},[status]);
  const updateStatus=(day:number,value:typeof statuses[number])=>setStatus(p=>({...p,[day]:value}));
  return <main className="container" style={{padding:"28px 0 60px"}}>
-  <header className="app-header"><div><div className="brand" style={{fontSize:24}}>BROS SELL™</div><div className="muted">30-Day Implementation Tracker</div></div><div style={{display:"flex",gap:8}}><a className="btn secondary" href="/app">Analyzer</a><a className="btn secondary" href="/app/resources">Resources</a></div></header>
+  <header className="app-header"><div><div className="brand" style={{fontSize:24}}>BROS SELL™</div><div className="muted">30-Day Implementation Tracker</div></div><div style={{display:"flex",gap:8}}><CaseLink className="btn secondary" href="/app">Analyzer</CaseLink><CaseLink className="btn secondary" href="/app/resources">Resources</CaseLink></div></header>
   <section className="hero"><p className="muted">TARGET → BUYER → OFFER → LEAD → QUALIFY → VALUE → CLOSE → FOLLOW-UP → MULTIPLY → OPERATE</p><h1>30-Day Implementation Tracker</h1><p className="muted hero-copy">Tukar BROS SELL daripada pengetahuan kepada operating habit melalui satu perubahan yang boleh diukur pada satu masa.</p></section>
   <section className="card resource-section"><div className="eyebrow">30-DAY IMPLEMENTATION MAP</div><div className="resource-grid">{week.map(w=><article className="resource-card" key={w[0]}><small className="muted">{w[0]}</small><h2>{w[1]}</h2><p>Days {w[2]}–{w[3]}</p></article>)}</div></section>
   <section className="card resource-section"><div className="eyebrow">OPERATING SNAPSHOT</div><div className="form-grid"><div className="result-block"><small className="muted">DONE</small><div className="result-stage">{done}/30</div></div><div className="result-block"><small className="muted">STARTED / ACTIVE</small><div className="result-stage">{started}/30</div></div><div className="result-block"><small className="muted">COMPLETION</small><div className="result-stage">{completion}%</div></div><div className="resource-card"><small className="muted">CURRENT CYCLE</small><h2>{currentWeek?.[0]} · {currentWeek?.[1]}</h2><p className="muted">One priority bottleneck at a time.</p></div></div></section>
