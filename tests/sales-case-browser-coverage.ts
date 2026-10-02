@@ -29,6 +29,8 @@ async function layout(page: Page, width: number, name: string) {
     const problems: string[] = [];
     if (document.documentElement.scrollWidth > window.innerWidth) problems.push('horizontal overflow');
     for (const el of document.querySelectorAll<HTMLElement>('a, button, input, select, textarea')) {
+      // Closed details can have layout boxes while their contents are not painted.
+      if (!el.checkVisibility({ checkOpacity: true, checkVisibilityCSS: true, contentVisibilityAuto: true })) continue;
       const rect = el.getBoundingClientRect();
       if (!rect.width || !rect.height || getComputedStyle(el).visibility === 'hidden') continue;
       if (rect.left < -1 || rect.right > window.innerWidth + 1) problems.push(`clipped control: ${el.textContent?.trim() || el.getAttribute('aria-label') || el.tagName}`);
@@ -124,6 +126,19 @@ try {
       assert.match(await page.locator('.case-operating-row').filter({ hasText: title }).innerText(), /Susulan perlu disemak/);
       assert.match(await page.locator('.case-operating-row').first().innerText(), /Susulan perlu disemak/);
       await layout(page, width, 'dashboard');
+      // The existing optional KPI table scrolls within its container. Prove every
+      // field is reachable after opening it, without permitting document overflow.
+      await page.getByText(`Metrik manual dan nota operasi � ${title}`, { exact: true }).click();
+      const metricInputs = page.locator('input[type="number"]');
+      assert.equal(await metricInputs.count(), 26);
+      for (const control of await metricInputs.all()) {
+        await control.scrollIntoViewIfNeeded();
+        const box = await control.boundingBox();
+        assert.ok(box && box.width >= 16 && box.height >= 16 && box.x >= 0 && box.x + box.width <= width, 'Scrollable KPI field must be reachable');
+      }
+      assert.equal(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth), true, 'Open KPI table must not overflow the document');
+      await page.screenshot({ path: `test-results/dashboard-metrics-${width}.png`, fullPage: true });
+      await page.getByText(`Metrik manual dan nota operasi � ${title}`, { exact: true }).click();
       await page.locator('.case-operating-row').filter({ hasText: title }).getByRole('link', { name: 'Teruskan case', exact: true }).click();
 
       if (width === 1280) {
