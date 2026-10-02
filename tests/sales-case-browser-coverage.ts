@@ -128,7 +128,9 @@ try {
       await layout(page, width, 'dashboard');
       // The existing optional KPI table scrolls within its container. Prove every
       // field is reachable after opening it, without permitting document overflow.
-      await page.getByText(`Metrik manual dan nota operasi � ${title}`, { exact: true }).click();
+      const metricSummary = page.locator('summary').filter({ hasText: 'Metrik manual dan nota operasi' });
+      assert.ok((await metricSummary.innerText()).endsWith(title));
+      await metricSummary.click();
       const metricInputs = page.locator('input[type="number"]');
       assert.equal(await metricInputs.count(), 26);
       for (const control of await metricInputs.all()) {
@@ -138,7 +140,7 @@ try {
       }
       assert.equal(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth), true, 'Open KPI table must not overflow the document');
       await page.screenshot({ path: `test-results/dashboard-metrics-${width}.png`, fullPage: true });
-      await page.getByText(`Metrik manual dan nota operasi � ${title}`, { exact: true }).click();
+      await metricSummary.click();
       await page.locator('.case-operating-row').filter({ hasText: title }).getByRole('link', { name: 'Teruskan case', exact: true }).click();
 
       if (width === 1280) {
