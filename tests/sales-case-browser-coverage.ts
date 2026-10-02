@@ -10,6 +10,7 @@ const base = 'http://127.0.0.1:3007';
 await mkdir('test-results', { recursive: true });
 const browser = await chromium.launch({ headless: true });
 const results: { width: number; passed: string[] }[] = [];
+const failures: { width: number; error: string }[] = [];
 
 async function saved(page: Page) {
   await page.getByText('Disimpan dalam akaun', { exact: true }).waitFor();
@@ -60,7 +61,7 @@ try {
       await page.getByLabel('Harga / investment', { exact: true }).first().fill('RM500');
       await page.getByLabel('Situasi jualan', { exact: true }).fill('Prospek WhatsApp tanya harga servis. Saya jawab RM500; mesej dibaca tanpa balasan.');
       await page.getByLabel('Bukti: kata-kata atau tindakan sebenar pembeli', { exact: true }).fill('Buyer bertanya harga, membaca jawapan RM500 dan belum memberi sebab penolakan.');
-      await page.getByLabel('Pemerhatian terakhir', { exact: true }).selectOption('no_reply');
+      await page.getByRole('combobox', { name: /^Pemerhatian terakhir/ }).selectOption('no_reply');
       const created = page.waitForResponse(r => r.request().method() === 'POST' && r.url().endsWith('/api/sales-cases'));
       await page.getByRole('button', { name: 'Bina case & analisis', exact: true }).click();
       const createdResponse = await created;
@@ -69,7 +70,7 @@ try {
       const id = initial.id;
       await page.getByLabel('Tajuk case semasa', { exact: true }).waitFor();
       await saved(page);
-      assert.equal(await page.getByLabel('Sales Case semasa', { exact: true }).inputValue(), id);
+      assert.equal(await page.getByRole('combobox', { name: /^Sales Case semasa/ }).inputValue(), id);
       assert.equal(initial.document.example, false, 'A user-created case participates in actual operating priorities');
       const diagnosis = await page.locator('.case-diagnosis').innerText();
       for (const label of ['WHAT', 'WHY', 'NEXT', 'FOLLOW-UP', 'Tiada balasan']) assert.ok(diagnosis.includes(label), label);
@@ -89,7 +90,7 @@ try {
       await page.locator('.case-operating-row').filter({ hasText: title }).waitFor();
       assert.match(await page.locator('.case-operating-row').filter({ hasText: title }).innerText(), /Hasil tindakan belum direkod/);
       await page.locator('.case-operating-row').filter({ hasText: title }).getByRole('link', { name: 'Teruskan case', exact: true }).click();
-      await page.getByLabel('Hasil tindakan', { exact: true }).selectOption('price_objection');
+      await page.getByRole('combobox', { name: /^Hasil tindakan/ }).selectOption('price_objection');
       await page.getByLabel('Bukti hasil / respons sebenar', { exact: true }).fill('Buyer berkata mahal, tetapi belum menjelaskan maksud atau halangan.');
       await persist(page, () => page.getByRole('button', { name: 'Rekod hasil & tentukan next action', exact: true }).click());
       assert.match(await page.locator('.case-diagnosis').innerText(), /VALUE/);
@@ -176,12 +177,14 @@ try {
     } catch (error) {
       await page.screenshot({ path: `test-results/failure-${width}.png`, fullPage: true });
       await writeFile(`test-results/errors-${width}.json`, JSON.stringify({ url: page.url(), body: await page.locator('body').innerText(), pageErrors, consoleErrors }, null, 2));
-      throw error;
+      failures.push({ width, error: error instanceof Error ? error.message : String(error) });
+      console.error(`Release browser coverage failed at ${width}px: ${failures.at(-1)!.error}`);
     } finally {
       await context.close();
     }
   }
+  assert.deepEqual(failures, [], 'Every required viewport must pass');
 } finally {
-  await writeFile('test-results/browser-coverage.json', JSON.stringify({ authEvidence: 'Synthetic fixture sessions only; not hosted Supabase Auth', results }, null, 2));
+  await writeFile('test-results/browser-coverage.json', JSON.stringify({ authEvidence: 'Synthetic fixture sessions only; not hosted Supabase Auth', results, failures }, null, 2));
   await browser.close();
 }
