@@ -1,48 +1,44 @@
-# Sales Case verification runbook
+# Sales Case verification and release runbook
 
-Requires Node >=22.9, npm 11.9.0. All fixture accounts use `example.test`. Fixtures bind loopback and never contact the real Supabase project.
+Updated 3 October 2026. Account A/B, customer isolation and signed-download checks are accepted by the user as previously tested. Do not request their repetition as a release gate.
 
-## Repeatable checks
+## Automated verification
 
-```sh
-npm ci
-npm run typecheck
-npm run lint
-npm test
-npm run build
-```
+PR #11 uses .github/workflows/sales-case-p0.yml on Ubuntu 24.04 with Node 24.19.0, locked npm 11.9.0 and locked Playwright 1.63.0. CI runs npm ci, lint, TypeScript, deterministic/migration SQL-RLS tests, normal production build, HTTP/API and both browser suites.
 
-Default builds must retain Next's TypeScript verification. In the restricted Windows runtime used for this task, child-process creation was denied. The bundle was separately built using a temporary worker-thread configuration, with independent `tsc` checking; that local workaround is not committed as a production type-check bypass.
+The build retains Next TypeScript checks. Use CI rather than the Windows browser runtime that failed with spawn EPERM. Do not retry local browser installation or use a type-check bypass.
 
-## Route and browser fixtures
+Production-bundle route/browser checks use loopback fixture services and synthetic sessions. They do not establish hosted Supabase Auth evidence. Fixtures never contact the live project. Browser screenshots, logs and audit evidence are retained in the GitHub artifact for seven days.
 
-In separate terminals:
+The original browser assertions remain. Supplementary coverage checks real application fixture responses, user-created RM500 cases, reciprocal fixture isolation, all four viewport layouts and recovery contact. The stale-writer check asserts actual HTTP 409; injected save failure is 503 and preserves the draft.
 
-```sh
-node --experimental-strip-types tests/fixtures/supabase-server.ts
-node tests/fixtures/app-server.mjs
-```
+## Live project safeguards
 
-Then:
+Exact project: cyryoirzxpvummckegyh, BROS SELL Web OS. Migration 20261002074235_sales_case_operating_loop is already applied; **do not reapply it**. Keep RLS, grants, entitlement RPC, dependencies and customer data intact.
 
-```sh
-npm run test:api
-npx playwright install chromium
-npm run test:browser
-```
+Read-only project/contract and live anonymous/Preview recovery checks are recorded in docs/sales-case-release-assessment.md and docs/sales-case-ci-verification-evidence.json. Prior 19 SQL-role/claim and 3 Storage-role checks remain separate from real customer-session evidence.
 
-`BROS_FIXTURE_PRODUCTION=1` selects a previously compiled production bundle in the fixture app server. Build that fixture bundle with `NEXT_PUBLIC_SUPABASE_URL=http://127.0.0.1:54329` and `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY=local-fixture-publishable-key`; those are local test values, not deployment settings. `BROS_TEST_CDP` optionally connects Playwright to an isolated existing test browser. Browser screenshots go to ignored `test-results/`.
+## Accepted customer evidence
 
-Tests cover real application routes and actual migration SQL, behind a minimal local auth/PostgREST fixture. This does not test Supabase's hosted authentication, email, PostgREST deployment or storage service. Do not use fixture tokens or accounts against production.
+The owner explicitly accepts previous real Account A/B, customer isolation and signed-download testing. This is recorded as user-confirmed prior testing, not a new agent-observed Auth session. No repeated login, password, OTP, session-token or card-information request is required.
 
-## Live gate after project access is restored
+Per-customer /app and one protected-resource verification after an actual grant/recovery remains an operational step for new purchases/recovery, not a request to reopen these completed release tests.
 
-1. Confirm `cyryoirzxpvummckegyh`, its current schema/migration history, existing `has_active_bros_sell_entitlement` RPC signature, RLS and canonical/legacy account examples. Check that Vercel preview variables target the intended project. Do not substitute Commercial Intelligence.
-2. Review and apply `supabase/migrations/20261002055316_sales_case_operating_loop.sql`. It creates one table, indexes, revision trigger and owner/entitlement policies. Inspect grants and policies after applying.
-3. With authorized existing customer accounts, verify create/save/reload, second-tab conflict, non-entitled denial, account-switch isolation and direct table RLS. Never grant access solely because someone logged in.
-4. Run the real browser journey on desktop and mobile: create the RM500 sample, inspect known/inferred/missing, use Follow-Up, record action and outcome, inspect revised diagnosis, use objection/buyer/value tools, defer or close appropriately, and inspect operations.
-5. Verify failed saves visibly retain drafts, retry/export work, fifth follow-up can record its outcome before pausing, explicit No stops, agreed Not Now pauses, and confirmed sales keep their status during customer-result records.
-6. Verify the current authorized customer can fetch the protected Closing OS PDF. Check existing email login/recovery and HitPay-to-entitlement/fulfilment records. A generic HTTP 200, a Vercel READY build or a test fixture is insufficient.
-7. Inspect final preview build checks. Record READY / READY WITH KNOWN LIMITATION / NOT READY with actual evidence. Promote only after P0 checks pass and the reviewed release is authorized.
+## Manual fulfilment and recovery
 
-Keep pricing, deadline, refunds and fulfilment policy consistent with the existing approved decisions. Unresolved commercial evidence remains a gate for a customer-facing production release, rather than a reason to invent policy during development.
+Follow docs/manual-fulfilment-access-recovery.md:
+- Verify successful HitPay payment/reference and match purchase email to the account.
+- New grants use BROS_SELL_CORE / core, source manual, through existing secure admin access.
+- HitPay sends the downloadable package separately. Web OS is the maintained online companion; do not promise lifetime hosted access.
+- Recovery/support and 30-calendar-day refund requests use brossell@bolehejas.com from the purchase email; optional HitPay reference; never passwords, OTPs or card information.
+- Record real per-customer actions and post-grant /app/resource checks privately. Do not publish customer evidence or privileged keys in GitHub.
+
+Do not perform a new payment, automatic provisioning simulation, refund or entitlement change merely to manufacture release evidence.
+
+## Release transition
+
+Read the current assessment. READY WITH KNOWN LIMITATION records accepted customer checks, passing application/live checks and permitted manual fulfilment; it is not authorization to merge or deploy Production.
+
+Keep PR #11 Draft and unmerged until separately instructed. A merge, Ready-for-Review transition or Production deployment is a separate action. Preserve pricing, HitPay commercial configuration and the approved refund-request decisions.
+
+If an eventual authorized application release needs rollback, restore the previous app deployment and preserve Sales Case data. No migration rollback or destructive customer-data operation is part of this handoff.
