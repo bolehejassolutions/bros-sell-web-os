@@ -73,4 +73,4 @@ Release evidence consists of:
 
 No new paid transaction, automated provisioning run, mailbox-delivery test, entitlement grant/recovery or refund is claimed in this release verification. Per-customer payment matching and post-grant checks are required operational steps. Manual operation and unproven automation are known limitations, permitted by the owner.
 
-Main, Production, HitPay commercial configuration and existing customer data remain unchanged until separately authorized.
+PR #11 was merged and the reviewed application deployed to Production on 3 October 2026 under explicit owner approval. HitPay commercial configuration, entitlement/refund policy, customer entitlements and Supabase schema were unchanged. See sales-case-release-assessment.md and sales-case-production-release.json for the released SHA, URL and evidence.

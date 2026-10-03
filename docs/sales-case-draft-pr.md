@@ -1,38 +1,32 @@
-# Draft PR: Make Sales Case the shared BROS SELL operating loop
+A seller's RM500 conversation now has an account-owned Sales Case carrying buyer/offer/evidence through the existing native tools, linked actions/outcomes and deterministic next-action recomputation. WHAT/WHY/NEXT and known/inferred/missing diagnosis guide decisions; the dashboard prioritises due cases and pending outcomes. API/RLS enforce ownership and entitlement, and stale revision handling preserves drafts.
 
-Updated: 3 October 2026. [PR #11](https://github.com/bolehejassolutions/bros-sell-web-os/pull/11).
-Base: main at `56f89fbc2d19406efd7f1ef075646446787555cb`.
-Branch: feat/sales-case-operating-loop. Validated application/handoff source: `3eb2747cef49f74d653f8648320017678a673189`.
-State: Draft, open, unmerged. Release: READY WITH KNOWN LIMITATION.
+Includes the existing tooling prerequisite, additive Sales Case migration and approved manual fulfilment/recovery guidance. The implementation was not rebuilt or redesigned.
 
-## Published description
+### Merged and deployed - 3 October 2026
 
-A seller's RM500 conversation now has an account-owned Sales Case that carries buyer/offer/evidence through existing native tools, records linked actions/outcomes and recomputes a deterministic next action. The Analyzer presents WHAT/WHY/NEXT and known/inferred/missing information; the dashboard prioritizes due cases and pending outcomes. API/RLS enforce ownership plus entitlement and reject stale revisions while preserving drafts.
+- Owner explicitly approved merge and Production deployment.
+- Approved head verified as `0772e8c3332adf3ed5162be17218c1f66236db0b`; all 11 expected commits and 50 changed files matched; successful reviewed CI/Vercel checks and matching READY Preview were reconfirmed before merge.
+- Normal repository squash merge: **`913ea4c668f4176da2cd03925dd6613eecd75164`**. The reviewed and merged trees are identical: `07eeea5a09e65f81d6c835ef63786e1729c9a15d`.
+- Production **READY**: **https://brossell.bolehejas.com**.
+- Immutable deployment: https://bros-sell-web-mix005ndc-bolehejassolutions-8492.vercel.app; ID `dpl_83SE7k2AUfB1XL3DAd9Qo5verDd4`; SHA `913ea4c668f4176da2cd03925dd6613eecd75164`.
+- Exact Supabase project **cyryoirzxpvummckegyh** confirmed in Production client and real Google OAuth entry. Existing migration `20261002074235_sales_case_operating_loop` retained; no reapplication or database/customer-entitlement changes.
 
-Includes the existing PR #10 tooling prerequisite and additive Sales Case migration. The approved follow-up closes manual fulfilment/recovery: /activate now exposes brossell@bolehejas.com by default, purchase-email/optional HitPay-reference guidance, separate HitPay-package/maintained-online-companion information, no password/OTP/card requests and the approved 30-calendar-day refund-request window. No pricing, HitPay commercial configuration, database grant or architecture change is made.
+### Verification
 
-### Validation
+- [Reviewed-head CI 37095714352](https://github.com/bolehejassolutions/bros-sell-web-os/actions/runs/37095714352) passed: locked npm ci, lint, TypeScript, deterministic/SQL-RLS, HTTP/API, normal production build and both browser suites.
+- Reviewed full RM500 application journey at 360/390/430/1280px includes native shared state, actions/outcomes, recomputation, dashboard, refresh, injected 503 retry/draft preservation, actual fixture API 409 and reciprocal fixture isolation. Fixtures are application/browser evidence, not hosted Auth evidence.
+- Fresh Production HTTP smoke at 2026-10-03T06:32:25.050Z: marketing landing 200; login/recovery/assets load; protected root/app/dashboard/resources redirect; anonymous Sales Case GET/POST/PUT and Closing OS deny access; approved support/recovery copy and correct Supabase project.
+- [Live Production Chromium run 37103682016](https://github.com/bolehejassolutions/bros-sell-web-os/actions/runs/37103682016) passed at 360/390/430/1280px: Google/password/magic-link UI, recovery/contact, protected redirects, no document overflow/clipped controls/Next overlays/unexpected page or console errors. Real Google button opens correct OAuth provider/callback; sign-in not completed.
+- [16 screenshots and result JSON](https://github.com/bolehejassolutions/bros-sell-web-os/actions/runs/37103682016/artifacts/11266954372), digest `sha256:ac5faacaf435529ff6f469801d6fc47d14a8e926e56238c9c108b87b6632b1e9`, expire 2026-10-10T06:38:28Z.
+- **Prior real Account A/B, customer isolation and signed-download testing accepted by the owner; not repeated.** No newly completed authenticated Production session, CRUD/refresh/dashboard-content or signed-download observation by the agent is claimed.
+- No runtime errors reported in the deployment smoke range. No material regression; rollback not used. Previous app deployment `dpl_9CSGHQH3CuHymXK19ga8LnYt9XrN` retained for application-only rollback; preserve Sales Case table/customer data.
 
-- [Linux CI 37095334967](https://github.com/bolehejassolutions/bros-sell-web-os/actions/runs/37095334967) passed on application/handoff source `3eb2747cef49f74d653f8648320017678a673189`: locked npm ci, lint (0 errors/4 existing warnings), TypeScript, 12 deterministic/SQL-RLS tests, HTTP/API suite and normal production build.
-- Both Chromium browser suites passed at 360/390/430/1280px: full RM500 journey, native shared state, action/outcome recomputation, priorities, refresh, save/retry, actual fixture API HTTP 409, reciprocal fixture isolation, layout/control/console checks, plus recovery contact/layout at every width. [Screenshots/logs](https://github.com/bolehejassolutions/bros-sell-web-os/actions/runs/37095334967/artifacts/11264241167) expire 2026-10-10T04:07:06Z.
-- Fixture sessions are application/browser evidence, not real hosted Auth evidence.
-- **Real Account A/B, customer isolation and signed-download testing are accepted by the user as previously completed.** No repeat requested and no new agent-observed customer session claimed.
-- Exact Supabase project cyryoirzxpvummckegyh is ACTIVE_HEALTHY. Canonical BROS_SELL_CORE is active; existing constraints support manual/active entitlement records. RLS remains enabled; migration 20261002074235_sales_case_operating_loop was not reapplied. Retained 19 live SQL-role and 3 Storage policy checks passed previously.
-- [Validated Preview](https://bros-sell-web-ifpwy3nj9-bolehejassolutions-8492.vercel.app) is READY. Live /activate guidance/contact matches the approved decisions; anonymous API/PDF access is denied, protected routes redirect to login and the published Supabase host is correct.
-- Documentation-only release follow-up preserves the validated application/test files. Main and Production remain at `56f89fbc2d19406efd7f1ef075646446787555cb`.
+### Operating handoff and release status
 
-### Manual operating handoff
+**READY WITH KNOWN LIMITATION.** Manual fulfilment remains permitted until automation is proven: verify HitPay payment/reference and purchase/account email match; new grants use BROS_SELL_CORE/core, source manual. Separate HitPay customer package and maintained online companion; no lifetime hosted-access promise.
 
-See docs/manual-fulfilment-access-recovery.md. Verify successful HitPay payment/reference and purchase/account email match; new grants use **BROS_SELL_CORE / core** with source manual. HitPay delivers the downloadable package separately. Web OS is the maintained online companion; no lifetime hosted-access promise.
+Recovery/support: brossell@bolehejas.com from purchase email, optional HitPay reference; never passwords/OTPs/card information. After actual grant/recovery, verify /app plus one protected resource. Refund requests remain allowed within 30 calendar days; no automatic approval promise.
 
-Support/recovery: **brossell@bolehejas.com**, purchase email, optional HitPay order/receipt reference; never passwords, OTPs or card information. After an actual grant/recovery, verify /app and one protected resource. Refund requests are allowed within **30 calendar days of purchase** through that email using the purchase email; no automatic approval promise.
+Known limitations: manual provisioning, scope of fresh anonymous Production smoke, disabled leaked-password protection on previously verified Free tier, retained Next advisory with no affected next/og usage found (scope-based inference). No pricing, HitPay configuration, entitlement/refund policy, customer-entitlement/schema, payment or spending changes.
 
-These are owner-approved operating decisions. No new real payment, automatic provisioning, mailbox-delivery test, customer grant/recovery or refund is claimed.
-
-### Release decision
-
-**READY WITH KNOWN LIMITATION.** Manual fulfilment is permitted until automation is proven. Existing password-hardening and Next dependency findings remain documented in docs/sales-case-release-assessment.md; current app has no affected next/og ImageResponse path. No dependency upgrade or paid-tier change occurred.
-
-PR remains **Draft and unmerged**. Merge/Production require explicit authorization. No Production deployment, live commercial change, spending or P1/P2 expansion is performed.
-
-Original local P0 `66fb6bc` and API-equivalent `b4e79ce` retain original tree equality `a230eacc3c7acfc78f745c18989dcff986beabf5`. The Sales Case implementation was not rebuilt or redesigned.
+Final release evidence and first-10-customer handoff are on [verify/production-913ea4c](https://github.com/bolehejassolutions/bros-sell-web-os/tree/verify/production-913ea4c/docs). Main/Production retain the reviewed merge SHA. Feature expansion stops; acquire the first 10 paying customers organically and use actual Sales Case behaviour to determine P1 priorities.

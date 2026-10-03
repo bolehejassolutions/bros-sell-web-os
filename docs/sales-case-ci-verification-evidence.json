@@ -75,7 +75,7 @@
   "live_http": {
     "project": "cyryoirzxpvummckegyh",
     "preview": "https://bros-sell-web-ifpwy3nj9-bolehejassolutions-8492.vercel.app",
-    "checked_at": "2026-10-03T04:06:19.010Z",
+    "checked_at": "2026-10-03T04:06:19.01Z",
     "preview_checks": [
       {
         "path": "/login",
@@ -219,5 +219,6 @@
   ],
   "production_unchanged": true,
   "spending": false,
-  "merge_performed": false
+  "merge_performed": false,
+  "record_scope": "Historical pre-Production verification; state fields describe the recorded pre-merge stage. Current release state: sales-case-production-release.json."
 }

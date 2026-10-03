@@ -1,0 +1,394 @@
+{
+  "recorded_at": "2026-10-03T06:45:34.653Z",
+  "release_status": "READY WITH KNOWN LIMITATION",
+  "repository": "bolehejassolutions/bros-sell-web-os",
+  "pr": 11,
+  "authorization": "Owner explicitly approved merge of reviewed PR #11 and Production deployment; prior real customer testing accepted",
+  "merge": {
+    "method": "squash",
+    "reviewed_head": "0772e8c3332adf3ed5162be17218c1f66236db0b",
+    "merged_commit": "913ea4c668f4176da2cd03925dd6613eecd75164",
+    "base": "56f89fbc2d19406efd7f1ef075646446787555cb",
+    "reviewed_tree": "07eeea5a09e65f81d6c835ef63786e1729c9a15d",
+    "merged_tree": "07eeea5a09e65f81d6c835ef63786e1729c9a15d",
+    "tree_identical": true,
+    "expected_commits": [
+      "dcb9e5d45e7c10adfb509a22214b244952afdc72",
+      "b4e79ce17ffc7b12673b47fe4153523f994aea1c",
+      "3c3758dbfaeca0d03857e4e4009997fc57aca4cd",
+      "6e985d72e4fa7d3700b3d43efd660a20c75ddbb9",
+      "988014ff68584b2a1c02faa2fd30ebaf9586acf4",
+      "dc8077f0daad7fc96ddebd8f7b6d2c905ed3a3f6",
+      "518c8367a8f51b5631cd69db91ff0628265712c9",
+      "4cad6831b606579b828e5f708616a66aa0da53fd",
+      "b9886fb3f268880667dd30dba87fc090560f5e69",
+      "3eb2747cef49f74d653f8648320017678a673189",
+      "0772e8c3332adf3ed5162be17218c1f66236db0b"
+    ],
+    "changed_files": 50,
+    "unexpected_commits_or_diff": false,
+    "checks": [
+      {
+        "name": "Vercel Preview Comments",
+        "conclusion": "success",
+        "url": "https://vercel.com/github"
+      },
+      {
+        "name": "verify",
+        "conclusion": "success",
+        "url": "https://github.com/bolehejassolutions/bros-sell-web-os/actions/runs/37095714352/job/111125097010"
+      }
+    ],
+    "required_contexts": [],
+    "main_branch_protected": false,
+    "merged": true
+  },
+  "preview": {
+    "deployment_id": "dpl_CeV4kkzamshS2RMLpnwcMAij4QcU",
+    "url": "https://bros-sell-web-lzf4ahmc2-bolehejassolutions-8492.vercel.app",
+    "sha": "0772e8c3332adf3ed5162be17218c1f66236db0b",
+    "state": "READY",
+    "checked_at": "2026-10-03T06:26:58.512Z",
+    "live_checks": "passed before merge"
+  },
+  "production": {
+    "deployment_id": "dpl_83SE7k2AUfB1XL3DAd9Qo5verDd4",
+    "url": "https://bros-sell-web-mix005ndc-bolehejassolutions-8492.vercel.app",
+    "public_url": "https://brossell.bolehejas.com",
+    "sha": "913ea4c668f4176da2cd03925dd6613eecd75164",
+    "target": "production",
+    "state": "READY",
+    "created_at": "2026-10-03T06:28:04.847Z",
+    "ready_at": "2026-10-03T06:28:39.199Z",
+    "git_integration_deploy": true,
+    "build_logs_connector": "unavailable (provider tool not found); normal build passed in reviewed CI and Production deployment reached READY"
+  },
+  "http_smoke": {
+    "checked_at": "2026-10-03T06:32:25.050Z",
+    "origin": "https://brossell.bolehejas.com",
+    "merge_sha": "913ea4c668f4176da2cd03925dd6613eecd75164",
+    "reviewed_head": "0772e8c3332adf3ed5162be17218c1f66236db0b",
+    "project": "cyryoirzxpvummckegyh",
+    "http": [
+      {
+        "path": "/",
+        "method": "GET",
+        "status": 307,
+        "location": "/login",
+        "cache_control": "private, no-cache, no-store, max-age=0, must-revalidate"
+      },
+      {
+        "path": "/app",
+        "method": "GET",
+        "status": 307,
+        "location": "/login",
+        "cache_control": "private, no-cache, no-store, max-age=0, must-revalidate"
+      },
+      {
+        "path": "/app/operator-dashboard",
+        "method": "GET",
+        "status": 307,
+        "location": "/login",
+        "cache_control": "private, no-cache, no-store, max-age=0, must-revalidate"
+      },
+      {
+        "path": "/app/resources",
+        "method": "GET",
+        "status": 307,
+        "location": "/login",
+        "cache_control": "private, no-cache, no-store, max-age=0, must-revalidate"
+      },
+      {
+        "path": "/login",
+        "method": "GET",
+        "status": 200,
+        "location": null,
+        "cache_control": "public, max-age=0, must-revalidate"
+      },
+      {
+        "path": "/activate",
+        "method": "GET",
+        "status": 200,
+        "location": null,
+        "cache_control": "public, max-age=0, must-revalidate"
+      },
+      {
+        "path": "/api/sales-cases",
+        "method": "GET",
+        "status": 401,
+        "location": null,
+        "cache_control": "private, no-store"
+      },
+      {
+        "path": "/api/sales-cases",
+        "method": "POST",
+        "status": 401,
+        "location": null,
+        "cache_control": "private, no-store"
+      },
+      {
+        "path": "/api/sales-cases/00000000-0000-4000-8000-000000000000",
+        "method": "PUT",
+        "status": 401,
+        "location": null,
+        "cache_control": "private, no-store"
+      },
+      {
+        "path": "/api/customer/closing-os",
+        "method": "GET",
+        "status": 401,
+        "location": null,
+        "cache_control": "public, max-age=0, must-revalidate"
+      },
+      {
+        "path": "/auth/callback",
+        "method": "GET",
+        "status": 307,
+        "location": "/login",
+        "cache_control": "public, max-age=0, must-revalidate"
+      }
+    ],
+    "assets": [
+      {
+        "path": "/_next/static/immutable/chunks/2corl6wyj4669.js",
+        "status": 200
+      },
+      {
+        "path": "/_next/static/immutable/chunks/1qn5yev5ht7bs.js",
+        "status": 200
+      },
+      {
+        "path": "/_next/static/immutable/chunks/3srpje8f220j9.js",
+        "status": 200
+      },
+      {
+        "path": "/_next/static/immutable/chunks/3pmbnm83rbi0f.js",
+        "status": 200
+      },
+      {
+        "path": "/_next/static/immutable/chunks/turbopack-3p7p1d4o4ruj4.js",
+        "status": 200
+      },
+      {
+        "path": "/_next/static/immutable/chunks/25kvgcvbp6c14.js",
+        "status": 200
+      },
+      {
+        "path": "/_next/static/immutable/chunks/28fkf9f9btak4.js",
+        "status": 200
+      },
+      {
+        "path": "/_next/static/immutable/chunks/0c0hxoamwjsbw.js",
+        "status": 200
+      },
+      {
+        "path": "/_next/static/immutable/chunks/2a9m8dxh7aadk.js",
+        "status": 200
+      }
+    ],
+    "failures": [],
+    "authenticated_checks": {
+      "source": "user-accepted prior Account A/B, isolation and signed-download testing",
+      "new_authenticated_production_session": false,
+      "fresh_production_crud_refresh_not_observed": true
+    },
+    "published_supabase_hosts": [
+      "cyryoirzxpvummckegyh.supabase.co"
+    ],
+    "recovery": {
+      "contact": true,
+      "mail_link": true,
+      "purchase_email": true,
+      "receipt": true,
+      "no_secrets": true,
+      "refund_window": true,
+      "hitpay_package_separate": true,
+      "maintained_companion": true
+    },
+    "auth_settings": {
+      "status": 200,
+      "google_enabled": true,
+      "email_auto_confirm": false
+    },
+    "google_oauth_entry": {
+      "status": 302,
+      "redirect_host": "accounts.google.com",
+      "provider_callback_host": "cyryoirzxpvummckegyh.supabase.co"
+    },
+    "direct_anonymous": [
+      {
+        "name": "table",
+        "status": 401,
+        "denied": true
+      },
+      {
+        "name": "entitlement RPC",
+        "status": 401,
+        "denied": true
+      },
+      {
+        "name": "PDF signing",
+        "status": 400,
+        "denied": true
+      },
+      {
+        "name": "public PDF",
+        "status": 400,
+        "denied": true
+      }
+    ],
+    "marketing_landing": {
+      "url": "https://bros.bolehejas.com/",
+      "status": 200,
+      "branding_present": true
+    },
+    "anonymous_and_public_smoke": "passed"
+  },
+  "browser_smoke": {
+    "run_id": 37103682016,
+    "url": "https://github.com/bolehejassolutions/bros-sell-web-os/actions/runs/37103682016",
+    "conclusion": "success",
+    "job_id": 111147973016,
+    "started_at": "2026-10-03T06:37:36Z",
+    "completed_at": "2026-10-03T06:38:33Z",
+    "verification_branch": "verify/production-913ea4c",
+    "verification_source": "65d39d8ea356801a8e41a8803425203e87f9b97c",
+    "production_sha": "913ea4c668f4176da2cd03925dd6613eecd75164",
+    "scope": "Live anonymous Production Chromium, login UI and Google OAuth initiation only; no customer login/email submission/mutation",
+    "viewports": [
+      {
+        "width": 360,
+        "status": "passed",
+        "login_forms": true,
+        "recovery_contact": true,
+        "protected_redirects": true,
+        "no_horizontal_overflow": true,
+        "no_clipped_controls": true,
+        "no_page_or_console_errors": true,
+        "no_next_error_overlay": true
+      },
+      {
+        "width": 390,
+        "status": "passed",
+        "login_forms": true,
+        "recovery_contact": true,
+        "protected_redirects": true,
+        "no_horizontal_overflow": true,
+        "no_clipped_controls": true,
+        "no_page_or_console_errors": true,
+        "no_next_error_overlay": true
+      },
+      {
+        "width": 430,
+        "status": "passed",
+        "login_forms": true,
+        "recovery_contact": true,
+        "protected_redirects": true,
+        "no_horizontal_overflow": true,
+        "no_clipped_controls": true,
+        "no_page_or_console_errors": true,
+        "no_next_error_overlay": true
+      },
+      {
+        "width": 1280,
+        "status": "passed",
+        "login_forms": true,
+        "recovery_contact": true,
+        "protected_redirects": true,
+        "no_horizontal_overflow": true,
+        "no_clipped_controls": true,
+        "no_page_or_console_errors": true,
+        "no_next_error_overlay": true
+      }
+    ],
+    "google_entry": {
+      "project": "cyryoirzxpvummckegyh.supabase.co",
+      "callback": "https://brossell.bolehejas.com/auth/callback",
+      "provider": "accounts.google.com",
+      "status": 302,
+      "login_completed": false
+    },
+    "artifact": {
+      "id": 11266954372,
+      "url": "https://github.com/bolehejassolutions/bros-sell-web-os/actions/runs/37103682016/artifacts/11266954372",
+      "digest": "sha256:ac5faacaf435529ff6f469801d6fc47d14a8e926e56238c9c108b87b6632b1e9",
+      "size_in_bytes": 741258,
+      "expires_at": "2026-10-10T06:38:28Z",
+      "files": 17,
+      "screenshots": 16
+    },
+    "human_visual_inspection": false
+  },
+  "customer_evidence": {
+    "account_a_b": "Accepted by user as previously tested",
+    "real_account_isolation": "Accepted by user; not repeated",
+    "signed_download": "Accepted by user; not repeated",
+    "sales_case_crud_refresh_dashboard": "Passing reviewed application/fixture checks plus accepted previous customer evidence; not a fresh agent-observed authenticated Production session",
+    "fresh_authenticated_production_session": false,
+    "retest_requested": false
+  },
+  "supabase": {
+    "project": "cyryoirzxpvummckegyh",
+    "evidence": [
+      "Compiled Production client host",
+      "Real Production Google OAuth request/callback",
+      "Live anonymous table/RPC/Storage checks"
+    ],
+    "migration": "20261002074235_sales_case_operating_loop",
+    "migration_reapplied": false,
+    "schema_changed": false,
+    "entitlements_changed": false
+  },
+  "fulfilment": {
+    "mode": "manual",
+    "canonical_product": "BROS_SELL_CORE",
+    "access_level": "core",
+    "source": "manual",
+    "payment_reference_and_email_match_required": true,
+    "hitpay_package_separate": true,
+    "maintained_online_companion": true,
+    "support": "brossell@bolehejas.com",
+    "post_grant_checks": [
+      "/app",
+      "one protected resource"
+    ],
+    "refund_request_window_calendar_days": 30,
+    "new_payment": false,
+    "new_grant_or_recovery": false,
+    "new_mailbox_delivery_test": false,
+    "automation_proven": false
+  },
+  "observability": {
+    "production_since": "2026-10-03T06:28:04.847Z",
+    "runtime_error_query": "No runtime errors found in selected range after HTTP and browser smoke",
+    "material_regression_observed": false
+  },
+  "rollback": {
+    "used": false,
+    "application_only": true,
+    "previous_deployment": "dpl_9CSGHQH3CuHymXK19ga8LnYt9XrN",
+    "previous_sha": "56f89fbc2d19406efd7f1ef075646446787555cb",
+    "sales_case_table_and_customer_data_preserved": true
+  },
+  "known_limitations": [
+    "Manual payment/reference matching and entitlement fulfilment; no proven automatic provisioning",
+    "No freshly completed authenticated Production customer session by the agent; prior customer evidence accepted by owner",
+    "Leaked password protection disabled on previously verified Free tier with password auth active; paid-tier hardening not changed",
+    "Pinned Next dependency advisory retained; no affected next/og ImageResponse use found (scope-based inference)"
+  ],
+  "constraints_preserved": {
+    "pricing": true,
+    "hitpay_configuration": true,
+    "entitlement_policy": true,
+    "refund_policy": true,
+    "customer_entitlements": true,
+    "supabase_schema": true,
+    "no_spending": true,
+    "no_new_payment": true
+  },
+  "next_phase": {
+    "feature_expansion": "stopped",
+    "objective": "First 10 paying customers organically",
+    "p1_basis": "Actual Sales Case behaviour, recorded friction, actions and outcomes"
+  }
+}
