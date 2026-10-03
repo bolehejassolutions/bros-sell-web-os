@@ -59,6 +59,11 @@ try {
     await context.addCookies([{ ...fixtureCookie('a'), url: base, sameSite: 'Lax' }]);
     const title = `RM500 customer journey ${width}`;
     try {
+      await page.goto(`${base}/activate`);
+      await page.getByRole('heading', { name: 'Akses akaun perlu disemak.', exact: true }).waitFor();
+      assert.equal(await page.getByRole('link', { name: 'brossell@bolehejas.com', exact: true }).getAttribute('href'), 'mailto:brossell%40bolehejas.com?subject=BROS%20SELL%20access%20recovery');
+      assert.match(await page.locator('body').innerText(), /30 hari kalendar dari tarikh pembelian/);
+      await layout(page, width, 'recovery');
       await page.goto(`${base}/app`);
       await page.getByRole('button', { name: 'Bina case & analisis', exact: true }).waitFor();
       assert.equal(await page.locator('.case-onboarding li').count(), 4, 'First-use operating instructions');

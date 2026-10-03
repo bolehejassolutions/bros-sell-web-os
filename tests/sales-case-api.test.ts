@@ -28,5 +28,13 @@ test('HTTP account persistence, ownership, concurrency, input validation and ent
   assert.equal((await fetch(`${base}/api/customer/closing-os`,{headers:headers('c')})).status,403);
   const app=await fetch(`${base}/app`,{headers:headers('a')}); assert.equal(app.status,200); assert.match(await app.text(),/Mulakan dengan satu situasi sebenar/);
   const unavailable=await fetch(`${base}/app`,{headers:headers('c'),redirect:'manual'}); assert.equal(unavailable.status,307); assert.equal(new URL(unavailable.headers.get('location')!,base).pathname,'/activate');
-  const recovery=await fetch(`${base}/activate`); assert.equal(recovery.status,200); assert.match(await recovery.text(),/Akses akaun perlu disemak/);
+  const recovery=await fetch(`${base}/activate`); assert.equal(recovery.status,200);
+  const recoveryHtml=await recovery.text();
+  assert.match(recoveryHtml,/Akses akaun perlu disemak/);
+  assert.match(recoveryHtml,/mailto:brossell%40bolehejas\.com\?subject=BROS%20SELL%20access%20recovery/);
+  assert.match(recoveryHtml,/menggunakan email pembelian/);
+  assert.match(recoveryHtml,/rujukan pesanan atau resit HitPay/);
+  assert.match(recoveryHtml,/Jangan hantar password, OTP atau maklumat kad/);
+  assert.match(recoveryHtml,/30 hari kalendar dari tarikh pembelian/);
+  assert.match(recoveryHtml,/HitPay menghantar pakej pelanggan/);
 });
