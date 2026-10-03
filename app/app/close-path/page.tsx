@@ -1,7 +1,10 @@
 "use client";
 
-import { useMemo, useState } from "react";
-import { BROS_LEAD_STATES } from "@/lib/bros-sell/system-registry";
+import { useCaseToolState, useSalesCases } from "../sales-case-provider";
+import CaseLink from "../case-link";
+
+import { useMemo } from "react";
+import { diagnoseCase } from "@/lib/bros-sell/sales-case";
 
 const steps = [
  {id:1,key:"FIT",question:"Adakah solution sesuai dengan situasi buyer?",evidence:"Need + fit + reasonable expectation",clear:"Proceed",unclear:"Clarify / exit",move:"Confirm fit",buyer:"Confirm fit"},
@@ -21,21 +24,21 @@ const closes = [
 ] as const;
 
 type Decision = "" | "Yes" | "No" | "Not Now" | "More Info";
-type State = typeof BROS_LEAD_STATES[number];
+
 
 export default function ClosePathPage(){
- const [answers,setAnswers]=useState<Record<number,"Clear"|"Unclear">>({});
- const [leadState,setLeadState]=useState<State>("Aware");
- const [decision,setDecision]=useState<Decision>("");
- const [barrier,setBarrier]=useState("");
- const [nextStep,setNextStep]=useState("");
- const [closeType,setCloseType]=useState("");
+ const [answers,setAnswers]=useCaseToolState<Record<number,"Clear"|"Unclear">>("close-path","answers",{});
+ const { active } = useSalesCases();
+ const leadState = active ? diagnoseCase(active.document).leadState : "Unknown";
+ const decision: Decision = active?.document.status === "closed" ? "Yes" : ({yes:"Yes",no:"No",lost:"No",not_now:"Not Now",delayed_decision:"Not Now",more_info:"More Info"} as Record<string,Decision>)[active?.document.observation ?? "unknown"] ?? "";
+ const [barrier,setBarrier]=useCaseToolState("close-path","barrier","");
+ const [nextStep,setNextStep]=useCaseToolState("close-path","nextStep","");
  const set=(n:number,v:"Clear"|"Unclear")=>setAnswers(p=>({...p,[n]:v}));
  const firstUnclear=useMemo(()=>steps.find(s=>answers[s.id]==="Unclear"),[answers]);
  const allClear=steps.every(s=>answers[s.id]==="Clear");
  const recommended=decision==="Yes" && allClear ? "DIRECT CLOSE" : decision==="More Info" ? "CONDITIONAL CLOSE" : allClear ? "CHOICE CLOSE" : "CLARIFY FIRST";
  return <main className="container" style={{padding:"28px 0 60px"}}>
-  <header className="app-header"><div><div className="brand" style={{fontSize:24}}>BROS SELL™</div><div className="muted">Close Path Decision Tree</div></div><div style={{display:"flex",gap:8}}><a className="btn secondary" href="/app">Analyzer</a><a className="btn secondary" href="/app/resources">Resources</a></div></header>
+  <header className="app-header"><div><div className="brand" style={{fontSize:24}}>BROS SELL™</div><div className="muted">Close Path Decision Tree</div></div><div style={{display:"flex",gap:8}}><CaseLink className="btn secondary" href="/app">Analyzer</CaseLink><CaseLink className="btn secondary" href="/app/resources">Resources</CaseLink></div></header>
   <section className="hero"><p className="muted">CLOSE → DECISION</p><h1>Close Path Decision Tree</h1><p className="muted hero-copy">Create clarity and choose the appropriate next step — not to force a sale.</p></section>
   <section className="card resource-section"><div className="eyebrow">BROS CLOSE PATH</div><div className="decision-flow">{steps.map((s,i)=><span key={s.id}><b>{s.id}. {s.key}</b>{i<steps.length-1&&<b> → </b>}</span>)}</div></section>
   <section className="card resource-section"><div className="eyebrow">DECISION CHECK</div><div className="resource-grid">
@@ -46,11 +49,11 @@ export default function ClosePathPage(){
    </article>)}
   </div></section>
   <section className="card resource-section"><div className="eyebrow">ROUTING</div><h2>{firstUnclear ? `Clarify Step ${firstUnclear.id}: ${firstUnclear.key}` : allClear ? "Path is clear — move to decision." : "Complete the decision checks."}</h2><p className="muted">{firstUnclear ? firstUnclear.question+" "+firstUnclear.unclear+" before selecting a close." : allClear ? "Fit, problem, outcome, solution fit and barrier are sufficiently clear to move toward choice." : "Use the evidence/signal column to classify each step rather than relying on seller assumption."}</p></section>
-  <section className="card resource-section"><div className="eyebrow">CLOSE SELECTION</div><div className="form-grid"><label><span>Current Lead State</span><select className="input" value={leadState} onChange={e=>setLeadState(e.target.value as State)}>{BROS_LEAD_STATES.map(s=><option key={s}>{s}</option>)}</select></label><label><span>Decision</span><select className="input" value={decision} onChange={e=>setDecision(e.target.value as Decision)}><option value="">Select...</option><option>Yes</option><option>No</option><option>Not Now</option><option>More Info</option></select></label></div>
+  <section className="card resource-section"><div className="eyebrow">CLOSE SELECTION</div><div className="form-grid"><label><span>Current Lead State</span><input className="input" value={leadState} readOnly /></label><label><span>Decision</span><input className="input" value={decision || "Belum direkod"} readOnly /></label></div>
    <div className="resource-grid" style={{marginTop:18}}>{closes.map(([name,use,script])=><article className={recommended===name?"resource-card refined":"resource-card"} key={name}><small className="muted">{name}</small><h2>{use}</h2><p>“{script}”</p></article>)}</div>
    <div className="result-block" style={{marginTop:18}}><small className="muted">CURRENT RECOMMENDATION</small><div className="result-stage">{recommended}</div><p className="field-note">Recommendation follows readiness and decision context, not seller preference.</p></div>
   </section>
-  <section className="card resource-section"><div className="eyebrow">DECISION RECORD</div><div className="resource-grid">
+  <section className="card resource-section"><div className="eyebrow">DECISION RECORD</div><p className="muted">Decision mengikuti hasil sebenar case. Rekod respons dan bukti dalam Operating Loop di bawah.</p><div className="resource-grid">
    <label className="field-label"><span>Current Lead State</span><input className="input" value={leadState} readOnly /></label>
    <label className="field-label"><span>Decision</span><input className="input" value={decision||"Not recorded"} readOnly /></label>
    <label className="field-label"><span>Barrier Remaining</span><textarea className="input textarea compact" rows={3} value={barrier} onChange={e=>setBarrier(e.target.value)} placeholder="Write the actual unresolved barrier, if any." /></label>

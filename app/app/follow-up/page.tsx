@@ -1,6 +1,10 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useCaseToolState, useSalesCases } from "../sales-case-provider";
+import CaseLink from "../case-link";
+
+import { useMemo } from "react";
+import { diagnoseCase } from "@/lib/bros-sell/sales-case";
 
 const levels = [
 ["1 — REMIND","Bring the existing conversation back into view.","Recent conversation / quotation / promised action.","Context + brief reminder + easy response.","Saya follow up semula tentang [context] yang kita bincang. Masih relevan untuk anda?","Reply / update / no response","If relevant → continue. If not → clarify.","Repeated non-response without meaningful reason to continue."],
@@ -23,26 +27,27 @@ const qa = [
 ];
 
 export default function FollowUpLadderPage(){
- const [level,setLevel]=useState(0);
- const [leadContext,setLeadContext]=useState("");
- const [state,setState]=useState("");
- const [event,setEvent]=useState("");
- const [purpose,setPurpose]=useState<(typeof purposes)[number]>("REMIND");
- const [draft,setDraft]=useState("");
- const [decision,setDecision]=useState("");
- const [nextStep,setNextStep]=useState("");
- const [stop,setStop]=useState("");
- const [checks,setChecks]=useState<boolean[]>([]);
+ const [level,setLevel]=useCaseToolState("follow-up","level",0);
+ const [leadContext,setLeadContext]=useCaseToolState("follow-up","leadContext","");
+ const { active } = useSalesCases();
+ const state = active ? diagnoseCase(active.document).leadState : "Unknown";
+ const [event,setEvent]=useCaseToolState("follow-up","event","");
+ const [purpose,setPurpose]=useCaseToolState<(typeof purposes)[number]>("follow-up","purpose","REMIND");
+ const [draft,setDraft]=useCaseToolState("follow-up","draft","");
+ const [decision,setDecision]=useCaseToolState("follow-up","decision","");
+ const [nextStep,setNextStep]=useCaseToolState("follow-up","nextStep","");
+ const [stop,setStop]=useCaseToolState("follow-up","stop","");
+ const [checks,setChecks]=useCaseToolState<boolean[]>("follow-up","checks",[]);
  const selected=levels[level];
  const filtered=useMemo(()=>levels.findIndex(x=>x[0].includes(purpose)),[purpose]);
  const preview=draft||levels[filtered<0?level:filtered][4];
  const setPurposeAndLevel=(p:(typeof purposes)[number])=>{setPurpose(p);const i=levels.findIndex(x=>x[0].includes(p));if(i>=0)setLevel(i);setDraft("");};
  return <main className="container" style={{padding:"28px 0 60px"}}>
-  <header className="app-header"><div><div className="brand" style={{fontSize:24}}>BROS SELL™</div><div className="muted">Follow-Up Ladder Library</div></div><div style={{display:"flex",gap:8}}><a className="btn secondary" href="/app">Analyzer</a><a className="btn secondary" href="/app/resources">Resources</a></div></header>
+  <header className="app-header"><div><div className="brand" style={{fontSize:24}}>BROS SELL™</div><div className="muted">Follow-Up Ladder Library</div></div><div style={{display:"flex",gap:8}}><CaseLink className="btn secondary" href="/app">Analyzer</CaseLink><CaseLink className="btn secondary" href="/app/resources">Resources</CaseLink></div></header>
   <section className="hero"><p className="muted">REMIND → CLARIFY → REINFORCE → DIAGNOSE → DECIDE → RE-ENTER</p><h1>Follow-Up Ladder</h1><p className="muted hero-copy">Follow-up is a continuation of the sales process: every touch should have a purpose, context, value and next move.</p></section>
   <section className="card resource-section"><div className="eyebrow">FOLLOW-UP LADDER</div><div className="decision-flow">{levels.map((x,i)=><button type="button" className={i===level?"btn":"btn secondary"} key={x[0]} onClick={()=>{setLevel(i);setPurpose(x[0].split(" — ")[1] as typeof purposes[number]);setDraft("");}}>{x[0]}</button>)}</div></section>
   <section className="card resource-section"><div className="eyebrow">SELECT PURPOSE</div><div className="form-grid"><label><span>Purpose</span><select className="input" value={purpose} onChange={e=>setPurposeAndLevel(e.target.value as typeof purposes[number])}>{purposes.map(x=><option key={x}>{x}</option>)}</select></label><div className="resource-card"><small className="muted">WHEN TO USE</small><p>{selected[2]}</p></div></div></section>
-  <section className="card resource-section"><div className="eyebrow">FOLLOW-UP PLANNER</div><div className="resource-grid"><label className="field-label"><span>Lead / Context</span><textarea className="input textarea" rows={3} value={leadContext} onChange={e=>setLeadContext(e.target.value)} placeholder="Who / what conversation is this?" /></label><label className="field-label"><span>Current State</span><textarea className="input textarea" rows={3} value={state} onChange={e=>setState(e.target.value)} placeholder="Current Lead State / relevant status." /></label><label className="field-label"><span>Last Meaningful Event</span><textarea className="input textarea" rows={3} value={event} onChange={e=>setEvent(e.target.value)} placeholder="What actually happened last?" /></label><label className="field-label"><span>Purpose of Next Touch</span><input className="input" value={purpose} readOnly /></label></div></section>
+  <section className="card resource-section"><div className="eyebrow">FOLLOW-UP PLANNER</div><div className="resource-grid"><label className="field-label"><span>Lead / Context</span><textarea className="input textarea" rows={3} value={leadContext} onChange={e=>setLeadContext(e.target.value)} placeholder="Who / what conversation is this?" /></label><label className="field-label"><span>Current State</span><textarea className="input textarea" rows={3} value={state} readOnly placeholder="Current Lead State / relevant status." /></label><label className="field-label"><span>Last Meaningful Event</span><textarea className="input textarea" rows={3} value={event} onChange={e=>setEvent(e.target.value)} placeholder="What actually happened last?" /></label><label className="field-label"><span>Purpose of Next Touch</span><input className="input" value={purpose} readOnly /></label></div></section>
   <section className="card resource-section"><div className="eyebrow">DRAFT MESSAGE</div><div className="resource-grid"><article className="resource-card"><small className="muted">MESSAGE PATTERN</small><p>{selected[3]}</p></article><article className="resource-card"><small className="muted">SOURCE EXAMPLE</small><p>“{selected[4]}”</p></article></div><label className="field-label" style={{marginTop:18}}><span>Adapted message</span><textarea className="input textarea" rows={5} value={draft} onChange={e=>setDraft(e.target.value)} placeholder={selected[4]} /></label><div className="result-block" style={{marginTop:18}}><small className="muted">MESSAGE PREVIEW</small><div className="result-stage" style={{whiteSpace:"pre-wrap"}}>{preview}</div></div></section>
   <section className="card resource-section"><div className="eyebrow">EXPECTED SIGNAL → NEXT MOVE</div><div className="resource-grid"><article className="resource-card"><small className="muted">EXPECTED SIGNAL</small><h2>{selected[5]}</h2></article><article className="resource-card"><small className="muted">NEXT MOVE</small><h2>{selected[6]}</h2></article><article className="resource-card"><small className="muted">STOP / EXIT</small><h2>{selected[7]}</h2></article></div><div className="form-grid" style={{marginTop:18}}><label><span>Expected Decision / Signal observed</span><input className="input" value={decision} onChange={e=>setDecision(e.target.value)} placeholder="What happened?" /></label><label><span>Next Step</span><input className="input" value={nextStep} onChange={e=>setNextStep(e.target.value)} placeholder="What happens next?" /></label></div><label className="field-label" style={{marginTop:18}}><span>Stop / Exit condition</span><input className="input" value={stop} onChange={e=>setStop(e.target.value)} placeholder={selected[7]} /></label></section>
   <section className="card resource-section"><div className="eyebrow">FOLLOW-UP QUALITY CHECK</div><div className="resource-grid">{qa.map((q,i)=><label className="resource-card" key={q}><span style={{display:"flex",gap:10,alignItems:"flex-start"}}><input type="checkbox" checked={Boolean(checks[i])} onChange={e=>setChecks(p=>{const n=[...p];n[i]=e.target.checked;return n;})}/><span>{q}</span></span></label>)}</div></section>

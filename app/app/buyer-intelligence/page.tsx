@@ -1,6 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useCaseToolState } from "../sales-case-provider";
+import CaseLink from "../case-link";
+
 
 const canvasFields = [
   ["WHO","Siapa buyer / decision participant?","Role, business context, relevant characteristics."],
@@ -23,15 +25,15 @@ const questions = [
 ] as const;
 
 export default function BuyerIntelligencePage(){
-  const [answers,setAnswers]=useState<Record<string,string>>({});
-  const [synthesis,setSynthesis]=useState<Record<string,string>>({});
+  const [answers,setAnswers]=useCaseToolState<Record<string,string>>("buyer-intelligence","answers",{});
+  const [synthesis,setSynthesis]=useCaseToolState<Record<string,string>>("buyer-intelligence","synthesis",{});
   const set=(key:string,value:string)=>setAnswers(prev=>({...prev,[key]:value}));
   const setSyn=(key:string,value:string)=>setSynthesis(prev=>({...prev,[key]:value}));
 
   return <main className="container" style={{padding:"28px 0 60px"}}>
     <header className="app-header">
       <div><div className="brand" style={{fontSize:24}}>BROS SELL™</div><div className="muted">Buyer Intelligence</div></div>
-      <div style={{display:"flex",gap:8}}><a className="btn secondary" href="/app">Analyzer</a><a className="btn secondary" href="/app/resources">Resources</a></div>
+      <div style={{display:"flex",gap:8}}><CaseLink className="btn secondary" href="/app">Analyzer</CaseLink><CaseLink className="btn secondary" href="/app/resources">Resources</CaseLink></div>
     </header>
 
     <section className="hero">

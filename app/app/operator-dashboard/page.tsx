@@ -1,6 +1,11 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useCaseToolState } from "../sales-case-provider";
+import CaseLink from "../case-link";
+
+import { useMemo } from "react";
+import OperatingCaseList from '../operating-case-list';
+import { useSalesCases } from '../sales-case-provider';
 
 type Metric = {
   name: string;
@@ -24,16 +29,17 @@ const metrics: Metric[] = [
 ];
 
 export default function OperatorDashboardPage() {
-  const [values, setValues] = useState<Record<string, { target: string; actual: string }>>(
+  const { active } = useSalesCases();
+  const [values, setValues] = useCaseToolState<Record<string, { target: string; actual: string }>>("operator-dashboard","values",
     Object.fromEntries(metrics.map((metric) => [metric.name, { target: "", actual: "" }]))
   );
-  const [bottleneck, setBottleneck] = useState("");
-  const [nextMove, setNextMove] = useState("");
+  const [bottleneck, setBottleneck] = useCaseToolState("operator-dashboard","bottleneck","");
+  const [nextMove, setNextMove] = useCaseToolState("operator-dashboard","nextMove","");
 
   const rows = useMemo(() => metrics.map((metric) => {
     const target = Number(values[metric.name]?.target);
     const actual = Number(values[metric.name]?.actual);
-    const ready = Number.isFinite(target) && Number.isFinite(actual) && target > 0 && actual >= 0;
+    const ready = !!values[metric.name]?.target.trim() && !!values[metric.name]?.actual.trim() && Number.isFinite(target) && Number.isFinite(actual) && target > 0 && actual >= 0;
     const variance = ready ? actual - target : null;
     const rate = ready ? actual / target : null;
     const onTarget = ready
@@ -57,8 +63,8 @@ export default function OperatorDashboardPage() {
           <div className="muted">Operator Dashboard</div>
         </div>
         <div style={{display:"flex",gap:8}}>
-          <a className="btn secondary" href="/app/target-calculator">Target Calculator</a>
-          <a className="btn secondary" href="/app/resources">Resources</a>
+          <CaseLink className="btn secondary" href="/app/target-calculator">Target Calculator</CaseLink>
+          <CaseLink className="btn secondary" href="/app/resources">Resources</CaseLink>
         </div>
       </header>
 
@@ -66,12 +72,14 @@ export default function OperatorDashboardPage() {
         <p className="muted">OPERATE → DIAGNOSE → ADJUST</p>
         <h1>Operator Dashboard</h1>
         <p className="muted hero-copy">
-          Masukkan Target dan Actual untuk melihat variance, rate dan status operasi.
-          Gunakan dashboard ini untuk mencari bottleneck sebelum menambah aktiviti upstream.
+          Semak Sales Cases yang memerlukan perhatian, hasil yang belum direkod dan next action.
+          Utamakan kekangan sebenar sebelum menambah aktiviti.
         </p>
       </section>
 
-      <section className="card resource-section">
+      <OperatingCaseList />
+      {active && <details className="card"><summary>Metrik manual dan nota operasi · {active.document.title}</summary><p className="muted">Metrik ini diisi oleh anda dan disimpan bersama case semasa; ia bukan laporan hasil jualan automatik.</p>
+      <section className="resource-section">
         <div className="eyebrow">OPERATING METRICS</div>
         <div style={{overflowX:"auto"}}>
           <table style={{width:"100%",borderCollapse:"collapse",minWidth:820}}>
@@ -135,6 +143,7 @@ export default function OperatorDashboardPage() {
           Dashboard ini ialah alat diagnosis operasi, bukan jaminan revenue. Jika satu stage menjadi constraint, ubah assumption atau proses pada stage tersebut sebelum sekadar menambah lead.
         </p>
       </section>
+      </details>}
     </main>
   );
 }

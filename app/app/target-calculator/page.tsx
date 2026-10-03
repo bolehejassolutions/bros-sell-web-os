@@ -1,6 +1,9 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useCaseToolState } from "../sales-case-provider";
+import CaseLink from "../case-link";
+
+import { useMemo } from "react";
 import { BROS_SALES_FUNNEL_FORMULAS } from "@/lib/bros-sell/system-registry";
 import { calculateSalesTarget } from "@/lib/bros-sell/sales-target";
 
@@ -9,11 +12,11 @@ function whole(value: number) {
 }
 
 export default function TargetCalculatorPage() {
-  const [revenueTarget, setRevenueTarget] = useState("10000");
-  const [averageDealSize, setAverageDealSize] = useState("500");
-  const [closeRate, setCloseRate] = useState("25");
-  const [qualificationRate, setQualificationRate] = useState("50");
-  const [conversationRate, setConversationRate] = useState("20");
+  const [revenueTarget, setRevenueTarget] = useCaseToolState("target-calculator","revenueTarget","10000");
+  const [averageDealSize, setAverageDealSize] = useCaseToolState("target-calculator","averageDealSize","500");
+  const [closeRate, setCloseRate] = useCaseToolState("target-calculator","closeRate","25");
+  const [qualificationRate, setQualificationRate] = useCaseToolState("target-calculator","qualificationRate","50");
+  const [conversationRate, setConversationRate] = useCaseToolState("target-calculator","conversationRate","20");
 
   const result = useMemo(() => {
     return calculateSalesTarget({
@@ -33,8 +36,8 @@ export default function TargetCalculatorPage() {
           <div className="muted">Target Calculator</div>
         </div>
         <div style={{display:"flex",gap:8}}>
-          <a className="btn secondary" href="/app">Analyzer</a>
-          <a className="btn secondary" href="/app/resources">Resources</a>
+          <CaseLink className="btn secondary" href="/app">Analyzer</CaseLink>
+          <CaseLink className="btn secondary" href="/app/resources">Resources</CaseLink>
         </div>
       </header>
 

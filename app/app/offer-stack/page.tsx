@@ -1,6 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useCaseToolState } from "../sales-case-provider";
+import CaseLink from "../case-link";
+
 
 const fields = [
   ["PROBLEM","Masalah utama yang diselesaikan","State the relevant problem in buyer language."],
@@ -13,14 +15,14 @@ const fields = [
 ] as const;
 
 export default function OfferStackPage(){
-  const [values,setValues]=useState<Record<string,string>>({});
+  const [values,setValues]=useCaseToolState<Record<string,string>>("offer-stack","values",{});
   const set=(k:string,v:string)=>setValues(p=>({...p,[k]:v}));
   const line=(k:string)=>values[k]||"";
   const oneLine=`Untuk ${line("PROBLEM") ? "buyer yang menghadapi "+line("PROBLEM") : "[buyer]"}, kami membantu ${line("PROBLEM")||"[problem]"} supaya ${line("OUTCOME")||"[outcome]"} melalui ${line("MECHANISM")||"[mechanism]"}.`;
   const bridge=[line("PROBLEM"),line("OUTCOME"),line("MECHANISM"),line("PROOF"),line("RISK REDUCTION"),line("INVESTMENT")].filter(Boolean).join(" → ");
   return <main className="container" style={{padding:"28px 0 60px"}}>
-    <header className="app-header"><div><div className="brand" style={{fontSize:24}}>BROS SELL™</div><div className="muted">Offer Stack Builder</div></div><div style={{display:"flex",gap:8}}><a className="btn secondary" href="/app">Analyzer</a><a className="btn secondary" href="/app/resources">Resources</a></div></header>
-    <section className="hero"><p className="muted">OFFER → VALUE</p><h1>Offer Stack Builder</h1><p className="muted hero-copy">Build the offer around the buyer's problem and desired outcome — not around a list of features.</p></section>
+    <header className="app-header"><div><div className="brand" style={{fontSize:24}}>BROS SELL™</div><div className="muted">Offer Stack Builder</div></div><div style={{display:"flex",gap:8}}><CaseLink className="btn secondary" href="/app">Analyzer</CaseLink><CaseLink className="btn secondary" href="/app/resources">Resources</CaseLink></div></header>
+    <section className="hero"><p className="muted">OFFER → VALUE</p><h1>Offer Stack Builder</h1><p className="muted hero-copy">Build the offer around the buyer&apos;s problem and desired outcome — not around a list of features.</p></section>
     <section className="card resource-section"><div className="eyebrow">BUILD THE OFFER</div><div className="resource-grid">
       {fields.map(([key,title,help])=><article className="resource-card" key={key}><div><small className="muted">{key}</small><h2>{title}</h2><p className="field-note">{help}</p></div><textarea className="input textarea compact" rows={4} value={values[key]||""} onChange={e=>set(key,e.target.value)} placeholder="Tulis berdasarkan evidence sebenar..." /></article>)}
     </div></section>

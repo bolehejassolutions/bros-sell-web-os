@@ -1,6 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useCaseToolState } from "../sales-case-provider";
+import CaseLink from "../case-link";
+
 
 const fields = [
   ["PROBLEM","Apa masalah yang buyer sendiri sahkan?","Use the diagnosed problem. Avoid generic pain-point language."],
@@ -12,14 +14,14 @@ const fields = [
 ] as const;
 
 export default function ValueBridgePage(){
- const [v,setV]=useState<Record<string,string>>({});
+ const [v,setV]=useCaseToolState<Record<string,string>>("value-bridge","v",{});
  const set=(k:string,x:string)=>setV(p=>({...p,[k]:x}));
  const value=(k:string)=>v[k]||"";
  const one=[value("PROBLEM"),value("IMPACT"),value("DESIRED OUTCOME"),value("SOLUTION FIT"),value("PROOF / ASSURANCE"),value("INVESTMENT")].filter(Boolean).join(" → ");
  const statement=`Because ${value("PROBLEM")||"[PROBLEM]"} is causing ${value("IMPACT")||"[IMPACT]"}, the desired result is ${value("DESIRED OUTCOME")||"[OUTCOME]"}. Our solution addresses this through ${value("SOLUTION FIT")||"[MECHANISM]"}, supported by ${value("PROOF / ASSURANCE")||"[PROOF / ASSURANCE]"}. The investment is ${value("INVESTMENT")||"[INVESTMENT]"}.`;
  return <main className="container" style={{padding:"28px 0 60px"}}>
-  <header className="app-header"><div><div className="brand" style={{fontSize:24}}>BROS SELL™</div><div className="muted">Value Bridge</div></div><div style={{display:"flex",gap:8}}><a className="btn secondary" href="/app">Analyzer</a><a className="btn secondary" href="/app/resources">Resources</a><a className="btn secondary" href="/app/offer-stack">Offer Stack</a></div></header>
-  <section className="hero"><p className="muted">VALUE → CLOSE</p><h1>Value Bridge Worksheet</h1><p className="muted hero-copy">Bridge the buyer's current problem to the desired outcome, then show why the solution and investment make sense.</p></section>
+  <header className="app-header"><div><div className="brand" style={{fontSize:24}}>BROS SELL™</div><div className="muted">Value Bridge</div></div><div style={{display:"flex",gap:8}}><CaseLink className="btn secondary" href="/app">Analyzer</CaseLink><CaseLink className="btn secondary" href="/app/resources">Resources</CaseLink><CaseLink className="btn secondary" href="/app/offer-stack">Offer Stack</CaseLink></div></header>
+  <section className="hero"><p className="muted">VALUE → CLOSE</p><h1>Value Bridge Worksheet</h1><p className="muted hero-copy">Bridge the buyer&apos;s current problem to the desired outcome, then show why the solution and investment make sense.</p></section>
   <section className="card resource-section"><div className="eyebrow">THE VALUE BRIDGE</div><div className="resource-grid">
    {fields.map(([key,title,help])=><article className="resource-card" key={key}><div><small className="muted">{key}</small><h2>{title}</h2><p className="field-note">{help}</p></div><textarea className="input textarea compact" rows={4} value={value(key)} onChange={e=>set(key,e.target.value)} placeholder="Tulis berdasarkan evidence sebenar..." /></article>)}
   </div></section>

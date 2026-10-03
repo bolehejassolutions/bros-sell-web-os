@@ -1,6 +1,9 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useCaseToolState } from "../sales-case-provider";
+import CaseLink from "../case-link";
+
+import { useMemo } from "react";
 
 const scenarios = [
  ["Mahal.","Budget, value, scope, comparison, timing, or uncertainty.","Boleh saya faham, bahagian mana yang membuatkan investment ini terasa tinggi?","Actual barrier.","Answer only the barrier supported by the buyer's response.","Adakah itu yang paling menghalang sekarang?","Proceed / adjust / pause / exit"],
@@ -14,20 +17,20 @@ const scenarios = [
 ] as const;
 
 export default function ObjectionPlaybookPage(){
- const [selected,setSelected]=useState(0);
- const [statement,setStatement]=useState("");
- const [meaning,setMeaning]=useState("");
- const [question,setQuestion]=useState("");
- const [answer,setAnswer]=useState("");
- const [barrier,setBarrier]=useState("");
- const [response,setResponse]=useState("");
- const [confirmation,setConfirmation]=useState("");
- const [nextStep,setNextStep]=useState("");
+ const [selected,setSelected]=useCaseToolState("objection-playbook","selected",0);
+ const [statement,setStatement]=useCaseToolState("objection-playbook","statement","");
+ const [meaning,setMeaning]=useCaseToolState("objection-playbook","meaning","");
+ const [question,setQuestion]=useCaseToolState("objection-playbook","question","");
+ const [answer,setAnswer]=useCaseToolState("objection-playbook","answer","");
+ const [barrier,setBarrier]=useCaseToolState("objection-playbook","barrier","");
+ const [response,setResponse]=useCaseToolState("objection-playbook","response","");
+ const [confirmation,setConfirmation]=useCaseToolState("objection-playbook","confirmation","");
+ const [nextStep,setNextStep]=useCaseToolState("objection-playbook","nextStep","");
  const s=scenarios[selected];
  const diagnosisReady=Boolean(question.trim()&&answer.trim()&&barrier.trim());
  const derived=useMemo(()=>diagnosisReady?"Answer the actual barrier, then confirm whether it is resolved.":"Capture evidence before choosing a response.",[diagnosisReady]);
  return <main className="container" style={{padding:"28px 0 60px"}}>
-  <header className="app-header"><div><div className="brand" style={{fontSize:24}}>BROS SELL™</div><div className="muted">Objection Playbook</div></div><div style={{display:"flex",gap:8}}><a className="btn secondary" href="/app">Analyzer</a><a className="btn secondary" href="/app/resources">Resources</a></div></header>
+  <header className="app-header"><div><div className="brand" style={{fontSize:24}}>BROS SELL™</div><div className="muted">Objection Playbook</div></div><div style={{display:"flex",gap:8}}><CaseLink className="btn secondary" href="/app">Analyzer</CaseLink><CaseLink className="btn secondary" href="/app/resources">Resources</CaseLink></div></header>
   <section className="hero"><p className="muted">DIAGNOSE → CLARIFY → ANSWER → CONFIRM</p><h1>Objection Playbook</h1><p className="muted hero-copy">Objection ≠ Enemy. Diagnose the reason behind the statement before deciding how to respond.</p></section>
   <section className="card resource-section"><div className="eyebrow">COMMON SCENARIOS</div><div className="resource-grid">{scenarios.map((x,i)=><button type="button" className={selected===i?"resource-card refined":"resource-card"} key={x[0]} onClick={()=>{setSelected(i);setStatement(x[0]);setMeaning(x[1]);setQuestion(x[2]);setBarrier(x[3]);setResponse(x[4]);setConfirmation(x[5]);setNextStep(x[6]);}}><small className="muted">SCENARIO {i+1}</small><h2>{x[0]}</h2><p className="muted">{x[1]}</p></button>)}</div></section>
   <section className="card resource-section"><div className="eyebrow">DIAGNOSE</div><div className="resource-grid"><label className="field-label"><span>Exact buyer statement</span><textarea className="input textarea" rows={3} value={statement} onChange={e=>setStatement(e.target.value)} placeholder="Capture the actual words." /></label><label className="field-label"><span>What I think it means</span><textarea className="input textarea" rows={3} value={meaning} onChange={e=>setMeaning(e.target.value)} placeholder="Hypothesis only — not fact." /></label><label className="field-label"><span>Diagnostic question</span><textarea className="input textarea" rows={3} value={question} onChange={e=>setQuestion(e.target.value)} /></label><label className="field-label"><span>Buyer answer / evidence</span><textarea className="input textarea" rows={3} value={answer} onChange={e=>setAnswer(e.target.value)} placeholder="Record what the buyer actually says." /></label></div></section>

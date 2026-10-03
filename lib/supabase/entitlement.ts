@@ -1,7 +1,7 @@
 import { createClient } from "@/lib/supabase/server";
 
-export async function hasWebOSAccess() {
-  const supabase = await createClient();
+export async function hasWebOSAccess(client?: Awaited<ReturnType<typeof createClient>>) {
+  const supabase = client ?? await createClient();
   const { data: canonical, error: canonicalError } = await supabase.rpc("has_active_bros_sell_entitlement", {
     p_product_code: "BROS_SELL_CORE",
     p_access_level: "core",
