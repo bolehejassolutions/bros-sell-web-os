@@ -29,8 +29,9 @@ try {
   await field('Hasil tindakan').selectOption('price_objection');
   await field('Bukti hasil / respons sebenar').fill('Buyer said mahal, but did not explain why.');
   await page.getByRole('button',{name:'Rekod hasil & tentukan next action',exact:true}).click(); await saved();
+  await page.getByText('Lihat diagnosis penuh',{exact:true}).click();
   assert.match(await page.locator('.case-diagnosis').innerText(),/VALUE/);
-  await page.getByRole('link',{name:'Buka objection playbook',exact:true}).click();
+  await page.getByRole('link',{name:'Fahami objection',exact:true}).click();
   assert.match(await field('Exact buyer statement').inputValue(),/mahal/);
   await page.getByRole('link',{name:'Home',exact:true}).first().click();
   assert.equal(new URL(page.url()).searchParams.get('case'),new URL(caseUrl).searchParams.get('case'));
