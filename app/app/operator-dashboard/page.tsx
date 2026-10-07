@@ -60,7 +60,7 @@ export default function OperatorDashboardPage() {
       <header className="app-header">
         <div>
           <div className="brand" style={{fontSize:24}}>BROS SELL™</div>
-          <div className="muted">Operator Dashboard</div>
+          <div className="muted">Insights</div>
         </div>
         <div style={{display:"flex",gap:8}}>
           <CaseLink className="btn secondary" href="/app/target-calculator">Target Calculator</CaseLink>
@@ -69,16 +69,15 @@ export default function OperatorDashboardPage() {
       </header>
 
       <section className="hero">
-        <p className="muted">OPERATE → DIAGNOSE → ADJUST</p>
-        <h1>Operator Dashboard</h1>
+        <p className="muted">INSIGHTS</p>
+        <h1>Insights</h1>
         <p className="muted hero-copy">
-          Semak Sales Cases yang memerlukan perhatian, hasil yang belum direkod dan next action.
-          Utamakan kekangan sebenar sebelum menambah aktiviti.
+          Semak case yang perlukan perhatian dahulu. Metrik manual kekal tersedia sebagai pandangan lanjutan bila anda benar-benar memerlukannya.
         </p>
       </section>
 
       <OperatingCaseList />
-      {active && <details className="card"><summary>Metrik manual dan nota operasi · {active.document.title}</summary><p className="muted">Metrik ini diisi oleh anda dan disimpan bersama case semasa; ia bukan laporan hasil jualan automatik.</p>
+      {active && <details className="card advanced-panel"><summary>Advanced metrics · {active.document.title}</summary><p className="muted">Metrik ini diisi oleh anda dan disimpan bersama case semasa; ia bukan laporan hasil jualan automatik.</p>
       <section className="resource-section">
         <div className="eyebrow">OPERATING METRICS</div>
         <div style={{overflowX:"auto"}}>
