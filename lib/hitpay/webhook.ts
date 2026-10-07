@@ -6,6 +6,7 @@ export type NormalizedHitPayEvent = {
   status: string;
   providerPaymentId: string | null;
   providerReference: string | null;
+  businessId: string | null;
   amount: number | null;
   currency: string | null;
   purchaseEmail: string | null;
@@ -31,61 +32,56 @@ function objectValue(value: unknown): HitPayPayload | null {
     : null;
 }
 
-function collectProductIds(payload: HitPayPayload) {
+function customerEmail(source: HitPayPayload) {
+  return clean(objectValue(source.customer)?.email)?.toLowerCase() ?? null;
+}
+
+function collectLineItemProductIds(source: HitPayPayload) {
   const ids = new Set<string>();
-  const add = (value: unknown) => {
-    const item = clean(value);
-    if (item) ids.add(item);
-  };
-  const scan = (source: HitPayPayload) => {
-    add(source.product_id);
-    add(objectValue(source.product)?.id);
-
-    const order = objectValue(source.order);
-    if (order) {
-      add(order.product_id);
-      const items = Array.isArray(order.items) ? order.items : [];
-      for (const raw of items) {
-        const item = objectValue(raw);
-        if (!item) continue;
-        add(item.product_id);
-        add(objectValue(item.product)?.id);
-      }
+  const scanLineItems = (value: unknown) => {
+    const items = Array.isArray(value) ? value : [];
+    for (const raw of items) {
+      const item = objectValue(raw);
+      if (!item) continue;
+      const itemType = clean(item.item_type)?.toLowerCase();
+      const relatedId = clean(item.related_id);
+      if (itemType === "product" && relatedId) ids.add(relatedId);
     }
-
-    const products = Array.isArray(source.products) ? source.products : [];
-    for (const raw of products) add(objectValue(raw)?.id);
   };
 
-  scan(payload);
-  const data = objectValue(payload.data);
-  if (data) scan(data);
+  scanLineItems(source.line_items);
+  const order = objectValue(source.order);
+  if (order) scanLineItems(order.line_items);
+
   return [...ids];
 }
 
-export function normalizeHitPayPayload(payload: HitPayPayload): NormalizedHitPayEvent {
+export function normalizeHitPayStoreEvent(payload: HitPayPayload): NormalizedHitPayEvent {
   const data = objectValue(payload.data);
   const source = data ?? payload;
+  const order = objectValue(source.order) ?? objectValue(payload.order);
+
   return {
     status: (clean(source.status) ?? clean(payload.status) ?? "").toLowerCase(),
     providerPaymentId:
       clean(source.id) ??
-      clean(source.payment_request_id) ??
-      clean(source.paymentRequestId) ??
-      clean(payload.id) ??
-      clean(payload.payment_request_id) ??
-      clean(payload.paymentRequestId),
+      clean(payload.id),
     providerReference:
+      clean(source.order_id) ??
+      clean(order?.id) ??
       clean(source.reference_number) ??
-      clean(source.referenceNumber) ??
-      clean(source.reference) ??
-      clean(payload.reference_number) ??
-      clean(payload.referenceNumber) ??
-      clean(payload.reference),
-    amount: numberValue(source.amount ?? payload.amount),
-    currency: clean(source.currency ?? payload.currency)?.toUpperCase() ?? null,
-    purchaseEmail: clean(source.email ?? payload.email)?.toLowerCase() ?? null,
-    productIds: collectProductIds(payload),
+      clean(payload.reference_number),
+    businessId:
+      clean(source.business_id) ??
+      clean(order?.business_id) ??
+      clean(payload.business_id),
+    amount: numberValue(source.amount ?? order?.amount ?? payload.amount),
+    currency: clean(source.currency ?? order?.currency ?? payload.currency)?.toUpperCase() ?? null,
+    purchaseEmail:
+      customerEmail(source) ??
+      (order ? customerEmail(order) : null) ??
+      customerEmail(payload),
+    productIds: collectLineItemProductIds(source),
   };
 }
 
@@ -98,36 +94,14 @@ function equalHex(left: string, right: string) {
   return timingSafeEqual(Buffer.from(left, "hex"), Buffer.from(right, "hex"));
 }
 
-export function verifyRawBodySignature(rawBody: string, signature: string | null, salt: string) {
-  if (!signature || !salt) return false;
-  const expected = createHmac("sha256", salt).update(rawBody).digest("hex");
+export function verifyRawBodySignature(rawBody: string, signature: string | null, endpointSalt: string) {
+  if (!signature || !endpointSalt) return false;
+  const expected = createHmac("sha256", endpointSalt).update(rawBody).digest("hex");
   return equalHex(signature.trim(), expected);
 }
 
-export function legacyCanonicalize(payload: HitPayPayload) {
-  return Object.keys(payload)
-    .filter(key => key !== "hmac")
-    .sort()
-    .map(key => {
-      const value = payload[key];
-      if (value === null || value === undefined) return key;
-      if (typeof value === "object") return key + JSON.stringify(value);
-      return key + String(value);
-    })
-    .join("");
-}
-
-export function verifyLegacyPayloadHmac(payload: HitPayPayload, salt: string) {
-  const provided = clean(payload.hmac);
-  if (!provided || !salt) return false;
-  const expected = createHmac("sha256", salt)
-    .update(legacyCanonicalize(payload))
-    .digest("hex");
-  return equalHex(provided, expected);
-}
-
-export function webhookFingerprint(rawBody: string, eventObject: string | null, eventType: string | null) {
+export function webhookFingerprint(rawBody: string, eventObject: string, eventType: string) {
   return createHash("sha256")
-    .update(`${eventObject ?? ""}\n${eventType ?? ""}\n${rawBody}`)
+    .update(`${eventObject}\n${eventType}\n${rawBody}`)
     .digest("hex");
 }
