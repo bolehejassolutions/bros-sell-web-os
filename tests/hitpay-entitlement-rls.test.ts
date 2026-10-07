@@ -109,7 +109,8 @@ test('HitPay migration grants once, rejects amount mismatch and supports post-pu
     assert.equal(terminal.rows[0].result.status,'ignored');
     assert.equal(terminal.rows[0].result.reason,'refund_is_terminal');
     assert.equal(duplicate.rows[0].result.status,'duplicate');
-    assert.equal((await db.query("select status from public.bros_sell_payment_orders where provider_reference='ref-2'")).rows[0].status,'refunded');
+    const refunded = await db.query<{status:string}>("select status from public.bros_sell_payment_orders where provider_reference='ref-2'");
+    assert.equal(refunded.rows[0].status,'refunded');
   } finally {
     await db.close();
   }
