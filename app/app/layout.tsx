@@ -22,7 +22,7 @@ export default async function WebOSLayout({
             <img src="/bros-sell-logo.png" alt="BROS SELL™" />
             <span>
               <strong>BROS SELL™</strong>
-              <small>Menjelaskan, bukan memujuk.</small>
+              <small>Menjelaskan, bukan Memujuk.</small>
             </span>
           </CaseLink>
           <nav className="global-app-nav" aria-label="BROS SELL">
