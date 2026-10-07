@@ -25,9 +25,20 @@ async function persist(page: Page, change: () => Promise<unknown>) {
   await saved(page);
 }
 async function openAdvanced(page: Page) {
-  const summary = page.getByText('Lihat maklumat & diagnosis penuh', { exact: true });
-  const details = summary.locator('..');
-  if (!(await details.evaluate(el => (el as HTMLDetailsElement).open))) await summary.click();
+  const details = page.locator('details.advanced-panel');
+  if (!(await details.evaluate(el => (el as HTMLDetailsElement).open))) {
+    await details.locator(':scope > summary').click();
+  }
+}
+
+async function waitForObservation(page: Page, id: string, observation: string) {
+  for (let attempt = 0; attempt < 40; attempt++) {
+    const payload = await (await page.request.get(`${base}/api/sales-cases`)).json();
+    const row = payload.cases.find((value: SalesCase) => value.id === id);
+    if (row?.document.observation === observation) return;
+    await page.waitForTimeout(250);
+  }
+  throw new Error(`Case ${id} did not persist observation ${observation}`);
 }
 async function layout(page: Page, width: number, name: string) {
   const issues = await page.evaluate(() => {
@@ -115,7 +126,10 @@ try {
 
       await field(page, 'Apa yang berlaku?').selectOption('price_objection');
       await field(page, 'Respons / bukti sebenar').fill('Buyer berkata mahal, tetapi belum menjelaskan maksud atau halangan.');
-      await persist(page, () => page.getByRole('button', { name: 'Rekod & tentukan next move', exact: true }).click());
+      await page.getByRole('button', { name: 'Rekod & tentukan next move', exact: true }).click();
+      await page.locator('.simple-diagnosis').filter({ hasText: 'Bantahan dicatat' }).waitFor();
+      await waitForObservation(page, id, 'price_objection');
+      await saved(page);
       assert.match(await page.locator('.simple-diagnosis').innerText(), /Bantahan dicatat/);
       await page.getByRole('link', { name: 'Fahami bantahan', exact: true }).click();
       assert.match(await field(page, 'Exact buyer statement').inputValue(), /Buyer berkata mahal/);
