@@ -150,3 +150,75 @@ button:disabled{opacity:.45;cursor:not-allowed}
   .compact-resource .btn{width:100%}
   .package-item{flex-direction:column}
 }
+
+
+/* UX simplification release */
+.simplified-home,.library-page,.cases-page{padding:36px 0 64px}
+.simple-hero{max-width:760px;margin-bottom:22px}
+.simple-hero h1{font-size:clamp(34px,6vw,56px);line-height:1.02;margin:8px 0 14px}
+.simple-start-card{padding:28px;display:grid;gap:18px}
+.simple-start-card h2{font-size:clamp(24px,4vw,34px);margin:0}
+.simple-start-form{max-width:760px}
+.situation-input{min-height:140px;font-size:16px}
+.optional-details,.example-launcher,.diagnosis-system-detail,.advanced-details-inline{border-top:1px solid #27272a;padding-top:10px}
+.optional-details summary,.example-launcher summary,.diagnosis-system-detail summary,.advanced-details-inline summary{font-size:13px;color:#d4d4d8}
+.optional-details-body,.example-launcher-body,.advanced-details-body,.quiet-details-body{padding-top:16px}
+.primary-action{min-height:48px;font-size:15px}
+.case-current-heading{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;padding:8px 4px 0}
+.case-current-heading h2{margin:4px 0 0;font-size:24px}
+.simplified-diagnosis{grid-template-columns:1fr;gap:0;padding:0;overflow:hidden}
+.diagnosis-block{padding:24px;border-bottom:1px solid #27272a}
+.diagnosis-block:last-of-type{border-bottom:0}
+.diagnosis-block h2{font-size:clamp(19px,3vw,24px);line-height:1.35;margin:0 0 10px}
+.diagnosis-question{padding:12px 14px;border:1px solid #3f3f46;border-radius:12px;background:#111113}
+.next-block{background:linear-gradient(180deg,#171713 0%,#141416 100%)}
+.diagnosis-system-detail{padding:0 24px 20px}
+.diagnosis-system-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:16px 0}
+.diagnosis-system-grid>div{padding:12px;border:1px solid #27272a;border-radius:12px;background:#111113}
+.diagnosis-system-grid p{margin:6px 0 0}
+.diagnosis-evidence-detail{font-size:14px}
+.action-card{border-color:#3a3a32}
+.advanced-details>summary{font-size:14px}
+.secondary-home-grid,.library-intent-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:18px}
+.library-intent-grid{grid-template-columns:repeat(3,minmax(0,1fr));margin-bottom:18px}
+.compact-home-card{display:flex;flex-direction:column;justify-content:space-between;gap:20px;min-height:210px}
+.compact-home-card h2{margin:5px 0 8px}
+.quiet-details{margin-top:18px}
+.library-all-tools{margin-top:18px}
+.insight-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:0 0 18px}
+.insight-card{min-height:120px;display:flex;flex-direction:column;justify-content:center;gap:8px}
+.insight-card strong{font-size:32px;line-height:1}
+.insight-card span{color:#a1a1aa;font-size:13px}
+.row-system-detail{margin-top:8px}
+.row-system-detail summary{font-size:12px;color:#a1a1aa}
+.metric-table-wrap{overflow-x:auto;margin:16px 0}
+.metric-table{width:100%;min-width:820px;border-collapse:collapse}
+.metric-table th,.metric-table td{padding:10px 8px;border-bottom:1px solid #27272a;text-align:left}
+.metric-table .input{min-width:120px}
+.nav-link{padding:9px 10px;border-radius:10px;color:#d4d4d8;font-size:13px;font-weight:700}
+.nav-link:hover{background:#1c1c1f;color:#fff}
+.simplified-case-context{padding:10px 0}
+.simplified-case-context .field-label{max-width:360px}
+.simplified-case-context .input{padding:10px 12px}
+.simplified-case-context .btn{padding:10px 13px}
+@media(max-width:900px){
+  .library-intent-grid{grid-template-columns:1fr}
+  .insight-grid{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:700px){
+  .simplified-home,.library-page,.cases-page{padding:24px 0 48px}
+  .simple-start-card{padding:20px}
+  .secondary-home-grid{grid-template-columns:1fr}
+  .diagnosis-block{padding:20px}
+  .diagnosis-system-grid{grid-template-columns:1fr}
+  .global-app-header-inner{align-items:flex-start}
+  .global-app-nav{width:100%;justify-content:space-between;gap:4px}
+  .nav-link{flex:1;text-align:center;padding:9px 5px;font-size:12px}
+  .simplified-case-context{align-items:stretch}
+  .simplified-case-context .field-label{max-width:none}
+}
+@media(max-width:420px){
+  .insight-grid{grid-template-columns:1fr 1fr}
+  .insight-card{min-height:96px;padding:16px}
+  .insight-card strong{font-size:28px}
+}
