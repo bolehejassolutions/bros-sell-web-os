@@ -18,7 +18,7 @@ export default async function WebOSLayout({
     <SalesCaseProvider key={user.id} userId={user.id} navigation={
       <header className="global-app-header">
         <div className="global-app-header-inner">
-          <CaseLink className="global-brand" href="/app" aria-label="BROS SELL Customer Hub">
+          <CaseLink className="global-brand" href="/app" aria-label="BROS SELL Home">
             <img src="/bros-sell-logo.png" alt="BROS SELL™" />
             <span>
               <strong>BROS SELL™</strong>
