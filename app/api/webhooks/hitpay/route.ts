@@ -1,8 +1,7 @@
 import { NextResponse } from "next/server";
 import { createAdminClient } from "@/lib/supabase/admin";
 import {
-  normalizeHitPayPayload,
-  verifyLegacyPayloadHmac,
+  normalizeHitPayStoreEvent,
   verifyRawBodySignature,
   webhookFingerprint,
   type HitPayPayload,
@@ -10,52 +9,61 @@ import {
 
 export const runtime = "nodejs";
 
-function parsePayload(raw: string, contentType: string): HitPayPayload {
-  if (contentType.includes("application/json")) {
-    const value: unknown = JSON.parse(raw);
-    if (!value || typeof value !== "object" || Array.isArray(value)) {
-      throw new Error("Webhook payload must be an object.");
-    }
-    return value as HitPayPayload;
+function parseJsonObject(raw: string): HitPayPayload {
+  const value: unknown = JSON.parse(raw);
+  if (!value || typeof value !== "object" || Array.isArray(value)) {
+    throw new Error("Webhook payload must be an object.");
   }
-
-  const payload: HitPayPayload = {};
-  const params = new URLSearchParams(raw);
-  params.forEach((value, key) => { payload[key] = value; });
-  return payload;
+  return value as HitPayPayload;
 }
 
 export async function POST(request: Request) {
-  const salt = process.env.HITPAY_WEBHOOK_SALT ?? process.env.HITPAY_SALT;
-  if (!salt) {
-    console.error("HitPay webhook salt is not configured.");
+  const endpointSalt = process.env.HITPAY_WEBHOOK_SALT;
+  const expectedBusinessId = process.env.HITPAY_BUSINESS_ID;
+
+  if (!endpointSalt || !expectedBusinessId) {
+    console.error("HitPay webhook server configuration is incomplete.");
     return NextResponse.json({ error: "Webhook unavailable." }, { status: 503 });
+  }
+
+  const eventObject = (request.headers.get("hitpay-event-object") ?? "").toLowerCase();
+  const eventType = (request.headers.get("hitpay-event-type") ?? "").toLowerCase();
+
+  // Initial release intentionally subscribes to one payment-proof event only.
+  // HitPay documents charge.created as firing after a successful payment.
+  if (eventObject !== "charge" || eventType !== "created") {
+    return NextResponse.json({ received: true, ignored: true }, { status: 200 });
+  }
+
+  if (!(request.headers.get("content-type") ?? "").toLowerCase().includes("application/json")) {
+    return NextResponse.json({ error: "JSON webhook required." }, { status: 415 });
   }
 
   let raw = "";
   let payload: HitPayPayload;
   try {
     raw = await request.text();
-    payload = parsePayload(raw, (request.headers.get("content-type") ?? "").toLowerCase());
+    payload = parseJsonObject(raw);
   } catch {
     return NextResponse.json({ error: "Invalid payload." }, { status: 400 });
   }
 
-  const headerSignature = request.headers.get("hitpay-signature");
-  const valid = headerSignature
-    ? verifyRawBodySignature(raw, headerSignature, salt)
-    : verifyLegacyPayloadHmac(payload, salt);
-
-  if (!valid) {
+  if (!verifyRawBodySignature(raw, request.headers.get("hitpay-signature"), endpointSalt)) {
     return NextResponse.json({ error: "Invalid signature." }, { status: 401 });
   }
 
-  const eventObject = request.headers.get("hitpay-event-object");
-  const eventType = request.headers.get("hitpay-event-type");
-  const event = normalizeHitPayPayload(payload);
+  const event = normalizeHitPayStoreEvent(payload);
 
-  if (!event.providerPaymentId && !event.providerReference) {
+  if (event.businessId !== expectedBusinessId) {
+    return NextResponse.json({ error: "Merchant mismatch." }, { status: 403 });
+  }
+
+  if (!event.providerPaymentId || !event.providerReference) {
     return NextResponse.json({ error: "Payment identity missing." }, { status: 400 });
+  }
+
+  if (!event.purchaseEmail || event.productIds.length === 0) {
+    return NextResponse.json({ error: "Order mapping evidence missing." }, { status: 422 });
   }
 
   const admin = createAdminClient();
