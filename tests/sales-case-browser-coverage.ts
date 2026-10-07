@@ -114,6 +114,7 @@ try {
       await page.getByRole('combobox', { name: /^Hasil tindakan/ }).selectOption('price_objection');
       await field(page, 'Apa yang customer buat / cakap?').fill('Buyer berkata mahal, tetapi belum menjelaskan maksud atau halangan.');
       await persist(page, () => page.getByRole('button', { name: 'Rekod hasil & tentukan next action', exact: true }).click());
+      await page.getByText('Lihat diagnosis penuh', { exact: true }).click();
       assert.match(await page.locator('.case-diagnosis').innerText(), /VALUE/);
       await page.getByRole('link', { name: 'Fahami objection', exact: true }).click();
       assert.match(await field(page, 'Exact buyer statement').inputValue(), /Buyer berkata mahal/);
