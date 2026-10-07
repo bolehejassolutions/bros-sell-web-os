@@ -7,5 +7,5 @@ export default function CaseToolFooter() {
   const pathname = usePathname();
   const { active } = useSalesCases();
   if (!active || ['/app', '/app/resources', '/app/operator-dashboard'].includes(pathname)) return null;
-  return <div className="container case-tool-footer"><CaseDiagnosis /><CaseActionPanel key={active.id} /></div>;
+  return <div className="container case-tool-footer"><CaseActionPanel key={active.id} /><CaseDiagnosis /></div>;
 }
