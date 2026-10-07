@@ -63,7 +63,7 @@ export default function SalesCaseWorkspace() {
       <p className="muted">Ceritakan situasi dengan bahasa biasa. BROS SELL akan bantu jelaskan apa yang berlaku dan apa yang patut dibuat seterusnya.</p>
       <form className="case-form simple-start-form" onSubmit={event => { event.preventDefault(); void start(createFromCurrentInput()); }}>
         <label className="field-label">
-          <span>Customer / deal <small className="muted">(optional)</small></span>
+          <span>Customer / deal</span><small className="muted">(optional)</small>
           <input className="input" maxLength={160} value={buyer} onChange={event => setBuyer(event.target.value)} placeholder="Contoh: Ali · Sofa cleaning RM500" />
         </label>
         <label className="field-label">
