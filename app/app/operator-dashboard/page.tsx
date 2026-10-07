@@ -1,148 +1,86 @@
 "use client";
 
-import { useCaseToolState } from "../sales-case-provider";
-import CaseLink from "../case-link";
-
-import { useMemo } from "react";
+import { useCaseToolState, useSalesCases } from "../sales-case-provider";
+import { diagnoseCase, pendingAction } from "@/lib/bros-sell/sales-case";
 import OperatingCaseList from '../operating-case-list';
-import { useSalesCases } from '../sales-case-provider';
+import { useState } from "react";
 
-type Metric = {
-  name: string;
-  direction?: "higher" | "lower";
-};
-
+type Metric = { name: string; direction?: "higher" | "lower" };
 const metrics: Metric[] = [
-  { name: "Leads" },
-  { name: "Conversations" },
-  { name: "Qualified" },
-  { name: "Offers" },
-  { name: "Closes" },
-  { name: "Revenue (RM)" },
-  { name: "Average Deal Size (RM)" },
-  { name: "Follow-Up Response Rate" },
-  { name: "Referral" },
-  { name: "Repeat Purchase" },
-  { name: "Time-to-Close (days)", direction: "lower" },
-  { name: "Cost per Lead (RM)", direction: "lower" },
+  { name: "Leads" }, { name: "Conversations" }, { name: "Qualified" }, { name: "Offers" },
+  { name: "Closes" }, { name: "Revenue (RM)" }, { name: "Average Deal Size (RM)" },
+  { name: "Follow-Up Response Rate" }, { name: "Referral" }, { name: "Repeat Purchase" },
+  { name: "Time-to-Close (days)", direction: "lower" }, { name: "Cost per Lead (RM)", direction: "lower" },
   { name: "Revenue / Conversation (RM)" },
 ];
 
 export default function OperatorDashboardPage() {
-  const { active } = useSalesCases();
+  const { active, cases } = useSalesCases();
+  const [now] = useState(() => Date.now());
+  const real = cases.filter(row => !row.document.example);
+  const activeCases = real.filter(row => !diagnoseCase(row.document).terminal && !diagnoseCase(row.document).stop);
+  const waitingOutcome = real.filter(row => Boolean(pendingAction(row.document))).length;
+  const waitingDecision = activeCases.filter(row => diagnoseCase(row.document).leadState === "Decision").length;
+  const dueFollowUp = activeCases.filter(row => row.document.dueAt && new Date(row.document.dueAt).getTime() <= now).length;
+
   const [values, setValues] = useCaseToolState<Record<string, { target: string; actual: string }>>("operator-dashboard","values",
     Object.fromEntries(metrics.map((metric) => [metric.name, { target: "", actual: "" }]))
   );
   const [bottleneck, setBottleneck] = useCaseToolState("operator-dashboard","bottleneck","");
   const [nextMove, setNextMove] = useCaseToolState("operator-dashboard","nextMove","");
 
-  const rows = useMemo(() => metrics.map((metric) => {
-    const target = Number(values[metric.name]?.target);
-    const actual = Number(values[metric.name]?.actual);
-    const ready = !!values[metric.name]?.target.trim() && !!values[metric.name]?.actual.trim() && Number.isFinite(target) && Number.isFinite(actual) && target > 0 && actual >= 0;
-    const variance = ready ? actual - target : null;
-    const rate = ready ? actual / target : null;
-    const onTarget = ready
-      ? metric.direction === "lower" ? actual <= target : actual >= target
-      : null;
-    return { ...metric, target, actual, ready, variance, rate, onTarget };
-  }), [values]);
-
   function update(name: string, field: "target" | "actual", value: string) {
-    setValues((current) => ({
-      ...current,
-      [name]: { ...current[name], [field]: value },
-    }));
+    setValues(current => ({ ...current, [name]: { ...current[name], [field]: value } }));
   }
 
   return (
-    <main className="container" style={{padding:"28px 0 60px"}}>
-      <header className="app-header">
-        <div>
-          <div className="brand" style={{fontSize:24}}>BROS SELL™</div>
-          <div className="muted">Operator Dashboard</div>
-        </div>
-        <div style={{display:"flex",gap:8}}>
-          <CaseLink className="btn secondary" href="/app/target-calculator">Target Calculator</CaseLink>
-          <CaseLink className="btn secondary" href="/app/resources">Resources</CaseLink>
-        </div>
-      </header>
+    <main className="container cases-page">
+      <section className="hero simple-hero">
+        <div className="eyebrow">CASES</div>
+        <h1>Apa yang perlukan perhatian?</h1>
+        <p className="muted hero-copy">Semak case yang perlu tindakan. Metrik lanjutan hanya dibuka apabila anda memang mahu mengurus operasi secara lebih mendalam.</p>
+      </section>
 
-      <section className="hero">
-        <p className="muted">OPERATE → DIAGNOSE → ADJUST</p>
-        <h1>Operator Dashboard</h1>
-        <p className="muted hero-copy">
-          Semak Sales Cases yang memerlukan perhatian, hasil yang belum direkod dan next action.
-          Utamakan kekangan sebenar sebelum menambah aktiviti.
-        </p>
+      <section className="insight-grid" aria-label="Case insights">
+        <article className="card insight-card"><strong>{activeCases.length}</strong><span>Case aktif</span></article>
+        <article className="card insight-card"><strong>{dueFollowUp}</strong><span>Susulan perlu disemak</span></article>
+        <article className="card insight-card"><strong>{waitingOutcome}</strong><span>Hasil belum direkod</span></article>
+        <article className="card insight-card"><strong>{waitingDecision}</strong><span>Menunggu keputusan</span></article>
       </section>
 
       <OperatingCaseList />
-      {active && <details className="card"><summary>Metrik manual dan nota operasi · {active.document.title}</summary><p className="muted">Metrik ini diisi oleh anda dan disimpan bersama case semasa; ia bukan laporan hasil jualan automatik.</p>
-      <section className="resource-section">
-        <div className="eyebrow">OPERATING METRICS</div>
-        <div style={{overflowX:"auto"}}>
-          <table style={{width:"100%",borderCollapse:"collapse",minWidth:820}}>
-            <thead>
-              <tr>
-                {["Metric","Target","Actual","Variance","Rate","Status"].map((label)=>
-                  <th key={label} style={{textAlign:"left",padding:"10px 8px",borderBottom:"1px solid #27272a"}}>{label}</th>
-                )}
-              </tr>
-            </thead>
-            <tbody>
-              {rows.map((row) => (
-                <tr key={row.name}>
-                  <td style={{padding:"10px 8px",borderBottom:"1px solid #27272a"}}>
-                    <strong>{row.name}</strong>
-                    <div className="field-note">Monthly</div>
-                  </td>
-                  <td style={{padding:"10px 8px",borderBottom:"1px solid #27272a"}}>
-                    <input className="input" style={{minWidth:120}} type="number" min="0" value={values[row.name].target} onChange={(e)=>update(row.name,"target",e.target.value)} />
-                  </td>
-                  <td style={{padding:"10px 8px",borderBottom:"1px solid #27272a"}}>
-                    <input className="input" style={{minWidth:120}} type="number" min="0" value={values[row.name].actual} onChange={(e)=>update(row.name,"actual",e.target.value)} />
-                  </td>
-                  <td style={{padding:"10px 8px",borderBottom:"1px solid #27272a"}}>{row.variance === null ? "—" : row.variance.toLocaleString("en-MY")}</td>
-                  <td style={{padding:"10px 8px",borderBottom:"1px solid #27272a"}}>{row.rate === null ? "—" : `${(row.rate * 100).toFixed(1)}%`}</td>
-                  <td style={{padding:"10px 8px",borderBottom:"1px solid #27272a"}}>
-                    {!row.ready ? "—" : row.onTarget ? "ON TARGET" : "REVIEW"}
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-        <p className="field-note" style={{marginTop:12}}>
-          Status kekal kosong sehingga Target dan Actual kedua-duanya diisi. Untuk Time-to-Close dan Cost per Lead, nilai lebih rendah dianggap lebih baik.
-        </p>
-      </section>
 
-      <section className="card resource-section">
-        <div className="eyebrow">BOTTLENECK DIAGNOSIS</div>
-        <h2>Fix the constraint before adding more activity upstream.</h2>
-        <p className="muted">
-          Cari earliest meaningful stage di mana Actual jatuh di bawah operating target. Gunakan satu bottleneck utama untuk menentukan next operating move.
-        </p>
-        <div className="analyzer-grid" style={{marginTop:18}}>
-          <label className="field-label">
-            <span>This period&apos;s primary bottleneck</span>
-            <input className="input" value={bottleneck} onChange={(e)=>setBottleneck(e.target.value)} placeholder="Contoh: Qualification rate" />
-          </label>
-          <label className="field-label">
-            <span>Next operating move</span>
-            <input className="input" value={nextMove} onChange={(e)=>setNextMove(e.target.value)} placeholder="Contoh: Improve qualification questions" />
-          </label>
-        </div>
-      </section>
+      {active && <details className="card advanced-details">
+        <summary>Advanced metrics · {active.document.title}</summary>
+        <div className="advanced-details-body">
+          <p className="muted">Semua nilai ini diisi manual dan disimpan bersama case. Ia bukan laporan revenue automatik.</p>
+          <div className="metric-table-wrap">
+            <table className="metric-table">
+              <thead><tr>{["Metric","Target","Actual","Variance","Rate","Status"].map(label=><th key={label}>{label}</th>)}</tr></thead>
+              <tbody>{metrics.map(metric => {
+                const target = Number(values[metric.name]?.target);
+                const actual = Number(values[metric.name]?.actual);
+                const ready = !!values[metric.name]?.target.trim() && !!values[metric.name]?.actual.trim() && Number.isFinite(target) && Number.isFinite(actual) && target > 0 && actual >= 0;
+                const variance = ready ? actual - target : null;
+                const rate = ready ? actual / target : null;
+                const onTarget = ready ? metric.direction === "lower" ? actual <= target : actual >= target : null;
+                return <tr key={metric.name}>
+                  <td><strong>{metric.name}</strong></td>
+                  <td><input className="input" type="number" min="0" value={values[metric.name].target} onChange={e=>update(metric.name,"target",e.target.value)} /></td>
+                  <td><input className="input" type="number" min="0" value={values[metric.name].actual} onChange={e=>update(metric.name,"actual",e.target.value)} /></td>
+                  <td>{variance === null ? "—" : variance.toLocaleString("en-MY")}</td>
+                  <td>{rate === null ? "—" : `${(rate * 100).toFixed(1)}%`}</td>
+                  <td>{!ready ? "—" : onTarget ? "ON TARGET" : "REVIEW"}</td>
+                </tr>;
+              })}</tbody>
+            </table>
+          </div>
 
-      <section className="card">
-        <div className="eyebrow">OPERATING RULE</div>
-        <h2>Diagnose first. Add volume second.</h2>
-        <p className="muted">
-          Dashboard ini ialah alat diagnosis operasi, bukan jaminan revenue. Jika satu stage menjadi constraint, ubah assumption atau proses pada stage tersebut sebelum sekadar menambah lead.
-        </p>
-      </section>
+          <div className="analyzer-grid">
+            <label className="field-label"><span>Primary bottleneck</span><input className="input" value={bottleneck} onChange={e=>setBottleneck(e.target.value)} /></label>
+            <label className="field-label"><span>Next operating move</span><input className="input" value={nextMove} onChange={e=>setNextMove(e.target.value)} /></label>
+          </div>
+        </div>
       </details>}
     </main>
   );

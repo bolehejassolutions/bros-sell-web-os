@@ -80,6 +80,9 @@ jobs:
           original_status=0
           coverage_status=0
           npm run test:browser 2>&1 | tee test-results/browser-original.log || original_status=$?
+          # First-use coverage starts with a clean isolated fixture database.
+          stop_servers
+          start_servers
           node --experimental-strip-types tests/sales-case-browser-coverage.ts 2>&1 | tee test-results/browser-coverage.log || coverage_status=$?
           if [[ "$original_status" -ne 0 || "$coverage_status" -ne 0 ]]; then exit 1; fi
       - name: Print fixture failure diagnostics
