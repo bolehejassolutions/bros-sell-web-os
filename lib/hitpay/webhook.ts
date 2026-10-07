@@ -37,25 +37,29 @@ function collectProductIds(payload: HitPayPayload) {
     const item = clean(value);
     if (item) ids.add(item);
   };
+  const scan = (source: HitPayPayload) => {
+    add(source.product_id);
+    add(objectValue(source.product)?.id);
 
-  add(payload.product_id);
-  add(objectValue(payload.product)?.id);
-
-  const order = objectValue(payload.order);
-  if (order) {
-    add(order.product_id);
-    const items = Array.isArray(order.items) ? order.items : [];
-    for (const raw of items) {
-      const item = objectValue(raw);
-      if (!item) continue;
-      add(item.product_id);
-      add(objectValue(item.product)?.id);
+    const order = objectValue(source.order);
+    if (order) {
+      add(order.product_id);
+      const items = Array.isArray(order.items) ? order.items : [];
+      for (const raw of items) {
+        const item = objectValue(raw);
+        if (!item) continue;
+        add(item.product_id);
+        add(objectValue(item.product)?.id);
+      }
     }
-  }
 
-  const products = Array.isArray(payload.products) ? payload.products : [];
-  for (const raw of products) add(objectValue(raw)?.id);
+    const products = Array.isArray(source.products) ? source.products : [];
+    for (const raw of products) add(objectValue(raw)?.id);
+  };
 
+  scan(payload);
+  const data = objectValue(payload.data);
+  if (data) scan(data);
   return [...ids];
 }
 
