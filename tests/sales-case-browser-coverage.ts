@@ -161,6 +161,7 @@ try {
       await page.locator('.case-operating-row').filter({ hasText: title }).getByRole('link', { name: 'Teruskan', exact: true }).click();
 
       if (width === 1280) {
+        await page.getByText('Tambah konteks jika cadangan belum tepat', { exact: true }).click();
         await page.route('**/api/sales-cases/*', async route => {
           if (route.request().method() === 'PUT') await route.fulfill({ status: 503, contentType: 'application/json', body: JSON.stringify({ error: 'Injected fixture storage failure' }) });
           else await route.continue();
