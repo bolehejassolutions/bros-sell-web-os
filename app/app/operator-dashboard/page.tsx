@@ -19,7 +19,7 @@ export default function OperatorDashboardPage() {
   const [now] = useState(() => Date.now());
   const real = cases.filter(row => !row.document.example);
   const activeCases = real.filter(row => !diagnoseCase(row.document).terminal && !diagnoseCase(row.document).stop);
-  const waitingOutcome = activeCases.filter(row => Boolean(pendingAction(row.document))).length;
+  const waitingOutcome = real.filter(row => Boolean(pendingAction(row.document))).length;
   const waitingDecision = activeCases.filter(row => diagnoseCase(row.document).leadState === "Decision").length;
   const dueFollowUp = activeCases.filter(row => row.document.dueAt && new Date(row.document.dueAt).getTime() <= now).length;
 

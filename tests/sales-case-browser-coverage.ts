@@ -28,7 +28,7 @@ async function layout(page: Page, width: number, name: string) {
   const issues = await page.evaluate(() => {
     const problems: string[] = [];
     if (document.documentElement.scrollWidth > window.innerWidth) problems.push('horizontal overflow');
-    for (const el of document.querySelectorAll<HTMLElement>('a, button, input, select, textarea')) {
+    for (const el of document.querySelectorAll<HTMLElement>('a, button, input, select, textarea, summary')) {
       // Closed details can have layout boxes while their contents are not painted.
       if (!el.checkVisibility({ checkOpacity: true, checkVisibilityCSS: true, contentVisibilityAuto: true })) continue;
       const rect = el.getBoundingClientRect();
@@ -37,7 +37,7 @@ async function layout(page: Page, width: number, name: string) {
       // Checkbox/radio activation includes their associated wrapping label.
       const target = el instanceof HTMLInputElement && ['checkbox', 'radio'].includes(el.type) ? el.closest('label') ?? el : el;
       const hitArea = target.getBoundingClientRect();
-      if (hitArea.width < 16 || hitArea.height < 16) problems.push(`unusable control: ${el.tagName}`);
+      if (hitArea.width < 24 || hitArea.height < 24) problems.push(`unusable control: ${el.tagName}`);
     }
     if (document.querySelector('[data-nextjs-dialog], nextjs-portal')) problems.push('Next.js error overlay');
     return problems;
@@ -68,22 +68,33 @@ try {
       await page.getByRole('button', { name: 'Tentukan next move', exact: true }).waitFor();
       assert.match(await page.getByRole('heading', { name: 'Apa yang sedang berlaku dalam jualan anda sekarang?', exact: true }).innerText(), /Apa yang sedang berlaku/);
       await layout(page, width, 'onboarding');
-      await field(page, 'Customer / deal').fill('Buyer RM500');
+      const firstValueStarted = Date.now();
+      assert.equal(await page.locator('.optional-details').getAttribute('open'), null);
+      await field(page, 'Customer / deal').fill(title);
       await field(page, 'Apa yang berlaku?').fill('Prospek WhatsApp tanya harga servis. Saya jawab RM500; mesej dibaca tanpa balasan.');
-      await page.getByText('Tambah detail sekarang', { exact: false }).click();
-      await field(page, 'Tajuk case').fill(title);
-      await field(page, 'Tawaran / servis').first().fill('Servis RM500');
-      await field(page, 'Harga / investment').first().fill('RM500');
-      await field(page, 'Bukti sebenar yang anda ada').fill('Buyer bertanya harga, membaca jawapan RM500 dan belum memberi sebab penolakan.');
-      await page.getByRole('combobox', { name: /^Pemerhatian terakhir/ }).selectOption('no_reply');
       const created = page.waitForResponse(r => r.request().method() === 'POST' && r.url().endsWith('/api/sales-cases'));
       await page.getByRole('button', { name: 'Tentukan next move', exact: true }).click();
       const createdResponse = await created;
       assert.equal(createdResponse.status(), 201);
       const initial: SalesCase = (await createdResponse.json()).case;
       const id = initial.id;
+      assert.equal(initial.document.evidence, '', 'Situation alone must not invent buyer evidence');
+      assert.equal(initial.document.observation, 'unknown');
+      await page.getByRole('combobox', { name: 'Respons terakhir customer', exact: true }).selectOption('no_reply');
+      await persist(page, () => page.getByRole('button', { name: 'Sahkan & tentukan next move', exact: true }).click());
+      await page.getByRole('link', { name: 'Bina follow-up', exact: true }).waitFor();
+      assert.ok(Date.now() - firstValueStarted < 60000, 'Minimum-input route reaches recommendation within the automated 60s budget');
+      assert.equal(await page.locator('.diagnosis-system-detail').getAttribute('open'), null);
+      assert.doesNotMatch(await page.locator('.case-diagnosis').innerText(), /Relevance|Readiness|Engagement|FOLLOW-UP/);
+      const confirmed = (await (await context.request.get(`${base}/api/sales-cases`)).json()).cases.find((row: SalesCase) => row.id === id);
+      assert.equal(confirmed.document.observation, 'no_reply');
+      assert.equal(confirmed.document.history.length, 0, 'Buyer confirmation must not invent action/outcome events');
+      await layout(page, width, 'first-value');
       await page.getByText('Tambah konteks jika cadangan belum tepat', { exact: true }).click();
       await field(page, 'Tajuk case semasa').waitFor();
+      await persist(page, () => field(page, 'Pembeli').fill('Buyer RM500'));
+      await persist(page, () => field(page, 'Tawaran / servis').fill('Servis RM500'));
+      await persist(page, () => field(page, 'Harga / investment').fill('RM500'));
       await saved(page);
       assert.equal(await page.getByRole('combobox', { name: /^Case semasa/ }).inputValue(), id);
       assert.equal(initial.document.example, false, 'A user-created case participates in actual operating priorities');
@@ -99,11 +110,15 @@ try {
       await persist(page, () => field(page, 'Adapted message').fill('Adakah servis RM500 masih relevan, atau skop perlu dijelaskan?'));
       await page.reload();
       assert.equal(await field(page, 'Adapted message').inputValue(), 'Adakah servis RM500 masih relevan, atau skop perlu dijelaskan?');
+      assert.equal(await page.getByText('Lihat panduan susulan penuh', { exact: true }).locator('..').getAttribute('open'), null);
+      await layout(page, width, 'guided-follow-up');
+      await page.getByText('Lihat panduan susulan penuh', { exact: true }).click();
       const qualityControl = page.getByRole('checkbox').first();
       await qualityControl.check();
       assert.equal(await qualityControl.isChecked(), true);
       await qualityControl.uncheck();
       await saved(page);
+      await page.getByText('Lihat panduan susulan penuh', { exact: true }).click();
       await layout(page, width, 'follow-up');
       await field(page, 'Tindakan yang telah dilakukan').fill('Sent one contextual clarification on WhatsApp.');
       await persist(page, () => page.getByRole('button', { name: 'Rekod tindakan dilakukan', exact: true }).click());
@@ -124,7 +139,14 @@ try {
       assert.match(await page.locator('.case-diagnosis').innerText(), /VALUE/);
       await page.getByRole('link', { name: 'Fahami objection', exact: true }).click();
       assert.match(await field(page, 'Exact buyer statement').inputValue(), /Buyer berkata mahal/);
+      assert.match(await field(page, 'Diagnostic question').inputValue(), /skop, nilai, bajet/);
       await layout(page, width, 'objection');
+      await page.getByRole('link', { name: 'Library', exact: true }).click();
+      assert.equal(new URL(page.url()).searchParams.get('case'), id);
+      const libraryFollowUp = await page.getByRole('link', { name: 'Follow-up', exact: true }).getAttribute('href');
+      assert.ok(libraryFollowUp);
+      assert.equal(new URL(libraryFollowUp, base).searchParams.get('case'), id);
+      await layout(page, width, 'library');
       await page.goto(`${base}/app/buyer-intelligence?case=${id}`);
       const who = page.locator('.resource-card').filter({ has: page.getByText('WHO', { exact: true }) }).locator('textarea');
       assert.equal(await who.inputValue(), 'Buyer RM500');
@@ -138,6 +160,11 @@ try {
       assert.equal(await field(page, 'Tajuk case semasa').inputValue(), title);
       assert.equal(await field(page, 'Pembeli').inputValue(), `Shared buyer ${width}`);
       await persist(page, () => field(page, 'Tarikh susulan yang dipersetujui / dirancang').fill('2026-01-01T09:00'));
+      await page.getByRole('link', { name: 'Case baru', exact: true }).click();
+      await field(page, 'Apa yang berlaku?').waitFor();
+      assert.equal(new URL(page.url()).searchParams.has('case'), false, 'New case must clear current context without deleting the previous case');
+      await page.getByRole('combobox', { name: /^Case semasa/ }).selectOption(id);
+      await page.locator('.case-diagnosis').waitFor();
       await page.getByRole('link', { name: 'Cases', exact: true }).click();
       await page.locator('.case-operating-row').filter({ hasText: title }).waitFor();
       assert.match(await page.locator('.case-operating-row').filter({ hasText: title }).innerText(), /Susulan perlu disemak/);

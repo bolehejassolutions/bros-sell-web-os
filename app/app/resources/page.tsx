@@ -1,5 +1,6 @@
 import { redirect } from "next/navigation";
 import { hasWebOSAccess } from "@/lib/supabase/entitlement";
+import CaseLink from '../case-link';
 
 const nativeTools = [
   ["/app/target-calculator","Sasaran jualan","Kira sasaran dan operating volume."],
@@ -44,8 +45,8 @@ export default async function ResourcesPage() {
             <p className="muted">Gunakan apabila anda sudah tahu situasi dan perlu melaksanakan next move dengan jelas.</p>
           </div>
           <div className="resource-actions">
-            <a className="btn secondary" href="/app/whatsapp-scripts">WhatsApp</a>
-            <a className="btn secondary" href="/app/follow-up">Follow-up</a>
+            <CaseLink className="btn secondary" href="/app/whatsapp-scripts">WhatsApp</CaseLink>
+            <CaseLink className="btn secondary" href="/app/follow-up">Follow-up</CaseLink>
           </div>
         </article>
 
@@ -63,10 +64,10 @@ export default async function ResourcesPage() {
         <summary>Semua tools</summary>
         <div className="resource-grid native-tool-grid advanced-details-body">
           {nativeTools.map(([href,title,use])=>(
-            <a className="resource-card tool-card" href={href} key={href}>
+            <CaseLink className="resource-card tool-card" href={href} key={href}>
               <div><small className="muted">BROS SELL TOOL</small><h2>{title}</h2><p className="muted">{use}</p></div>
               <span className="btn secondary">Buka</span>
-            </a>
+            </CaseLink>
           ))}
         </div>
       </details>
@@ -75,7 +76,7 @@ export default async function ResourcesPage() {
         <div className="eyebrow">PRINSIP</div>
         <h2>Situasi dahulu. Tool kemudian.</h2>
         <p className="muted">Jika anda tidak pasti tool mana yang patut digunakan, kembali ke Home dan mulakan dengan situasi sebenar.</p>
-        <a className="btn" href="/app">Kembali ke Home</a>
+        <CaseLink className="btn" href="/app">Kembali ke Home</CaseLink>
       </section>
     </main>
   );

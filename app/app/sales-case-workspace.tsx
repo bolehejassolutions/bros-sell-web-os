@@ -59,8 +59,8 @@ export default function SalesCaseWorkspace() {
   return <section className="case-workspace" aria-label="BROS SELL guided workflow">
     {!active && <section className="card simple-start-card">
       <div className="eyebrow">MULAKAN DI SINI</div>
-      <h2>Apa yang sedang berlaku dalam jualan anda sekarang?</h2>
-      <p className="muted">Ceritakan situasi dengan bahasa biasa. BROS SELL akan bantu jelaskan apa yang berlaku dan apa yang patut dibuat seterusnya.</p>
+      <h1>Apa yang sedang berlaku dalam jualan anda sekarang?</h1>
+      <p className="muted">Ceritakan dengan bahasa biasa. Kita tentukan satu langkah seterusnya.</p>
       <form className="case-form simple-start-form" onSubmit={event => { event.preventDefault(); void start(createFromCurrentInput()); }}>
         <label className="field-label">
           <span>Customer / deal</span><small className="muted">(optional)</small>
@@ -101,12 +101,13 @@ export default function SalesCaseWorkspace() {
       <section className="case-current-heading">
         <div>
           <div className="eyebrow">{active.document.example ? 'CONTOH LATIHAN' : 'CASE SEMASA'}</div>
-          <h2>{active.document.title}</h2>
+          <h1>{active.document.title}</h1>
         </div>
       </section>
 
-      <CaseDiagnosis />
-      <CaseActionPanel key={active.id} />
+      {!active.document.evidence.trim() && !pendingAction(active.document) && !diagnoseCase(active.document).terminal && !diagnoseCase(active.document).stop
+        ? <BuyerResponseCheck key={active.id} />
+        : <><CaseDiagnosis /><CaseActionPanel key={active.id} /></>}
 
       <details className="card advanced-details">
         <summary>Tambah konteks jika cadangan belum tepat</summary>
@@ -148,19 +149,23 @@ export function CaseDiagnosis() {
   const { active } = useSalesCases();
   if (!active) return null;
   const result = diagnoseCase(active.document);
-  const missing = result.missing.length ? result.missing.join(', ') : 'Tiada jurang utama yang dikenal pasti daripada bukti semasa.';
+  const missing = active.document.observation === 'no_reply'
+    ? 'Sebab customer belum membalas masih belum diketahui.'
+    : ['objection', 'price_objection'].includes(active.document.observation)
+      ? 'Maksud sebenar bantahan customer belum disahkan.'
+      : result.missing.length ? 'Keperluan, kesesuaian dan kesediaan customer belum disahkan sepenuhnya.' : 'Tiada jurang utama yang dikenal pasti daripada bukti semasa.';
+  const question = result.question.replace(/Relevance|Need|Readiness|Fit|Access|Engagement/g, dimension => ({ Relevance: 'relevansi tawaran', Need: 'keperluan customer', Readiness: 'kesediaan customer', Fit: 'kesesuaian tawaran', Access: 'pihak yang membuat keputusan', Engagement: 'respons customer' })[dimension]!);
   const toolLabel = TOOL_LABELS[result.tool] ?? 'Panduan seterusnya';
 
   return <section className="card case-diagnosis simplified-diagnosis" aria-label="Diagnosis case">
     <div className="diagnosis-block">
       <div className="eyebrow">APA YANG BERLAKU</div>
       <h2>{result.why}</h2>
-      <p className="muted">{STAGE_GUIDANCE[result.stage]}</p>
     </div>
     <div className="diagnosis-block">
       <div className="eyebrow">APA YANG BELUM PASTI</div>
       <p>{missing}</p>
-      {!result.terminal && !result.stop && result.question && <p className="diagnosis-question">{result.question}</p>}
+      {!result.terminal && !result.stop && question && <p className="diagnosis-question">{question}</p>}
     </div>
     <div className="diagnosis-block next-block">
       <div className="eyebrow">BUAT SEKARANG</div>
@@ -175,12 +180,38 @@ export function CaseDiagnosis() {
         <div><strong>Status buyer</strong><p>{result.leadState}</p></div>
         <div><strong>Status case</strong><p>{active.document.status}</p></div>
       </div>
+      <p className="muted">{STAGE_GUIDANCE[result.stage]}</p>
       <div className="diagnosis-evidence-detail">
         <h3>Diketahui</h3>{result.known.length ? <ul>{result.known.map(item => <li key={item}>{item}</li>)}</ul> : <p>Belum ada bukti pembeli direkodkan.</p>}
         <h3>Andaian sistem</h3>{result.inferred.map(item => <p key={item}>{item}</p>)}
         <h3>Belum diketahui / belum disahkan</h3><p>{result.missing.join(', ') || 'Enam dimensi mempunyai bukti.'}</p>
       </div>
     </details>
+  </section>;
+}
+
+function BuyerResponseCheck() {
+  const { active, update } = useSalesCases();
+  const [response, setResponse] = useState<Observation | ''>('');
+  const [buyerEvidence, setBuyerEvidence] = useState(active?.document.situation ?? '');
+  if (!active) return null;
+  return <section className="card case-form buyer-response-check">
+    <div className="eyebrow">SATU PERKARA UNTUK DISAHKAN</div>
+    <h2>Apa respons terakhir customer?</h2>
+    <p className="muted">Sahkan apa yang customer benar-benar cakap atau buat. Sistem tidak meneka niat daripada cerita sahaja.</p>
+    <form className="case-form" onSubmit={event => {
+      event.preventDefault();
+      if (!response || !buyerEvidence.trim()) return;
+      update(doc => ({ ...doc, evidence: buyerEvidence.trim(), observation: response,
+        status: response === 'no' ? 'lost' : ['not_now', 'delayed_decision'].includes(response) ? 'deferred' : 'active' }));
+    }}>
+      <label className="field-label"><span>Respons terakhir customer</span><select className="input" required value={response} onChange={event => setResponse(event.target.value as Observation | '')}>
+        <option value="">Pilih respons yang anda lihat</option>
+        {(['no_reply', 'price_asked', 'price_objection', 'objection', 'replied', 'interested', 'more_info', 'yes', 'no', 'not_now', 'unknown'] as Observation[]).map(value => <option key={value} value={value}>{OBSERVATION_LABELS[value]}</option>)}
+      </select></label>
+      <label className="field-label"><span>Kata-kata / tindakan customer</span><textarea className="input textarea compact" required maxLength={12000} value={buyerEvidence} onChange={event => setBuyerEvidence(event.target.value)} /></label>
+      <button className="btn primary-action">Sahkan & tentukan next move</button>
+    </form>
   </section>;
 }
 

@@ -156,16 +156,18 @@ button:disabled{opacity:.45;cursor:not-allowed}
 .simplified-home,.library-page,.cases-page{padding:36px 0 64px}
 .simple-hero{max-width:760px;margin-bottom:22px}
 .simple-hero h1{font-size:clamp(34px,6vw,56px);line-height:1.02;margin:8px 0 14px}
-.simple-start-card{padding:28px;display:grid;gap:18px}
-.simple-start-card h2{font-size:clamp(24px,4vw,34px);margin:0}
+.simple-start-card{padding:28px;display:grid;gap:14px}
+.simple-start-card h1{font-size:clamp(24px,4vw,34px);margin:0;line-height:1.2}
+.simple-start-card>p{margin:0;line-height:1.5}
+.simple-start-form{gap:14px}
 .simple-start-form{max-width:760px}
-.situation-input{min-height:140px;font-size:16px}
+.situation-input{min-height:100px;font-size:16px}
 .optional-details,.example-launcher,.diagnosis-system-detail,.advanced-details-inline{border-top:1px solid #27272a;padding-top:10px}
 .optional-details summary,.example-launcher summary,.diagnosis-system-detail summary,.advanced-details-inline summary{font-size:13px;color:#d4d4d8}
 .optional-details-body,.example-launcher-body,.advanced-details-body,.quiet-details-body{padding-top:16px}
 .primary-action{min-height:48px;font-size:15px}
 .case-current-heading{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;padding:8px 4px 0}
-.case-current-heading h2{margin:4px 0 0;font-size:24px}
+.case-current-heading h1{margin:4px 0 0;font-size:24px;overflow-wrap:anywhere}
 .simplified-diagnosis{grid-template-columns:1fr;gap:0;padding:0;overflow:hidden}
 .diagnosis-block{padding:24px;border-bottom:1px solid #27272a}
 .diagnosis-block:last-of-type{border-bottom:0}
@@ -197,6 +199,14 @@ button:disabled{opacity:.45;cursor:not-allowed}
 .metric-table .input{min-width:120px}
 .nav-link{padding:9px 10px;border-radius:10px;color:#d4d4d8;font-size:13px;font-weight:700}
 .nav-link:hover{background:#1c1c1f;color:#fff}
+.nav-link{min-height:44px;display:inline-flex;align-items:center;justify-content:center}
+.optional-details>summary,.example-launcher>summary,.advanced-details>summary,.diagnosis-system-detail>summary,.quiet-details>summary{min-height:44px;display:flex;align-items:center;gap:4px;list-style:disclosure-closed}
+.guided-message>p,.buyer-response-check>p{margin:0;line-height:1.5}
+.guided-message .diagnosis-question{margin:0}
+.guided-message .diagnosis-question p{margin:0}
+.case-tool-footer{margin-top:18px}
+.optional-details>summary::before,.example-launcher>summary::before,.advanced-details>summary::before,.diagnosis-system-detail>summary::before,.quiet-details>summary::before{content:'▸';flex:none}
+.optional-details[open]>summary::before,.example-launcher[open]>summary::before,.advanced-details[open]>summary::before,.diagnosis-system-detail[open]>summary::before,.quiet-details[open]>summary::before{content:'▾'}
 .simplified-case-context{padding:10px 0}
 .simplified-case-context .field-label{max-width:360px}
 .simplified-case-context .input{padding:10px 12px}

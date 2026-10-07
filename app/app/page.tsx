@@ -12,12 +12,6 @@ export default async function AppHome(){
 
   return (
     <main className="container simplified-home">
-      <section className="hero simple-hero">
-        <div className="eyebrow">BROS SELL™ · SALES DECISION CLARITY</div>
-        <h1>Jelaskan situasi. Tentukan langkah seterusnya.</h1>
-        <p className="muted hero-copy">Tak perlu pilih framework atau tool dahulu. Mulakan dengan apa yang sedang berlaku dalam jualan anda.</p>
-      </section>
-
       <SalesCaseWorkspace />
 
       <section className="secondary-home-grid">

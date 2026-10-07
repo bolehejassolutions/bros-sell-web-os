@@ -166,7 +166,7 @@ export default function SalesCaseProvider({ userId, navigation, children }: { us
     {(loading || error || cases.length > 0) && <div className="container case-context simplified-case-context">
       {loading ? <p role="status">Memuatkan cases...</p> : error ? <p role="alert">{error} <button className="btn secondary" onClick={() => void reload()}>Cuba lagi</button></p> : <>
         <label className="field-label"><span>Case semasa</span><select className="input" value={active?.id ?? ''} onChange={event => select(event.target.value)}><option value="">Pilih case</option>{cases.map(row => <option key={row.id} value={row.id}>{row.document.example ? 'CONTOH · ' : ''}{row.document.title}{states[row.id] && states[row.id] !== 'saved' ? ' (belum disimpan)' : ''}</option>)}</select></label>
-        <Link className="btn secondary" href="/app">Case baru</Link>
+        <Link className="btn secondary" href="/app" onClick={() => setActiveId('')}>Case baru</Link>
         {active && <CaseSaveStatus />}
       </>}
     </div>}
