@@ -89,6 +89,27 @@ test('HitPay migration grants once, rejects amount mismatch and supports post-pu
     assert.equal(claimed.rows[0].claim_bros_sell_paid_orders,1);
     await db.exec('reset role');
     assert.equal((await db.query('select id from public.entitlements')).rows.length,2);
+
+    await db.exec('set role service_role');
+    await db.query(`select public.process_bros_sell_hitpay_event(
+      'evt-refund','pay-2','ref-2','refunded',197,'MYR','b@example.com',array['prod_core'],'{"id":"pay-2","status":"refunded"}'::jsonb
+    )`);
+    const terminal = await db.query<{result:Record<string,unknown>}>(`
+      select public.process_bros_sell_hitpay_event(
+        'evt-3','pay-2','ref-2','completed',197,'MYR','b@example.com',array['prod_core'],'{"id":"pay-2","status":"completed"}'::jsonb
+      ) as result
+    `);
+    const duplicate = await db.query<{result:Record<string,unknown>}>(`
+      select public.process_bros_sell_hitpay_event(
+        'evt-3','pay-2','ref-2','completed',197,'MYR','b@example.com',array['prod_core'],'{"id":"pay-2","status":"completed"}'::jsonb
+      ) as result
+    `);
+    await db.exec('reset role');
+
+    assert.equal(terminal.rows[0].result.status,'ignored');
+    assert.equal(terminal.rows[0].result.reason,'refund_is_terminal');
+    assert.equal(duplicate.rows[0].result.status,'duplicate');
+    assert.equal((await db.query("select status from public.bros_sell_payment_orders where provider_reference='ref-2'")).rows[0].status,'refunded');
   } finally {
     await db.close();
   }
