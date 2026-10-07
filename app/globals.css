@@ -205,6 +205,7 @@ button:disabled{opacity:.45;cursor:not-allowed}
 .guided-message .diagnosis-question{margin:0}
 .guided-message .diagnosis-question p{margin:0}
 .case-tool-footer{margin-top:18px}
+.access-recovery a{min-height:44px;display:inline-flex;align-items:center}
 .optional-details>summary::before,.example-launcher>summary::before,.advanced-details>summary::before,.diagnosis-system-detail>summary::before,.quiet-details>summary::before{content:'▸';flex:none}
 .optional-details[open]>summary::before,.example-launcher[open]>summary::before,.advanced-details[open]>summary::before,.diagnosis-system-detail[open]>summary::before,.quiet-details[open]>summary::before{content:'▾'}
 .simplified-case-context{padding:10px 0}
