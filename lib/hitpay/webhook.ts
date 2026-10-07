@@ -105,3 +105,26 @@ export function webhookFingerprint(rawBody: string, eventObject: string, eventTy
     .update(`${eventObject}\n${eventType}\n${rawBody}`)
     .digest("hex");
 }
+
+export function hashEvidenceValue(value: string | null) {
+  if (!value) return null;
+  return createHash("sha256").update(value).digest("hex");
+}
+
+export function payloadShape(value: unknown, prefix = "$", depth = 0): string[] {
+  if (depth > 8) return [`${prefix}:depth-limit`];
+  if (Array.isArray(value)) {
+    const shape = [`${prefix}:array`];
+    const sample = value[0];
+    if (sample !== undefined) shape.push(...payloadShape(sample, `${prefix}[]`, depth + 1));
+    return shape;
+  }
+  if (value && typeof value === "object") {
+    const shape = [`${prefix}:object`];
+    for (const key of Object.keys(value as Record<string, unknown>).sort()) {
+      shape.push(...payloadShape((value as Record<string, unknown>)[key], `${prefix}.${key}`, depth + 1));
+    }
+    return shape;
+  }
+  return [`${prefix}:${value === null ? "null" : typeof value}`];
+}
