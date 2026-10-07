@@ -26,7 +26,7 @@ test('HTTP account persistence, ownership, concurrency, input validation and ent
   assert.equal((await fetch(`${base}/api/sales-cases?page=-1`,{headers:headers('a')})).status,400);
   assert.equal((await fetch(`${base}/api/customer/closing-os`)).status,401);
   assert.equal((await fetch(`${base}/api/customer/closing-os`,{headers:headers('c')})).status,403);
-  const app=await fetch(`${base}/app`,{headers:headers('a')}); assert.equal(app.status,200); assert.match(await app.text(),/Mulakan dengan satu situasi sebenar/);
+  const app=await fetch(`${base}/app`,{headers:headers('a')}); assert.equal(app.status,200); assert.match(await app.text(),/Apa yang sedang berlaku dalam jualan anda sekarang/);
   const unavailable=await fetch(`${base}/app`,{headers:headers('c'),redirect:'manual'}); assert.equal(unavailable.status,307); assert.equal(new URL(unavailable.headers.get('location')!,base).pathname,'/activate');
   const recovery=await fetch(`${base}/activate`); assert.equal(recovery.status,200);
   const recoveryHtml=await recovery.text();
