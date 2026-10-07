@@ -22,9 +22,7 @@ async function saved() {
 }
 async function openAdvanced() {
   const details=page.locator('details.advanced-panel');
-  if (await details.count() && !(await details.evaluate(el => (el as HTMLDetailsElement).open))) {
-    await details.locator(':scope > summary').click();
-  }
+  if (await details.count()) await details.evaluate(el => { (el as HTMLDetailsElement).open = true; });
 }
 
 try {
