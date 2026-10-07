@@ -1,5 +1,5 @@
 import { createClient } from "@/lib/supabase/server";
-import { hasWebOSAccess } from "@/lib/supabase/entitlement";
+import { claimPaidBrosSellOrders, hasWebOSAccess } from "@/lib/supabase/entitlement";
 import { redirect } from "next/navigation";
 import SalesCaseProvider from './sales-case-provider';
 import CaseToolFooter from './case-tool-footer';
@@ -12,7 +12,11 @@ export default async function WebOSLayout({
   const { data: { user } } = await supabase.auth.getUser();
 
   if (!user) redirect("/login");
-  if (!(await hasWebOSAccess(supabase))) redirect("/activate");
+
+  if (!(await hasWebOSAccess(supabase))) {
+    await claimPaidBrosSellOrders(supabase);
+    if (!(await hasWebOSAccess(supabase))) redirect("/activate");
+  }
 
   return (
     <SalesCaseProvider key={user.id} userId={user.id} navigation={
