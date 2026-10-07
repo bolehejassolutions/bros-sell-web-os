@@ -16,7 +16,10 @@ async function saved() {await page.getByText('Disimpan dalam akaun',{exact:true}
 try {
   await page.goto(`${base}/app`); await page.getByRole('button',{name:'Jalankan contoh RM500'}).click();
   await page.locator('.case-diagnosis').filter({hasText:'FOLLOW-UP'}).waitFor();
-  assert.match(await page.locator('.case-diagnosis').innerText(),/Engaged/); const caseUrl=page.url();
+  assert.match(await page.locator('.case-diagnosis').innerText(),/Engaged/);
+  // Rendering the diagnosis can precede router.replace completing.
+  await page.waitForURL(url => Boolean(url.searchParams.get('case')));
+  const caseUrl=page.url();
   await page.getByRole('link',{name:'Buka follow up',exact:true}).click();
   await field('Adapted message').fill('Adakah servis RM500 masih relevan atau skop perlu dijelaskan?'); await saved();
   await page.reload(); assert.equal(await field('Adapted message').inputValue(),'Adakah servis RM500 masih relevan atau skop perlu dijelaskan?');
@@ -29,6 +32,7 @@ try {
   await page.getByRole('link',{name:'Buka objection playbook',exact:true}).click();
   assert.match(await field('Exact buyer statement').inputValue(),/mahal/);
   await page.getByRole('link',{name:'Analyzer',exact:true}).first().click();
+  await page.waitForURL(url => url.pathname === '/app' && url.searchParams.get('case') === new URL(caseUrl).searchParams.get('case'));
   assert.equal(new URL(page.url()).searchParams.get('case'),new URL(caseUrl).searchParams.get('case'));
   await field('Tajuk case semasa').fill('Browser verified training case'); await saved();
   // Failed save retains the draft and a retry persists it.
