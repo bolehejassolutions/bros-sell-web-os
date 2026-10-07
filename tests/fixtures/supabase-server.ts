@@ -41,6 +41,12 @@ const server = createServer(async (req,res) => {
         const value=await tx.query<{active:boolean}>('select public.has_active_bros_sell_entitlement($1,$2) as active',[body.p_product_code,body.p_access_level]);
         return {status:200,data:value.rows[0].active};
       }
+      if(req.method==='POST' && url.pathname==='/storage/v1/object/sign/bros-sell-customer-files/closing-os/BROS_SELL_02_Closing_OS_v2.5.pdf') {
+        const access=await tx.query<{active:boolean}>("select public.has_active_bros_sell_entitlement('BROS_SELL_CORE','core') or public.has_active_bros_sell_entitlement('BROS_SELL_WEB_OS','core') as active");
+        if(!access.rows[0].active) return {status:403,data:{message:'Fixture storage access denied'}};
+        if(body.expiresIn!==600) return {status:400,data:{message:'Expected ten-minute protected download'}};
+        return {status:200,data:{signedURL:'/object/sign/bros-sell-customer-files/closing-os/BROS_SELL_02_Closing_OS_v2.5.pdf?token=fixture-download'}};
+      }
       if(url.pathname!=='/rest/v1/bros_sell_sales_cases') return {status:404,data:{message:'Fixture endpoint not implemented'}};
       if(req.method==='POST') {
         const r=await tx.query(`insert into public.bros_sell_sales_cases(owner_id,document,status,stage,lead_state,next_action_at) values ($1,$2,$3,$4,$5,$6) returning ${columns}`,[body.owner_id,JSON.stringify(body.document),body.status,body.stage,body.lead_state,body.next_action_at]);

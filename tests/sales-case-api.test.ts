@@ -26,6 +26,12 @@ test('HTTP account persistence, ownership, concurrency, input validation and ent
   assert.equal((await fetch(`${base}/api/sales-cases?page=-1`,{headers:headers('a')})).status,400);
   assert.equal((await fetch(`${base}/api/customer/closing-os`)).status,401);
   assert.equal((await fetch(`${base}/api/customer/closing-os`,{headers:headers('c')})).status,403);
+  const protectedDownload=await fetch(`${base}/api/customer/closing-os`,{headers:headers('a'),redirect:'manual'});
+  assert.equal(protectedDownload.status,307);
+  const downloadUrl=new URL(protectedDownload.headers.get('location')!);
+  assert.equal(downloadUrl.origin,'http://127.0.0.1:54329');
+  assert.equal(downloadUrl.pathname,'/storage/v1/object/sign/bros-sell-customer-files/closing-os/BROS_SELL_02_Closing_OS_v2.5.pdf');
+  assert.equal(downloadUrl.searchParams.get('token'),'fixture-download');
   const app=await fetch(`${base}/app`,{headers:headers('a')}); assert.equal(app.status,200); assert.match(await app.text(),/Apa yang sedang berlaku dalam jualan anda sekarang/);
   const unavailable=await fetch(`${base}/app`,{headers:headers('c'),redirect:'manual'}); assert.equal(unavailable.status,307); assert.equal(new URL(unavailable.headers.get('location')!,base).pathname,'/activate');
   const recovery=await fetch(`${base}/activate`); assert.equal(recovery.status,200);

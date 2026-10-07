@@ -147,6 +147,20 @@ try {
       assert.ok(libraryFollowUp);
       assert.equal(new URL(libraryFollowUp, base).searchParams.get('case'), id);
       await layout(page, width, 'library');
+      if (width === 1280) {
+        await page.getByText('Semua tools', { exact: true }).click();
+        const toolLinks = await page.locator('.native-tool-grid a').evaluateAll(links => links.map(link => link.getAttribute('href')!));
+        assert.equal(toolLinks.length, 12, 'All existing standalone capabilities stay available');
+        for (const href of toolLinks) {
+          const route = new URL(href, base);
+          assert.equal(route.searchParams.get('case'), id, 'Library tool links preserve current case');
+          await page.goto(route.href);
+          await page.getByRole('combobox', { name: /^Case semasa/ }).waitFor();
+          assert.equal(await page.getByRole('combobox', { name: /^Case semasa/ }).inputValue(), id);
+          assert.ok(await page.locator('main h1').count(), 'Standalone tool renders');
+          await layout(page, width, `tool-${route.pathname.split('/').at(-1)}`);
+        }
+      }
       await page.goto(`${base}/app/buyer-intelligence?case=${id}`);
       const who = page.locator('.resource-card').filter({ has: page.getByText('WHO', { exact: true }) }).locator('textarea');
       assert.equal(await who.inputValue(), 'Buyer RM500');
@@ -163,6 +177,15 @@ try {
       await page.getByRole('link', { name: 'Case baru', exact: true }).click();
       await field(page, 'Apa yang berlaku?').waitFor();
       assert.equal(new URL(page.url()).searchParams.has('case'), false, 'New case must clear current context without deleting the previous case');
+      if (width === 1280) {
+        await field(page, 'Apa yang berlaku?').fill('Customer bertanya harga. Saya mahu jawab dengan jelas.');
+        const onlySituation = page.waitForResponse(r => r.request().method() === 'POST' && r.url().endsWith('/api/sales-cases'));
+        await page.getByRole('button', { name: 'Tentukan next move', exact: true }).click();
+        const situationResponse = await onlySituation;
+        assert.equal(situationResponse.status(), 201, 'Customer reference and advanced inputs are optional');
+        const onlySituationCase: SalesCase = (await situationResponse.json()).case;
+        assert.equal(onlySituationCase.document.title, 'Customer bertanya harga. Saya mahu jawab dengan jelas.');
+      }
       await page.getByRole('combobox', { name: /^Case semasa/ }).selectOption(id);
       await page.locator('.case-diagnosis').waitFor();
       await page.getByRole('link', { name: 'Cases', exact: true }).click();
