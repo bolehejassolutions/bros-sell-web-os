@@ -421,10 +421,7 @@ export function CaseActionPanel() {
           <button className="btn secondary" disabled={!reason.trim()} onClick={() => run(doc => reopenCase(doc, reason))}>Buka semula case</button>
         </>
       ) : pending ? (
-        <form className="case-form" onSubmit={event => {
-          event.preventDefault();
-          run(doc => recordOutcome(doc, outcome, note, due ? new Date(due).toISOString() : null));
-        }}>
+        <div className="case-form">
           <p><strong>Tindakan terakhir:</strong> {pending.note}</p>
           <label className="field-label">
             <span>Apa yang berlaku?</span>
@@ -442,21 +439,32 @@ export function CaseActionPanel() {
             <span>Tarikh susulan seterusnya jika relevan</span>
             <input className="input" type="datetime-local" value={due} onChange={event => setDue(event.target.value)} />
           </label>
-          <button className="btn">Rekod & tentukan next move</button>
+          <button
+            className="btn"
+            type="button"
+            disabled={!note.trim()}
+            onClick={() => run(doc => recordOutcome(doc, outcome, note, due ? new Date(due).toISOString() : null))}
+          >
+            Rekod & tentukan next move
+          </button>
           <p className="field-note">Pilih jualan disahkan hanya apabila pesanan / bayaran sebenar telah disahkan.</p>
-        </form>
+        </div>
       ) : (
-        <form className="case-form" onSubmit={event => {
-          event.preventDefault();
-          run(doc => recordAction(doc, action, result.tool));
-        }}>
+        <div className="case-form">
           <p className="muted">BROS SELL tidak menghantar mesej bagi pihak anda. Selepas anda bertindak di saluran sebenar, rekod tindakan itu di sini.</p>
           <label className="field-label">
             <span>Apa yang anda lakukan?</span>
             <textarea className="input textarea compact" required value={action} onChange={event => setAction(event.target.value)} />
           </label>
-          <button className="btn">Rekod tindakan</button>
-        </form>
+          <button
+            className="btn"
+            type="button"
+            disabled={!action.trim()}
+            onClick={() => run(doc => recordAction(doc, action, result.tool))}
+          >
+            Rekod tindakan
+          </button>
+        </div>
       )}
       {message && <p role="alert">{message}</p>}
     </section>
