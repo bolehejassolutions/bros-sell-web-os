@@ -3,6 +3,7 @@
 import { useCaseToolState, useSalesCases } from "../sales-case-provider";
 import { diagnoseCase, pendingAction } from "@/lib/bros-sell/sales-case";
 import OperatingCaseList from '../operating-case-list';
+import { useState } from "react";
 
 type Metric = { name: string; direction?: "higher" | "lower" };
 const metrics: Metric[] = [
@@ -15,11 +16,12 @@ const metrics: Metric[] = [
 
 export default function OperatorDashboardPage() {
   const { active, cases } = useSalesCases();
+  const [now] = useState(() => Date.now());
   const real = cases.filter(row => !row.document.example);
   const activeCases = real.filter(row => !diagnoseCase(row.document).terminal && !diagnoseCase(row.document).stop);
   const waitingOutcome = activeCases.filter(row => Boolean(pendingAction(row.document))).length;
   const waitingDecision = activeCases.filter(row => diagnoseCase(row.document).leadState === "Decision").length;
-  const dueFollowUp = activeCases.filter(row => row.document.dueAt && new Date(row.document.dueAt).getTime() <= Date.now()).length;
+  const dueFollowUp = activeCases.filter(row => row.document.dueAt && new Date(row.document.dueAt).getTime() <= now).length;
 
   const [values, setValues] = useCaseToolState<Record<string, { target: string; actual: string }>>("operator-dashboard","values",
     Object.fromEntries(metrics.map((metric) => [metric.name, { target: "", actual: "" }]))
