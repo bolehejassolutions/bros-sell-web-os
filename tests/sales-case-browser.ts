@@ -27,7 +27,7 @@ try {
   await field('Tindakan yang telah dilakukan').fill('Sent one contextual clarification on WhatsApp');
   await page.getByRole('button',{name:'Rekod tindakan dilakukan',exact:true}).click();
   await field('Hasil tindakan').selectOption('price_objection');
-  await field('Bukti hasil / respons sebenar').fill('Buyer said mahal, but did not explain why.');
+  await field('Apa yang customer buat / cakap?').fill('Buyer said mahal, but did not explain why.');
   await page.getByRole('button',{name:'Rekod hasil & tentukan next action',exact:true}).click(); await saved();
   await page.getByText('Lihat diagnosis penuh',{exact:true}).click();
   assert.match(await page.locator('.case-diagnosis').innerText(),/VALUE/);
