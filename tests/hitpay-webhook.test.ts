@@ -2,7 +2,9 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import { createHmac } from "node:crypto";
 import {
+  hashEvidenceValue,
   normalizeHitPayStoreEvent,
+  payloadShape,
   verifyRawBodySignature,
   webhookFingerprint,
 } from "../lib/hitpay/webhook.ts";
@@ -109,4 +111,16 @@ test("webhook fingerprint is stable for identical retries and separates event me
     webhookFingerprint(raw, "charge", "created"),
     webhookFingerprint(raw, "charge", "updated"),
   );
+});
+
+test("capture evidence hashes buyer identity and records structure without values", () => {
+  assert.equal(hashEvidenceValue("buyer@example.com"), hashEvidenceValue("buyer@example.com"));
+  assert.notEqual(hashEvidenceValue("buyer@example.com"), "buyer@example.com");
+  const shape = payloadShape({
+    customer: { email: "buyer@example.com" },
+    order: { line_items: [{ item_type: "product", related_id: "product_1" }] },
+  });
+  assert.ok(shape.includes("$.customer.email:string"));
+  assert.ok(shape.includes("$.order.line_items[]:object"));
+  assert.ok(!shape.some(item => item.includes("buyer@example.com") || item.includes("product_1")));
 });
