@@ -113,7 +113,13 @@ try {
       await page.locator('.case-operating-row').filter({ hasText: title }).getByRole('link', { name: 'Teruskan', exact: true }).click();
       await page.getByRole('combobox', { name: /^Hasil tindakan/ }).selectOption('price_objection');
       await field(page, 'Apa yang customer buat / cakap?').fill('Buyer berkata mahal, tetapi belum menjelaskan maksud atau halangan.');
-      await persist(page, () => page.getByRole('button', { name: 'Rekod hasil & tentukan next action', exact: true }).click());
+      await page.getByRole('button', { name: 'Rekod hasil & tentukan next action', exact: true }).click();
+      await page.locator('.case-diagnosis').filter({ hasText: 'Bantahan dicatat' }).waitFor();
+      await page.waitForTimeout(1200);
+      const afterOutcomeList = await (await context.request.get(`${base}/api/sales-cases`)).json();
+      const afterOutcome = afterOutcomeList.cases.find((row: SalesCase) => row.id === id);
+      assert.equal(afterOutcome?.document.observation, 'price_objection', 'Recorded outcome must persist to the account');
+      await saved(page);
       await page.getByText('Lihat diagnosis penuh', { exact: true }).click();
       assert.match(await page.locator('.case-diagnosis').innerText(), /VALUE/);
       await page.getByRole('link', { name: 'Fahami objection', exact: true }).click();
