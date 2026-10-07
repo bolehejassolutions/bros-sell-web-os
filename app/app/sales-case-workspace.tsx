@@ -65,7 +65,12 @@ export default function SalesCaseWorkspace() {
   }
 
   function createSimpleCase() {
-    const doc = newCase(suggestedTitle(reference, situation), situation.trim());
+    const cleanSituation = situation.trim();
+    if (!cleanSituation) {
+      setMessage('Ceritakan situasi sebenar sebelum meneruskan.');
+      return;
+    }
+    const doc = newCase(suggestedTitle(reference, cleanSituation), cleanSituation);
     if (reference.trim()) doc.facts.buyer = reference.trim();
     void start(doc);
   }
