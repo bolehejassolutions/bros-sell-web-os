@@ -150,3 +150,62 @@ button:disabled{opacity:.45;cursor:not-allowed}
   .compact-resource .btn{width:100%}
   .package-item{flex-direction:column}
 }
+
+
+/* UX simplification release */
+.simple-home,.simple-page{padding:34px 0 64px}
+.simple-hero{max-width:760px;margin:0 auto 24px;text-align:center}
+.simple-hero.compact{text-align:left;max-width:none;margin:0 0 22px}
+.simple-hero h1{font-size:clamp(34px,6vw,58px);line-height:1.02;letter-spacing:-.05em;margin:10px 0 14px}
+.simple-hero.compact h1{font-size:clamp(30px,4vw,44px)}
+.quick-start-card{max-width:760px;margin:0 auto;padding:28px}
+.primary-situation .textarea{min-height:170px}
+.primary-cta{min-height:48px}
+.quiet-details{margin-top:8px}
+.quiet-details>summary,.diagnosis-details>summary,.nested-details>summary,.library-tools>summary{color:#d4d4d8;font-size:13px}
+.case-focus{display:grid;gap:16px}
+.case-focus-heading{display:flex;justify-content:space-between;gap:16px;align-items:flex-start}
+.case-focus-heading h2{margin:0;font-size:24px}
+.simple-diagnosis{display:grid;gap:0;padding:0;overflow:hidden}
+.diagnosis-block{padding:22px 24px;border-bottom:1px solid #27272a}
+.diagnosis-block:last-of-type{border-bottom:0}
+.diagnosis-block p{line-height:1.6;max-width:800px}
+.diagnosis-next{background:#171719}
+.diagnosis-next h2{font-size:clamp(22px,3vw,30px);line-height:1.25;margin:8px 0 18px;max-width:760px}
+.diagnosis-details{padding:0 24px 20px}
+.diagnosis-full{padding-top:14px;line-height:1.6}
+.advanced-panel{padding:0;overflow:hidden}
+.advanced-panel>summary{padding:20px 24px}
+.advanced-content{padding:0 24px 24px}
+.nested-details{border-top:1px solid #27272a;padding-top:10px}
+.operating-loop h2{margin-top:4px}
+.library-intents{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.library-card{display:grid;gap:20px;align-content:space-between}
+.library-card h2{font-size:22px;margin:8px 0}
+.library-tools{margin-top:2px}
+.library-rule{margin-top:16px}
+.simple-card{display:grid;gap:14px;max-width:720px}
+.nav-link{display:inline-flex;align-items:center;justify-content:center;min-height:38px;padding:8px 10px;border-radius:10px;font-size:13px;font-weight:700;color:#d4d4d8}
+.nav-link:hover,.nav-link:focus-visible{background:#1f1f22;color:#fff}
+.nav-link-muted{color:#71717a}
+.case-context{padding:12px 0}
+.case-context .btn{padding:9px 12px}
+@media(max-width:800px){
+  .library-intents{grid-template-columns:1fr}
+}
+@media(max-width:700px){
+  .simple-home,.simple-page{padding:22px 0 48px}
+  .simple-hero{text-align:left;margin-bottom:18px}
+  .simple-hero h1{font-size:clamp(34px,10vw,46px)}
+  .quick-start-card{padding:20px}
+  .global-app-header-inner{align-items:flex-start}
+  .global-app-nav{width:100%;overflow-x:auto;flex-wrap:nowrap;padding-bottom:2px}
+  .global-app-nav .nav-link{flex:0 0 auto}
+  .case-context{align-items:stretch}
+  .case-context .field-label{min-width:0}
+  .diagnosis-block{padding:20px}
+  .diagnosis-details{padding:0 20px 18px}
+  .advanced-panel>summary{padding:18px 20px}
+  .advanced-content{padding:0 20px 20px}
+  .case-focus-heading{flex-direction:column}
+}

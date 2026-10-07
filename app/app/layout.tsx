@@ -18,18 +18,19 @@ export default async function WebOSLayout({
     <SalesCaseProvider key={user.id} userId={user.id} navigation={
       <header className="global-app-header">
         <div className="global-app-header-inner">
-          <CaseLink className="global-brand" href="/app" aria-label="BROS SELL Customer Hub">
+          <CaseLink className="global-brand" href="/app" aria-label="BROS SELL Home">
             <img src="/bros-sell-logo.png" alt="BROS SELL™" />
             <span>
               <strong>BROS SELL™</strong>
-              <small>Web OS</small>
+              <small>Sales Operating System</small>
             </span>
           </CaseLink>
-          <nav className="global-app-nav" aria-label="Web OS">
-            <CaseLink className="btn secondary" href="/app">Analyzer</CaseLink>
-            <CaseLink className="btn secondary" href="/app/operator-dashboard">Operasi</CaseLink>
-            <CaseLink className="btn secondary" href="/app/resources">Resources</CaseLink>
-            <a className="btn secondary" href="/auth/signout">Keluar</a>
+          <nav className="global-app-nav" aria-label="BROS SELL">
+            <CaseLink className="nav-link" href="/app">Home</CaseLink>
+            <CaseLink className="nav-link" href="/app/cases">Cases</CaseLink>
+            <CaseLink className="nav-link" href="/app/resources">Library</CaseLink>
+            <CaseLink className="nav-link" href="/app/account">Account</CaseLink>
+            <a className="nav-link nav-link-muted" href="/auth/signout">Keluar</a>
           </nav>
         </div>
       </header>}>
