@@ -138,6 +138,13 @@ begin
   end if;
 
   v_user_id := v_order.user_id;
+  if v_user_id is not null and not exists (
+    select 1 from auth.users
+    where id=v_user_id and lower(email)=v_order.purchase_email
+  ) then
+    raise exception 'Payment order user does not match purchase email';
+  end if;
+
   if v_user_id is null then
     select id into v_user_id
     from auth.users
@@ -410,7 +417,7 @@ begin
     provider_payload=coalesce(p_payload,'{}'::jsonb),
     updated_at=now()
   where id=v_order.id
-    and status <> 'paid';
+    and (v_status='refunded' or status='pending');
 
   update public.hitpay_webhook_inbox
   set resolution_status='processed',
@@ -459,6 +466,7 @@ begin
     where status='paid'
       and entitlement_id is null
       and purchase_email=v_email
+      and (user_id is null or user_id=v_uid)
     order by paid_at asc nulls last, created_at asc
     for update skip locked
   loop
