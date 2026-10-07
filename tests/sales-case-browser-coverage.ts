@@ -113,7 +113,7 @@ try {
       await page.locator('.case-operating-row').filter({ hasText: title }).getByRole('link', { name: 'Teruskan', exact: true }).click();
       await page.getByRole('combobox', { name: /^Hasil tindakan/ }).selectOption('price_objection');
       await field(page, 'Apa yang customer buat / cakap?').fill('Buyer berkata mahal, tetapi belum menjelaskan maksud atau halangan.');
-      await page.getByRole('button', { name: 'Rekod hasil & tentukan next action', exact: true }).click();
+      await page.locator('.action-card button.primary-action').click();
       await page.locator('.case-diagnosis').filter({ hasText: 'Bantahan dicatat' }).waitFor();
       await page.waitForTimeout(1200);
       const afterOutcomeList = await (await context.request.get(`${base}/api/sales-cases`)).json();
