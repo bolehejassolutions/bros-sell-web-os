@@ -400,8 +400,10 @@ export function CaseActionPanel() {
       const next = change(active.document);
       update(() => next);
       setMessage('');
-      setAction('');
-      setNote('');
+      window.requestAnimationFrame(() => {
+        setAction('');
+        setNote('');
+      });
     } catch (failure) {
       setMessage(failure instanceof Error ? failure.message : 'Maklumat belum lengkap.');
     }
