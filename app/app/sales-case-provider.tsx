@@ -160,16 +160,17 @@ export default function SalesCaseProvider({ userId, navigation, children }: { us
     select(data.case.id);
   };
   const toolPage = !['/app', '/app/cases', '/app/resources', '/app/operator-dashboard', '/app/account'].includes(pathname);
+  const showCaseContext = !['/app/resources', '/app/account'].includes(pathname) && (cases.length > 0 || !!active || !!error);
   if (blocked) return <main className="container card case-notice" role="alert"><h1>{blocked === 401 ? 'Sesi telah tamat.' : 'Akses akaun perlu disemak.'}</h1><Link className="btn" href={blocked === 401 ? '/login' : '/activate'}>Semak akses</Link></main>;
   return <Context.Provider value={{ cases, active, loading, error, states, messages, select, update, create, save, reload }}>
     {navigation}
-    <div className="container case-context">
-      {loading ? <p role="status">Memuatkan Sales Cases...</p> : error ? <p role="alert">{error} <button className="btn secondary" onClick={() => void reload()}>Cuba lagi</button></p> : <>
-        {cases.length ? <label className="field-label"><span>Sambung case</span><select className="input" value={active?.id ?? ''} onChange={event => select(event.target.value)}><option value="">Pilih case</option>{cases.map(row => <option key={row.id} value={row.id}>{row.document.example ? 'CONTOH · ' : ''}{row.document.title}{states[row.id] && states[row.id] !== 'saved' ? ' (belum disimpan)' : ''}</option>)}</select></label> : <span className="muted">Belum ada case.</span>}
+    {showCaseContext && <div className="container case-context">
+      {error ? <p role="alert">{error} <button className="btn secondary" onClick={() => void reload()}>Cuba lagi</button></p> : <>
+        <label className="field-label"><span>Sambung case</span><select className="input" value={active?.id ?? ''} onChange={event => select(event.target.value)}><option value="">Pilih case</option>{cases.map(row => <option key={row.id} value={row.id}>{row.document.example ? 'CONTOH · ' : ''}{row.document.title}{states[row.id] && states[row.id] !== 'saved' ? ' (belum disimpan)' : ''}</option>)}</select></label>
         <Link className="btn secondary" href="/app">Case baharu</Link>
         {active && <CaseSaveStatus />}
       </>}
-    </div>
+    </div>}
     {cases.some(row => ['error', 'conflict'].includes(states[row.id])) && <div className="container card" role="alert"><p>Ada case yang belum disimpan. Pilih case untuk semak draft dan cuba lagi.</p><div className="case-actions">{cases.filter(row => ['error', 'conflict'].includes(states[row.id])).map(row => <button className="btn secondary" key={row.id} onClick={() => select(row.id)}>{row.document.title}</button>)}</div></div>}
     {toolPage && !active ? <main className="container card"><h1>Pilih satu Sales Case dahulu.</h1><p>Input tools akan disimpan bersama case itu. Mulakan dengan situasi sebenar melalui Analyzer.</p><Link className="btn" href="/app">Buka Analyzer</Link></main> : children}
   </Context.Provider>;
