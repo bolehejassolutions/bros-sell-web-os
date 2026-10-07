@@ -82,7 +82,7 @@ export default function SalesCaseWorkspace() {
             }}
           >
             <label className="field-label">
-              <span>Customer / deal <span className="muted">(optional)</span></span>
+              <span>Customer / deal (optional)</span>
               <input
                 className="input"
                 maxLength={160}
