@@ -139,7 +139,7 @@ try {
       // Library hides the full tool grid until explicitly requested.
       await page.getByRole('link', { name: 'Library', exact: true }).click();
       await page.getByRole('heading', { name: 'Cari apa yang anda perlukan.', exact: true }).waitFor();
-      assert.equal(await page.locator('.tool-card').filter({ visible: true }).count(), 0);
+      assert.equal(await page.locator('.tool-card:visible').count(), 0);
       await page.getByText('Lihat semua tools', { exact: true }).click();
       assert.ok(await page.locator('.tool-card').count() >= 10);
       await layout(page, width, 'library');
