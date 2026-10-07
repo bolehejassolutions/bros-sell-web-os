@@ -268,8 +268,11 @@ begin
     nullif(v_status,''), p_amount, nullif(v_currency,''), nullif(v_email,''),
     coalesce(p_product_ids,'{}'::text[]), coalesce(p_payload,'{}'::jsonb)
   )
-  on conflict (event_key) do update
-    set updated_at = now();
+  on conflict (event_key) do nothing;
+
+  if not found then
+    return jsonb_build_object('status','duplicate','event_key',p_event_key);
+  end if;
 
   if v_status not in ('completed','paid','success','succeeded','failed','expired','cancelled','refunded') then
     update public.hitpay_webhook_inbox
@@ -380,6 +383,16 @@ begin
   end if;
 
   if v_status in ('completed','paid','success','succeeded') then
+    if v_order.status = 'refunded' then
+      update public.hitpay_webhook_inbox
+      set resolution_status='ignored',
+          resolution_reason='refund_is_terminal',
+          order_id=v_order.id,
+          updated_at=now()
+      where event_key=p_event_key;
+      return jsonb_build_object('status','ignored','reason','refund_is_terminal','order_id',v_order.id);
+    end if;
+
     update public.bros_sell_payment_orders
     set status='paid',
         provider_payment_id=coalesce(nullif(p_provider_payment_id,''),provider_payment_id),
