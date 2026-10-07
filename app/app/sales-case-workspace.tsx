@@ -191,7 +191,7 @@ export function QualificationEvidence() {
 }
 
 export function CaseActionPanel() {
-  const { active, update, save } = useSalesCases();
+  const { active, update } = useSalesCases();
   const [action, setAction] = useState('');
   const [outcome, setOutcome] = useState<Observation>('replied');
   const [note, setNote] = useState('');
@@ -202,14 +202,7 @@ export function CaseActionPanel() {
   const result = diagnoseCase(active.document);
   const pending = pendingAction(active.document);
   const run = (change: (document: CaseDocument) => CaseDocument) => {
-    try {
-      const next = change(active.document);
-      update(() => next);
-      void save(active.id);
-      setMessage('');
-      setAction('');
-      setNote('');
-    }
+    try { const next = change(active.document); update(() => next); setMessage(''); setAction(''); setNote(''); }
     catch (failure) { setMessage(failure instanceof Error ? failure.message : 'Maklumat belum lengkap.'); }
   };
 
