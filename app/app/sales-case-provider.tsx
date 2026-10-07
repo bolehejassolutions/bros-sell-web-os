@@ -106,7 +106,7 @@ export default function SalesCaseProvider({ userId, navigation, children }: { us
     if (!row || saving.current.has(id) || saved.current.get(id) === fingerprint(row.document)) return;
     if (!isCaseDocument(row.document)) {
       setStates(previous => ({ ...previous, [id]: 'draft' }));
-      setMessages(previous => ({ ...previous, [id]: 'Lengkapkan tajuk, situasi dan bukti bagi signal yang disahkan sebelum menyimpan.' }));
+      setMessages(previous => ({ ...previous, [id]: 'Lengkapkan maklumat wajib atau bukti bagi signal yang disahkan sebelum menyimpan.' }));
       return;
     }
     saving.current.add(id);
@@ -163,15 +163,15 @@ export default function SalesCaseProvider({ userId, navigation, children }: { us
   if (blocked) return <main className="container card case-notice" role="alert"><h1>{blocked === 401 ? 'Sesi telah tamat.' : 'Akses akaun perlu disemak.'}</h1><Link className="btn" href={blocked === 401 ? '/login' : '/activate'}>Semak akses</Link></main>;
   return <Context.Provider value={{ cases, active, loading, error, states, messages, select, update, create, save, reload }}>
     {navigation}
-    <div className="container case-context">
-      {loading ? <p role="status">Memuatkan Sales Cases...</p> : error ? <p role="alert">{error} <button className="btn secondary" onClick={() => void reload()}>Cuba lagi</button></p> : <>
-        <label className="field-label"><span>Sales Case semasa</span><select className="input" value={active?.id ?? ''} onChange={event => select(event.target.value)}><option value="">Pilih case</option>{cases.map(row => <option key={row.id} value={row.id}>{row.document.example ? 'CONTOH · ' : ''}{row.document.title}{states[row.id] && states[row.id] !== 'saved' ? ' (belum disimpan)' : ''}</option>)}</select></label>
-        <Link className="btn secondary" href="/app">Buka Analyzer / case baharu</Link>
+    {(loading || error || cases.length > 0) && <div className="container case-context simplified-case-context">
+      {loading ? <p role="status">Memuatkan cases...</p> : error ? <p role="alert">{error} <button className="btn secondary" onClick={() => void reload()}>Cuba lagi</button></p> : <>
+        <label className="field-label"><span>Case semasa</span><select className="input" value={active?.id ?? ''} onChange={event => select(event.target.value)}><option value="">Pilih case</option>{cases.map(row => <option key={row.id} value={row.id}>{row.document.example ? 'CONTOH · ' : ''}{row.document.title}{states[row.id] && states[row.id] !== 'saved' ? ' (belum disimpan)' : ''}</option>)}</select></label>
+        <Link className="btn secondary" href="/app">Case baru</Link>
         {active && <CaseSaveStatus />}
       </>}
-    </div>
+    </div>}
     {cases.some(row => ['error', 'conflict'].includes(states[row.id])) && <div className="container card" role="alert"><p>Ada case yang belum disimpan. Pilih case untuk semak draft dan cuba lagi.</p><div className="case-actions">{cases.filter(row => ['error', 'conflict'].includes(states[row.id])).map(row => <button className="btn secondary" key={row.id} onClick={() => select(row.id)}>{row.document.title}</button>)}</div></div>}
-    {toolPage && !active ? <main className="container card"><h1>Pilih satu Sales Case dahulu.</h1><p>Input tools akan disimpan bersama case itu. Mulakan dengan situasi sebenar melalui Analyzer.</p><Link className="btn" href="/app">Buka Analyzer</Link></main> : children}
+    {toolPage && !active ? <main className="container card"><h1>Pilih satu case dahulu.</h1><p>Input tool akan disimpan bersama case itu. Mulakan dengan situasi sebenar dari Home.</p><Link className="btn" href="/app">Kembali ke Home</Link></main> : children}
   </Context.Provider>;
 }
 
