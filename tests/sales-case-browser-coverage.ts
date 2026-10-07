@@ -26,9 +26,7 @@ async function persist(page: Page, change: () => Promise<unknown>) {
 }
 async function openAdvanced(page: Page) {
   const details = page.locator('details.advanced-panel');
-  if (!(await details.evaluate(el => (el as HTMLDetailsElement).open))) {
-    await details.locator(':scope > summary').click();
-  }
+  await details.evaluate(el => { (el as HTMLDetailsElement).open = true; });
 }
 
 async function waitForObservation(page: Page, id: string, observation: string) {
