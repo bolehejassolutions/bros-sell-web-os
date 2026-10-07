@@ -90,8 +90,10 @@ export default function SalesCaseProvider({ userId, navigation, children }: { us
   const select = (id: string) => {
     setActiveId(id);
     const params = new URLSearchParams(query.toString());
-    params.set('case', id);
-    router.replace(`${pathname}?${params}`, { scroll: false });
+    if (id) params.set('case', id);
+    else params.delete('case');
+    const search = params.toString();
+    router.replace(search ? `${pathname}?${search}` : pathname, { scroll: false });
   };
   const update = (change: (doc: CaseDocument) => CaseDocument) => {
     if (!active) return;
@@ -167,7 +169,7 @@ export default function SalesCaseProvider({ userId, navigation, children }: { us
     {showCaseContext && <div className="container case-context">
       {error ? <p role="alert">{error} <button className="btn secondary" onClick={() => void reload()}>Cuba lagi</button></p> : <>
         <label className="field-label"><span>Sambung case</span><select className="input" value={active?.id ?? ''} onChange={event => select(event.target.value)}><option value="">Pilih case</option>{cases.map(row => <option key={row.id} value={row.id}>{row.document.example ? 'CONTOH · ' : ''}{row.document.title}{states[row.id] && states[row.id] !== 'saved' ? ' (belum disimpan)' : ''}</option>)}</select></label>
-        <Link className="btn secondary" href="/app">Case baharu</Link>
+        <button className="btn secondary" type="button" onClick={() => { setActiveId(''); router.push('/app'); }}>Case baharu</button>
         {active && <CaseSaveStatus />}
       </>}
     </div>}
