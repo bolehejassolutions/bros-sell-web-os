@@ -193,7 +193,7 @@ export function CaseDiagnosis() {
 function BuyerResponseCheck() {
   const { active, update } = useSalesCases();
   const [response, setResponse] = useState<Observation | ''>('');
-  const [buyerEvidence, setBuyerEvidence] = useState(active?.document.situation ?? '');
+  const [buyerEvidence, setBuyerEvidence] = useState('');
   if (!active) return null;
   return <section className="card case-form buyer-response-check">
     <div className="eyebrow">SATU PERKARA UNTUK DISAHKAN</div>
