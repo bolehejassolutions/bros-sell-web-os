@@ -21,10 +21,9 @@ async function saved() {
   await page.getByText('Disimpan dalam akaun',{exact:true}).waitFor();
 }
 async function openAdvanced() {
-  const summary=page.getByText('Lihat maklumat & diagnosis penuh',{exact:true});
-  if (await summary.count()) {
-    const details=summary.locator('..');
-    if (!(await details.evaluate(el => (el as HTMLDetailsElement).open))) await summary.click();
+  const details=page.locator('details.advanced-panel');
+  if (await details.count() && !(await details.evaluate(el => (el as HTMLDetailsElement).open))) {
+    await details.locator(':scope > summary').click();
   }
 }
 
