@@ -4,8 +4,6 @@ import { redirect } from "next/navigation";
 import SalesCaseWorkspace from './sales-case-workspace';
 import Link from 'next/link';
 
-const stages=["TARGET","BUYER","OFFER","LEAD","QUALIFY","VALUE","CLOSE","FOLLOW-UP","MULTIPLY","OPERATE"];
-
 export default async function AppHome(){
   const supabase=await createClient();
   const {data:{user}}=await supabase.auth.getUser();
@@ -13,70 +11,42 @@ export default async function AppHome(){
   if(!(await hasWebOSAccess())) redirect("/activate");
 
   return (
-    <main className="container" style={{padding:"28px 0 60px"}}>
-      <section className="hero">
-        <p className="muted">LEARN IT. RUN IT. KEEP IT UPDATED.</p>
-        <div className="hub-grid">
-          <article className="card hub-card">
-            <div>
-              <div className="eyebrow">WEB OS · EXECUTION</div>
-              <h2>Teruskan operasi</h2>
-              <p className="muted">Mulakan dengan situasi jualan sebenar dan bergerak melalui diagnosis → action → outcome → next action.</p>
-            </div>
-            <a className="btn" href="#analyzer">Buka Situation Analyzer</a>
-          </article>
-          <article className="card hub-card">
-            <div>
-              <div className="eyebrow">MY ACCESS</div>
-              <h2>Akses BROS SELL aktif</h2>
-              <p className="muted">Web OS dan Closing OS berada di bawah satu pengalaman produk. Closing OS v2.5 tersedia di Resources apabila anda perlukan rujukan mendalam.</p>
-            </div>
-            <Link className="btn secondary" href="/app/resources">Buka Resources</Link>
-          </article>
-        </div>
-        <h1>Customer Hub</h1>
-        <p className="muted hero-copy">Mulakan dengan situasi jualan sebenar. Gunakan sistem untuk menjelaskan keputusan, bukan memujuk.</p>
+    <main className="container simplified-home">
+      <section className="hero simple-hero">
+        <div className="eyebrow">BROS SELL™ · SALES DECISION CLARITY</div>
+        <h1>Jelaskan situasi. Tentukan langkah seterusnya.</h1>
+        <p className="muted hero-copy">Tak perlu pilih framework atau tool dahulu. Mulakan dengan apa yang sedang berlaku dalam jualan anda.</p>
       </section>
 
-      <section id="analyzer"><SalesCaseWorkspace /></section>
+      <SalesCaseWorkspace />
 
-      <section className="card os-overview">
-        <div>
-          <div className="eyebrow">THE OPERATING SYSTEM</div>
-          <h2>10-stage sales flow</h2>
-          <p className="muted">Gunakan stage ini sebagai peta untuk memahami di mana sesuatu masalah berada dalam proses jualan.</p>
-        </div>
-        <div className="stage">
-          {stages.map((s,i)=><div key={s}><small className="muted">{String(i+1).padStart(2,"0")}</small><div style={{marginTop:6,fontWeight:700}}>{s}</div></div>)}
-        </div>
+      <section className="secondary-home-grid">
+        <article className="card compact-home-card">
+          <div>
+            <div className="eyebrow">NAK FAHAM LEBIH MENDALAM?</div>
+            <h2>Closing OS</h2>
+            <p className="muted">Gunakan rujukan metodologi apabila anda perlukan penjelasan lebih mendalam. Untuk kerja harian, teruskan di Web OS.</p>
+          </div>
+          <Link className="btn secondary" href="/app/resources">Buka Library</Link>
+        </article>
+
+        <article id="account" className="card compact-home-card">
+          <div>
+            <div className="eyebrow">ACCOUNT</div>
+            <h2>{user.email ?? "Signed-in account"}</h2>
+            <p className="muted">Akses, case dan simpanan anda berkait dengan akaun ini.</p>
+          </div>
+          <a className="btn secondary" href="/auth/signout">Keluar</a>
+        </article>
       </section>
 
-      <section id="updates" className="card hub-section">
-        <div className="eyebrow">UPDATES</div>
-        <h2>Product change log</h2>
-        <div className="update-item">
-          <strong>26 Sep 2026 · Navigation simplification</strong>
-          <p className="muted">Customer Hub is now the home base. Individual tools use the same global navigation so you can always return to Hub or Resources.</p>
-          <div className="update-meta"><span>Affected: all Web OS customers</span><span>Action: none</span></div>
+      <details className="card quiet-details">
+        <summary>Product updates & support</summary>
+        <div className="quiet-details-body">
+          <p><strong>Perlu bantuan?</strong> Gunakan support channel yang diberikan bersama pembelian dan sertakan page atau case yang terlibat.</p>
+          <p className="muted">BROS SELL™ ialah satu sistem: Closing OS untuk belajar dan rujukan, Web OS untuk menjalankan situasi jualan sebenar.</p>
         </div>
-        <div className="update-item">
-          <strong>25 Sep 2026 · Closing OS v2.5</strong>
-          <p className="muted">Current customer reference version.</p>
-          <div className="update-meta"><span>Affected: all customers</span><span>Action: use v2.5 as current reference</span></div>
-        </div>
-      </section>
-
-      <section id="account" className="card hub-section">
-        <div className="eyebrow">ACCOUNT</div>
-        <h2>My account</h2>
-        <p className="muted">{user.email ?? "Signed-in account"}</p>
-      </section>
-
-      <section className="card hub-section">
-        <div className="eyebrow">SUPPORT</div>
-        <h2>Something unclear or broken?</h2>
-        <p className="muted">Gunakan support channel yang diberikan bersama pembelian anda. Sertakan page/resource dan apa yang berlaku.</p>
-      </section>
+      </details>
     </main>
   );
 }
