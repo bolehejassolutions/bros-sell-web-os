@@ -74,7 +74,7 @@ export default async function ResourcesPage() {
 
         <article className="card library-card">
           <div>
-            <div className="eyebrow">WHAT'S NEW</div>
+            <div className="eyebrow">WHAT&apos;S NEW</div>
             <h2>Apa yang berubah?</h2>
             <p className="muted">Perubahan produk penting akan diringkaskan di sini. Gunakan versi Closing OS semasa yang tersedia melalui Library.</p>
           </div>
