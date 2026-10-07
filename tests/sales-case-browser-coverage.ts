@@ -138,7 +138,7 @@ try {
       assert.equal(await field(page, 'Tajuk case semasa').inputValue(), title);
       assert.equal(await field(page, 'Pembeli').inputValue(), `Shared buyer ${width}`);
       await persist(page, () => field(page, 'Tarikh susulan yang dipersetujui / dirancang').fill('2026-01-01T09:00'));
-      await page.getByRole('link', { name: 'Operasi', exact: true }).click();
+      await page.getByRole('link', { name: 'Cases', exact: true }).click();
       await page.locator('.case-operating-row').filter({ hasText: title }).waitFor();
       assert.match(await page.locator('.case-operating-row').filter({ hasText: title }).innerText(), /Susulan perlu disemak/);
       assert.match(await page.locator('.case-operating-row').first().innerText(), /Susulan perlu disemak/);
