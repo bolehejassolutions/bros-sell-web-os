@@ -65,32 +65,35 @@ try {
       assert.match(await page.locator('body').innerText(), /30 hari kalendar dari tarikh pembelian/);
       await layout(page, width, 'recovery');
       await page.goto(`${base}/app`);
-      await page.getByRole('button', { name: 'Bina case & analisis', exact: true }).waitFor();
-      assert.equal(await page.locator('.case-onboarding li').count(), 4, 'First-use operating instructions');
+      await page.getByRole('button', { name: 'Tentukan next move', exact: true }).waitFor();
+      assert.match(await page.getByRole('heading', { name: 'Apa yang sedang berlaku dalam jualan anda sekarang?', exact: true }).innerText(), /Apa yang sedang berlaku/);
       await layout(page, width, 'onboarding');
+      await field(page, 'Customer / deal').fill('Buyer RM500');
+      await field(page, 'Apa yang berlaku?').fill('Prospek WhatsApp tanya harga servis. Saya jawab RM500; mesej dibaca tanpa balasan.');
+      await page.getByText('Tambah detail sekarang', { exact: false }).click();
       await field(page, 'Tajuk case').fill(title);
-      await field(page, 'Pembeli / nama rujukan').fill('Buyer RM500');
       await field(page, 'Tawaran / servis').first().fill('Servis RM500');
       await field(page, 'Harga / investment').first().fill('RM500');
-      await field(page, 'Situasi jualan').fill('Prospek WhatsApp tanya harga servis. Saya jawab RM500; mesej dibaca tanpa balasan.');
-      await field(page, 'Bukti: kata-kata atau tindakan sebenar pembeli').fill('Buyer bertanya harga, membaca jawapan RM500 dan belum memberi sebab penolakan.');
+      await field(page, 'Bukti sebenar yang anda ada').fill('Buyer bertanya harga, membaca jawapan RM500 dan belum memberi sebab penolakan.');
       await page.getByRole('combobox', { name: /^Pemerhatian terakhir/ }).selectOption('no_reply');
       const created = page.waitForResponse(r => r.request().method() === 'POST' && r.url().endsWith('/api/sales-cases'));
-      await page.getByRole('button', { name: 'Bina case & analisis', exact: true }).click();
+      await page.getByRole('button', { name: 'Tentukan next move', exact: true }).click();
       const createdResponse = await created;
       assert.equal(createdResponse.status(), 201);
       const initial: SalesCase = (await createdResponse.json()).case;
       const id = initial.id;
+      await page.getByText('Tambah konteks jika cadangan belum tepat', { exact: true }).click();
       await field(page, 'Tajuk case semasa').waitFor();
       await saved(page);
-      assert.equal(await page.getByRole('combobox', { name: /^Sales Case semasa/ }).inputValue(), id);
+      assert.equal(await page.getByRole('combobox', { name: /^Case semasa/ }).inputValue(), id);
       assert.equal(initial.document.example, false, 'A user-created case participates in actual operating priorities');
-      const diagnosis = await page.locator('.case-diagnosis').innerText();
-      for (const label of ['WHAT', 'WHY', 'NEXT', 'FOLLOW-UP', 'Tiada balasan']) assert.ok(diagnosis.includes(label), label);
-      await page.getByText('Diketahui / andaian / belum diketahui', { exact: true }).click();
-      for (const text of ['Diketahui', 'Andaian sistem', 'Belum diketahui / belum disahkan']) assert.ok((await page.locator('.case-diagnosis').innerText()).includes(text));
+      let diagnosis = await page.locator('.case-diagnosis').innerText();
+      for (const label of ['APA YANG BERLAKU', 'APA YANG BELUM PASTI', 'BUAT SEKARANG']) assert.ok(diagnosis.includes(label), label);
+      await page.getByText('Lihat diagnosis penuh', { exact: true }).click();
+      diagnosis = await page.locator('.case-diagnosis').innerText();
+      for (const text of ['FOLLOW-UP', 'Engaged', 'Diketahui', 'Andaian sistem', 'Belum diketahui / belum disahkan']) assert.ok(diagnosis.includes(text), text);
       await layout(page, width, 'diagnosis');
-      await page.getByRole('link', { name: 'Buka follow up', exact: true }).click();
+      await page.getByRole('link', { name: 'Bina follow-up', exact: true }).click();
       assert.equal(new URL(page.url()).searchParams.get('case'), id);
       assert.match(await field(page, 'Lead / Context').inputValue(), /RM500/);
       await persist(page, () => field(page, 'Adapted message').fill('Adakah servis RM500 masih relevan, atau skop perlu dijelaskan?'));
@@ -104,15 +107,15 @@ try {
       await layout(page, width, 'follow-up');
       await field(page, 'Tindakan yang telah dilakukan').fill('Sent one contextual clarification on WhatsApp.');
       await persist(page, () => page.getByRole('button', { name: 'Rekod tindakan dilakukan', exact: true }).click());
-      await page.getByRole('link', { name: 'Operasi', exact: true }).click();
+      await page.getByRole('link', { name: 'Cases', exact: true }).click();
       await page.locator('.case-operating-row').filter({ hasText: title }).waitFor();
       assert.match(await page.locator('.case-operating-row').filter({ hasText: title }).innerText(), /Hasil tindakan belum direkod/);
-      await page.locator('.case-operating-row').filter({ hasText: title }).getByRole('link', { name: 'Teruskan case', exact: true }).click();
+      await page.locator('.case-operating-row').filter({ hasText: title }).getByRole('link', { name: 'Teruskan', exact: true }).click();
       await page.getByRole('combobox', { name: /^Hasil tindakan/ }).selectOption('price_objection');
-      await field(page, 'Bukti hasil / respons sebenar').fill('Buyer berkata mahal, tetapi belum menjelaskan maksud atau halangan.');
+      await field(page, 'Apa yang customer buat / cakap?').fill('Buyer berkata mahal, tetapi belum menjelaskan maksud atau halangan.');
       await persist(page, () => page.getByRole('button', { name: 'Rekod hasil & tentukan next action', exact: true }).click());
       assert.match(await page.locator('.case-diagnosis').innerText(), /VALUE/);
-      await page.getByRole('link', { name: 'Buka objection playbook', exact: true }).click();
+      await page.getByRole('link', { name: 'Fahami objection', exact: true }).click();
       assert.match(await field(page, 'Exact buyer statement').inputValue(), /Buyer berkata mahal/);
       await layout(page, width, 'objection');
       await page.goto(`${base}/app/buyer-intelligence?case=${id}`);
@@ -120,9 +123,11 @@ try {
       assert.equal(await who.inputValue(), 'Buyer RM500');
       await persist(page, () => who.fill(`Shared buyer ${width}`));
       await layout(page, width, 'buyer-intelligence');
-      await page.getByRole('link', { name: 'Analyzer', exact: true }).first().click();
+      await page.getByRole('link', { name: 'Home', exact: true }).first().click();
+      await page.getByText('Tambah konteks jika cadangan belum tepat', { exact: true }).click();
       assert.equal(await field(page, 'Pembeli').inputValue(), `Shared buyer ${width}`);
       await page.reload();
+      await page.getByText('Tambah konteks jika cadangan belum tepat', { exact: true }).click();
       assert.equal(await field(page, 'Tajuk case semasa').inputValue(), title);
       assert.equal(await field(page, 'Pembeli').inputValue(), `Shared buyer ${width}`);
       await persist(page, () => field(page, 'Tarikh susulan yang dipersetujui / dirancang').fill('2026-01-01T09:00'));
@@ -133,7 +138,7 @@ try {
       await layout(page, width, 'dashboard');
       // The existing optional KPI table scrolls within its container. Prove every
       // field is reachable after opening it, without permitting document overflow.
-      const metricSummary = page.locator('summary').filter({ hasText: 'Metrik manual dan nota operasi' });
+      const metricSummary = page.locator('summary').filter({ hasText: 'Advanced metrics' });
       assert.ok((await metricSummary.innerText()).endsWith(title));
       await metricSummary.click();
       const metricInputs = page.locator('input[type="number"]');
@@ -146,7 +151,7 @@ try {
       assert.equal(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth), true, 'Open KPI table must not overflow the document');
       await page.screenshot({ path: `test-results/dashboard-metrics-${width}.png`, fullPage: true });
       await metricSummary.click();
-      await page.locator('.case-operating-row').filter({ hasText: title }).getByRole('link', { name: 'Teruskan case', exact: true }).click();
+      await page.locator('.case-operating-row').filter({ hasText: title }).getByRole('link', { name: 'Teruskan', exact: true }).click();
 
       if (width === 1280) {
         await page.route('**/api/sales-cases/*', async route => {
@@ -181,15 +186,16 @@ try {
       await context.clearCookies();
       await context.addCookies([{ ...fixtureCookie('b'), url: base, sameSite: 'Lax' }]);
       await page.goto(`${base}/app?case=${id}`);
-      await page.getByRole('button', { name: 'Bina case & analisis', exact: true }).waitFor();
+      await page.getByRole('button', { name: 'Tentukan next move', exact: true }).waitFor();
       assert.equal(await field(page, 'Tajuk case semasa').count(), 0, 'Previous account case must disappear');
       const bList = await (await context.request.get(`${base}/api/sales-cases`)).json();
       assert.equal(bList.cases.some((r: SalesCase) => r.id === id), false);
       assert.equal((await context.request.put(`${base}/api/sales-cases/${id}`, { data: { revision: aRow.revision, document: aRow.document } })).status(), 404);
+      await field(page, 'Apa yang berlaku?').fill('Account B authorized fixture case.');
+      await page.getByText('Tambah detail sekarang', { exact: false }).click();
       await field(page, 'Tajuk case').fill(`Account B private ${width}`);
-      await field(page, 'Situasi jualan').fill('Account B authorized fixture case.');
       const bCreated = page.waitForResponse(r => r.request().method() === 'POST' && r.url().endsWith('/api/sales-cases'));
-      await page.getByRole('button', { name: 'Bina case & analisis', exact: true }).click();
+      await page.getByRole('button', { name: 'Tentukan next move', exact: true }).click();
       const bResponse = await bCreated;
       assert.equal(bResponse.status(), 201);
       const bRow: SalesCase = (await bResponse.json()).case;
@@ -198,6 +204,7 @@ try {
       await context.clearCookies();
       await context.addCookies([{ ...fixtureCookie('a'), url: base, sameSite: 'Lax' }]);
       await page.goto(`${base}/app?case=${id}`);
+      await page.getByText('Tambah konteks jika cadangan belum tepat', { exact: true }).click();
       await field(page, 'Tajuk case semasa').waitFor();
       assert.equal(await page.getByRole('option', { name: `Account B private ${width}`, exact: true }).count(), 0);
       assert.equal((await context.request.put(`${base}/api/sales-cases/${bRow.id}`, { data: { revision: bRow.revision, document: bRow.document } })).status(), 404);
