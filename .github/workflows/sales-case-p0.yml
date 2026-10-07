@@ -22,6 +22,9 @@ jobs:
       NEXT_PUBLIC_SUPABASE_URL: http://127.0.0.1:54329
       NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: local-fixture-publishable-key
       BROS_FIXTURE_PRODUCTION: '1'
+      # Synthetic capture inputs only; never a merchant salt.
+      HITPAY_CAPTURE_WEBHOOK_SALT: isolated-capture-test-salt
+      HITPAY_BUSINESS_ID: fixture-business
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
         with:
