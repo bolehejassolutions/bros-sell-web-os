@@ -1,60 +1,78 @@
 # BROS SELL non-granting HitPay capture release
 
-Status: PREPARED FOR REVIEW. No Production deployment, webhook registration, secrets or transaction has been performed by this preparation.
+Status: **RELEASED / CAPTURE READY — 7 October 2026.**
 
-## Exact proposed change
+The capture-only receiver is deployed to Production. The separate HitPay webhook is saved, subscribes only to `charge.created`, and its per-endpoint salt plus the expected merchant business ID are configured as Production server-only secrets. No authentic buyer event has yet been used to enable automatic entitlement provisioning.
 
-Deploy only the capture route and shared pure normalizer on top of released UX main `f7f61f9db895b6b06124123f1ca0f254469bcfca`. This branch excludes PR #12's grant endpoint, entitlement claim changes, SQL migration, admin client and offer mapping. No dependency versions change.
+## Current boundary
 
-Proposed receiver: `https://brossell.bolehejas.com/api/webhooks/hitpay/capture`.
+This release contains only the non-granting capture route and shared pure normalizer. It excludes PR #12's grant endpoint, entitlement claim changes, SQL migration, admin client and commercial offer mapping.
 
-Use the custom Production domain because the existing Vercel project enables deployment protection on non-custom domains. Do not disable project-wide protection or put a Vercel bypass secret in the HitPay URL. Verify an external unsigned POST reaches the receiver and returns 401 after configuration, before registering a payment test.
+Canonical merchant receiver:
 
-## Proposed HitPay configuration
+`https://bros-sell-web-os.vercel.app/api/webhooks/hitpay/capture`
 
-| Field | Exact proposed value |
+HitPay rejected the custom hostname during endpoint setup and accepted the canonical Vercel Production URL above. Do not disable project-wide deployment protection or add a Vercel bypass secret to the merchant webhook URL.
+
+## Current HitPay configuration
+
+| Field | Current value |
 | --- | --- |
 | Merchant | BOLEHEJAS SOLUTIONS |
 | Expected business ID | `a089a95e-7d0e-4f1b-8d85-425f3c82f460` |
 | Endpoint name | `BROS SELL - Non-granting Capture` |
-| URL | `https://brossell.bolehejas.com/api/webhooks/hitpay/capture` |
+| URL | `https://bros-sell-web-os.vercel.app/api/webhooks/hitpay/capture` |
 | Events | `charge.created` only |
-| Signature | `Hitpay-Signature`: HMAC-SHA256 of raw JSON using this endpoint's salt |
+| Signature | `Hitpay-Signature`: HMAC-SHA256 of the raw JSON using this endpoint's salt |
 | Event headers | `Hitpay-Event-Object: charge`; `Hitpay-Event-Type: created` |
-| Product to inspect in authentic event | `a2cfb307-366d-4ebc-9ff4-68b6c718e7d6` |
+| BROS SELL product ID to inspect | `a2cfb307-366d-4ebc-9ff4-68b6c718e7d6` |
 
-Business/product identity comes from PR #12's dated merchant evidence; recheck in the authenticated merchant dashboard before saving. Preserve `BROS CONTENT OS - Payment Webhook` and all its subscriptions. Capture can receive the merchant's other charge events too: inspect the product IDs to identify BROS SELL evidence. It never grants or resolves an offer.
+Preserve `BROS CONTENT OS - Payment Webhook` and all its subscriptions. The capture endpoint may receive `charge.created` events for other merchant products; product identity must be inspected before any event is treated as BROS SELL evidence.
 
 ## Server-only configuration
 
-- `HITPAY_BUSINESS_ID`: exact expected business ID above.
-- `HITPAY_CAPTURE_WEBHOOK_SALT`: salt generated for the new capture endpoint, entered directly into the project's Production secret store by the owner. Do not paste it into chat, source, PR notes, screenshots or logs. The Developers-page API salt is a different value and must not be used.
-- No service-role/admin secret, `HITPAY_WEBHOOK_SALT`, SQL migration or commercial offer mapping is needed for capture.
+- `HITPAY_BUSINESS_ID`: configured for the expected merchant business ID.
+- `HITPAY_CAPTURE_WEBHOOK_SALT`: configured in the Vercel Production secret store. Do not expose it in chat, source, PR notes, screenshots or logs.
+- The Developers-page API salt is a different value and must not be substituted.
+- No service-role/admin secret, grant-capable webhook salt, SQL migration or commercial offer mapping is required for capture-only operation.
 
-Missing capture configuration returns 503. Signed wrong-merchant events return 403, invalid signatures return 401, malformed bodies return 400 and non-JSON requests return 415. Other event types are ignored without logging payment evidence.
+The receiver fails closed:
+- missing configuration → 503
+- invalid signature → 401
+- signed wrong merchant → 403
+- malformed JSON → 400
+- non-JSON request → 415
+- unrelated event type → accepted and ignored
 
-## Execution after scoped approval
+## Completed verification
 
-1. Recheck capture-only PR head, CI and diff; release it using the repository's normal convention. Confirm Production deploy READY and seller smoke tests. PR #12 stays draft.
-2. In authenticated HitPay, stage the separate endpoint above and obtain its generated per-endpoint salt. Configure that salt in Vercel's server-only Production secret store and set the business ID. No secret is handled in conversation.
-3. Deploy the same reviewed capture-only main with those values, verify unsigned HTTP 401 and signed synthetic tests. Classify synthetic evidence separately from merchant payment proof.
-4. Activate only the new endpoint's `charge.created` subscription. Verify its URL, enabled state and event selection; leave the existing endpoint intact.
-5. Obtain a separately authorized controlled new purchase, using the then-approved price and purchase-email identity. No price reduction, payment or refund is authorized by this runbook.
-6. Inspect private Vercel `BROS_SELL_HITPAY_CAPTURE` evidence and HitPay delivery success. Verify product ID, payment/order IDs, succeeded status, amount/currency and hashed buyer identity. Never publish raw customer payloads or plaintext buyer email.
-7. Add a redacted regression fixture. Only then resume PR #12's separate Production automation decision.
+1. Capture-only PR released to Production; seller smoke tests passed.
+2. Dedicated HitPay endpoint created; existing BROS CONTENT webhook left unchanged.
+3. Per-endpoint salt and expected business ID configured in Production without exposing the salt.
+4. Same reviewed Production code redeployed after secret setup.
+5. Unsigned JSON returns 401 rather than 503.
+6. Malformed JSON returns 400.
+7. Non-JSON returns 415.
+8. Unrelated event types are ignored.
+9. Production Supabase has no capture-payment-order or webhook-inbox tables from PR #12, and capture tests do not alter customer entitlements.
 
-The salt is created by HitPay during endpoint setup, so the endpoint may initially return 503 until its secret is configured and the reviewed deployment is rebuilt. Do not initiate the controlled transaction during that window.
+## Remaining evidence gate
 
-## What capture proves
+Wait for the first authentic buyer purchase, unless a controlled purchase is separately authorized later.
 
-The code verifies signatures and merchant identity, then logs normalized fields, a retry fingerprint, buyer-email hash and key/type structure. It writes no database data. Missing field mappings are recorded rather than treated as successful purchase proof. Private logs have provider retention limits; inspect promptly and retain a redacted evidence record. This is not a raw payload archive or proof that any entitlement was granted.
+When the authentic event arrives:
+
+1. fulfil the customer's access through the approved manual path so the customer is not dependent on an unproven automation;
+2. inspect private `BROS_SELL_HITPAY_CAPTURE` evidence and HitPay delivery success;
+3. verify merchant, provider payment identity, order/reference identity, buyer identity, BROS SELL product identity, succeeded status, amount and currency;
+4. never publish the raw customer payload or plaintext buyer email;
+5. add a redacted authentic regression fixture;
+6. only then resume PR #12's migration, exact offer mapping and automatic-entitlement release decision.
+
+Synthetic fixtures prove receiver behavior, not authentic merchant mapping.
 
 ## Rollback
 
-Disable only the new capture endpoint if delivery or privacy checks fail. Roll back the application deployment to the preceding UX release if there is a material app regression. Do not change customer data or schema. Remove the capture-only environment values only as a separately reviewed cleanup action.
-
-## Evidence boundary
-
-Current CI uses loopback fixtures and synthetic salts. Preview build readiness is not authentic HitPay delivery. Production application, merchant configuration and payment actions require scoped approval after this exact change is reviewable.
+If capture delivery or privacy checks fail, disable only the new BROS SELL capture endpoint. If the application itself regresses, roll back the application deployment only. Do not change customer data or the existing BROS CONTENT webhook.
 
 Official webhook contract: https://docs.hitpayapp.com/apis/guide/events

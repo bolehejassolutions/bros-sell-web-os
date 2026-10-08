@@ -28,6 +28,7 @@ test('HTTP account persistence, ownership, concurrency, input validation and ent
   assert.equal((await fetch(`${base}/api/customer/closing-os`,{headers:headers('c')})).status,403);
   const protectedDownload=await fetch(`${base}/api/customer/closing-os`,{headers:headers('a'),redirect:'manual'});
   assert.equal(protectedDownload.status,307);
+  assert.equal(protectedDownload.headers.get('cache-control'),'private, no-store');
   const downloadUrl=new URL(protectedDownload.headers.get('location')!);
   assert.equal(downloadUrl.origin,'http://127.0.0.1:54329');
   assert.equal(downloadUrl.pathname,'/storage/v1/object/sign/bros-sell-customer-files/closing-os/BROS_SELL_02_Closing_OS_v2.5.pdf');

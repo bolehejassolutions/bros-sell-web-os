@@ -81,6 +81,7 @@ try {
       assert.equal(initial.document.evidence, '', 'Situation alone must not invent buyer evidence');
       assert.equal(initial.document.observation, 'unknown');
       await page.getByRole('combobox', { name: 'Respons terakhir customer', exact: true }).selectOption('no_reply');
+      await field(page, 'Kata-kata / tindakan customer').fill('Customer bertanya harga, membaca mesej RM500 dan belum membalas.');
       await persist(page, () => page.getByRole('button', { name: 'Sahkan & tentukan next move', exact: true }).click());
       await page.getByRole('link', { name: 'Bina follow-up', exact: true }).waitFor();
       assert.ok(Date.now() - firstValueStarted < 60000, 'Minimum-input route reaches recommendation within the automated 60s budget');

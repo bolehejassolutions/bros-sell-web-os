@@ -33,7 +33,7 @@ export default async function ResourcesPage() {
           <div>
             <div className="eyebrow">BELAJAR LEBIH MENDALAM</div>
             <h2>Closing OS</h2>
-            <p className="muted">Rujukan metodologi untuk memahami logik BROS SELL dengan lebih mendalam.</p>
+            <p className="muted">Closing OS v2.5 · rujukan metodologi untuk memahami logik BROS SELL dengan lebih mendalam.</p>
           </div>
           <a className="btn" href="/api/customer/closing-os">Buka Closing OS</a>
         </article>

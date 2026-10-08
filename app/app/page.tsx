@@ -28,17 +28,24 @@ export default async function AppHome(){
           <div>
             <div className="eyebrow">ACCOUNT</div>
             <h2>{user.email ?? "Signed-in account"}</h2>
-            <p className="muted">Akses, case dan simpanan anda berkait dengan akaun ini.</p>
+            <p className="muted">Akses BROS SELL aktif. Case dan simpanan anda berkait dengan akaun ini.</p>
+            <p className="field-note">Closing OS semasa: v2.5 · Web OS: aktif</p>
           </div>
-          <a className="btn secondary" href="/auth/signout">Keluar</a>
+          <div className="resource-actions">
+            <a className="btn secondary" href="mailto:brossell@bolehejas.com?subject=BROS%20SELL%20support">Hubungi support</a>
+            <a className="btn secondary" href="/auth/signout">Keluar</a>
+          </div>
         </article>
       </section>
 
       <details className="card quiet-details">
         <summary>Product updates & support</summary>
         <div className="quiet-details-body">
-          <p><strong>Perlu bantuan?</strong> Gunakan support channel yang diberikan bersama pembelian dan sertakan page atau case yang terlibat.</p>
-          <p className="muted">BROS SELL™ ialah satu sistem: Closing OS untuk belajar dan rujukan, Web OS untuk menjalankan situasi jualan sebenar.</p>
+          <p><strong>Status akses:</strong> aktif untuk akaun ini.</p>
+          <p><strong>Closing OS:</strong> versi pelanggan semasa ialah v2.5.</p>
+          <p><strong>Web OS:</strong> aliran berpandu Situation → Evidence → Diagnosis → Action → Outcome → Next Action sedang aktif.</p>
+          <p><strong>Perlu bantuan atau mahu beri feedback?</strong> Email <a href="mailto:brossell@bolehejas.com?subject=BROS%20SELL%20support">brossell@bolehejas.com</a> dan sertakan page atau case yang terlibat. Jangan hantar password, OTP atau maklumat kad.</p>
+          <p className="muted">BROS SELL™ ialah satu Sales Operating System: Closing OS untuk belajar dan rujukan, Web OS untuk menjalankan situasi jualan sebenar.</p>
         </div>
       </details>
     </main>
