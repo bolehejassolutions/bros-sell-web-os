@@ -76,7 +76,7 @@ The Web OS should also function as the living customer control centre for:
 - issues/support
 - account information
 
-For Early Bird, purchasing either surface grants access to both.
+Under the current one-product architecture, an active BROS SELL core entitlement grants access to both customer surfaces.
 
 ## Pass condition
 

@@ -76,6 +76,16 @@ actual staffed address has been configured. Otherwise customers are directed to
 the support channel in their purchase confirmation; no address is invented.
 
 See [release assessment](docs/sales-case-release-assessment.md) and
-[verification runbook](docs/sales-case-test-runbook.md). The current release gate
-is NOT READY while the actual Supabase project and browser/customer journey
-remain unverified.
+[verification runbook](docs/sales-case-test-runbook.md).
+
+## Current Production state — 7 October 2026
+
+The guided Web OS customer loop is released to Production on the verified BROS SELL
+Supabase project. Hosted authentication, entitlement isolation, Sales Case
+persistence/recovery, Cases, Library and the protected Closing OS download have
+passed the current release gate.
+
+Manual fulfilment remains the approved customer-access path. The separate
+non-granting HitPay capture receiver is live for authentic event evidence only;
+automatic entitlement provisioning remains deliberately disabled until a real
+`charge.created` event proves the provider mapping.
