@@ -29,9 +29,9 @@ create function public.sync_bros_sell_onboarding_messages()
 returns void language plpgsql security definer set search_path = '' as $$
 begin
   -- Reserved messages have not passed the pre-send check, so expired leases
-  -- can return to pending. Sending messages may have reached Gmail.
+  -- can return to pending. Sending messages may have reached the mail server.
   update public.bros_sell_onboarding_messages set status='pending',attempt_id=null,attempted_at=null,reason='reservation_expired_before_send'
-  where status='reserved' and attempted_at < now()-interval '10 minutes';
+  where status='reserved' and attempted_at <= now()-interval '10 minutes';
 
   -- A process crash/timeout after SMTP/API acceptance cannot be safely retried.
   update public.bros_sell_onboarding_messages set status='uncertain',reason='send_receipt_missing'
@@ -116,9 +116,19 @@ declare m public.bros_sell_onboarding_messages%rowtype; o public.bros_sell_payme
 begin
   select * into m from public.bros_sell_onboarding_messages where id=p_id for update;
   if not found or m.status<>'reserved' or m.attempt_id is distinct from p_attempt_id then return false; end if;
+  -- An old worker must not promote an expired reservation even when no other
+  -- worker has run sync/reclaimed it yet. Clear its attempt before returning.
+  if m.attempted_at is null or m.attempted_at <= now()-interval '10 minutes' then
+    update public.bros_sell_onboarding_messages
+      set status='pending',attempt_id=null,attempted_at=null,reason='reservation_expired_before_send'
+      where id=p_id;
+    return false;
+  end if;
   select * into o from public.bros_sell_payment_orders where id=m.order_id;
   if o.status<>'paid'
     or (m.kind<>'access_confirmed' and o.activated_at is not null)
+    or (m.kind='initial' and now() >= o.paid_at+interval '24 hours')
+    or (m.kind='reminder_24h' and now() >= o.paid_at+interval '72 hours')
     or (m.kind='access_confirmed' and (o.activated_at is null or not exists (
       select 1 from public.entitlements e where e.id=o.entitlement_id and e.user_id=o.user_id
         and e.status='active' and (e.expires_at is null or e.expires_at>now())

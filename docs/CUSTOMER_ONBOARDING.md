@@ -1,47 +1,68 @@
-# BROS SELL™ customer onboarding — optional second release
+# BROS SELL™ customer email automation
 
-Status: implemented on PR #12, disabled by default, NOT LIVE. Payment-to-entitlement is the first release. The payment migration and manual access do not depend on this optional workflow.
+Status: implemented on draft PR #12, disabled by default, NOT LIVE. Payment/access and email releases remain separate. Manual fulfilment and customer rights do not depend on the sender.
 
-## Existing infrastructure
+## Sender and transport
 
-Use the existing Next.js/Vercel application, Supabase transactional outbox and native Supabase Cron, and the existing business Gmail mailbox. No new automation platform or npm dependency is introduced. Gmail connector authorization is not a deployable application credential; an owner-authorized Gmail API credential is required separately.
+Use Next.js/Vercel, the private Supabase outbox and cPanel SMTP. Every onboarding message has From, Reply-To and envelope sender `brossell@bolehejas.com`. Host `mail.bolehejas.com`, port `465`, implicit SSL/TLS, username `brossell@bolehejas.com`. Nodemailer is pinned in the lockfile; Gmail OAuth is no longer used.
 
-The sender is BOLEHEJAS SOLUTIONS / `bolehejassolutions@gmail.com`, matching the inspected business mailbox; replies go to `brossell@bolehejas.com`. Using that support address as the From alias requires separate verified send-as evidence and is not assumed. All four messages are Malay-first and contain only public login/app/support URLs. HitPay package delivery stays separate. No passwords, OTPs, access tokens, purchase-specific URLs, lifetime hosting promises or outcome guarantees appear.
+TLS validates the hostname/certificate and requires at least TLS 1.2. Do not disable validation or substitute another host. Runtime SMTP verification runs before any queue claim. Passwords are server-only secrets; protocol logging, debugging, attachments and file/remote content loading are disabled. Errors/logs contain static messages/counts only.
 
-## Timing and condition
+The four Malay messages retain public login/app/support URLs and no password, OTP, token, purchase-specific URL, price or performance claim. HitPay receipts and digital-package delivery remain separate.
 
-- Initial: due five minutes after the verified ledger's `paid_at`.
-- Reminder: due 24 hours if activation remains incomplete.
-- Final reminder: due 72 hours if activation remains incomplete.
-- Confirmation: queued at the first verified account visit to `/app` with the paid order's active entitlement; dispatch is attempted after that request. Cron provides recovery on its next one-minute tick.
+## Evidence — 9 October 2026 MYT
 
-Activation means the purchase-email account is confirmed, owns the ledger/entitlement and successfully passes the app access gate. An automatic entitlement grant alone does not count as completing onboarding. Existing/manual access remains valid if the optional migration or sender is unavailable.
+- Production: `ee99f22a2ad7ecb0bf02cace47cf58a21dd3ea29` at `brossell.bolehejas.com`. Payment/outbox tables and runtime sender credentials are not deployed.
+- cPanel: DKIM, SPF, DMARC and PTR Valid; alternate HELO `node29.netkl.org`. DNS unchanged. Configuration checks do not prove external inbox delivery.
+- Live unauthenticated TLS/EHLO probe to port 465: TLS 1.3, valid wildcard certificate and AUTH advertised. No credential or email used.
+- Webmail SSO opened the intended mailbox. One labelled internal test sent to the same mailbox arrived at 16:52 MYT. This does not establish application SMTP authentication or external deliverability.
+- Supabase Auth custom SMTP is already enabled at the same host/port, sender name BROS SELL™, minimum interval 60 seconds. Exact sender email/username are redacted in the accessible UI; their identities and stored credential are UNVERIFIED. Auth settings unchanged.
+- Public HitPay product displays MYR100, while the payment branch refers to RM50. Reconcile the approved offer against live checkout before release; this SMTP change leaves prices/payment SQL unchanged.
+- Authentic merchant/payment/product/event and hosted payment-to-access E2E remain open gates. Synthetic fixtures do not establish payment truth.
 
-The queue has one row per purchase and message kind. Row locks and a unique constraint reserve one message at a time. Each worker processes at most five sequential messages, and reserves the next only after the current result is recorded. Immediately before sending, the worker checks the payment state, activation state, entitlement for confirmations and manual-delivery suppression. Pending reminders stop after activation. An already in-flight network send cannot be recalled; the pre-send check minimizes that race. Late startup sends only the latest due reminder, avoiding a burst of old messages.
+## Timing and idempotency
 
-Delivery state: pending → reserved → sending → sent / failed / uncertain. The pre-send check promotes a reservation to sending. A reserved lease that expires before that check returns to pending after ten minutes; its old attempt ID cannot send. Network timeout, 5xx, missing successful receipt or a worker crash after promotion to sending are uncertain and NEVER automatically resent. Reconcile privately against Gmail Sent using the deterministic Message-ID before any manual recovery. A stored Gmail acceptance receipt is not a guarantee the destination inbox received/read the message.
+Initial is due five minutes after verified `paid_at`; reminders at 24/72 hours while activation remains incomplete. Confirmation requires a confirmed purchase-email account owning the paid ledger and linked active entitlement, then passing the /app gate.
 
-## Release sequence
+One row exists per purchase/message kind. Row locking and the unique constraint reserve one message at a time, at most five sequential messages per worker. The next is reserved only after recording the current result. Immediately before send, SQL rechecks paid state, activation, manual suppression, confirmation entitlement, ten-minute lease expiry and reminder supersession. A delayed worker cannot promote an expired reservation or an old initial/reminder. Late startup sends the latest eligible reminder.
 
-1. Pass genuine merchant evidence, migration review, exact current RM50 offer, payment duplicate/rejection/claim checks and hosted customer access gates first. Onboarding must not delay that release.
-2. Generate a migration using the installed Supabase CLI (`supabase migration new customer_onboarding`) and place the reviewed `supabase/sql/onboarding.sql` inside it. The current file is a rollout SQL source, not a claim of applied migration history. Test it and apply through the normal migration path. It changes no access rights.
-3. BEFORE enabling any sender, reconcile previously sent manual messages. Record Order #1007's actual provider order reference and initial-email send time in `bros_sell_onboarding_manual_deliveries` through a private authenticated database operation. Do not put customer data or references in GitHub. Confirm the outbox initial row is sent/manual_delivery_recorded when that ledger exists. No initial email may be resent for #1007. Reconcile any later manual sends too.
-4. In Vercel Production secure environment settings, configure `BROS_GMAIL_CLIENT_ID`, `BROS_GMAIL_CLIENT_SECRET`, `BROS_GMAIL_REFRESH_TOKEN` for the existing business mailbox with the minimum `gmail.send` scope. Owner completes OAuth consent; never request credential values in chat. Use Production OAuth app settings suitable for durable authorization, not a short-lived testing consent token. Configure `BROS_ONBOARDING_WORKER_SECRET` securely.
-5. Set `BROS_ONBOARDING_MANUAL_DELIVERIES_RECONCILED=true` only after step 3. Keep `BROS_ONBOARDING_ENABLED` absent/false until a controlled test mailbox verifies sending, recorded receipts, replay suppression and access/reminder conditions. All synthetic messages stay in an isolated test database; do not seed synthetic payments in Production.
-6. Enable Supabase `pg_cron` / `pg_net` after review. Store the worker secret in Supabase Vault using authenticated UI; do not embed it in a URL, public SQL source, logs or a cron literal. Add exactly one job for this workflow that POSTs to `https://brossell.bolehejas.com/api/internal/onboarding` every minute with the Vault-provided Bearer secret. Cron calls only the existing SELL application; do not change CONTENT OS.
-7. Set `BROS_ONBOARDING_ENABLED=true` in Production and redeploy the reviewed release. Verify the first real eligible message and receipt privately. To stop sending, set it false and redeploy, then pause the one cron job. Preserve ledger, queue and customer rights.
+State: pending → reserved → sending → sent / failed / uncertain. Expired unsent reservations recover with new attempt IDs; stale IDs cannot send/finish. A promoted send, timeout, disconnect, missing receipt or crash becomes uncertain and is never automatically retried. Definite SMTP rejection is failed; neither failed nor uncertain is automatically reclaimed. Receipt failure stops the worker before claiming another message.
 
-Queue/activation/sender APIs are service-role-only except the authenticated self-activation RPC. Anonymous and other customer accounts cannot reserve or read delivery records. Keep server admin/Gmail/worker credentials separate from NEXT_PUBLIC variables. Application logs contain static errors/counts only.
+`sent` requires final DATA 250 acceptance, exact sole recipient/envelope and deterministic Message-ID. It means SMTP acceptance, not inbox arrival/read. SMTP cannot guarantee exactly-once delivery after a lost acceptance response; ambiguous attempts require private reconciliation.
 
-## Operational checks
+SMTP does not automatically append mail to Webmail Sent. Use cPanel Track Delivery/hosting logs and recipient headers with the Message-ID. Absence from Sent does not establish that an application message was not sent. Never blindly resend an uncertain message.
 
-- Payment access: no dependency on Gmail or queue success.
-- Manual #1007: private suppression receipt exists before enablement.
-- Scheduler replay / overlapping workers: one reservation and one provider attempt per message.
-- Early preparation/receipt failure: later messages remain pending; an expired pre-send reservation recovers, while an attempted send remains uncertain.
-- Activation after reservation: unsent reminder suppressed by pre-send check.
-- Refund/revocation before send: no new inappropriate confirmation/reminder; manual refund-access policy remains unchanged.
-- Unknown Gmail acceptance: reconcile Sent, do not blindly retry.
-- `/app` and protected customer resource: verify with a real controlled confirmed account after payment release, independently from isolated CI fixtures.
+## Safe credential entry and controlled tests
 
-Official references: https://supabase.com/docs/guides/functions/schedule-functions ; https://supabase.com/docs/guides/cron/quickstart ; https://developers.google.com/workspace/gmail/api/guides/sending ; https://developers.google.com/identity/protocols/oauth2/web-server
+The owner confirmed the application credential is not stored yet. Never paste it into chat, GitHub, command arguments, logs or .env.example.
+
+1. Open PowerShell in this checkout and run `./scripts/smtp-check.ps1`. Its masked prompt holds the password only in process memory, passes it via the child environment and removes/restores it in finally. The default diagnostic verifies TLS/auth without sending and accesses no database, webhook, queue or entitlement API. Output is allowlisted status only.
+2. After auth succeeds, `./scripts/smtp-check.ps1 -SelfTest` sends one labelled test only to `brossell@bolehejas.com` with the required From/Reply-To. Read its received headers/Message-ID. SMTP acceptance alone does not pass inbox E2E.
+3. Use a separately approved controlled external mailbox to verify Inbox/Spam, replies, SPF/DKIM/DMARC alignment and private delivery tracking. Do not use a customer address or change already-valid DNS.
+4. For hosted tests, the owner enters `BROS_SMTP_PASSWORD` directly in authenticated Vercel secure settings as Sensitive, initially scoped to Preview and this branch only. Keep release flags false. Preview and Supabase Auth credentials are separately configured. Do not pull/decrypt secrets into files/build artifacts. Production configuration belongs to the reviewed release.
+
+Fixed transport defaults are in .env.example. Password/worker secret must never use NEXT_PUBLIC prefixes. Do not reset the mailbox password merely to complete this workflow.
+
+## Supabase Auth — separate configuration
+
+Auth confirmation/recovery/security messages use their own configuration. Preserve confirmation, redirects, rate limits and security settings. After controlled SMTP verification, inspect the current sender and configure intended From/username `brossell@bolehejas.com`, host `mail.bolehejas.com`, port 465 and sender name BROS SELL™ through the authenticated settings.
+
+Hosted native Auth SMTP documents From but no explicit Reply-To setting. Verify a received controlled Auth message; From alone does not prove Reply-To. If native configuration cannot satisfy explicit Reply-To, evaluate a reviewed Send Email Hook separately. It replaces Auth SMTP and handles sensitive payloads; this branch does not install/enable one.
+
+Controlled Auth E2E covers registration/confirmation, redirect, login, recovery, no premature entitlement and protected-resource access. Preserve existing customer accounts. Auth delivery must pass independently before the global email E2E flag is true.
+
+## Release gates
+
+All five exact server flags must be true: `BROS_ONBOARDING_ENABLED`, `BROS_ONBOARDING_PAYMENT_EVENT_VERIFIED`, `BROS_ONBOARDING_SMTP_VERIFIED`, `BROS_ONBOARDING_E2E_VERIFIED`, `BROS_ONBOARDING_MANUAL_DELIVERIES_RECONCILED`. Flags attest to reviewed evidence, not a substitute for it; SQL independently rechecks each paid order.
+
+1. Resolve authentic merchant/payment/order/product/email/amount/currency evidence, the offer mismatch, and hosted duplicate/rejection/confirmed-email claim/protected-resource gates in HITPAY_ENTITLEMENT_AUTOMATION.md. This email change activates no grants.
+2. Review optional supabase/sql/onboarding.sql separately. Generate its migration with `supabase migration new customer_onboarding`, run isolated SQL/RLS tests and normal migration review before applying. This SQL source is not applied migration history; no Production migration occurred.
+3. Privately reconcile manual deliveries, including the initial email for Order #1007, using its exact provider reference and send time in bros_sell_onboarding_manual_deliveries. Keep buyer details/references out of GitHub. Verify suppression before enabling the sender.
+4. Pass controlled SMTP/Auth E2E, private receipt/replay/suppression tests with isolated data. Never seed synthetic payments into Production or send customer onboarding during verification.
+5. After review, configure Production worker/sender secrets and only set each flag when its evidence passes.
+6. Add one reviewed Supabase Cron job POSTing to the SELL worker using its Bearer secret from Vault. Do not put secrets in URLs/public SQL/cron literals. No cron/Vault/pg_net setup is applied here; CONTENT OS unchanged.
+7. Activate only the reviewed release after all gates. Monitor the first eligible receipt privately. To stop, disable onboarding and pause its one job, preserving ledger/queue/customer rights.
+
+Queue RPCs are service-role-only. Self-activation requires the confirmed owner and linked active entitlement. The SMTP worker contains no entitlement-grant call.
+
+Official references: [SMTP](https://nodemailer.com/smtp), [message options](https://nodemailer.com/message), [Supabase Auth SMTP](https://supabase.com/docs/guides/auth/auth-smtp), [Send Email Hook](https://supabase.com/docs/guides/auth/auth-hooks/send-email-hook), [Cron](https://supabase.com/docs/guides/cron/quickstart).

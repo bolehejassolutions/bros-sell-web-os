@@ -3,7 +3,8 @@ export type OnboardingKind = typeof onboardingKinds[number];
 
 const login = 'https://brossell.bolehejas.com/login';
 const app = 'https://brossell.bolehejas.com/app';
-const support = 'brossell@bolehejas.com';
+export const onboardingSender = 'brossell@bolehejas.com';
+const support = onboardingSender;
 const signoff = '\n\nBOLEHEJAS SOLUTIONS\nBROS SELL™ — Closing OS\n“Menjelaskan, bukan Memujuk.”';
 
 export function onboardingMessage(kind: OnboardingKind) {
@@ -28,29 +29,37 @@ export function onboardingMessage(kind: OnboardingKind) {
   }
 }
 
-export function onboardingMime(to: string, id: string, kind: OnboardingKind) {
-  if (!/^[^\s@<>;,]+@[^\s@<>;,]+\.[^\s@<>;,]+$/.test(to)) throw new Error('Invalid recipient.');
-  if (!/^[a-f0-9-]{36}$/i.test(id) || !onboardingKinds.includes(kind)) throw new Error('Invalid delivery identity.');
-  const message = onboardingMessage(kind);
-  const chunks: string[] = [];
-  let chunk = '';
-  for (const character of message.subject) {
-    if (Buffer.byteLength(chunk + character) > 42) { chunks.push(chunk); chunk = ''; }
-    chunk += character;
+export type OnboardingMail = {
+  from: { name: string; address: typeof onboardingSender };
+  to: { address: string };
+  replyTo: typeof onboardingSender;
+  envelope: { from: typeof onboardingSender; to: [string] };
+  messageId: string;
+  subject: string;
+  text: string;
+  encoding: 'base64';
+  disableFileAccess: true;
+  disableUrlAccess: true;
+};
+
+export function onboardingMail(to: string, id: string, kind: OnboardingKind): OnboardingMail {
+  // One plain mailbox only. Nodemailer handles RFC822 encoding; caller-supplied
+  // display names, extra recipients and header/control characters are refused.
+  if (to.length > 254 || !/^[a-z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-z0-9](?:[a-z0-9-]*[a-z0-9])?(?:\.[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)+$/i.test(to)) {
+    throw new Error('Invalid recipient.');
   }
-  if (chunk) chunks.push(chunk);
-  const subject = chunks.map(value => `=?UTF-8?B?${Buffer.from(value).toString('base64')}?=`).join('\r\n ');
-  const encodedBody = Buffer.from(message.text, 'utf8').toString('base64').match(/.{1,76}/g)?.join('\r\n') ?? '';
-  return Buffer.from([
-    'From: BOLEHEJAS SOLUTIONS <bolehejassolutions@gmail.com>',
-    `To: ${to}`,
-    `Reply-To: ${support}`,
-    `Message-ID: <bros-sell-${id}@brossell.bolehejas.com>`,
-    `Date: ${new Date().toUTCString()}`,
-    `Subject: ${subject}`,
-    'MIME-Version: 1.0',
-    'Content-Type: text/plain; charset=UTF-8',
-    'Content-Transfer-Encoding: base64',
-    '', encodedBody,
-  ].join('\r\n')).toString('base64url');
+  const local = to.split('@')[0];
+  if (local.length > 64 || local.startsWith('.') || local.endsWith('.') || local.includes('..')) throw new Error('Invalid recipient.');
+  if (!/^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$/i.test(id) || !onboardingKinds.includes(kind)) {
+    throw new Error('Invalid delivery identity.');
+  }
+  const message = onboardingMessage(kind);
+  return {
+    from: { name: 'BROS SELL™ — BOLEHEJAS SOLUTIONS', address: onboardingSender },
+    to: { address: to }, replyTo: onboardingSender,
+    envelope: { from: onboardingSender, to: [to] },
+    messageId: `<bros-sell-${id.toLowerCase()}@brossell.bolehejas.com>`,
+    subject: message.subject, text: message.text, encoding: 'base64',
+    disableFileAccess: true, disableUrlAccess: true,
+  };
 }
