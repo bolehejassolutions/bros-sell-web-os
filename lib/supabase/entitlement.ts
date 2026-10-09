@@ -27,3 +27,11 @@ export async function claimPaidBrosSellOrders(client?: ServerClient) {
   const claimed = Number(data ?? 0);
   return Number.isFinite(claimed) ? claimed : 0;
 }
+
+export async function activatePaidBrosSellOnboarding(client: ServerClient) {
+  const { data, error } = await client.rpc('activate_bros_sell_onboarding');
+  if (error) return 0; // Payment access remains usable before optional onboarding rollout.
+  const count = Number(data ?? 0);
+  return Number.isFinite(count) ? count : 0;
+}
+

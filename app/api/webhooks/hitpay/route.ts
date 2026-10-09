@@ -80,9 +80,10 @@ export async function POST(request: Request) {
   });
 
   if (error) {
-    console.error("HitPay webhook processing failed:", error.message);
+    console.error("HitPay webhook processing failed; private ledger review required.");
     return NextResponse.json({ error: "Webhook processing failed." }, { status: 500 });
   }
 
   return NextResponse.json({ received: true, result: data });
 }
+

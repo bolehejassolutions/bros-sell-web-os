@@ -1,5 +1,7 @@
 import { createClient } from "@/lib/supabase/server";
-import { claimPaidBrosSellOrders, hasWebOSAccess } from "@/lib/supabase/entitlement";
+import { activatePaidBrosSellOnboarding, claimPaidBrosSellOrders, hasWebOSAccess } from "@/lib/supabase/entitlement";
+import { after } from 'next/server';
+import { dispatchOnboardingSafely } from '@/lib/onboarding/dispatch';
 import { redirect } from "next/navigation";
 import SalesCaseProvider from './sales-case-provider';
 import CaseToolFooter from './case-tool-footer';
@@ -13,9 +15,11 @@ export default async function WebOSLayout({
 
   if (!user) redirect("/login");
 
-  if (!(await hasWebOSAccess(supabase))) {
-    await claimPaidBrosSellOrders(supabase);
-    if (!(await hasWebOSAccess(supabase))) redirect("/activate");
+  await claimPaidBrosSellOrders(supabase);
+  if (!(await hasWebOSAccess(supabase))) redirect("/activate");
+
+  if (await activatePaidBrosSellOnboarding(supabase)) {
+    after(dispatchOnboardingSafely);
   }
 
   return (
@@ -42,3 +46,4 @@ export default async function WebOSLayout({
     </SalesCaseProvider>
   );
 }
+

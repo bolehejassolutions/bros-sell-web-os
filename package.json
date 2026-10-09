@@ -8,7 +8,7 @@
     "start": "next start",
     "lint": "eslint .",
     "typecheck": "tsc --noEmit",
-    "test": "node --experimental-strip-types --test-isolation=none --test tests/sales-case.test.ts tests/sales-case-rls.test.ts tests/hitpay-webhook.test.ts tests/hitpay-entitlement-rls.test.ts",
+    "test": "node --experimental-strip-types --test-isolation=none --test tests/sales-case.test.ts tests/sales-case-rls.test.ts tests/hitpay-webhook.test.ts tests/hitpay-entitlement-rls.test.ts tests/onboarding.test.ts",
     "test:api": "node --experimental-strip-types --test-isolation=none --test tests/sales-case-api.test.ts tests/hitpay-capture-api.test.ts",
     "test:browser": "node --experimental-strip-types tests/sales-case-browser.ts"
   },
@@ -34,3 +34,4 @@
   },
   "packageManager": "npm@11.9.0"
 }
+

@@ -1,5 +1,29 @@
 # BROS SELL™ HitPay entitlement automation
 
+## Latest inspection — 9 October 2026 (MYT)
+
+The original baseline head `139a9423a7de47bc3e057084151edc58f0583903` passed CI #52 / run `37876724483`. Its Vercel Preview was READY. Production remains on `ee99f22a2ad7ecb0bf02cace47cf58a21dd3ea29`; the feature branch was 32 commits ahead / 0 behind before this continuation.
+
+Read-only Production inspection confirmed: foundation/RLS/sales-case migrations only; no payment ledger, offer table, webhook inbox or automation RPC; one existing entitlement; no Auth account matching Order #1007's buyer. Production env names include capture salt and merchant ID but no granting salt, Supabase admin key or onboarding sender/worker credentials. No secret values were retrieved.
+
+HitPay Support's reply at 10:57 MYT confirms `charge.created` for Order #1007 reached the capture endpoint around 07:53 MYT and returned HTTP 200. The authenticated merchant UI shows Order #1007 Paid / Completed–Delivered, BROS SELL x1, MYR50. No per-delivery metadata page is available according to Support. Vercel rejected retrieval of the original window because Hobby retains one hour of runtime logs; a current-window search returned no matching logs. These facts do not prove the original event's normalized body or exact HMAC verification path.
+
+### CLI alternative investigated, not accepted as merchant proof
+
+Support suggested `hitpay listen` / `hitpay trigger charge.created`. Documentation describes simulated events. The official CLI source inspected at `hit-pay/cli@621bff7a630c5e26f1d60ce0203de74338231a76` is more restrictive: `src/commands/trigger.ts` posts static fixtures with `Hitpay-Event-Type: charge.created`, `Hitpay-Event-Object: event`, and no `Hitpay-Signature`; `src/trigger/fixtures.ts` contains test identities, SGD75 and `hmac: test_signature`. This cannot satisfy the real merchant-event gate and must not be relabelled authentic or used to grant production access. No trigger or funded purchase was executed.
+
+The CLI `charge get` implementation uses authenticated `GET /v1/charges/{id}`. A verified merchant API response may support a provider-approved alternative, but no deployable HitPay API authentication or actual response was available to this continuation. Do not reconstruct a historical webhook from order UI/email data or simulate its signature with a merchant salt.
+
+References: https://docs.hitpayapp.com/apis/guide/cli ; https://docs.hitpayapp.com/apis/guide/events ; https://github.com/hit-pay/cli/blob/621bff7a630c5e26f1d60ce0203de74338231a76/src/commands/trigger.ts
+
+### Release remains gated
+
+Automatic entitlement and onboarding are NOT LIVE. No migration, offer seed, granting webhook registration, secret configuration, customer mail or Production release was performed by this continuation. Manual fulfilment, capture configuration, existing entitlements, commercial surfaces, tracking and BROS CONTENT OS are preserved.
+
+Current code requires confirmed Auth email, one product identifier and complete successful-payment evidence. Retries must match both payment and order identities, amount/currency/email and the persisted offer's product. Grants serialize per buyer/product to avoid concurrent duplicate permanent access. Optional onboarding is separately deployed as described in `docs/CUSTOMER_ONBOARDING.md`.
+
+Next evidence step: obtain a fresh authentic merchant event and its redacted normalization output inside the available capture-log retention window, or a HitPay-approved authenticated verification method with actual payment/order/product/email/amount/currency evidence. An hourly watch is best-effort and cannot guarantee retaining a log with a one-hour retention period. Keep the gate closed until actual evidence can be retained and reviewed.
+
 Status: BLOCKED at Production release gate. Implementation remains on a feature branch; no Production webhook, secret, offer mapping, pricing or database migration is changed by this document.
 
 ## Verified merchant evidence — 7 October 2026
@@ -135,3 +159,4 @@ Before enabling automatic grants:
 11. Only then consider merge/deploy readiness.
 
 Do not change the public checkout or pricing merely to release the backend.
+

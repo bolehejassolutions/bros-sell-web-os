@@ -141,14 +141,16 @@ begin
   if v_user_id is not null and not exists (
     select 1 from auth.users
     where id=v_user_id and lower(email)=v_order.purchase_email
+      and email_confirmed_at is not null
   ) then
-    raise exception 'Payment order user does not match purchase email';
+    return null;
   end if;
 
   if v_user_id is null then
     select id into v_user_id
     from auth.users
     where lower(email) = v_order.purchase_email
+      and email_confirmed_at is not null
     order by created_at asc
     limit 1;
   end if;
@@ -157,6 +159,13 @@ begin
   if v_user_id is null then
     return null;
   end if;
+
+  -- Serialize different purchases for the same buyer/product before reusing
+  -- permanent access. Payment-order locks alone do not cover this race.
+  perform pg_catalog.pg_advisory_xact_lock(
+    pg_catalog.hashtext(v_user_id::text),
+    pg_catalog.hashtext(v_product_id::text || ':' || v_offer.access_level)
+  );
 
   -- Reuse an existing non-expiring core entitlement instead of creating duplicate permanent access.
   if v_offer.duration_days is null then
@@ -281,6 +290,18 @@ begin
     return jsonb_build_object('status','ignored','reason','unsupported_status');
   end if;
 
+  if v_status in ('completed','paid','success','succeeded') and (
+    nullif(p_provider_payment_id,'') is null or nullif(p_provider_reference,'') is null
+    or p_amount is null or p_amount <= 0 or char_length(v_currency) <> 3
+    or v_email !~ '^[^[:space:]@]+@[^[:space:]@]+\.[^[:space:]@]+$'
+    or cardinality(coalesce(p_product_ids,'{}'::text[])) <> 1
+  ) then
+    update public.hitpay_webhook_inbox
+    set resolution_status='rejected', resolution_reason='incomplete_payment_evidence', updated_at=now()
+    where event_key=p_event_key;
+    return jsonb_build_object('status','rejected','reason','incomplete_payment_evidence');
+  end if;
+
   select * into v_order
   from public.bros_sell_payment_orders
   where provider='hitpay'
@@ -359,6 +380,27 @@ begin
     set resolution_status='unmatched', resolution_reason='payment_order_not_found', updated_at=now()
     where event_key=p_event_key;
     return jsonb_build_object('status','unmatched','reason','payment_order_not_found');
+  end if;
+
+  -- Both identities must describe the same payment. Never rewrite an already
+  -- bound charge when a new delivery shares only its order reference.
+  if (nullif(p_provider_payment_id,'') is not null and v_order.provider_payment_id is not null
+      and p_provider_payment_id <> v_order.provider_payment_id)
+     or (nullif(p_provider_reference,'') is not null and p_provider_reference <> v_order.provider_reference) then
+    update public.hitpay_webhook_inbox
+    set resolution_status='rejected', resolution_reason='payment_identity_mismatch', order_id=v_order.id, updated_at=now()
+    where event_key=p_event_key;
+    return jsonb_build_object('status','rejected','reason','payment_identity_mismatch');
+  end if;
+
+  if v_status in ('completed','paid','success','succeeded') and not exists (
+    select 1 from public.bros_sell_offers
+    where code=v_order.offer_code and provider_product_id=p_product_ids[1]
+  ) then
+    update public.hitpay_webhook_inbox
+    set resolution_status='rejected', resolution_reason='product_mismatch', order_id=v_order.id, updated_at=now()
+    where event_key=p_event_key;
+    return jsonb_build_object('status','rejected','reason','product_mismatch');
   end if;
 
   if p_amount is not null and v_order.amount <> p_amount then
@@ -467,7 +509,7 @@ begin
 
   select lower(email) into v_email
   from auth.users
-  where id=v_uid;
+  where id=v_uid and email_confirmed_at is not null;
 
   if v_email is null then
     return 0;
@@ -499,3 +541,4 @@ $$;
 
 revoke all on function public.claim_bros_sell_paid_orders() from public, anon;
 grant execute on function public.claim_bros_sell_paid_orders() to authenticated;
+
