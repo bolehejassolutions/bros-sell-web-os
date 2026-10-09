@@ -8,11 +8,25 @@ Status: BLOCKED at Production release gate. Implementation remains on a feature 
 - HitPay business ID: `a089a95e-7d0e-4f1b-8d85-425f3c82f460`.
 - Exact product: BROS SELL™ — Closing OS.
 - HitPay product ID: `a2cfb307-366d-4ebc-9ff4-68b6c718e7d6`.
-- Current catalogue selling price observed: MYR100.
+- Catalogue selling price observed on **7 October 2026**: MYR100 (historical; superseded by dated update below).
 - Existing webhook: `BROS CONTENT OS - Payment Webhook`, subscribed only to `payment_request.completed` and `payment_request.failed`. It is out of scope and must remain unchanged.
 - HitPay Support confirmed on 7 October 2026 that `charge.created` was not sent for historical order #1006 because no endpoint was subscribed to that event at the time.
 - HitPay Support also confirmed historical webhook events/bodies cannot be replayed or retrieved from their side.
 - No authentic BROS SELL `charge.created` event has therefore been observed yet.
+
+
+## Operational update — 9 October 2026 (Malaysia, RM50)
+
+This dated update supersedes the **7 October MYR100 observation** for all subsequent release decisions; preserve the older paragraph as historical evidence. The current approved customer offer is **MYR50, one-time**, verified against the live BROS SELL landing page, HitPay store product page and the active 14-creative Meta campaign. Never seed MYR100 based on the original 7 October runbook.
+
+- The merchant's successful-order notification for BROS SELL **Order #1007** shows **MYR50** at **2026-10-09 07:53 MYT**. The purchaser's personal data and customer-access link are intentionally excluded from this repository.
+- The buyer has been sent manual onboarding instructions. At the time of inspection there was **no matching Supabase Auth account or entitlement grant**. This is not permission to create an unverified account or pre-grant access.
+- A merchant order email is evidence of a purchase notification, **not** authenticated, signed `charge.created` webhook evidence. The capture endpoint's original event logs for that order were not available in the Hobby log-retention window, and a genuine matching event body/headers have not been inspected.
+- HitPay Support confirmed on 7 October that historic webhook event bodies cannot be retrieved or replayed. Do not pretend a reconstructed JSON body or synthetic fixture is an authentic event.
+- The capture-only webhook remains enabled; an hourly, read-only capture watch is configured to surface future matching events without changing grants or merchant settings. This watch does **not** recover expired logs.
+- The feature branch has been reconciled with Production Next.js 16.4.0; PR #12 remains DRAFT. CI verifies implementation safety, not the live merchant mapping. Do not merge or activate Production auto-grants until the verified identity/status/product/amount/currency contract, server-only secrets, exact RM50 offer and controlled end-to-end checks are complete.
+- Maintain the approved manual fulfilment path in the meantime. Record buyer email and payment references only in authorized private operational systems. Avoid duplicate onboarding for Order #1007.
+- On a later authorised offer change, use the **then-approved** amount instead of assuming RM50 forever; do not modify checkout to fit backend release.
 
 ## Objective
 
