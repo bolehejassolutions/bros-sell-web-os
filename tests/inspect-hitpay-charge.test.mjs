@@ -5,7 +5,7 @@ import { inspectCharge } from '../scripts/inspect-hitpay-charge.mjs';
 function fixture() {
   return { id: 'fixture-charge', business_id: 'a089a95e-7d0e-4f1b-8d85-425f3c82f460', status: 'succeeded',
     amount: 50, currency: 'myr', customer: { email: 'private-buyer@example.com' }, order_id: 'fixture-order',
-    order: { id: 'fixture-order', line_items: [{ item_type: 'product', related_id: 'a2cfb307-366d-4ebc-9ff4-68b6c718e7d6' }] } };
+    order: { id: 'fixture-order', line_items: [{ item_type: 'product', related_id: 'a2cfb307-df19-4a44-91ea-1a5ac1b64dc1' }] } };
 }
 const inspect = value => inspectCharge(JSON.stringify(value), 'fixture-charge');
 
@@ -28,6 +28,14 @@ test('charge-only API response cannot infer product or order from remark, amount
   assert.equal(report.checks.exactProductLineItems, false);
   assert.equal(report.checks.orderIdentityPresentAndConsistent, false);
   assert.equal(report.checks.merchantPresentAndMatches, false);
+});
+
+test('historical product evidence requires the observed line item ID rather than the catalogue editor ID', () => {
+  const value = fixture();
+  value.order.line_items[0].related_id = 'a2cfb307-366d-4ebc-9ff4-68b6c718e7d6';
+  value.order.line_items[0].name = 'BROS SELL\u2122 — Closing OS';
+  assert.equal(inspect(value).checks.exactProductLineItems, false);
+  assert.equal(inspect(value).completeChargeEvidence, false);
 });
 
 test('conflicting identities and incorrect commercial fields fail independently', () => {

@@ -2,9 +2,15 @@
 
 ## CURRENT price decision — 9 October 2026 (MYT)
 
-The owner explicitly approved **MYR100 (RM100), one-time**, as the current BROS SELL price in this conversation. This supersedes the earlier RM50 commercial release instructions below and agrees with the public HitPay product inspected at 16:59 MYT on 9 October. For a future reviewed release, the single active mapping for product `a2cfb307-366d-4ebc-9ff4-68b6c718e7d6` must use `amount_myr=100` and `currency='MYR'`.
+The owner explicitly approved **MYR100 (RM100), one-time**, as the current BROS SELL price in this conversation. This supersedes the earlier RM50 commercial release instructions below and agrees with the public HitPay product inspected at 16:59 MYT on 9 October. The catalogue/editor identifies `a2cfb307-366d-4ebc-9ff4-68b6c718e7d6`; the later inspected #1007 webhook line identifies `a2cfb307-df19-4a44-91ea-1a5ac1b64dc1`. A future reviewed mapping must use the current checkout's verified `line_items[].related_id`, `amount_myr=100` and `currency='MYR'`. Do not seed the catalogue/editor ID as the provider line ID. Current RM100 line-identity confirmation remains required.
 
 The migration does not seed an offer; runtime matching reads the configured offer table. This decision updates release guidance, not Production data or checkout. Preserve historical Order #1007's MYR50 payment and existing customer rights; do not rewrite or reprice that purchase. Payment/event, SMTP and E2E gates remain closed until separately verified.
+
+## Later merchant UI recovery — 9 October 2026 (MYT)
+
+Normal Payments → Transactions navigation recovered #1007's stored webhook Request and Response. `HITPAY_MERCHANT_EVIDENCE.md` records the privacy-safe evidence and exact product-line/catalogue-ID distinction. The Request's actual related_id is `a2cfb307-df19-4a44-91ea-1a5ac1b64dc1`. The stored `received=true`, `captureOnly=true`, seven-field-mapped response is consistent with the deployed signature-accepted/merchant-matched path; this is endpoint-acceptance evidence, with the original signature/raw bytes still unavailable for offline revalidation. Developers → Webhook Endpoints separately shows the existing BROS SELL non-granting capture subscribed only to `charge.created`, alongside the unchanged CONTENT OS subscription.
+
+Earlier statements below about an unavailable authentic body reflect the earlier inspections. The formatted merchant Request is now observed, but no authenticated Charge API response or current RM100 checkout provider-line confirmation has been obtained. No debugger or indirect API access was used. No migrations, offer seed, grant, customer email or release was applied. Hosted access and independent onboarding gates remain closed.
 
 ## HitPay Support follow-up — 9 October 2026, 12:03 MYT
 
@@ -179,7 +185,7 @@ Before enabling automatic grants:
 4. Verify actual merchant identity, successful status, payment/order pair, buyer email, exact product related_id, amount and currency; verify the live webhook HMAC/normalization contract and retain a redacted regression fixture with accurate provenance.
 5. Apply the reviewed payment migration to cyryoirzxpvummckegyh only after that evidence gate passes.
 6. Configure server-only Supabase admin credentials, HITPAY_WEBHOOK_SALT and HITPAY_BUSINESS_ID through secure authenticated settings.
-7. Insert exactly one current active mapping for product a2cfb307-366d-4ebc-9ff4-68b6c718e7d6 at the owner-approved RM100 offer (`amount_myr=100`, `currency='MYR'`). Verify against the live checkout before applying; do not change checkout to fit a mapping.
+7. Insert exactly one current active mapping using the verified current checkout's provider `line_items[].related_id`, at the owner-approved RM100 offer (`amount_myr=100`, `currency='MYR'`). The observed historical #1007 line ID is a2cfb307-df19-4a44-91ea-1a5ac1b64dc1; a2cfb307-366d-4ebc-9ff4-68b6c718e7d6 is the catalogue/editor ID and must not be substituted. Confirm current provider-line identity before applying; do not change checkout to fit a mapping.
 8. Register/enable the dedicated granting endpoint only after deterministic authentic mapping is verified; preserve CONTENT OS and manual fulfilment.
 9. Verify valid processing, retries, conflicting payment/order identities, wrong product/amount/currency/merchant, invalid signatures and mixed products.
 10. Verify purchase-before-registration and claim by the original confirmed purchase email; one successful purchase creates at most one valid entitlement.

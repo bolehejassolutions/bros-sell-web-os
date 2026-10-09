@@ -2,6 +2,14 @@
 
 Status: verifier implemented; real authenticated response NOT obtained. This is evidence tooling in PR #12, not another payment/grant implementation.
 
+## Later merchant UI evidence — 9 October 2026 (MYT)
+
+Normal merchant UI navigation to Payments → Transactions → Order reference #1007 exposed the provider's stored webhook Request and Response. This did not use debugger/network interception, browser tokens or an indirect API call. The Request has consistent succeeded/MYR50, merchant, charge/order pair and purchaser fields. Its exact product `line_items[].related_id` is **`a2cfb307-df19-4a44-91ea-1a5ac1b64dc1`**, which differs from catalogue/editor ID `a2cfb307-366d-4ebc-9ff4-68b6c718e7d6`. The historical analyzer now checks the observed line item identity. Names/prices do not substitute for either identifier.
+
+The stored Response is `received=true`, `captureOnly=true`, all seven mapping booleans true, fingerprint `7a72c0dea8e45acbb13a4e076325a4bc58653b4c0f5b28f20897e759d471db86`. That response is consistent with the exact deployed capture handler's signature-accepted/merchant-matched path. This is server-acceptance evidence inferred from the provider's authenticated stored response; original raw request bytes and signature header were not observed and cannot be independently revalidated offline. See `HITPAY_MERCHANT_EVIDENCE.md` for boundaries.
+
+This recovered UI evidence is not an authenticated Charge API response. No new API report has yet been obtained. Confirm the current RM100 checkout's provider line identity before inserting its offer mapping; do not seed the catalogue/editor ID merely because it appears in the product URL. Production remains unchanged.
+
 ## Inspection on 9 October 2026 (MYT)
 
 At task start, PR #12 was draft/open/mergeable at 47730695124b14c135a2cfd22bb58c0ab0ae4b67, 36 commits ahead of main and zero behind. CI #56 passed its recorded steps and Preview was READY. Production remained ee99f22a2ad7ecb0bf02cace47cf58a21dd3ea29. All six existing public tables had RLS; there was one active entitlement, no matching #1007 buyer Auth account, and no payment/onboarding objects. Env names lacked granting/admin/sender credentials. Latest Support reply remained 12:03 MYT; no additional successful-order notification was found.

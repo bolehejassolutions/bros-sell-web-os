@@ -3,7 +3,9 @@ import { pathToFileURL } from 'node:url';
 
 // Historical Order #1007 paid MYR50; this does not set the current offer.
 const businessId = 'a089a95e-7d0e-4f1b-8d85-425f3c82f460';
-const productId = 'a2cfb307-366d-4ebc-9ff4-68b6c718e7d6';
+// Exact product line identity observed in #1007's authenticated merchant
+// webhook Request view. The catalogue editor ID is a different identifier.
+const productId = 'a2cfb307-df19-4a44-91ea-1a5ac1b64dc1';
 const object = value => value && typeof value === 'object' && !Array.isArray(value) ? value : {};
 const text = value => typeof value === 'string' && value.trim() ? value.trim() : null;
 const email = value => {
