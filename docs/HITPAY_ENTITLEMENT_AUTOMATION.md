@@ -1,5 +1,11 @@
 # BROS SELL™ HitPay entitlement automation
 
+## CURRENT price decision — 9 October 2026 (MYT)
+
+The owner explicitly approved **MYR100 (RM100), one-time**, as the current BROS SELL price in this conversation. This supersedes the earlier RM50 commercial release instructions below and agrees with the public HitPay product inspected at 16:59 MYT on 9 October. For a future reviewed release, the single active mapping for product `a2cfb307-366d-4ebc-9ff4-68b6c718e7d6` must use `amount_myr=100` and `currency='MYR'`.
+
+The migration does not seed an offer; runtime matching reads the configured offer table. This decision updates release guidance, not Production data or checkout. Preserve historical Order #1007's MYR50 payment and existing customer rights; do not rewrite or reprice that purchase. Payment/event, SMTP and E2E gates remain closed until separately verified.
+
 ## HitPay Support follow-up — 9 October 2026, 12:03 MYT
 
 Support confirms the inspected CLI trigger is a static fixture without Hitpay-Signature. There is no published CLI version that emits a genuinely signed, merchant-shaped event for the existing Order #1007 without a real payment.
@@ -62,16 +68,16 @@ Status: BLOCKED at Production release gate. Implementation remains on a feature 
 - No authentic BROS SELL `charge.created` event has therefore been observed yet.
 
 
-## Operational update — 9 October 2026 (Malaysia, RM50)
+## HISTORICAL / SUPERSEDED commercial update — 9 October 2026 (Malaysia, RM50)
 
-This dated update supersedes the **7 October MYR100 observation** for all subsequent release decisions; preserve the older paragraph as historical evidence. The current approved customer offer is **MYR50, one-time**, verified against the live BROS SELL landing page, HitPay store product page and the active 14-creative Meta campaign. Never seed MYR100 based on the original 7 October runbook.
+At this earlier inspection, the then-current offer was recorded as **MYR50, one-time**, against the landing page, HitPay product and campaign. Its pricing authority is superseded by the CURRENT owner-approved RM100 decision above. Retain the purchase and operational observations here as dated evidence; the technical verification gates still apply.
 
 - The merchant's successful-order notification for BROS SELL **Order #1007** shows **MYR50** at **2026-10-09 07:53 MYT**. The purchaser's personal data and customer-access link are intentionally excluded from this repository.
 - The buyer has been sent manual onboarding instructions. At the time of inspection there was **no matching Supabase Auth account or entitlement grant**. This is not permission to create an unverified account or pre-grant access.
 - A merchant order email is evidence of a purchase notification, **not** authenticated, signed `charge.created` webhook evidence. The capture endpoint's original event logs for that order were not available in the Hobby log-retention window, and a genuine matching event body/headers have not been inspected.
 - HitPay Support confirmed on 7 October that historic webhook event bodies cannot be retrieved or replayed. Do not pretend a reconstructed JSON body or synthetic fixture is an authentic event.
 - The capture-only webhook remains enabled; an hourly, read-only capture watch is configured to surface future matching events without changing grants or merchant settings. This watch does **not** recover expired logs.
-- The feature branch has been reconciled with Production Next.js 16.4.0; PR #12 remains DRAFT. CI verifies implementation safety, not the live merchant mapping. Do not merge or activate Production auto-grants until the verified identity/status/product/amount/currency contract, server-only secrets, exact RM50 offer and controlled end-to-end checks are complete.
+- The feature branch had been reconciled with Production Next.js 16.4.0; PR #12 remained DRAFT. CI verified implementation safety, not the live merchant mapping. The identity/status/product/amount/currency, server-only secret and controlled E2E gates remain required; use the CURRENT RM100 offer decision above for subsequent release mapping.
 - Maintain the approved manual fulfilment path in the meantime. Record buyer email and payment references only in authorized private operational systems. Avoid duplicate onboarding for Order #1007.
 - On a later authorised offer change, use the **then-approved** amount instead of assuming RM50 forever; do not modify checkout to fit backend release.
 
@@ -173,7 +179,7 @@ Before enabling automatic grants:
 4. Verify actual merchant identity, successful status, payment/order pair, buyer email, exact product related_id, amount and currency; verify the live webhook HMAC/normalization contract and retain a redacted regression fixture with accurate provenance.
 5. Apply the reviewed payment migration to cyryoirzxpvummckegyh only after that evidence gate passes.
 6. Configure server-only Supabase admin credentials, HITPAY_WEBHOOK_SALT and HITPAY_BUSINESS_ID through secure authenticated settings.
-7. Insert exactly one current active mapping for product a2cfb307-366d-4ebc-9ff4-68b6c718e7d6 at the then-approved RM50/MYR offer. Do not change checkout to fit a mapping.
+7. Insert exactly one current active mapping for product a2cfb307-366d-4ebc-9ff4-68b6c718e7d6 at the owner-approved RM100 offer (`amount_myr=100`, `currency='MYR'`). Verify against the live checkout before applying; do not change checkout to fit a mapping.
 8. Register/enable the dedicated granting endpoint only after deterministic authentic mapping is verified; preserve CONTENT OS and manual fulfilment.
 9. Verify valid processing, retries, conflicting payment/order identities, wrong product/amount/currency/merchant, invalid signatures and mixed products.
 10. Verify purchase-before-registration and claim by the original confirmed purchase email; one successful purchase creates at most one valid entitlement.

@@ -17,7 +17,7 @@ The four Malay messages retain public login/app/support URLs and no password, OT
 - Live unauthenticated TLS/EHLO probe to port 465: TLS 1.3, valid wildcard certificate and AUTH advertised. No credential or email used.
 - Webmail SSO opened the intended mailbox. One labelled internal test sent to the same mailbox arrived at 16:52 MYT. This does not establish application SMTP authentication or external deliverability.
 - Supabase Auth custom SMTP is already enabled at the same host/port, sender name BROS SELL™, minimum interval 60 seconds. Exact sender email/username are redacted in the accessible UI; their identities and stored credential are UNVERIFIED. Auth settings unchanged.
-- Public HitPay product displays MYR100, while the payment branch refers to RM50. Reconcile the approved offer against live checkout before release; this SMTP change leaves prices/payment SQL unchanged.
+- CURRENT price decision: the owner approved MYR100 (RM100), one-time, on 9 October 2026, matching the public HitPay product inspected that day. Earlier RM50 release guidance is superseded. The future active offer mapping must use `amount_myr=100`, `currency='MYR'`; no offer is seeded or applied by this branch. Historical RM50 purchases remain intact.
 - Authentic merchant/payment/product/event and hosted payment-to-access E2E remain open gates. Synthetic fixtures do not establish payment truth.
 
 ## Timing and idempotency
@@ -55,7 +55,7 @@ Controlled Auth E2E covers registration/confirmation, redirect, login, recovery,
 
 All five exact server flags must be true: `BROS_ONBOARDING_ENABLED`, `BROS_ONBOARDING_PAYMENT_EVENT_VERIFIED`, `BROS_ONBOARDING_SMTP_VERIFIED`, `BROS_ONBOARDING_E2E_VERIFIED`, `BROS_ONBOARDING_MANUAL_DELIVERIES_RECONCILED`. Flags attest to reviewed evidence, not a substitute for it; SQL independently rechecks each paid order.
 
-1. Resolve authentic merchant/payment/order/product/email/amount/currency evidence, the offer mismatch, and hosted duplicate/rejection/confirmed-email claim/protected-resource gates in HITPAY_ENTITLEMENT_AUTOMATION.md. This email change activates no grants.
+1. Resolve authentic merchant/payment/order/product/email/amount/currency evidence, verify the owner-approved RM100/MYR mapping against live checkout, and pass hosted duplicate/rejection/confirmed-email claim/protected-resource gates in HITPAY_ENTITLEMENT_AUTOMATION.md. This email change activates no grants.
 2. Review optional supabase/sql/onboarding.sql separately. Generate its migration with `supabase migration new customer_onboarding`, run isolated SQL/RLS tests and normal migration review before applying. This SQL source is not applied migration history; no Production migration occurred.
 3. Privately reconcile manual deliveries, including the initial email for Order #1007, using its exact provider reference and send time in bros_sell_onboarding_manual_deliveries. Keep buyer details/references out of GitHub. Verify suppression before enabling the sender.
 4. Pass controlled SMTP/Auth E2E, private receipt/replay/suppression tests with isolated data. Never seed synthetic payments into Production or send customer onboarding during verification.
