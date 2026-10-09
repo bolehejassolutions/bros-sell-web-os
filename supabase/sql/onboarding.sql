@@ -129,7 +129,7 @@ begin
   end if;
   update public.bros_sell_onboarding_messages set status='sending',attempted_at=now() where id=p_id;
   return true;
-end $;
+end $$;
 revoke all on function public.prepare_bros_sell_onboarding_message(uuid,uuid) from public,anon,authenticated;
 grant execute on function public.prepare_bros_sell_onboarding_message(uuid,uuid) to service_role;
 
