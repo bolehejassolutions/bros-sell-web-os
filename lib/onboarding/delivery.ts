@@ -3,7 +3,7 @@ import { onboardingMime, type OnboardingKind } from './messages.ts';
 export type Delivery = { id: string; purchase_email: string; kind: OnboardingKind; attempt_id: string };
 export type SendResult = { status: 'sent'; providerMessageId: string } | { status: 'failed' | 'uncertain' };
 export type OnboardingDependencies = {
-  claim: () => Promise<Delivery[]>;
+  claim: () => Promise<Delivery | null>;
   prepare: (delivery: Delivery) => Promise<boolean>;
   send: (raw: string) => Promise<SendResult>;
   finish: (delivery: Delivery, result: SendResult) => Promise<void>;
@@ -14,7 +14,9 @@ export type OnboardingDependencies = {
 // private Sent-mail reconciliation without putting recipient data in logs.
 export async function runOnboarding(deps: OnboardingDependencies) {
   const totals = { sent: 0, failed: 0, uncertain: 0, suppressed: 0 };
-  for (const delivery of await deps.claim()) {
+  for (let attempt = 0; attempt < 5; attempt++) {
+    const delivery = await deps.claim();
+    if (!delivery) break;
     if (!(await deps.prepare(delivery))) { totals.suppressed++; continue; }
     let result: SendResult;
     try {
@@ -22,7 +24,8 @@ export async function runOnboarding(deps: OnboardingDependencies) {
     } catch {
       result = { status: 'uncertain' };
     }
-    // A finish failure aborts the batch. The reservation remains sending and
+    // A finish failure stops this worker before another message is reserved.
+    // The current send remains sending and
     // becomes uncertain after ten minutes instead of being sent twice.
     await deps.finish(delivery, result);
     totals[result.status]++;

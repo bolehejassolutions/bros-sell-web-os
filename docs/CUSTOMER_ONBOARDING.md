@@ -17,9 +17,9 @@ The sender is BOLEHEJAS SOLUTIONS / `bolehejassolutions@gmail.com`, matching the
 
 Activation means the purchase-email account is confirmed, owns the ledger/entitlement and successfully passes the app access gate. An automatic entitlement grant alone does not count as completing onboarding. Existing/manual access remains valid if the optional migration or sender is unavailable.
 
-The queue has one row per purchase and message kind. Row locks and a unique constraint reserve each attempt. Immediately before sending, the worker checks the payment state, activation state, entitlement for confirmations and manual-delivery suppression. Pending reminders stop after activation. An already in-flight network send cannot be recalled; the pre-send check minimizes that race. Late startup sends only the latest due reminder, avoiding a burst of old messages.
+The queue has one row per purchase and message kind. Row locks and a unique constraint reserve one message at a time. Each worker processes at most five sequential messages, and reserves the next only after the current result is recorded. Immediately before sending, the worker checks the payment state, activation state, entitlement for confirmations and manual-delivery suppression. Pending reminders stop after activation. An already in-flight network send cannot be recalled; the pre-send check minimizes that race. Late startup sends only the latest due reminder, avoiding a burst of old messages.
 
-Delivery state: pending → sending → sent / failed / uncertain. Network timeout, 5xx, missing successful receipt or a worker crash after reservation are uncertain and NEVER automatically resent. Reconcile privately against Gmail Sent using the deterministic Message-ID before any manual recovery. A stored Gmail acceptance receipt is not a guarantee the destination inbox received/read the message.
+Delivery state: pending → reserved → sending → sent / failed / uncertain. The pre-send check promotes a reservation to sending. A reserved lease that expires before that check returns to pending after ten minutes; its old attempt ID cannot send. Network timeout, 5xx, missing successful receipt or a worker crash after promotion to sending are uncertain and NEVER automatically resent. Reconcile privately against Gmail Sent using the deterministic Message-ID before any manual recovery. A stored Gmail acceptance receipt is not a guarantee the destination inbox received/read the message.
 
 ## Release sequence
 
@@ -38,6 +38,7 @@ Queue/activation/sender APIs are service-role-only except the authenticated self
 - Payment access: no dependency on Gmail or queue success.
 - Manual #1007: private suppression receipt exists before enablement.
 - Scheduler replay / overlapping workers: one reservation and one provider attempt per message.
+- Early preparation/receipt failure: later messages remain pending; an expired pre-send reservation recovers, while an attempted send remains uncertain.
 - Activation after reservation: unsent reminder suppressed by pre-send check.
 - Refund/revocation before send: no new inappropriate confirmation/reminder; manual refund-access policy remains unchanged.
 - Unknown Gmail acceptance: reconcile Sent, do not blindly retry.

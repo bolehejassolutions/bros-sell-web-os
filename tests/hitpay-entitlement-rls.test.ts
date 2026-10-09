@@ -143,9 +143,9 @@ test('HitPay migration grants once, rejects amount mismatch and supports post-pu
       insert into public.bros_sell_onboarding_manual_deliveries(provider_reference,kind,sent_at)
       values ('ref-1','initial',now()-interval '24 hours');`);
     await db.exec('set role service_role');
-    const due = await db.query<{id:string;kind:string;attempt_id:string}>('select * from public.claim_bros_sell_onboarding_messages(5)');
+    const due = await db.query<{id:string;kind:string;attempt_id:string}>('select * from public.claim_bros_sell_onboarding_messages()');
     assert.equal(due.rows.length,1);assert.equal(due.rows[0].kind,'reminder_24h');
-    assert.equal((await db.query('select * from public.claim_bros_sell_onboarding_messages(5)')).rows.length,0);
+    assert.equal((await db.query('select * from public.claim_bros_sell_onboarding_messages()')).rows.length,0);
     await db.exec('reset role');
     const manual = await db.query<{status:string;reason:string}>("select status,reason from public.bros_sell_onboarding_messages where kind='initial'");
     assert.equal(manual.rows[0].status,'sent');assert.equal(manual.rows[0].reason,'manual_delivery_recorded');
@@ -157,25 +157,49 @@ test('HitPay migration grants once, rejects amount mismatch and supports post-pu
     assert.equal((await db.query<{activate_bros_sell_onboarding:number}>('select public.activate_bros_sell_onboarding()')).rows[0].activate_bros_sell_onboarding,1);
     assert.equal((await db.query<{activate_bros_sell_onboarding:number}>('select public.activate_bros_sell_onboarding()')).rows[0].activate_bros_sell_onboarding,0);
     await assert.rejects(db.query('select * from public.bros_sell_onboarding_messages'),/permission denied/);
-    await assert.rejects(db.query('select * from public.claim_bros_sell_onboarding_messages(5)'),/permission denied/);
+    await assert.rejects(db.query('select * from public.claim_bros_sell_onboarding_messages()'),/permission denied/);
     await db.exec('reset role');await db.exec('set role service_role');
     const canceled = await db.query<{ok:boolean}>('select public.prepare_bros_sell_onboarding_message($1,$2) as ok',[due.rows[0].id,due.rows[0].attempt_id]);
     assert.equal(canceled.rows[0].ok,false);
-    const access = await db.query<{id:string;kind:string;attempt_id:string}>('select * from public.claim_bros_sell_onboarding_messages(5)');
+    const access = await db.query<{id:string;kind:string;attempt_id:string}>('select * from public.claim_bros_sell_onboarding_messages()');
     assert.equal(access.rows.length,1);assert.equal(access.rows[0].kind,'access_confirmed');
     assert.equal((await db.query<{ok:boolean}>('select public.prepare_bros_sell_onboarding_message($1,$2) as ok',[access.rows[0].id,access.rows[0].attempt_id])).rows[0].ok,true);
     assert.equal((await db.query<{ok:boolean}>("select public.finish_bros_sell_onboarding_message($1,$2,'sent','fixture-gmail-id') as ok",[access.rows[0].id,access.rows[0].attempt_id])).rows[0].ok,true);
-    assert.equal((await db.query('select * from public.claim_bros_sell_onboarding_messages(5)')).rows.length,0);
+    assert.equal((await db.query('select * from public.claim_bros_sell_onboarding_messages()')).rows.length,0);
 
     await db.query(`select public.process_bros_sell_hitpay_event('evt-4','pay-4','ref-4','succeeded',197,'MYR','unclaimed@example.com',array['prod_core'],'{}')`);
     await db.exec('reset role');
     await db.exec("update public.bros_sell_payment_orders set paid_at=now()-interval '73 hours' where provider_reference='ref-4'");
     await db.exec('set role service_role');
-    const finalReminder = await db.query<{id:string;kind:string;attempt_id:string}>('select * from public.claim_bros_sell_onboarding_messages(5)');
+    const finalReminder = await db.query<{id:string;kind:string;attempt_id:string}>('select * from public.claim_bros_sell_onboarding_messages()');
     assert.equal(finalReminder.rows.length,1);assert.equal(finalReminder.rows[0].kind,'reminder_72h');
-    await db.query("select public.finish_bros_sell_onboarding_message($1,$2,'uncertain',null)",[finalReminder.rows[0].id,finalReminder.rows[0].attempt_id]);
-    assert.equal((await db.query('select * from public.claim_bros_sell_onboarding_messages(5)')).rows.length,0);
+    assert.equal((await db.query<{ok:boolean}>('select public.prepare_bros_sell_onboarding_message($1,$2) as ok',[finalReminder.rows[0].id,finalReminder.rows[0].attempt_id])).rows[0].ok,true);
+    assert.equal((await db.query<{ok:boolean}>("select public.finish_bros_sell_onboarding_message($1,$2,'uncertain',null) as ok",[finalReminder.rows[0].id,finalReminder.rows[0].attempt_id])).rows[0].ok,true);
+    assert.equal((await db.query('select * from public.claim_bros_sell_onboarding_messages()')).rows.length,0);
+    await db.query(`select public.process_bros_sell_hitpay_event('evt-5','pay-5','ref-5','succeeded',197,'MYR','later-a@example.com',array['prod_core'],'{}')`);
+    await db.query(`select public.process_bros_sell_hitpay_event('evt-6','pay-6','ref-6','succeeded',197,'MYR','later-b@example.com',array['prod_core'],'{}')`);
     await db.exec('reset role');
+    await db.exec("update public.bros_sell_payment_orders set paid_at=now()-interval '73 hours' where provider_reference in ('ref-5','ref-6')");
+    await db.exec('set role service_role');
+    const firstLease = await db.query<{id:string;attempt_id:string}>('select * from public.claim_bros_sell_onboarding_messages()');
+    assert.equal(firstLease.rows.length,1);
+    await db.exec('reset role');
+    assert.equal((await db.query("select id from public.bros_sell_onboarding_messages where status='reserved'")).rows.length,1);
+    assert.equal((await db.query("select id from public.bros_sell_onboarding_messages where status='pending'")).rows.length,1);
+    await db.query("update public.bros_sell_onboarding_messages set attempted_at=now()-interval '11 minutes' where id=$1",[firstLease.rows[0].id]);
+    await db.exec('set role service_role');
+    const recovered = await db.query<{id:string;attempt_id:string}>('select * from public.claim_bros_sell_onboarding_messages()');
+    assert.equal(recovered.rows[0].id,firstLease.rows[0].id);
+    assert.notEqual(recovered.rows[0].attempt_id,firstLease.rows[0].attempt_id);
+    assert.equal((await db.query<{ok:boolean}>('select public.prepare_bros_sell_onboarding_message($1,$2) as ok',[firstLease.rows[0].id,firstLease.rows[0].attempt_id])).rows[0].ok,false);
+    assert.equal((await db.query<{ok:boolean}>('select public.prepare_bros_sell_onboarding_message($1,$2) as ok',[recovered.rows[0].id,recovered.rows[0].attempt_id])).rows[0].ok,true);
+    await db.exec('reset role');
+    await db.query("update public.bros_sell_onboarding_messages set attempted_at=now()-interval '11 minutes' where id=$1",[recovered.rows[0].id]);
+    await db.exec('set role service_role');
+    const following = await db.query<{id:string}>('select * from public.claim_bros_sell_onboarding_messages()');
+    assert.equal(following.rows.length,1);assert.notEqual(following.rows[0].id,recovered.rows[0].id);
+    await db.exec('reset role');
+    assert.equal((await db.query<{status:string}>('select status from public.bros_sell_onboarding_messages where id=$1',[recovered.rows[0].id])).rows[0].status,'uncertain');
   } finally {
     await db.close();
   }

@@ -27,9 +27,9 @@ export async function dispatchOnboarding() {
   const token = await gmailAccessToken();
   return runOnboarding({
     async claim() {
-      const { data, error } = await admin.rpc('claim_bros_sell_onboarding_messages', { p_limit: 5 });
+      const { data, error } = await admin.rpc('claim_bros_sell_onboarding_messages');
       if (error) throw new Error('Onboarding queue is unavailable.');
-      return (data ?? []) as Delivery[];
+      return ((data ?? []) as Delivery[])[0] ?? null;
     },
     async prepare(delivery: Delivery) {
       const { data, error } = await admin.rpc('prepare_bros_sell_onboarding_message', {

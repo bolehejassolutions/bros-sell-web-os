@@ -13,7 +13,7 @@ create table public.bros_sell_onboarding_messages (
   order_id uuid not null references public.bros_sell_payment_orders(id),
   kind text not null check (kind in ('initial','reminder_24h','reminder_72h','access_confirmed')),
   due_at timestamptz not null,
-  status text not null default 'pending' check (status in ('pending','sending','sent','suppressed','uncertain','failed')),
+  status text not null default 'pending' check (status in ('pending','reserved','sending','sent','suppressed','uncertain','failed')),
   attempt_id uuid,
   attempted_at timestamptz,
   sent_at timestamptz,
@@ -28,6 +28,11 @@ revoke all on public.bros_sell_onboarding_manual_deliveries, public.bros_sell_on
 create function public.sync_bros_sell_onboarding_messages()
 returns void language plpgsql security definer set search_path = '' as $$
 begin
+  -- Reserved messages have not passed the pre-send check, so expired leases
+  -- can return to pending. Sending messages may have reached Gmail.
+  update public.bros_sell_onboarding_messages set status='pending',attempt_id=null,attempted_at=null,reason='reservation_expired_before_send'
+  where status='reserved' and attempted_at < now()-interval '10 minutes';
+
   -- A process crash/timeout after SMTP/API acceptance cannot be safely retried.
   update public.bros_sell_onboarding_messages set status='uncertain',reason='send_receipt_missing'
   where status='sending' and attempted_at < now()-interval '10 minutes';
@@ -84,7 +89,7 @@ end $$;
 revoke all on function public.activate_bros_sell_onboarding() from public,anon;
 grant execute on function public.activate_bros_sell_onboarding() to authenticated;
 
-create function public.claim_bros_sell_onboarding_messages(p_limit integer default 5)
+create function public.claim_bros_sell_onboarding_messages()
 returns table(id uuid,purchase_email text,kind text,attempt_id uuid)
 language plpgsql security definer set search_path = '' as $$
 begin
@@ -94,23 +99,23 @@ begin
     select m.id from public.bros_sell_onboarding_messages m
     join public.bros_sell_payment_orders o on o.id=m.order_id
     where m.status='pending' and m.due_at<=now() and o.status='paid'
-    order by m.due_at,m.id limit greatest(1,least(coalesce(p_limit,5),5))
+    order by m.due_at,m.id limit 1
     for update of m skip locked
   ), reserved as (
-    update public.bros_sell_onboarding_messages m set status='sending',attempt_id=gen_random_uuid(),attempted_at=now()
+    update public.bros_sell_onboarding_messages m set status='reserved',attempt_id=gen_random_uuid(),attempted_at=now()
     from due where m.id=due.id returning m.*
   )
   select r.id,o.purchase_email,r.kind,r.attempt_id from reserved r join public.bros_sell_payment_orders o on o.id=r.order_id;
 end $$;
-revoke all on function public.claim_bros_sell_onboarding_messages(integer) from public,anon,authenticated;
-grant execute on function public.claim_bros_sell_onboarding_messages(integer) to service_role;
+revoke all on function public.claim_bros_sell_onboarding_messages() from public,anon,authenticated;
+grant execute on function public.claim_bros_sell_onboarding_messages() to service_role;
 
 create function public.prepare_bros_sell_onboarding_message(p_id uuid,p_attempt_id uuid)
 returns boolean language plpgsql security definer set search_path = '' as $$
 declare m public.bros_sell_onboarding_messages%rowtype; o public.bros_sell_payment_orders%rowtype;
 begin
   select * into m from public.bros_sell_onboarding_messages where id=p_id for update;
-  if not found or m.status<>'sending' or m.attempt_id is distinct from p_attempt_id then return false; end if;
+  if not found or m.status<>'reserved' or m.attempt_id is distinct from p_attempt_id then return false; end if;
   select * into o from public.bros_sell_payment_orders where id=m.order_id;
   if o.status<>'paid'
     or (m.kind<>'access_confirmed' and o.activated_at is not null)
@@ -122,8 +127,9 @@ begin
     update public.bros_sell_onboarding_messages set status='suppressed',reason='condition_resolved_before_send' where id=p_id;
     return false;
   end if;
+  update public.bros_sell_onboarding_messages set status='sending',attempted_at=now() where id=p_id;
   return true;
-end $$;
+end $;
 revoke all on function public.prepare_bros_sell_onboarding_message(uuid,uuid) from public,anon,authenticated;
 grant execute on function public.prepare_bros_sell_onboarding_message(uuid,uuid) to service_role;
 
