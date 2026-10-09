@@ -1,5 +1,28 @@
 # BROS SELL™ HitPay entitlement automation
 
+## HitPay Support follow-up — 9 October 2026, 12:03 MYT
+
+Support confirms the inspected CLI trigger is a static fixture without Hitpay-Signature. There is no published CLI version that emits a genuinely signed, merchant-shaped event for the existing Order #1007 without a real payment.
+
+For the existing payment, Support recommends authenticated GET https://api.hit-pay.com/v1/charges/{charge_id}, with X-BUSINESS-API-KEY, or the official CLI charge get command. This is a read-only verification method, not a replay and not an entitlement grant. Use the actual charge reference from the private Support thread; never commit it or an API key.
+
+| Evidence | Current result |
+| --- | --- |
+| Live charge status, amount, currency and customer | Supported by the Charge API; actual authenticated response has not been retrieved |
+| Exact order and product related_id / line items | Support refers to the original delivered webhook; not recovered or verified |
+| Raw-body webhook HMAC and normalization for #1007 | Not verified; original capture logs expired |
+| CLI-generated event | Synthetic and unsigned; insufficient for the merchant gate |
+
+The published Charge API schema exposes charge/customer fields and references such as target_id, target_type and order_reference_number. Its example includes webhook_logs, but does not establish that a historical event body, signature, or product line_items can be recovered. Inspect the actual authorized response before deciding whether an order/product lookup is possible; do not infer product identity from amount, remark, or the charge ID.
+
+A subsequent read-only check still found no buyer Auth account, one existing entitlement, no payment migration and no new granting/admin/API credentials in Vercel. No new successful-order email was found in that check. The merchant dashboard was accessible in a fresh browser tab, but raw API network inspection was denied by browser permission review. No alternate debugging or hidden API access was used.
+
+The official hosted HitPay MCP server offers OAuth-based business data access, but no HitPay plugin was returned by the available directory search. HitPay's current documentation says web-based MCP clients other than claude.ai are not allowlisted. Do not assume that adding its URL to this ChatGPT session supplies a usable authenticated connection.
+
+Next authorized evidence operation: read the existing charge through an approved API client or an explicitly permitted merchant debugging session, keep the response private, and assess all missing order/product/merchant/signature evidence. This operation alone does not approve Production release. A future genuine organic purchase can also supply a new signed capture; do not create a funded transaction without explicit approval.
+
+References: https://docs.hitpayapp.com/apis/charges/get-charge-detail ; https://docs.hitpayapp.com/apis/guide/events ; https://docs.hitpayapp.com/apis/guide/mcp-server
+
 ## Latest inspection — 9 October 2026 (MYT)
 
 The original baseline head `139a9423a7de47bc3e057084151edc58f0583903` passed CI #52 / run `37876724483`. Its Vercel Preview was READY. Production remains on `ee99f22a2ad7ecb0bf02cace47cf58a21dd3ea29`; the feature branch was 32 commits ahead / 0 behind before this continuation.
@@ -144,19 +167,17 @@ The capture endpoint uses `HITPAY_CAPTURE_WEBHOOK_SALT`; the eventual grant endp
 
 Before enabling automatic grants:
 
-1. Register the dedicated non-granting BROS SELL capture endpoint for `charge.created`.
-2. Verify routing/signature handling with HitPay CLI if useful; classify CLI output as simulated evidence only.
-3. Obtain one authentic BROS SELL `charge.created` via a controlled new transaction.
-2. Verify the real payload contains deterministic buyer identity, product `related_id`, charge/order identity, amount, currency and merchant ID.
-3. Review the final normalizer against that authentic event and add a redacted regression fixture.
-4. Compare the authentic private evidence against the normalizer and add a redacted regression fixture.
-5. Apply the reviewed migration to `cyryoirzxpvummckegyh`.
-6. Configure server-only Supabase admin secret, `HITPAY_WEBHOOK_SALT` and `HITPAY_BUSINESS_ID`.
-7. Insert exactly one active offer mapping for product `a2cfb307-366d-4ebc-9ff4-68b6c718e7d6` at the then-approved current amount.
-8. Switch/register the grant-capable `/api/webhooks/hitpay` endpoint only after the authentic event maps deterministically.
-9. Run controlled end-to-end verification: valid payment evidence, retry idempotency, wrong product, wrong amount/currency, mixed-product cart and purchase-before-account claim.
-10. Verify one valid payment creates one payment order and at most one entitlement.
-11. Only then consider merge/deploy readiness.
+1. Preserve the dedicated non-granting BROS SELL capture subscription for charge.created.
+2. Classify CLI fixtures as simulated evidence only; do not use them as an authentic merchant/signature test.
+3. Obtain a future genuine organic purchase event, an approved non-funded provider test, or an authenticated provider-approved payment/order/product verification method. Any new funded transaction requires explicit owner approval.
+4. Verify actual merchant identity, successful status, payment/order pair, buyer email, exact product related_id, amount and currency; verify the live webhook HMAC/normalization contract and retain a redacted regression fixture with accurate provenance.
+5. Apply the reviewed payment migration to cyryoirzxpvummckegyh only after that evidence gate passes.
+6. Configure server-only Supabase admin credentials, HITPAY_WEBHOOK_SALT and HITPAY_BUSINESS_ID through secure authenticated settings.
+7. Insert exactly one current active mapping for product a2cfb307-366d-4ebc-9ff4-68b6c718e7d6 at the then-approved RM50/MYR offer. Do not change checkout to fit a mapping.
+8. Register/enable the dedicated granting endpoint only after deterministic authentic mapping is verified; preserve CONTENT OS and manual fulfilment.
+9. Verify valid processing, retries, conflicting payment/order identities, wrong product/amount/currency/merchant, invalid signatures and mixed products.
+10. Verify purchase-before-registration and claim by the original confirmed purchase email; one successful purchase creates at most one valid entitlement.
+11. Verify authenticated /app access and one protected resource on the hosted release, independently of isolated CI fixtures.
+12. Merge/release PR #12 only when all gates pass. Deploy optional onboarding separately after private manual-delivery reconciliation and real sender verification.
 
 Do not change the public checkout or pricing merely to release the backend.
-
