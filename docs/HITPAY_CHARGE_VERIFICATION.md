@@ -6,7 +6,7 @@ Status: verifier implemented; real authenticated response NOT obtained. This is 
 
 At task start, PR #12 was draft/open/mergeable at 47730695124b14c135a2cfd22bb58c0ab0ae4b67, 36 commits ahead of main and zero behind. CI #56 passed its recorded steps and Preview was READY. Production remained ee99f22a2ad7ecb0bf02cace47cf58a21dd3ea29. All six existing public tables had RLS; there was one active entitlement, no matching #1007 buyer Auth account, and no payment/onboarding objects. Env names lacked granting/admin/sender credentials. Latest Support reply remained 12:03 MYT; no additional successful-order notification was found.
 
-The branch subsequently advanced to bf8b08a5518f9e2b55aca2fce5e3b98385915402 with SMTP onboarding and a runbook recording owner-approved RM100. These concurrent changes are preserved. This task's supplied commercial lock says RM50. No offer mapping or commercial surface is changed here. Resolve the conflicting current-price instructions before a later Production mapping; historical #1007 remains MYR50 regardless of current price.
+The branch subsequently advanced to bf8b08a5518f9e2b55aca2fce5e3b98385915402 with SMTP onboarding and a runbook recording owner-approved RM100. These concurrent changes are preserved. The owner explicitly confirmed RM100 as the current offer in this continuation; the supplied RM50 release-price instruction is superseded. Future reviewed mapping uses MYR100, while historical #1007 remains MYR50. This verifier changes no offer mapping or commercial surface.
 
 Browser approval review again denied Network.enable on dashboard.hit-pay.com under saved permissions. No browser authentication state was extracted or indirect browser/API workaround used. The owner operation below uses an existing explicit business API key at HitPay's official supported endpoint.
 
@@ -32,7 +32,7 @@ The baseline implementation passed 26 isolated deterministic/SQL/RLS tests local
 
 No Production migration, offer seed, secret configuration, customer email, genuine regression fixture, merchant/customer hosted E2E or real sender-delivery test was performed here. Initial #1007 email remains manual and must be reconciled privately before sender enablement.
 
-Next: obtain the actual API response with this operation, review available payment/order/product/merchant/customer fields and genuine signature evidence, then continue the existing release runbook. Apply the reviewed migration and a single resolved current-price mapping only after evidence gates pass. Hosted confirmed-original-email claim, duplicate/rejection/protected-resource checks remain mandatory. Onboarding follows independently with manual suppression and controlled real delivery.
+Next: obtain the actual API response with this operation, review available payment/order/product/merchant/customer fields and genuine signature evidence, then continue the existing release runbook. Apply the reviewed migration and a single owner-approved current MYR100 mapping only after evidence gates pass. Hosted confirmed-original-email claim, duplicate/rejection/protected-resource checks remain mandatory. Onboarding follows independently with manual suppression and controlled real delivery.
 
 Official API: https://docs.hitpayapp.com/apis/charges/get-charge-detail
 Release runbooks: HITPAY_ENTITLEMENT_AUTOMATION.md and CUSTOMER_ONBOARDING.md.
