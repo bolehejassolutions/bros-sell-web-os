@@ -1202,6 +1202,54 @@
       "createdAt": "2026-10-10T11:49:45.906Z",
       "status": "scheduled",
       "postId": "6aca2674ed92ed8fa5c95875"
+    },
+    "9f8eca92951ffa4f982cdb74aaa17b166696ba8d3e177ef6ff982e9e36dc8149": {
+      "packageId": "banyak-enquiry",
+      "channelId": "6ac9e8486a5c39ccb66e8d99",
+      "service": "tiktok",
+      "dueAt": "2026-10-11T21:00:00.000Z",
+      "input": {
+        "channelId": "6ac9e8486a5c39ccb66e8d99",
+        "text": "Ramai bertanya. Semua perlu dilayan sama?\n\nContoh situasi jualan, bukan kisah pelanggan.\n\nJumlah pertanyaan tidak sama dengan keperluan atau kesediaan membeli.\n\nCatat keperluan, masa dan tindakan seterusnya setiap lead.\n\n“Apa keperluannya, bila diperlukan, dan apa langkah seterusnya?”\n\nUtamakan berdasarkan bukti, bukan andaian.\n\nMenjelaskan, bukan Memujuk.\n\nSimpan untuk rujukan perbualan seterusnya.\n\n#BROSSell #Jualan #PeniagaMalaysia",
+        "assets": [
+          {
+            "image": {
+              "url": "https://raw.githubusercontent.com/bolehejassolutions/bros-sell-web-os/ce2ed221f9084dfdc4debfcf3427aa4595c55ec9/media/banyak-enquiry-3513271aeb05/vertical-1.jpg",
+              "metadata": {
+                "altText": "Contoh pendidikan jualan: Ramai bertanya. Semua perlu dilayan sama?. Utamakan berdasarkan bukti, bukan andaian."
+              }
+            }
+          },
+          {
+            "image": {
+              "url": "https://raw.githubusercontent.com/bolehejassolutions/bros-sell-web-os/ce2ed221f9084dfdc4debfcf3427aa4595c55ec9/media/banyak-enquiry-3513271aeb05/vertical-2.jpg",
+              "metadata": {
+                "altText": "Contoh pendidikan jualan: Ramai bertanya. Semua perlu dilayan sama?. Utamakan berdasarkan bukti, bukan andaian."
+              }
+            }
+          },
+          {
+            "image": {
+              "url": "https://raw.githubusercontent.com/bolehejassolutions/bros-sell-web-os/ce2ed221f9084dfdc4debfcf3427aa4595c55ec9/media/banyak-enquiry-3513271aeb05/vertical-3.jpg",
+              "metadata": {
+                "altText": "Contoh pendidikan jualan: Ramai bertanya. Semua perlu dilayan sama?. Utamakan berdasarkan bukti, bukan andaian."
+              }
+            }
+          }
+        ],
+        "metadata": {
+          "tiktok": {
+            "title": "Ramai bertanya. Semua perlu dilayan sama?"
+          }
+        },
+        "schedulingType": "automatic",
+        "mode": "customScheduled",
+        "dueAt": "2026-10-11T21:00:00.000Z",
+        "saveToDraft": false,
+        "aiAssisted": true
+      },
+      "createdAt": "2026-10-10T11:49:45.906Z",
+      "status": "submitting"
     }
   },
   "initialSample": {
