@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "deploymentStatus": "initial-delivery-verified-awaiting-activation",
+  "deploymentStatus": "active",
   "packages": {
     "harga-diam": {
       "id": "harga-diam",
@@ -1612,5 +1612,26 @@
       }
     ]
   },
-  "lastCycle": "2026-10-10T11:53:17.021Z"
+  "lastCycle": "2026-10-10T11:53:17.021Z",
+  "activation": {
+    "enabledAt": "2026-10-10T11:54:53.049Z",
+    "mainSha": "d178a57ea33fb034b2b994d699b66224e678029b",
+    "workerSourceSha": "721534f38cc8ca97112efe01aff3f37a0a833026",
+    "initialDeliveryVerified": true,
+    "lastManualIdempotencyVerification": "2026-10-10T11:53:17.021Z"
+  },
+  "reporting": {
+    "kind": "chatgpt-read-only-notification",
+    "taskId": "6aca2595d89c8191a74eb53989b91125",
+    "timezone": "Asia/Kuala_Lumpur",
+    "hours": [
+      5,
+      11,
+      17,
+      23
+    ],
+    "minute": 30,
+    "enabled": true,
+    "notificationDeliveryVerified": false
+  }
 }

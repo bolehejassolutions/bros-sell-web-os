@@ -1,0 +1,137 @@
+{
+  "completedAt": "2026-10-10T11:54:53.049Z",
+  "status": "active",
+  "repository": "bolehejassolutions/bros-sell-web-os",
+  "mainSha": "d178a57ea33fb034b2b994d699b66224e678029b",
+  "workerSourceSha": "721534f38cc8ca97112efe01aff3f37a0a833026",
+  "sample": {
+    "packageId": "harga-diam",
+    "contentHash": "8a9ea96ef8647dc257d76b1eb5ffe6c82ab75b4f1af124b0cd99c4758c7d1da9",
+    "approvedAt": "2026-10-10T11:32:37.000Z",
+    "publicDeliveryVerified": true,
+    "approvalSource": "User confirmation: saved and approved.",
+    "platforms": [
+      "facebook",
+      "instagram",
+      "tiktok"
+    ],
+    "verifiedAt": "2026-10-10T11:42:13.883Z",
+    "deliveries": [
+      {
+        "service": "facebook",
+        "postId": "6aca17e9bba9419ccbfbba67",
+        "url": "https://facebook.com/108099141072511_967888076391911",
+        "status": "sent",
+        "sentAt": "2026-10-10T11:36:23.303Z",
+        "nativeContentVerified": true
+      },
+      {
+        "service": "instagram",
+        "postId": "6aca1839b07d37ac976cb199",
+        "url": "https://www.instagram.com/p/DeT_eYLkVF1/",
+        "status": "sent",
+        "sentAt": "2026-10-10T11:36:53.185Z",
+        "nativeContentVerified": true
+      },
+      {
+        "service": "tiktok",
+        "postId": "6aca1940f91f772d458de76a",
+        "url": "https://tiktok.com/@bros.sell/video/7695001694526000392",
+        "status": "sent",
+        "sentAt": "2026-10-10T11:38:27.106Z",
+        "nativeContentVerified": true
+      }
+    ]
+  },
+  "credentials": {
+    "bufferSecret": "BUFFER_API_KEY",
+    "storage": "Encrypted GitHub Actions repository secret",
+    "authenticationVerified": true,
+    "keyValueReadOrExposed": false
+  },
+  "schedule": {
+    "timezone": "Asia/Kuala_Lumpur",
+    "deliveryHours": [
+      5,
+      11,
+      17,
+      23
+    ],
+    "verificationCronUTC": "17 3,9,15,21 * * *",
+    "deliveryUsesExactBufferDueAt": true
+  },
+  "queue": [
+    {
+      "platform": "facebook",
+      "scheduled": 7,
+      "occupied": 8,
+      "free": 2,
+      "firstDue": "2026-10-10T15:00:00.000Z",
+      "lastDue": "2026-10-12T03:00:00.000Z"
+    },
+    {
+      "platform": "instagram",
+      "scheduled": 8,
+      "occupied": 8,
+      "free": 2,
+      "firstDue": "2026-10-10T15:00:00.000Z",
+      "lastDue": "2026-10-12T09:00:00.000Z"
+    },
+    {
+      "platform": "tiktok",
+      "scheduled": 8,
+      "occupied": 8,
+      "free": 2,
+      "firstDue": "2026-10-10T15:00:00.000Z",
+      "lastDue": "2026-10-12T09:00:00.000Z"
+    }
+  ],
+  "futurePosts": 23,
+  "tests": {
+    "safetyTests": 27,
+    "editorialLayouts": 360,
+    "hostedProductionRuns": [
+      {
+        "run": 38049541137,
+        "result": "success",
+        "created": 12
+      },
+      {
+        "run": 38049743977,
+        "attempt": 1,
+        "result": "success",
+        "created": 11
+      },
+      {
+        "run": 38049743977,
+        "attempt": 2,
+        "result": "success",
+        "created": 0,
+        "bufferCalls": 3
+      }
+    ],
+    "repeatRunPreservedPostIds": true,
+    "duplicateScheduleOrCaption": false,
+    "legacyDraftPreserved": true
+  },
+  "reporting": {
+    "persistentReports": "buffer-publisher-state/reports",
+    "notificationLayer": "Read-only ChatGPT automation",
+    "enabled": true,
+    "hoursMYT": [
+      5,
+      11,
+      17,
+      23
+    ],
+    "minute": 30,
+    "firstNotificationDeliveryVerified": false
+  },
+  "limitations": {
+    "unusedEditorialTopics": 51,
+    "exhaustionBehavior": "Stop new content and request governed catalog replenishment; no recycled content",
+    "scheduler": "GitHub cron is best-effort; Buffer has about two days of future timestamps",
+    "nativeVerification": "First approved sample independently inspected; subsequent unattended delivery uses provider status, URL and timestamp evidence",
+    "notification": "Notification request accepted; delivery evidence pending"
+  }
+}
