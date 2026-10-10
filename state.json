@@ -731,9 +731,12 @@
         "aiAssisted": true
       },
       "createdAt": "2026-10-10T11:46:12.797Z",
-      "status": "scheduled",
+      "status": "sent",
       "postId": "6aca259eb07d37ac976f6ae5",
-      "bufferStatus": "scheduled"
+      "bufferStatus": "sent",
+      "url": "https://www.facebook.com/967812963066089/posts/968279973019388",
+      "sentAt": "2026-10-10T21:00:41.020Z",
+      "reported": true
     },
     "0980d7edf508b877978dc667e2ab1ad430c456aeb608a52ed85497571a585e80": {
       "packageId": "senarai-ciri",
@@ -783,9 +786,12 @@
         "aiAssisted": true
       },
       "createdAt": "2026-10-10T11:46:12.797Z",
-      "status": "scheduled",
+      "status": "sent",
       "postId": "6aca25a1b07d37ac976f6be9",
-      "bufferStatus": "scheduled"
+      "bufferStatus": "sent",
+      "url": "https://www.instagram.com/p/DeU_-5Omd00/",
+      "sentAt": "2026-10-10T21:00:35.699Z",
+      "reported": true
     },
     "f3cac8384597c9a86b286c12d7d403708b62d1df76d49d0153b5bdbd45156d87": {
       "packageId": "senarai-ciri",
@@ -833,9 +839,12 @@
         "aiAssisted": true
       },
       "createdAt": "2026-10-10T11:46:12.797Z",
-      "status": "scheduled",
+      "status": "sent",
       "postId": "6aca25a4c4de2d2b1226833a",
-      "bufferStatus": "scheduled"
+      "bufferStatus": "sent",
+      "url": "https://tiktok.com/@bros.sell/video/7695146885924932871",
+      "sentAt": "2026-10-10T21:01:59.963Z",
+      "reported": true
     },
     "6b644a38f4d394b7ff9f3d1cb1a8a9509b75494ca66e84d8beae33bf58728d18": {
       "packageId": "cepat-close",
@@ -1650,7 +1659,8 @@
       },
       "createdAt": "2026-10-10T15:28:14.905Z",
       "status": "scheduled",
-      "postId": "6aca5993c4de2d2b122fff13"
+      "postId": "6aca5993c4de2d2b122fff13",
+      "bufferStatus": "scheduled"
     },
     "4bf7778a137f314a518a07c70bc5e4e3b725d95f59f6fa53f158628c565f24f1": {
       "packageId": "ingat-semua",
@@ -1701,7 +1711,8 @@
       },
       "createdAt": "2026-10-10T15:28:14.905Z",
       "status": "scheduled",
-      "postId": "6aca599ded92ed8fa5d288b5"
+      "postId": "6aca599ded92ed8fa5d288b5",
+      "bufferStatus": "scheduled"
     },
     "32c70e91eed2cbb88182636daa5475cf63869008fe45c2e80ec8d033aceab29e": {
       "packageId": "ingat-semua",
@@ -1750,7 +1761,8 @@
       },
       "createdAt": "2026-10-10T15:28:14.905Z",
       "status": "scheduled",
-      "postId": "6aca59a0bba9419ccb082836"
+      "postId": "6aca59a0bba9419ccb082836",
+      "bufferStatus": "scheduled"
     }
   },
   "initialSample": {
