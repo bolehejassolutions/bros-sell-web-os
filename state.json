@@ -1289,6 +1289,38 @@
       "createdAt": "2026-10-10T11:49:45.906Z",
       "status": "scheduled",
       "postId": "6aca2677ed92ed8fa5c958f4"
+    },
+    "3f9c25e1a5f05e775621183977724dfe27e7edcdd3b6be82ac1c0816930ea48c": {
+      "packageId": "nak-fikir",
+      "channelId": "6aca08096a5c39ccb66f7b5b",
+      "service": "facebook",
+      "dueAt": "2026-10-12T03:00:00.000Z",
+      "input": {
+        "channelId": "6aca08096a5c39ccb66f7b5b",
+        "text": "Pelanggan kata: Saya fikir dulu.\n\nContoh situasi jualan, bukan kisah pelanggan.\n\nMungkin ada perkara untuk disemak. Jangan terus anggap alasan.\n\nCuba langkah ini: Tanya perkara yang masih perlu dipertimbangkan.\n\nContoh ayat / soalan:\n“Ada perkara tertentu yang anda mahu semak sebelum membuat keputusan?”\n\nBantu keputusan tanpa mendesak jawapan.\n\nMenjelaskan, bukan Memujuk.\n\nSimpan untuk rujukan perbualan seterusnya.",
+        "assets": [
+          {
+            "image": {
+              "url": "https://raw.githubusercontent.com/bolehejassolutions/bros-sell-web-os/27c87b0b08ae7bbbe9178ad75581a96c292bd5c3/media/nak-fikir-59ad854f05d4/portrait-1.jpg",
+              "metadata": {
+                "altText": "Contoh pendidikan jualan: Pelanggan kata: Saya fikir dulu.. Bantu keputusan tanpa mendesak jawapan."
+              }
+            }
+          }
+        ],
+        "metadata": {
+          "facebook": {
+            "type": "post"
+          }
+        },
+        "schedulingType": "automatic",
+        "mode": "customScheduled",
+        "dueAt": "2026-10-12T03:00:00.000Z",
+        "saveToDraft": false,
+        "aiAssisted": true
+      },
+      "createdAt": "2026-10-10T11:49:45.906Z",
+      "status": "submitting"
     }
   },
   "initialSample": {
