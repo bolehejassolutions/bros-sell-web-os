@@ -947,6 +947,38 @@
       "status": "scheduled",
       "postId": "6aca25c3bba9419ccbfea0ef",
       "bufferStatus": "scheduled"
+    },
+    "75662e575634829af95ff4534ee59fbd6a7c545fd7c397ed7ef06fd79292b961": {
+      "packageId": "target-besar",
+      "channelId": "6aca08096a5c39ccb66f7b5b",
+      "service": "facebook",
+      "dueAt": "2026-10-11T15:00:00.000Z",
+      "input": {
+        "channelId": "6aca08096a5c39ccb66f7b5b",
+        "text": "Sasaran jualan besar. Langkah hari ini kabur.\n\nContoh situasi jualan, bukan kisah pelanggan.\n\nAngka sasaran perlu dihubungkan dengan tindakan yang boleh dibuat.\n\nCuba langkah ini: Pecahkan sasaran kepada aktiviti dan semak anggaran dengan data sebenar.\n\nContoh ayat / soalan:\n“Berapa perbualan yang mampu saya urus dengan baik minggu ini?”\n\nAnggaran ialah titik mula, bukan jaminan hasil.\n\nMenjelaskan, bukan Memujuk.\n\nSimpan untuk rujukan perbualan seterusnya.",
+        "assets": [
+          {
+            "image": {
+              "url": "https://raw.githubusercontent.com/bolehejassolutions/bros-sell-web-os/263d4ac5037faf1ae921f45b96d70fa638f4905c/media/target-besar-fd7303b74d44/portrait-1.jpg",
+              "metadata": {
+                "altText": "Contoh pendidikan jualan: Sasaran jualan besar. Langkah hari ini kabur.. Anggaran ialah titik mula, bukan jaminan hasil."
+              }
+            }
+          }
+        ],
+        "metadata": {
+          "facebook": {
+            "type": "post"
+          }
+        },
+        "schedulingType": "automatic",
+        "mode": "customScheduled",
+        "dueAt": "2026-10-11T15:00:00.000Z",
+        "saveToDraft": false,
+        "aiAssisted": true
+      },
+      "createdAt": "2026-10-10T11:49:45.906Z",
+      "status": "submitting"
     }
   },
   "initialSample": {
