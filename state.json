@@ -1834,6 +1834,56 @@
       "createdAt": "2026-10-10T21:27:53.119Z",
       "status": "scheduled",
       "postId": "6acaaddcb07d37ac97881058"
+    },
+    "99747f8830b6afb8a7eac17fd8b48b28945f34c375dfe34175d21a098a3df4f6": {
+      "packageId": "mahal",
+      "channelId": "6ac9e9716a5c39ccb66e9544",
+      "service": "instagram",
+      "dueAt": "2026-10-12T21:00:00.000Z",
+      "input": {
+        "channelId": "6ac9e9716a5c39ccb66e9544",
+        "text": "Pelanggan kata: Mahal.\n\nContoh situasi jualan, bukan kisah pelanggan.\n\nHarga mungkin berkait dengan bajet, perbandingan atau kesesuaian.\n\nCuba langkah ini: Kenal pasti maksud mahal sebelum ubah tawaran.\n\nContoh ayat / soalan:\n“Adakah ia di luar bajet, atau anda sedang bandingkan pilihan lain?”\n\nSatu perkataan boleh membawa sebab berbeza.\n\nMenjelaskan, bukan Memujuk.\n\nSimpan untuk rujukan perbualan seterusnya.\n\n#BROSSell #Jualan #PeniagaMalaysia",
+        "assets": [
+          {
+            "image": {
+              "url": "https://raw.githubusercontent.com/bolehejassolutions/bros-sell-web-os/34c5277dc25a4b5a1b6046df05f8d1beeb6af5b2/media/mahal-5db2b16bf418/portrait-1.jpg",
+              "metadata": {
+                "altText": "Contoh pendidikan jualan: Pelanggan kata: Mahal.. Satu perkataan boleh membawa sebab berbeza."
+              }
+            }
+          },
+          {
+            "image": {
+              "url": "https://raw.githubusercontent.com/bolehejassolutions/bros-sell-web-os/34c5277dc25a4b5a1b6046df05f8d1beeb6af5b2/media/mahal-5db2b16bf418/portrait-2.jpg",
+              "metadata": {
+                "altText": "Contoh pendidikan jualan: Pelanggan kata: Mahal.. Satu perkataan boleh membawa sebab berbeza."
+              }
+            }
+          },
+          {
+            "image": {
+              "url": "https://raw.githubusercontent.com/bolehejassolutions/bros-sell-web-os/34c5277dc25a4b5a1b6046df05f8d1beeb6af5b2/media/mahal-5db2b16bf418/portrait-3.jpg",
+              "metadata": {
+                "altText": "Contoh pendidikan jualan: Pelanggan kata: Mahal.. Satu perkataan boleh membawa sebab berbeza."
+              }
+            }
+          }
+        ],
+        "metadata": {
+          "instagram": {
+            "type": "post",
+            "shouldShareToFeed": true,
+            "isAiGenerated": true
+          }
+        },
+        "schedulingType": "automatic",
+        "mode": "customScheduled",
+        "dueAt": "2026-10-12T21:00:00.000Z",
+        "saveToDraft": false,
+        "aiAssisted": true
+      },
+      "createdAt": "2026-10-10T21:27:53.119Z",
+      "status": "submitting"
     }
   },
   "initialSample": {
