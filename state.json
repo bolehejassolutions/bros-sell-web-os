@@ -397,7 +397,8 @@
       },
       "createdAt": "2026-10-10T11:46:12.797Z",
       "status": "scheduled",
-      "postId": "6aca258eb07d37ac976f6921"
+      "postId": "6aca258eb07d37ac976f6921",
+      "bufferStatus": "scheduled"
     },
     "0e35c07f5782f5b629845e587fbe307df94c784874335dfee37d51ed400eff93": {
       "packageId": "semua-orang",
@@ -448,7 +449,8 @@
       },
       "createdAt": "2026-10-10T11:46:12.797Z",
       "status": "scheduled",
-      "postId": "6aca2591ed92ed8fa5c94147"
+      "postId": "6aca2591ed92ed8fa5c94147",
+      "bufferStatus": "scheduled"
     },
     "2f23ff010294ddae8bc1946cdc3258c9a27c95920e702a5c1637eac57752b509": {
       "packageId": "semua-orang",
@@ -497,7 +499,8 @@
       },
       "createdAt": "2026-10-10T11:46:12.797Z",
       "status": "scheduled",
-      "postId": "6aca2595f91f772d459088f7"
+      "postId": "6aca2595f91f772d459088f7",
+      "bufferStatus": "scheduled"
     },
     "b809327c78b7a4e59ee930c831ed53306f4d923a6b9d26e9de73b0c953bc2501": {
       "packageId": "senarai-ciri",
@@ -530,7 +533,8 @@
       },
       "createdAt": "2026-10-10T11:46:12.797Z",
       "status": "scheduled",
-      "postId": "6aca259eb07d37ac976f6ae5"
+      "postId": "6aca259eb07d37ac976f6ae5",
+      "bufferStatus": "scheduled"
     },
     "0980d7edf508b877978dc667e2ab1ad430c456aeb608a52ed85497571a585e80": {
       "packageId": "senarai-ciri",
@@ -581,7 +585,8 @@
       },
       "createdAt": "2026-10-10T11:46:12.797Z",
       "status": "scheduled",
-      "postId": "6aca25a1b07d37ac976f6be9"
+      "postId": "6aca25a1b07d37ac976f6be9",
+      "bufferStatus": "scheduled"
     },
     "f3cac8384597c9a86b286c12d7d403708b62d1df76d49d0153b5bdbd45156d87": {
       "packageId": "senarai-ciri",
@@ -630,7 +635,8 @@
       },
       "createdAt": "2026-10-10T11:46:12.797Z",
       "status": "scheduled",
-      "postId": "6aca25a4c4de2d2b1226833a"
+      "postId": "6aca25a4c4de2d2b1226833a",
+      "bufferStatus": "scheduled"
     },
     "6b644a38f4d394b7ff9f3d1cb1a8a9509b75494ca66e84d8beae33bf58728d18": {
       "packageId": "cepat-close",
@@ -663,7 +669,8 @@
       },
       "createdAt": "2026-10-10T11:46:12.797Z",
       "status": "scheduled",
-      "postId": "6aca25adbba9419ccbfe9e9f"
+      "postId": "6aca25adbba9419ccbfe9e9f",
+      "bufferStatus": "scheduled"
     },
     "966ce4c3de818478d0e5ef0fd14b91af272bcbe08f11dc70ae40355cfb19d53e": {
       "packageId": "cepat-close",
@@ -714,7 +721,8 @@
       },
       "createdAt": "2026-10-10T11:46:12.797Z",
       "status": "scheduled",
-      "postId": "6aca25b0d9cab260a7c1d00e"
+      "postId": "6aca25b0d9cab260a7c1d00e",
+      "bufferStatus": "scheduled"
     },
     "ad24ebd594928a1ec89101007ba0973379939bbbb7423cd77153cc024359c60e": {
       "packageId": "cepat-close",
@@ -763,7 +771,8 @@
       },
       "createdAt": "2026-10-10T11:46:12.797Z",
       "status": "scheduled",
-      "postId": "6aca25b3b07d37ac976f6e0f"
+      "postId": "6aca25b3b07d37ac976f6e0f",
+      "bufferStatus": "scheduled"
     },
     "a6d19bd8ab494009b63ed118ab1039a20480ea4fb16443602a9cb69fae08bcc9": {
       "packageId": "follow-up-malu",
@@ -796,7 +805,8 @@
       },
       "createdAt": "2026-10-10T11:46:12.797Z",
       "status": "scheduled",
-      "postId": "6aca25bcc4de2d2b122685c7"
+      "postId": "6aca25bcc4de2d2b122685c7",
+      "bufferStatus": "scheduled"
     },
     "eec7c6df37be477299cc960cebcdc0f9e387a2bf2a5b33a677a8b6d163ea9c18": {
       "packageId": "follow-up-malu",
@@ -847,7 +857,8 @@
       },
       "createdAt": "2026-10-10T11:46:12.797Z",
       "status": "scheduled",
-      "postId": "6aca25c0d9cab260a7c1d226"
+      "postId": "6aca25c0d9cab260a7c1d226",
+      "bufferStatus": "scheduled"
     },
     "a529913aa4798053e5cd91061ca5ee65e49337008eb11430021aca9c658d41e5": {
       "packageId": "follow-up-malu",
@@ -896,7 +907,8 @@
       },
       "createdAt": "2026-10-10T11:46:12.797Z",
       "status": "scheduled",
-      "postId": "6aca25c3bba9419ccbfea0ef"
+      "postId": "6aca25c3bba9419ccbfea0ef",
+      "bufferStatus": "scheduled"
     }
   },
   "initialSample": {
