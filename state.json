@@ -71,7 +71,7 @@
         "aiAssisted": true
       },
       "postId": "6aca17e9bba9419ccbfbba67",
-      "status": "draft",
+      "status": "initial_sample_submitting",
       "createdAt": "2026-10-10T10:48:09.224Z",
       "draftVerifiedAt": "2026-10-10T10:57:13.769Z",
       "scheduleValidation": {
@@ -79,7 +79,9 @@
         "wasDraft": true,
         "clearedAfterTest": true
       },
-      "bufferStatus": "draft"
+      "bufferStatus": "draft",
+      "lastAttempt": "2026-10-10T11:36:14.620Z",
+      "approvedPublicTest": true
     },
     "sample-6ac9e9716a5c39ccb66e9544-8a9ea96ef864": {
       "packageId": "harga-diam",
@@ -128,7 +130,7 @@
         "aiAssisted": true
       },
       "postId": "6aca1839b07d37ac976cb199",
-      "status": "draft",
+      "status": "initial_sample_submitting",
       "createdAt": "2026-10-10T10:49:29.728Z",
       "draftVerifiedAt": "2026-10-10T10:57:13.769Z",
       "scheduleValidation": {
@@ -136,7 +138,9 @@
         "wasDraft": true,
         "clearedAfterTest": true
       },
-      "bufferStatus": "draft"
+      "bufferStatus": "draft",
+      "lastAttempt": "2026-10-10T11:36:14.620Z",
+      "approvedPublicTest": true
     },
     "sample-6ac9e8486a5c39ccb66e8d99-8a9ea96ef864": {
       "packageId": "harga-diam",
@@ -183,7 +187,7 @@
         "aiAssisted": true
       },
       "postId": "6aca1940f91f772d458de76a",
-      "status": "draft",
+      "status": "initial_sample_submitting",
       "createdAt": "2026-10-10T10:53:52.037Z",
       "draftVerifiedAt": "2026-10-10T10:57:13.770Z",
       "scheduleValidation": {
@@ -191,7 +195,9 @@
         "wasDraft": true,
         "clearedAfterTest": true
       },
-      "bufferStatus": "draft"
+      "bufferStatus": "draft",
+      "lastAttempt": "2026-10-10T11:36:14.620Z",
+      "approvedPublicTest": true
     }
   },
   "initialSample": {
