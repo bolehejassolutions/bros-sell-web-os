@@ -115,6 +115,44 @@
         "vertical-2.jpg": "dcc0111b7a55c6f59373f0052584373bfaa3405714cff2ec0108c8218d3e83e1",
         "vertical-3.jpg": "c1083e07d31fe3578330db42c56bae66844339f4d759620a2b10ce821f2077d6"
       }
+    },
+    "cepat-close": {
+      "id": "cepat-close",
+      "stage": "qualify",
+      "promotional": false,
+      "contentHash": "73a5172b506d64bbab3a17b28d39e99a58ca95fcab0f65c9693ee15e7e989d38",
+      "seed": {
+        "stage": "qualify",
+        "id": "cepat-close",
+        "hook": "Baru bertanya. Terus minta bayar?",
+        "reframe": "Minat awal belum membuktikan tawaran sesuai.",
+        "step": "Semak keperluan dan masa penggunaan dahulu.",
+        "question": "Apa yang anda mahu selesaikan, dan bila anda perlukan?",
+        "lesson": "Kesesuaian mendahului keputusan membeli."
+      },
+      "captions": {
+        "facebook": "Baru bertanya. Terus minta bayar?\n\nContoh situasi jualan, bukan kisah pelanggan.\n\nMinat awal belum membuktikan tawaran sesuai.\n\nCuba langkah ini: Semak keperluan dan masa penggunaan dahulu.\n\nContoh ayat / soalan:\n“Apa yang anda mahu selesaikan, dan bila anda perlukan?”\n\nKesesuaian mendahului keputusan membeli.\n\nMenjelaskan, bukan Memujuk.\n\nSimpan untuk rujukan perbualan seterusnya.",
+        "instagram": "Baru bertanya. Terus minta bayar?\n\nContoh situasi jualan, bukan kisah pelanggan.\n\nMinat awal belum membuktikan tawaran sesuai.\n\nCuba langkah ini: Semak keperluan dan masa penggunaan dahulu.\n\nContoh ayat / soalan:\n“Apa yang anda mahu selesaikan, dan bila anda perlukan?”\n\nKesesuaian mendahului keputusan membeli.\n\nMenjelaskan, bukan Memujuk.\n\nSimpan untuk rujukan perbualan seterusnya.\n\n#BROSSell #Jualan #PeniagaMalaysia",
+        "tiktok": "Baru bertanya. Terus minta bayar?\n\nContoh situasi jualan, bukan kisah pelanggan.\n\nMinat awal belum membuktikan tawaran sesuai.\n\nSemak keperluan dan masa penggunaan dahulu.\n\n“Apa yang anda mahu selesaikan, dan bila anda perlukan?”\n\nKesesuaian mendahului keputusan membeli.\n\nMenjelaskan, bukan Memujuk.\n\nSimpan untuk rujukan perbualan seterusnya.\n\n#BROSSell #Jualan #PeniagaMalaysia"
+      },
+      "dueAt": "2026-10-11T03:00:00.000Z",
+      "test": false,
+      "urls": {
+        "portrait-1.jpg": "https://raw.githubusercontent.com/bolehejassolutions/bros-sell-web-os/6af27c106df79bfcbc3e3eb2bd9c02ebfe233a16/media/cepat-close-73a5172b506d/portrait-1.jpg",
+        "portrait-2.jpg": "https://raw.githubusercontent.com/bolehejassolutions/bros-sell-web-os/6af27c106df79bfcbc3e3eb2bd9c02ebfe233a16/media/cepat-close-73a5172b506d/portrait-2.jpg",
+        "portrait-3.jpg": "https://raw.githubusercontent.com/bolehejassolutions/bros-sell-web-os/6af27c106df79bfcbc3e3eb2bd9c02ebfe233a16/media/cepat-close-73a5172b506d/portrait-3.jpg",
+        "vertical-1.jpg": "https://raw.githubusercontent.com/bolehejassolutions/bros-sell-web-os/6af27c106df79bfcbc3e3eb2bd9c02ebfe233a16/media/cepat-close-73a5172b506d/vertical-1.jpg",
+        "vertical-2.jpg": "https://raw.githubusercontent.com/bolehejassolutions/bros-sell-web-os/6af27c106df79bfcbc3e3eb2bd9c02ebfe233a16/media/cepat-close-73a5172b506d/vertical-2.jpg",
+        "vertical-3.jpg": "https://raw.githubusercontent.com/bolehejassolutions/bros-sell-web-os/6af27c106df79bfcbc3e3eb2bd9c02ebfe233a16/media/cepat-close-73a5172b506d/vertical-3.jpg"
+      },
+      "assetHashes": {
+        "portrait-1.jpg": "eef6122e32e63717a524ef90807b05620f57535381f98f8eb78ce384a530f6cb",
+        "portrait-2.jpg": "8053f4c49799952ea7126c2b37cf343aa9ea341cc4802d936f6394da1e266171",
+        "portrait-3.jpg": "76423b6496aa522aba88a3b3096b926fc4552553d815c8c1ed1e757ce4e11a2b",
+        "vertical-1.jpg": "f1e8f3a0e443136009fb130b3031256bbdebc9369de15d44e058a7237a235903",
+        "vertical-2.jpg": "e2b3cff7419aa9c3d46a8e6ca47f0e042b399b13aec84e0ae895c826fd221d62",
+        "vertical-3.jpg": "1fde31c579ccf859a6dbc7a7e944b6b990414f515d4199c207d4cf466033b414"
+      }
     }
   },
   "deliveries": {
