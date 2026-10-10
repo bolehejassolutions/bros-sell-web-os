@@ -1,0 +1,136 @@
+{
+  "at": "2026-10-10T11:46:12.797Z",
+  "timezone": "Asia/Kuala_Lumpur",
+  "mode": "production",
+  "status": "cycle_complete",
+  "published": [
+    {
+      "content": "Dah beri harga. Kenapa dia senyap?",
+      "platform": "facebook",
+      "url": "https://www.facebook.com/967812963066089/posts/967888076391911",
+      "sentAt": "2026-10-10T11:36:23.303Z",
+      "verification": "Buffer sent status + platform URL + timestamp"
+    },
+    {
+      "content": "Dah beri harga. Kenapa dia senyap?",
+      "platform": "instagram",
+      "url": "https://www.instagram.com/p/DeT_eYLkVF1/",
+      "sentAt": "2026-10-10T11:36:53.185Z",
+      "verification": "Buffer sent status + platform URL + timestamp"
+    },
+    {
+      "content": "Dah beri harga. Kenapa dia senyap?",
+      "platform": "tiktok",
+      "url": "https://tiktok.com/@bros.sell/video/7695001694526000392",
+      "sentAt": "2026-10-10T11:38:27.106Z",
+      "verification": "Buffer sent status + platform URL + timestamp"
+    }
+  ],
+  "failures": [],
+  "retries": [],
+  "scheduled": [
+    {
+      "platform": "facebook",
+      "postId": "6aca258eb07d37ac976f6921",
+      "status": "scheduled",
+      "dueAt": "2026-10-10T15:00:00.000Z",
+      "content": "Produk untuk semua orang?"
+    },
+    {
+      "platform": "instagram",
+      "postId": "6aca2591ed92ed8fa5c94147",
+      "status": "scheduled",
+      "dueAt": "2026-10-10T15:00:00.000Z",
+      "content": "Produk untuk semua orang?"
+    },
+    {
+      "platform": "tiktok",
+      "postId": "6aca2595f91f772d459088f7",
+      "status": "scheduled",
+      "dueAt": "2026-10-10T15:00:00.000Z",
+      "content": "Produk untuk semua orang?"
+    },
+    {
+      "platform": "facebook",
+      "postId": "6aca259eb07d37ac976f6ae5",
+      "status": "scheduled",
+      "dueAt": "2026-10-10T21:00:00.000Z",
+      "content": "Banyak ciri. Pelanggan masih keliru."
+    },
+    {
+      "platform": "instagram",
+      "postId": "6aca25a1b07d37ac976f6be9",
+      "status": "scheduled",
+      "dueAt": "2026-10-10T21:00:00.000Z",
+      "content": "Banyak ciri. Pelanggan masih keliru."
+    },
+    {
+      "platform": "tiktok",
+      "postId": "6aca25a4c4de2d2b1226833a",
+      "status": "scheduled",
+      "dueAt": "2026-10-10T21:00:00.000Z",
+      "content": "Banyak ciri. Pelanggan masih keliru."
+    },
+    {
+      "platform": "facebook",
+      "postId": "6aca25adbba9419ccbfe9e9f",
+      "status": "scheduled",
+      "dueAt": "2026-10-11T03:00:00.000Z",
+      "content": "Baru bertanya. Terus minta bayar?"
+    },
+    {
+      "platform": "instagram",
+      "postId": "6aca25b0d9cab260a7c1d00e",
+      "status": "scheduled",
+      "dueAt": "2026-10-11T03:00:00.000Z",
+      "content": "Baru bertanya. Terus minta bayar?"
+    },
+    {
+      "platform": "tiktok",
+      "postId": "6aca25b3b07d37ac976f6e0f",
+      "status": "scheduled",
+      "dueAt": "2026-10-11T03:00:00.000Z",
+      "content": "Baru bertanya. Terus minta bayar?"
+    },
+    {
+      "platform": "facebook",
+      "postId": "6aca25bcc4de2d2b122685c7",
+      "status": "scheduled",
+      "dueAt": "2026-10-11T09:00:00.000Z",
+      "content": "Nak buat susulan, tapi rasa mengganggu."
+    },
+    {
+      "platform": "instagram",
+      "postId": "6aca25c0d9cab260a7c1d226",
+      "status": "scheduled",
+      "dueAt": "2026-10-11T09:00:00.000Z",
+      "content": "Nak buat susulan, tapi rasa mengganggu."
+    },
+    {
+      "platform": "tiktok",
+      "postId": "6aca25c3bba9419ccbfea0ef",
+      "status": "scheduled",
+      "dueAt": "2026-10-11T09:00:00.000Z",
+      "content": "Nak buat susulan, tapi rasa mengganggu."
+    }
+  ],
+  "capacity": [
+    {
+      "platform": "facebook",
+      "occupied": 5,
+      "free": 5
+    },
+    {
+      "platform": "instagram",
+      "occupied": 4,
+      "free": 6
+    },
+    {
+      "platform": "tiktok",
+      "occupied": 4,
+      "free": 6
+    }
+  ],
+  "contentRemaining": 55,
+  "apiCalls": 15
+}
