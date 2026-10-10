@@ -187,7 +187,7 @@
         "aiAssisted": true
       },
       "postId": "6aca1940f91f772d458de76a",
-      "status": "initial_sample_submitting",
+      "status": "scheduled",
       "createdAt": "2026-10-10T10:53:52.037Z",
       "draftVerifiedAt": "2026-10-10T10:57:13.770Z",
       "scheduleValidation": {
@@ -195,7 +195,7 @@
         "wasDraft": true,
         "clearedAfterTest": true
       },
-      "bufferStatus": "draft",
+      "bufferStatus": "scheduled",
       "lastAttempt": "2026-10-10T11:36:14.620Z",
       "approvedPublicTest": true
     }
