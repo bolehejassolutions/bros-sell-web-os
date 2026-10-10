@@ -1,0 +1,20 @@
+{
+  "id": "harga-diam",
+  "stage": "value",
+  "promotional": false,
+  "contentHash": "8a9ea96ef8647dc257d76b1eb5ffe6c82ab75b4f1af124b0cd99c4758c7d1da9",
+  "seed": {
+    "stage": "value",
+    "id": "harga-diam",
+    "hook": "Dah beri harga. Kenapa dia senyap?",
+    "reframe": "Diam belum cukup untuk tahu sebabnya. Mungkin masa belum sesuai atau tawaran belum jelas.",
+    "step": "Semak keperluan sebelum ulang harga.",
+    "question": "Ada bahagian tawaran yang masih belum jelas, atau masa sekarang belum sesuai?",
+    "lesson": "Tanya untuk faham. Beri ruang untuk jawab."
+  },
+  "captions": {
+    "facebook": "Dah beri harga. Kenapa dia senyap?\n\nContoh situasi jualan, bukan kisah pelanggan.\n\nDiam belum cukup untuk tahu sebabnya. Mungkin masa belum sesuai atau tawaran belum jelas.\n\nCuba langkah ini: Semak keperluan sebelum ulang harga.\n\nContoh ayat / soalan:\n“Ada bahagian tawaran yang masih belum jelas, atau masa sekarang belum sesuai?”\n\nTanya untuk faham. Beri ruang untuk jawab.\n\nMenjelaskan, bukan Memujuk.\n\nSimpan untuk rujukan perbualan seterusnya.",
+    "instagram": "Dah beri harga. Kenapa dia senyap?\n\nContoh situasi jualan, bukan kisah pelanggan.\n\nDiam belum cukup untuk tahu sebabnya. Mungkin masa belum sesuai atau tawaran belum jelas.\n\nCuba langkah ini: Semak keperluan sebelum ulang harga.\n\nContoh ayat / soalan:\n“Ada bahagian tawaran yang masih belum jelas, atau masa sekarang belum sesuai?”\n\nTanya untuk faham. Beri ruang untuk jawab.\n\nMenjelaskan, bukan Memujuk.\n\nSimpan untuk rujukan perbualan seterusnya.\n\n#BROSSell #Jualan #PeniagaMalaysia",
+    "tiktok": "Dah beri harga. Kenapa dia senyap?\n\nContoh situasi jualan, bukan kisah pelanggan.\n\nDiam belum cukup untuk tahu sebabnya. Mungkin masa belum sesuai atau tawaran belum jelas.\n\nSemak keperluan sebelum ulang harga.\n\n“Ada bahagian tawaran yang masih belum jelas, atau masa sekarang belum sesuai?”\n\nTanya untuk faham. Beri ruang untuk jawab.\n\nMenjelaskan, bukan Memujuk.\n\nSimpan untuk rujukan perbualan seterusnya.\n\n#BROSSell #Jualan #PeniagaMalaysia"
+  }
+}

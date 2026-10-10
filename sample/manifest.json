@@ -1,0 +1,44 @@
+[
+  {
+    "file": "portrait-1.jpg",
+    "width": 1080,
+    "height": 1350,
+    "bytes": 143915,
+    "sha256": "c49c15c471dd1e86e36fedbffb6de04a2bec98e2bac9652ee078c2e18ababd15"
+  },
+  {
+    "file": "portrait-2.jpg",
+    "width": 1080,
+    "height": 1350,
+    "bytes": 141706,
+    "sha256": "8244ea95658621a66a45048b518d4983b2e54d138c3cdcd97e60173df1f7652d"
+  },
+  {
+    "file": "portrait-3.jpg",
+    "width": 1080,
+    "height": 1350,
+    "bytes": 125071,
+    "sha256": "cade94719026dce71e4129dce199dc7f2ad773fee5e32468bd526eb2a6de4f5b"
+  },
+  {
+    "file": "vertical-1.jpg",
+    "width": 1080,
+    "height": 1920,
+    "bytes": 148390,
+    "sha256": "90192f0c63d622bc66d4a88fdd3c6da29567d0ec8b6fd27ee1331956f8779ef2"
+  },
+  {
+    "file": "vertical-2.jpg",
+    "width": 1080,
+    "height": 1920,
+    "bytes": 154132,
+    "sha256": "9e109993560a88a7296241ca754c0a084c8eabec7e278e5a39069dcf0cbf8d3d"
+  },
+  {
+    "file": "vertical-3.jpg",
+    "width": 1080,
+    "height": 1920,
+    "bytes": 128673,
+    "sha256": "62485ccc01511ec1c6659f58d0c1060b14f7a769b49fcca57979f0eaacfd0417"
+  }
+]
