@@ -335,6 +335,54 @@
       "createdAt": "2026-10-10T11:46:12.797Z",
       "status": "scheduled",
       "postId": "6aca2591ed92ed8fa5c94147"
+    },
+    "2f23ff010294ddae8bc1946cdc3258c9a27c95920e702a5c1637eac57752b509": {
+      "packageId": "semua-orang",
+      "channelId": "6ac9e8486a5c39ccb66e8d99",
+      "service": "tiktok",
+      "dueAt": "2026-10-10T15:00:00.000Z",
+      "input": {
+        "channelId": "6ac9e8486a5c39ccb66e8d99",
+        "text": "Produk untuk semua orang?\n\nContoh situasi jualan, bukan kisah pelanggan.\n\nSasaran terlalu luas menyukarkan penerangan. Keperluan orang berbeza.\n\nPilih satu kumpulan dengan satu keperluan nyata.\n\n“Siapa paling perlukan penyelesaian ini, dan dalam keadaan apa?”\n\nSasaran yang jelas membantu mesej jadi khusus.\n\nMenjelaskan, bukan Memujuk.\n\nSimpan untuk rujukan perbualan seterusnya.\n\n#BROSSell #Jualan #PeniagaMalaysia",
+        "assets": [
+          {
+            "image": {
+              "url": "https://raw.githubusercontent.com/bolehejassolutions/bros-sell-web-os/86964373cdc8b93edb44e84eb9642ee4b87615c4/media/semua-orang-fd7074b2c435/vertical-1.jpg",
+              "metadata": {
+                "altText": "Contoh pendidikan jualan: Produk untuk semua orang?. Sasaran yang jelas membantu mesej jadi khusus."
+              }
+            }
+          },
+          {
+            "image": {
+              "url": "https://raw.githubusercontent.com/bolehejassolutions/bros-sell-web-os/86964373cdc8b93edb44e84eb9642ee4b87615c4/media/semua-orang-fd7074b2c435/vertical-2.jpg",
+              "metadata": {
+                "altText": "Contoh pendidikan jualan: Produk untuk semua orang?. Sasaran yang jelas membantu mesej jadi khusus."
+              }
+            }
+          },
+          {
+            "image": {
+              "url": "https://raw.githubusercontent.com/bolehejassolutions/bros-sell-web-os/86964373cdc8b93edb44e84eb9642ee4b87615c4/media/semua-orang-fd7074b2c435/vertical-3.jpg",
+              "metadata": {
+                "altText": "Contoh pendidikan jualan: Produk untuk semua orang?. Sasaran yang jelas membantu mesej jadi khusus."
+              }
+            }
+          }
+        ],
+        "metadata": {
+          "tiktok": {
+            "title": "Produk untuk semua orang?"
+          }
+        },
+        "schedulingType": "automatic",
+        "mode": "customScheduled",
+        "dueAt": "2026-10-10T15:00:00.000Z",
+        "saveToDraft": false,
+        "aiAssisted": true
+      },
+      "createdAt": "2026-10-10T11:46:12.797Z",
+      "status": "submitting"
     }
   },
   "initialSample": {
