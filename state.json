@@ -548,9 +548,12 @@
         "aiAssisted": true
       },
       "createdAt": "2026-10-10T11:46:12.797Z",
-      "status": "scheduled",
+      "status": "sent",
       "postId": "6aca258eb07d37ac976f6921",
-      "bufferStatus": "scheduled"
+      "bufferStatus": "sent",
+      "url": "https://www.facebook.com/967812963066089/posts/968039329710119",
+      "sentAt": "2026-10-10T15:00:42.648Z",
+      "reported": true
     },
     "0e35c07f5782f5b629845e587fbe307df94c784874335dfee37d51ed400eff93": {
       "packageId": "semua-orang",
@@ -600,9 +603,12 @@
         "aiAssisted": true
       },
       "createdAt": "2026-10-10T11:46:12.797Z",
-      "status": "scheduled",
+      "status": "sent",
       "postId": "6aca2591ed92ed8fa5c94147",
-      "bufferStatus": "scheduled"
+      "bufferStatus": "sent",
+      "url": "https://www.instagram.com/p/DeUW1hklfnU/",
+      "sentAt": "2026-10-10T15:01:00.020Z",
+      "reported": true
     },
     "2f23ff010294ddae8bc1946cdc3258c9a27c95920e702a5c1637eac57752b509": {
       "packageId": "semua-orang",
@@ -650,9 +656,12 @@
         "aiAssisted": true
       },
       "createdAt": "2026-10-10T11:46:12.797Z",
-      "status": "scheduled",
+      "status": "sent",
       "postId": "6aca2595f91f772d459088f7",
-      "bufferStatus": "scheduled"
+      "bufferStatus": "sent",
+      "url": "https://tiktok.com/@bros.sell/video/7695054230117289237",
+      "sentAt": "2026-10-10T15:01:44.043Z",
+      "reported": true
     },
     "b809327c78b7a4e59ee930c831ed53306f4d923a6b9d26e9de73b0c953bc2501": {
       "packageId": "senarai-ciri",
