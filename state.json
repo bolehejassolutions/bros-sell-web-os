@@ -343,6 +343,44 @@
         "vertical-2.jpg": "777f0a0cb5fdee633a3f1f8b5bc0a21ea4154f2099bce914bdef65026e326299",
         "vertical-3.jpg": "7de83229f81d9bada1dcfeed0f5505bdabbdab97a5833cfbf433abef01e4e42e"
       }
+    },
+    "ingat-semua": {
+      "id": "ingat-semua",
+      "stage": "operate",
+      "promotional": true,
+      "contentHash": "064eef490382e6f6bf1a74842596d5da792bdb34c266c314d24f09dc73daef6c",
+      "seed": {
+        "stage": "operate",
+        "id": "ingat-semua",
+        "hook": "Semua maklumat pelanggan dalam kepala.",
+        "reframe": "Ingatan mudah tercicir apabila perbualan bertambah.",
+        "step": "Simpan catatan ringkas fakta dan tindakan seterusnya.",
+        "question": "Keperluan, status, tindakan seterusnya, tarikh susulan.",
+        "lesson": "Catat yang perlu. Hormati privasi pelanggan."
+      },
+      "captions": {
+        "facebook": "Semua maklumat pelanggan dalam kepala.\n\nContoh situasi jualan, bukan kisah pelanggan.\n\nIngatan mudah tercicir apabila perbualan bertambah.\n\nCuba langkah ini: Simpan catatan ringkas fakta dan tindakan seterusnya.\n\nContoh ayat / soalan:\n“Keperluan, status, tindakan seterusnya, tarikh susulan.”\n\nCatat yang perlu. Hormati privasi pelanggan.\n\nMenjelaskan, bukan Memujuk.\n\nBROS SELL™ — Panduan & Alat Jualan Praktikal. Bantu susun cara menjual dengan lebih jelas dan teratur.\nKenali BROS SELL™: https://bros.bolehejas.com/",
+        "instagram": "Semua maklumat pelanggan dalam kepala.\n\nContoh situasi jualan, bukan kisah pelanggan.\n\nIngatan mudah tercicir apabila perbualan bertambah.\n\nCuba langkah ini: Simpan catatan ringkas fakta dan tindakan seterusnya.\n\nContoh ayat / soalan:\n“Keperluan, status, tindakan seterusnya, tarikh susulan.”\n\nCatat yang perlu. Hormati privasi pelanggan.\n\nMenjelaskan, bukan Memujuk.\n\nBROS SELL™ — Panduan & Alat Jualan Praktikal. Bantu susun cara menjual dengan lebih jelas dan teratur.\n\n#BROSSell #Jualan #PeniagaMalaysia",
+        "tiktok": "Semua maklumat pelanggan dalam kepala.\n\nContoh situasi jualan, bukan kisah pelanggan.\n\nIngatan mudah tercicir apabila perbualan bertambah.\n\nSimpan catatan ringkas fakta dan tindakan seterusnya.\n\n“Keperluan, status, tindakan seterusnya, tarikh susulan.”\n\nCatat yang perlu. Hormati privasi pelanggan.\n\nMenjelaskan, bukan Memujuk.\n\nBROS SELL™ — Panduan & Alat Jualan Praktikal. Bantu susun cara menjual dengan lebih jelas dan teratur.\n\n#BROSSell #Jualan #PeniagaMalaysia"
+      },
+      "dueAt": "2026-10-12T15:00:00.000Z",
+      "test": false,
+      "urls": {
+        "portrait-1.jpg": "https://raw.githubusercontent.com/bolehejassolutions/bros-sell-web-os/0aa02d06e7fd1cc4b108e8319e6b99e5964f7e09/media/ingat-semua-064eef490382/portrait-1.jpg",
+        "portrait-2.jpg": "https://raw.githubusercontent.com/bolehejassolutions/bros-sell-web-os/0aa02d06e7fd1cc4b108e8319e6b99e5964f7e09/media/ingat-semua-064eef490382/portrait-2.jpg",
+        "portrait-3.jpg": "https://raw.githubusercontent.com/bolehejassolutions/bros-sell-web-os/0aa02d06e7fd1cc4b108e8319e6b99e5964f7e09/media/ingat-semua-064eef490382/portrait-3.jpg",
+        "vertical-1.jpg": "https://raw.githubusercontent.com/bolehejassolutions/bros-sell-web-os/0aa02d06e7fd1cc4b108e8319e6b99e5964f7e09/media/ingat-semua-064eef490382/vertical-1.jpg",
+        "vertical-2.jpg": "https://raw.githubusercontent.com/bolehejassolutions/bros-sell-web-os/0aa02d06e7fd1cc4b108e8319e6b99e5964f7e09/media/ingat-semua-064eef490382/vertical-2.jpg",
+        "vertical-3.jpg": "https://raw.githubusercontent.com/bolehejassolutions/bros-sell-web-os/0aa02d06e7fd1cc4b108e8319e6b99e5964f7e09/media/ingat-semua-064eef490382/vertical-3.jpg"
+      },
+      "assetHashes": {
+        "portrait-1.jpg": "84d97d5b6dfcbf10c2f207ee753e4e6d082a216f015e2f69580bd3142311abee",
+        "portrait-2.jpg": "a81d15452347776f089ba97714b09aa9a417fd0276240c5fc4fe99d850b51b33",
+        "portrait-3.jpg": "94cb11735c972f0eb92f5f164bc9da6e5eca577f7d32a13297ce16d8de7ff699",
+        "vertical-1.jpg": "695b4891e7045ef40b23c27f6e8e4ece82d6ae1f8f768723332ed4af8c81b434",
+        "vertical-2.jpg": "23ac3583b67344606f0ee3d5f090985de35dfef9d5dbc5ec14759dbe68760218",
+        "vertical-3.jpg": "82e43d6e3ad1d693e54ab7e748af78fac5c4127948366c8b5955666bfb375a8f"
+      }
     }
   },
   "deliveries": {
