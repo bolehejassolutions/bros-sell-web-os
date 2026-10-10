@@ -8,6 +8,7 @@ import { cycle } from './engine.mjs';
 import { GitHubStore } from './store.mjs';
 
 const base=JSON.parse(fs.readFileSync(new URL('./config.json',import.meta.url)));
+const disabled={...base,productionEnabled:false,sampleApproval:null,initialDeliveryVerified:false};
 const approved={...base,productionEnabled:true,sampleApproval:{approvedAt:'2026-10-10',contentHash:'reviewed'},initialDeliveryVerified:true};
 const now=new Date('2026-10-10T10:30:00Z');
 const empty=()=>({schemaVersion:1,packages:{},deliveries:{}});
@@ -42,8 +43,8 @@ test('queue occupancy includes unmanaged posts, drafts, errors and uncertain wri
  const state=empty();state.deliveries.x={channelId:c.id,status:'uncertain',dueAt:'2030-01-02T00:00:00Z'};
  assert.equal(selectSlots(base,now,remote,state)[0].capacity,0);
 });
-test('production is disabled until both approval and real delivery are recorded',()=>{assert.equal(gate(base),false);assert.equal(gate({...approved,initialDeliveryVerified:false}),false);assert.equal(gate(approved),true);});
-test('disabled mode makes zero external calls',async()=>{const f=fixture();f.config=base;f.api.snapshot=()=>{throw Error('Must not call');};assert.equal((await cycle(f)).status,'awaiting_approval');});
+test('production is disabled until both approval and real delivery are recorded',()=>{assert.equal(gate(disabled),false);assert.equal(gate({...approved,sampleApproval:null}),false);assert.equal(gate({...approved,initialDeliveryVerified:false}),false);assert.equal(gate(approved),true);});
+test('disabled mode makes zero external calls',async()=>{const f=fixture();f.config=disabled;f.api.snapshot=()=>{throw Error('Must not call');};assert.equal((await cycle(f)).status,'awaiting_approval');});
 test('creation checkpoints its intent before the external mutation',async()=>{const f=fixture();await cycle(f);assert.equal(f.remote.length,12);for(let i=0;i<f.events.length;i++)if(f.events[i]==='create')assert.equal(f.events[i-1],'checkpoint');});
 test('restart replenishes remaining capacity, then repeating a cycle adds nothing',async()=>{const f=fixture();await cycle(f);await cycle(f);assert.equal(f.remote.length,24);await cycle(f);assert.equal(f.remote.length,24);for(const c of base.channels)assert.equal(f.remote.filter(p=>p.channelId===c.id).length,8);});
 test('saved content is scheduled, never reported as delivered',async()=>{const f=fixture();const r=await cycle(f);assert.equal(r.published.length,0);assert.ok(r.scheduled.every(p=>p.status==='scheduled'));});
