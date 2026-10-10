@@ -1885,6 +1885,54 @@
       "createdAt": "2026-10-10T21:27:53.119Z",
       "status": "scheduled",
       "postId": "6acaade4f91f772d45a8d1f1"
+    },
+    "9724c37418a0dc20e6b643fe80790c6514c0fe6efe67ed2aa7184ce7edc3f1c0": {
+      "packageId": "mahal",
+      "channelId": "6ac9e8486a5c39ccb66e8d99",
+      "service": "tiktok",
+      "dueAt": "2026-10-12T21:00:00.000Z",
+      "input": {
+        "channelId": "6ac9e8486a5c39ccb66e8d99",
+        "text": "Pelanggan kata: Mahal.\n\nContoh situasi jualan, bukan kisah pelanggan.\n\nHarga mungkin berkait dengan bajet, perbandingan atau kesesuaian.\n\nKenal pasti maksud mahal sebelum ubah tawaran.\n\n“Adakah ia di luar bajet, atau anda sedang bandingkan pilihan lain?”\n\nSatu perkataan boleh membawa sebab berbeza.\n\nMenjelaskan, bukan Memujuk.\n\nSimpan untuk rujukan perbualan seterusnya.\n\n#BROSSell #Jualan #PeniagaMalaysia",
+        "assets": [
+          {
+            "image": {
+              "url": "https://raw.githubusercontent.com/bolehejassolutions/bros-sell-web-os/34c5277dc25a4b5a1b6046df05f8d1beeb6af5b2/media/mahal-5db2b16bf418/vertical-1.jpg",
+              "metadata": {
+                "altText": "Contoh pendidikan jualan: Pelanggan kata: Mahal.. Satu perkataan boleh membawa sebab berbeza."
+              }
+            }
+          },
+          {
+            "image": {
+              "url": "https://raw.githubusercontent.com/bolehejassolutions/bros-sell-web-os/34c5277dc25a4b5a1b6046df05f8d1beeb6af5b2/media/mahal-5db2b16bf418/vertical-2.jpg",
+              "metadata": {
+                "altText": "Contoh pendidikan jualan: Pelanggan kata: Mahal.. Satu perkataan boleh membawa sebab berbeza."
+              }
+            }
+          },
+          {
+            "image": {
+              "url": "https://raw.githubusercontent.com/bolehejassolutions/bros-sell-web-os/34c5277dc25a4b5a1b6046df05f8d1beeb6af5b2/media/mahal-5db2b16bf418/vertical-3.jpg",
+              "metadata": {
+                "altText": "Contoh pendidikan jualan: Pelanggan kata: Mahal.. Satu perkataan boleh membawa sebab berbeza."
+              }
+            }
+          }
+        ],
+        "metadata": {
+          "tiktok": {
+            "title": "Pelanggan kata: Mahal."
+          }
+        },
+        "schedulingType": "automatic",
+        "mode": "customScheduled",
+        "dueAt": "2026-10-12T21:00:00.000Z",
+        "saveToDraft": false,
+        "aiAssisted": true
+      },
+      "createdAt": "2026-10-10T21:27:53.119Z",
+      "status": "submitting"
     }
   },
   "initialSample": {
