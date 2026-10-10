@@ -422,6 +422,38 @@
       "createdAt": "2026-10-10T11:46:12.797Z",
       "status": "scheduled",
       "postId": "6aca2595f91f772d459088f7"
+    },
+    "b809327c78b7a4e59ee930c831ed53306f4d923a6b9d26e9de73b0c953bc2501": {
+      "packageId": "senarai-ciri",
+      "channelId": "6aca08096a5c39ccb66f7b5b",
+      "service": "facebook",
+      "dueAt": "2026-10-10T21:00:00.000Z",
+      "input": {
+        "channelId": "6aca08096a5c39ccb66f7b5b",
+        "text": "Banyak ciri. Pelanggan masih keliru.\n\nContoh situasi jualan, bukan kisah pelanggan.\n\nSenarai ciri belum menerangkan kegunaan dalam situasi pelanggan.\n\nCuba langkah ini: Sambungkan satu ciri kepada satu kegunaan yang relevan.\n\nContoh ayat / soalan:\n“Untuk keperluan ini, ciri ini membantu dengan cara berikut...”\n\nTerangkan kegunaan sebelum tambah maklumat.\n\nMenjelaskan, bukan Memujuk.\n\nSimpan untuk rujukan perbualan seterusnya.",
+        "assets": [
+          {
+            "image": {
+              "url": "https://raw.githubusercontent.com/bolehejassolutions/bros-sell-web-os/bf3c55f4012c57ec6ed07186c2a1356e0b01c122/media/senarai-ciri-77f9a6bf7d96/portrait-1.jpg",
+              "metadata": {
+                "altText": "Contoh pendidikan jualan: Banyak ciri. Pelanggan masih keliru.. Terangkan kegunaan sebelum tambah maklumat."
+              }
+            }
+          }
+        ],
+        "metadata": {
+          "facebook": {
+            "type": "post"
+          }
+        },
+        "schedulingType": "automatic",
+        "mode": "customScheduled",
+        "dueAt": "2026-10-10T21:00:00.000Z",
+        "saveToDraft": false,
+        "aiAssisted": true
+      },
+      "createdAt": "2026-10-10T11:46:12.797Z",
+      "status": "submitting"
     }
   },
   "initialSample": {
