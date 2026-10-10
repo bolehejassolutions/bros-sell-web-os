@@ -1,6 +1,200 @@
 {
   "schemaVersion": 1,
-  "packages": {},
-  "deliveries": {},
-  "deploymentStatus": "awaiting_sample_approval_and_server_credential"
+  "deploymentStatus": "disabled-awaiting-sample-and-credential-approval",
+  "packages": {
+    "harga-diam": {
+      "id": "harga-diam",
+      "stage": "value",
+      "promotional": false,
+      "contentHash": "8a9ea96ef8647dc257d76b1eb5ffe6c82ab75b4f1af124b0cd99c4758c7d1da9",
+      "seed": {
+        "stage": "value",
+        "id": "harga-diam",
+        "hook": "Dah beri harga. Kenapa dia senyap?",
+        "reframe": "Diam belum cukup untuk tahu sebabnya. Mungkin masa belum sesuai atau tawaran belum jelas.",
+        "step": "Semak keperluan sebelum ulang harga.",
+        "question": "Ada bahagian tawaran yang masih belum jelas, atau masa sekarang belum sesuai?",
+        "lesson": "Tanya untuk faham. Beri ruang untuk jawab."
+      },
+      "captions": {
+        "facebook": "Dah beri harga. Kenapa dia senyap?\n\nContoh situasi jualan, bukan kisah pelanggan.\n\nDiam belum cukup untuk tahu sebabnya. Mungkin masa belum sesuai atau tawaran belum jelas.\n\nCuba langkah ini: Semak keperluan sebelum ulang harga.\n\nContoh ayat / soalan:\n“Ada bahagian tawaran yang masih belum jelas, atau masa sekarang belum sesuai?”\n\nTanya untuk faham. Beri ruang untuk jawab.\n\nMenjelaskan, bukan Memujuk.\n\nSimpan untuk rujukan perbualan seterusnya.",
+        "instagram": "Dah beri harga. Kenapa dia senyap?\n\nContoh situasi jualan, bukan kisah pelanggan.\n\nDiam belum cukup untuk tahu sebabnya. Mungkin masa belum sesuai atau tawaran belum jelas.\n\nCuba langkah ini: Semak keperluan sebelum ulang harga.\n\nContoh ayat / soalan:\n“Ada bahagian tawaran yang masih belum jelas, atau masa sekarang belum sesuai?”\n\nTanya untuk faham. Beri ruang untuk jawab.\n\nMenjelaskan, bukan Memujuk.\n\nSimpan untuk rujukan perbualan seterusnya.\n\n#BROSSell #Jualan #PeniagaMalaysia",
+        "tiktok": "Dah beri harga. Kenapa dia senyap?\n\nContoh situasi jualan, bukan kisah pelanggan.\n\nDiam belum cukup untuk tahu sebabnya. Mungkin masa belum sesuai atau tawaran belum jelas.\n\nSemak keperluan sebelum ulang harga.\n\n“Ada bahagian tawaran yang masih belum jelas, atau masa sekarang belum sesuai?”\n\nTanya untuk faham. Beri ruang untuk jawab.\n\nMenjelaskan, bukan Memujuk.\n\nSimpan untuk rujukan perbualan seterusnya.\n\n#BROSSell #Jualan #PeniagaMalaysia"
+      },
+      "test": true,
+      "dueAt": null,
+      "urls": {
+        "portrait-1.jpg": "https://raw.githubusercontent.com/bolehejassolutions/bros-sell-web-os/06b2fae3cc8c4d686d3a5031a6eb37d9434c590f/media/sample/portrait-1.jpg",
+        "portrait-2.jpg": "https://raw.githubusercontent.com/bolehejassolutions/bros-sell-web-os/06b2fae3cc8c4d686d3a5031a6eb37d9434c590f/media/sample/portrait-2.jpg",
+        "portrait-3.jpg": "https://raw.githubusercontent.com/bolehejassolutions/bros-sell-web-os/06b2fae3cc8c4d686d3a5031a6eb37d9434c590f/media/sample/portrait-3.jpg",
+        "vertical-1.jpg": "https://raw.githubusercontent.com/bolehejassolutions/bros-sell-web-os/06b2fae3cc8c4d686d3a5031a6eb37d9434c590f/media/sample/vertical-1.jpg",
+        "vertical-2.jpg": "https://raw.githubusercontent.com/bolehejassolutions/bros-sell-web-os/06b2fae3cc8c4d686d3a5031a6eb37d9434c590f/media/sample/vertical-2.jpg",
+        "vertical-3.jpg": "https://raw.githubusercontent.com/bolehejassolutions/bros-sell-web-os/06b2fae3cc8c4d686d3a5031a6eb37d9434c590f/media/sample/vertical-3.jpg"
+      },
+      "assetHashes": {
+        "portrait-1.jpg": "c49c15c471dd1e86e36fedbffb6de04a2bec98e2bac9652ee078c2e18ababd15",
+        "portrait-2.jpg": "8244ea95658621a66a45048b518d4983b2e54d138c3cdcd97e60173df1f7652d",
+        "portrait-3.jpg": "cade94719026dce71e4129dce199dc7f2ad773fee5e32468bd526eb2a6de4f5b",
+        "vertical-1.jpg": "90192f0c63d622bc66d4a88fdd3c6da29567d0ec8b6fd27ee1331956f8779ef2",
+        "vertical-2.jpg": "9e109993560a88a7296241ca754c0a084c8eabec7e278e5a39069dcf0cbf8d3d",
+        "vertical-3.jpg": "62485ccc01511ec1c6659f58d0c1060b14f7a769b49fcca57979f0eaacfd0417"
+      }
+    }
+  },
+  "deliveries": {
+    "sample-6aca08096a5c39ccb66f7b5b-8a9ea96ef864": {
+      "packageId": "harga-diam",
+      "channelId": "6aca08096a5c39ccb66f7b5b",
+      "service": "facebook",
+      "dueAt": null,
+      "input": {
+        "channelId": "6aca08096a5c39ccb66f7b5b",
+        "text": "Dah beri harga. Kenapa dia senyap?\n\nContoh situasi jualan, bukan kisah pelanggan.\n\nDiam belum cukup untuk tahu sebabnya. Mungkin masa belum sesuai atau tawaran belum jelas.\n\nCuba langkah ini: Semak keperluan sebelum ulang harga.\n\nContoh ayat / soalan:\n“Ada bahagian tawaran yang masih belum jelas, atau masa sekarang belum sesuai?”\n\nTanya untuk faham. Beri ruang untuk jawab.\n\nMenjelaskan, bukan Memujuk.\n\nSimpan untuk rujukan perbualan seterusnya.",
+        "assets": [
+          {
+            "image": {
+              "url": "https://raw.githubusercontent.com/bolehejassolutions/bros-sell-web-os/06b2fae3cc8c4d686d3a5031a6eb37d9434c590f/media/sample/portrait-1.jpg",
+              "metadata": {
+                "altText": "Contoh pendidikan jualan: Dah beri harga. Kenapa dia senyap?. Tanya untuk faham. Beri ruang untuk jawab."
+              }
+            }
+          }
+        ],
+        "metadata": {
+          "facebook": {
+            "type": "post"
+          }
+        },
+        "schedulingType": "automatic",
+        "mode": "addToQueue",
+        "saveToDraft": true,
+        "aiAssisted": true
+      },
+      "postId": "6aca17e9bba9419ccbfbba67",
+      "status": "draft",
+      "createdAt": "2026-10-10T10:48:09.224Z",
+      "draftVerifiedAt": "2026-10-10T10:57:13.769Z",
+      "scheduleValidation": {
+        "testedDueAt": "2030-01-01T21:00:00.000Z",
+        "wasDraft": true,
+        "clearedAfterTest": true
+      }
+    },
+    "sample-6ac9e9716a5c39ccb66e9544-8a9ea96ef864": {
+      "packageId": "harga-diam",
+      "channelId": "6ac9e9716a5c39ccb66e9544",
+      "service": "instagram",
+      "dueAt": null,
+      "input": {
+        "channelId": "6ac9e9716a5c39ccb66e9544",
+        "text": "Dah beri harga. Kenapa dia senyap?\n\nContoh situasi jualan, bukan kisah pelanggan.\n\nDiam belum cukup untuk tahu sebabnya. Mungkin masa belum sesuai atau tawaran belum jelas.\n\nCuba langkah ini: Semak keperluan sebelum ulang harga.\n\nContoh ayat / soalan:\n“Ada bahagian tawaran yang masih belum jelas, atau masa sekarang belum sesuai?”\n\nTanya untuk faham. Beri ruang untuk jawab.\n\nMenjelaskan, bukan Memujuk.\n\nSimpan untuk rujukan perbualan seterusnya.\n\n#BROSSell #Jualan #PeniagaMalaysia",
+        "assets": [
+          {
+            "image": {
+              "url": "https://raw.githubusercontent.com/bolehejassolutions/bros-sell-web-os/06b2fae3cc8c4d686d3a5031a6eb37d9434c590f/media/sample/portrait-1.jpg",
+              "metadata": {
+                "altText": "Contoh pendidikan jualan: Dah beri harga. Kenapa dia senyap?. Tanya untuk faham. Beri ruang untuk jawab."
+              }
+            }
+          },
+          {
+            "image": {
+              "url": "https://raw.githubusercontent.com/bolehejassolutions/bros-sell-web-os/06b2fae3cc8c4d686d3a5031a6eb37d9434c590f/media/sample/portrait-2.jpg",
+              "metadata": {
+                "altText": "Contoh pendidikan jualan: Dah beri harga. Kenapa dia senyap?. Tanya untuk faham. Beri ruang untuk jawab."
+              }
+            }
+          },
+          {
+            "image": {
+              "url": "https://raw.githubusercontent.com/bolehejassolutions/bros-sell-web-os/06b2fae3cc8c4d686d3a5031a6eb37d9434c590f/media/sample/portrait-3.jpg",
+              "metadata": {
+                "altText": "Contoh pendidikan jualan: Dah beri harga. Kenapa dia senyap?. Tanya untuk faham. Beri ruang untuk jawab."
+              }
+            }
+          }
+        ],
+        "metadata": {
+          "instagram": {
+            "type": "post",
+            "shouldShareToFeed": true,
+            "isAiGenerated": true
+          }
+        },
+        "schedulingType": "automatic",
+        "mode": "addToQueue",
+        "saveToDraft": true,
+        "aiAssisted": true
+      },
+      "postId": "6aca1839b07d37ac976cb199",
+      "status": "draft",
+      "createdAt": "2026-10-10T10:49:29.728Z",
+      "draftVerifiedAt": "2026-10-10T10:57:13.769Z",
+      "scheduleValidation": {
+        "testedDueAt": "2030-01-01T21:00:00.000Z",
+        "wasDraft": true,
+        "clearedAfterTest": true
+      }
+    },
+    "sample-6ac9e8486a5c39ccb66e8d99-8a9ea96ef864": {
+      "packageId": "harga-diam",
+      "channelId": "6ac9e8486a5c39ccb66e8d99",
+      "service": "tiktok",
+      "dueAt": null,
+      "input": {
+        "channelId": "6ac9e8486a5c39ccb66e8d99",
+        "text": "Dah beri harga. Kenapa dia senyap?\n\nContoh situasi jualan, bukan kisah pelanggan.\n\nDiam belum cukup untuk tahu sebabnya. Mungkin masa belum sesuai atau tawaran belum jelas.\n\nSemak keperluan sebelum ulang harga.\n\n“Ada bahagian tawaran yang masih belum jelas, atau masa sekarang belum sesuai?”\n\nTanya untuk faham. Beri ruang untuk jawab.\n\nMenjelaskan, bukan Memujuk.\n\nSimpan untuk rujukan perbualan seterusnya.\n\n#BROSSell #Jualan #PeniagaMalaysia",
+        "assets": [
+          {
+            "image": {
+              "url": "https://raw.githubusercontent.com/bolehejassolutions/bros-sell-web-os/06b2fae3cc8c4d686d3a5031a6eb37d9434c590f/media/sample/vertical-1.jpg",
+              "metadata": {
+                "altText": "Contoh pendidikan jualan: Dah beri harga. Kenapa dia senyap?. Tanya untuk faham. Beri ruang untuk jawab."
+              }
+            }
+          },
+          {
+            "image": {
+              "url": "https://raw.githubusercontent.com/bolehejassolutions/bros-sell-web-os/06b2fae3cc8c4d686d3a5031a6eb37d9434c590f/media/sample/vertical-2.jpg",
+              "metadata": {
+                "altText": "Contoh pendidikan jualan: Dah beri harga. Kenapa dia senyap?. Tanya untuk faham. Beri ruang untuk jawab."
+              }
+            }
+          },
+          {
+            "image": {
+              "url": "https://raw.githubusercontent.com/bolehejassolutions/bros-sell-web-os/06b2fae3cc8c4d686d3a5031a6eb37d9434c590f/media/sample/vertical-3.jpg",
+              "metadata": {
+                "altText": "Contoh pendidikan jualan: Dah beri harga. Kenapa dia senyap?. Tanya untuk faham. Beri ruang untuk jawab."
+              }
+            }
+          }
+        ],
+        "metadata": {
+          "tiktok": {
+            "title": "Dah beri harga. Kenapa dia senyap?"
+          }
+        },
+        "schedulingType": "automatic",
+        "mode": "addToQueue",
+        "saveToDraft": true,
+        "aiAssisted": true
+      },
+      "postId": "6aca1940f91f772d458de76a",
+      "status": "draft",
+      "createdAt": "2026-10-10T10:53:52.037Z",
+      "draftVerifiedAt": "2026-10-10T10:57:13.770Z",
+      "scheduleValidation": {
+        "testedDueAt": "2030-01-01T21:00:00.000Z",
+        "wasDraft": true,
+        "clearedAfterTest": true
+      }
+    }
+  },
+  "initialSample": {
+    "packageId": "harga-diam",
+    "contentHash": "8a9ea96ef8647dc257d76b1eb5ffe6c82ab75b4f1af124b0cd99c4758c7d1da9",
+    "approvedAt": null,
+    "publicDeliveryVerified": false
+  }
 }

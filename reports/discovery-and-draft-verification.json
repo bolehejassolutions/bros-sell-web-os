@@ -1,0 +1,134 @@
+{
+  "auditedAt": "2026-10-10T10:57:13.770Z",
+  "authority": {
+    "offerSource": {
+      "file": "BROS_SELL_CURRENT_SOURCE.md",
+      "version": 2,
+      "approvedPrice": "RM100 one-time"
+    },
+    "communicationSource": {
+      "file": "BROS_SELL_COMMUNICATION_STANDARD.md",
+      "version": 1
+    },
+    "logoSha256": "3ce931c79be005ed0fcbb513a14c169364e67bfa17073e068483eebb28584647"
+  },
+  "infrastructure": {
+    "contentSupabase": "INACTIVE - unused",
+    "worker": "GitHub-hosted Actions in existing SELL repository",
+    "unrelatedProjectsModified": false,
+    "newPaidServices": false
+  },
+  "buffer": {
+    "organization": "My Organization",
+    "plan": "Free",
+    "connectedPlatforms": [
+      "facebook",
+      "instagram",
+      "tiktok"
+    ],
+    "scheduledPerChannelLimit": 10,
+    "apiLimits": {
+      "per15Minutes": 100,
+      "per24Hours": 250,
+      "per30Days": 3000
+    },
+    "dailyPostingLimits": {
+      "facebook": 35,
+      "instagram": 50,
+      "tiktok": 25
+    },
+    "drafts": [
+      {
+        "service": "facebook",
+        "id": "6aca17e9bba9419ccbfbba67",
+        "status": "draft",
+        "dueAt": null,
+        "sentAt": null,
+        "externalLink": null,
+        "automatic": true,
+        "captionMatch": true,
+        "images": [
+          {
+            "width": 1080,
+            "height": 1350,
+            "mimeType": "image/jpeg"
+          }
+        ]
+      },
+      {
+        "service": "instagram",
+        "id": "6aca1839b07d37ac976cb199",
+        "status": "draft",
+        "dueAt": null,
+        "sentAt": null,
+        "externalLink": null,
+        "automatic": true,
+        "captionMatch": true,
+        "images": [
+          {
+            "width": 1080,
+            "height": 1350,
+            "mimeType": "image/jpeg"
+          },
+          {
+            "width": 1080,
+            "height": 1350,
+            "mimeType": "image/jpeg"
+          },
+          {
+            "width": 1080,
+            "height": 1350,
+            "mimeType": "image/jpeg"
+          }
+        ]
+      },
+      {
+        "service": "tiktok",
+        "id": "6aca1940f91f772d458de76a",
+        "status": "draft",
+        "dueAt": null,
+        "sentAt": null,
+        "externalLink": null,
+        "automatic": true,
+        "captionMatch": true,
+        "images": [
+          {
+            "width": 1080,
+            "height": 1920,
+            "mimeType": "image/jpeg"
+          },
+          {
+            "width": 1080,
+            "height": 1920,
+            "mimeType": "image/jpeg"
+          },
+          {
+            "width": 1080,
+            "height": 1920,
+            "mimeType": "image/jpeg"
+          }
+        ]
+      }
+    ],
+    "oldFacebookDraftPreserved": "6aca0d6dc4de2d2b1221b47f"
+  },
+  "testing": {
+    "localSafetyTests": 27,
+    "renderedLayouts": 360,
+    "cloudVerification": "https://github.com/bolehejassolutions/bros-sell-web-os/actions/runs/38046227715",
+    "finalRevision": "fa687c1aff757a9311877cd58655a1a102704b2d",
+    "publicPublicationTested": false,
+    "serverBufferKeyConfigured": false
+  },
+  "limits": {
+    "unusedTopics": 59,
+    "estimatedDaysAtFourPerDay": 14.75,
+    "novelCatalogRefillRequired": true,
+    "pushReportDestinationConfigured": false
+  },
+  "activation": {
+    "productionEnabled": false,
+    "firstSampleApprovalRequired": true,
+    "secureGitHubSecretTransferConfirmationRequired": true
+  }
+}
