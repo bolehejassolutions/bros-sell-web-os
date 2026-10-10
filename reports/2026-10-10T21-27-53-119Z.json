@@ -1,0 +1,73 @@
+{
+  "at": "2026-10-10T21:27:53.119Z",
+  "timezone": "Asia/Kuala_Lumpur",
+  "mode": "production",
+  "status": "cycle_complete",
+  "published": [
+    {
+      "content": "Banyak ciri. Pelanggan masih keliru.",
+      "platform": "facebook",
+      "url": "https://www.facebook.com/967812963066089/posts/968279973019388",
+      "sentAt": "2026-10-10T21:00:41.020Z",
+      "verification": "Buffer sent status + platform URL + timestamp"
+    },
+    {
+      "content": "Banyak ciri. Pelanggan masih keliru.",
+      "platform": "instagram",
+      "url": "https://www.instagram.com/p/DeU_-5Omd00/",
+      "sentAt": "2026-10-10T21:00:35.699Z",
+      "verification": "Buffer sent status + platform URL + timestamp"
+    },
+    {
+      "content": "Banyak ciri. Pelanggan masih keliru.",
+      "platform": "tiktok",
+      "url": "https://tiktok.com/@bros.sell/video/7695146885924932871",
+      "sentAt": "2026-10-10T21:01:59.963Z",
+      "verification": "Buffer sent status + platform URL + timestamp"
+    }
+  ],
+  "failures": [],
+  "retries": [],
+  "scheduled": [
+    {
+      "platform": "facebook",
+      "postId": "6acaaddcb07d37ac97881058",
+      "status": "scheduled",
+      "dueAt": "2026-10-12T15:00:00.000Z",
+      "content": "Semua maklumat pelanggan dalam kepala."
+    },
+    {
+      "platform": "instagram",
+      "postId": "6acaade4f91f772d45a8d1f1",
+      "status": "scheduled",
+      "dueAt": "2026-10-12T21:00:00.000Z",
+      "content": "Pelanggan kata: Mahal."
+    },
+    {
+      "platform": "tiktok",
+      "postId": "6acaade7bba9419ccb169d7d",
+      "status": "scheduled",
+      "dueAt": "2026-10-12T21:00:00.000Z",
+      "content": "Pelanggan kata: Mahal."
+    }
+  ],
+  "capacity": [
+    {
+      "platform": "facebook",
+      "occupied": 8,
+      "free": 2
+    },
+    {
+      "platform": "instagram",
+      "occupied": 8,
+      "free": 2
+    },
+    {
+      "platform": "tiktok",
+      "occupied": 8,
+      "free": 2
+    }
+  ],
+  "contentRemaining": 49,
+  "apiCalls": 6
+}
