@@ -36,7 +36,7 @@ Disabling `productionEnabled` stops replenishment. It does not cancel posts alre
 
 ## Reporting
 
-Cycle summaries are available in GitHub Actions; persistent JSON reports are on the state branch. They contain published content, successful platforms, URLs/timestamps, failures, retries and capacity. Set an explicitly approved HTTPS `REPORT_WEBHOOK_URL` secret only if push delivery to a reporting destination is wanted. No push-report destination is configured by default.
+Cycle summaries are available in GitHub Actions; persistent JSON reports are on the state branch. A read-only server-side ChatGPT reporting task checks completed cycle evidence at 05:30, 11:30, 17:30 and 23:30 Asia/Kuala_Lumpur and reports new results or genuine interventions. It is a notification layer only; publishing and replenishment remain independent of ChatGPT sessions and the user's computer. Notification scheduling has been accepted; first notification delivery is not yet verified. They contain published content, successful platforms, URLs/timestamps, failures, retries and capacity. Set an explicitly approved HTTPS `REPORT_WEBHOOK_URL` secret only if push delivery to a reporting destination is wanted. No push-report destination is configured by default.
 
 ## Verification and sources
 
