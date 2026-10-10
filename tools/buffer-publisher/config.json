@@ -2,18 +2,45 @@
   "schemaVersion": 1,
   "organizationId": "5c8ff5094c54ee487265a5c6",
   "timezone": "Asia/Kuala_Lumpur",
-  "hours": [5, 11, 17, 23],
+  "hours": [
+    5,
+    11,
+    17,
+    23
+  ],
   "queueTarget": 8,
   "queueLimit": 10,
   "stateBranch": "buffer-publisher-state",
   "repository": "bolehejassolutions/bros-sell-web-os",
   "landingUrl": "https://bros.bolehejas.com/",
-  "productionEnabled": false,
-  "sampleApproval": null,
-  "initialDeliveryVerified": false,
+  "productionEnabled": true,
+  "sampleApproval": {
+    "approvedAt": "2026-10-10T11:32:37.000Z",
+    "contentHash": "8a9ea96ef8647dc257d76b1eb5ffe6c82ab75b4f1af124b0cd99c4758c7d1da9",
+    "packageId": "harga-diam",
+    "platforms": [
+      "facebook",
+      "instagram",
+      "tiktok"
+    ],
+    "approvalSource": "User confirmation: saved and approved."
+  },
+  "initialDeliveryVerified": true,
   "channels": [
-    {"id":"6aca08096a5c39ccb66f7b5b","service":"facebook","name":"BROS SELL"},
-    {"id":"6ac9e9716a5c39ccb66e9544","service":"instagram","name":"@bros_sell"},
-    {"id":"6ac9e8486a5c39ccb66e8d99","service":"tiktok","name":"@bros.sell"}
+    {
+      "id": "6aca08096a5c39ccb66f7b5b",
+      "service": "facebook",
+      "name": "BROS SELL"
+    },
+    {
+      "id": "6ac9e9716a5c39ccb66e9544",
+      "service": "instagram",
+      "name": "@bros_sell"
+    },
+    {
+      "id": "6ac9e8486a5c39ccb66e8d99",
+      "service": "tiktok",
+      "name": "@bros.sell"
+    }
   ]
 }

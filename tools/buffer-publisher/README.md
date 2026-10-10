@@ -1,6 +1,6 @@
 # BROS SELL Buffer publishing worker
 
-Status: staged with public publication disabled. Initial sample approval, server-side Buffer credential and live delivery verification are still required.
+Status: production enabled after owner approval on 10 Oct 2026. The encrypted server-side credential passed a hosted API audit. The first sample was published and its native Facebook, Instagram and TikTok content, URLs and timestamps were verified.
 
 This isolated worker lives in the existing SELL repository. It does not call the Web OS database, alter customer entitlements, change the public landing page, revive CONTENT Supabase, or modify other products.
 
@@ -48,4 +48,4 @@ Run `node --test-isolation=none --test publisher.test.mjs`. The workflow also va
 - Buffer schema and live organization/channel/permission/limit inspection: 10 Oct 2026. [API authentication](https://developers.buffer.com/guides/authentication.html), [media hosting](https://developers.buffer.com/guides/hosting-media.html), [TikTok media](https://support.buffer.com/en-us/articles/using-tiktok-with-buffer-oGEroY9Of2).
 - [GitHub cron limits](https://docs.github.com/en/actions/reference/workflows-and-actions/events-that-trigger-workflows): cron can be delayed; immutable future Buffer scheduling provides the delivery buffer. A prolonged outage can exhaust that buffer and requires intervention.
 
-No successful public publication is claimed at this stage.
+Initial public verification: [Facebook](https://facebook.com/108099141072511_967888076391911), [Instagram](https://www.instagram.com/p/DeT_eYLkVF1/), [TikTok](https://tiktok.com/@bros.sell/video/7695001694526000392). Persistent evidence: `reports/initial-public-sample.json` on `buffer-publisher-state`. Future queue acceptance is reported separately from published delivery.
