@@ -191,6 +191,44 @@
         "vertical-2.jpg": "35d9e48809b3403559ed116bae56c91711c93b019d5564b4d58e44bf6feb3bd1",
         "vertical-3.jpg": "327349f2150f71940cc4943f12e7d805024adf7a94533ca40a88e60f97f4a335"
       }
+    },
+    "target-besar": {
+      "id": "target-besar",
+      "stage": "target",
+      "promotional": false,
+      "contentHash": "fd7303b74d44aa82f2f860c5845dd720fe97b5e781a18b73ac33d8d36c79c0d6",
+      "seed": {
+        "stage": "target",
+        "id": "target-besar",
+        "hook": "Sasaran jualan besar. Langkah hari ini kabur.",
+        "reframe": "Angka sasaran perlu dihubungkan dengan tindakan yang boleh dibuat.",
+        "step": "Pecahkan sasaran kepada aktiviti dan semak anggaran dengan data sebenar.",
+        "question": "Berapa perbualan yang mampu saya urus dengan baik minggu ini?",
+        "lesson": "Anggaran ialah titik mula, bukan jaminan hasil."
+      },
+      "captions": {
+        "facebook": "Sasaran jualan besar. Langkah hari ini kabur.\n\nContoh situasi jualan, bukan kisah pelanggan.\n\nAngka sasaran perlu dihubungkan dengan tindakan yang boleh dibuat.\n\nCuba langkah ini: Pecahkan sasaran kepada aktiviti dan semak anggaran dengan data sebenar.\n\nContoh ayat / soalan:\n“Berapa perbualan yang mampu saya urus dengan baik minggu ini?”\n\nAnggaran ialah titik mula, bukan jaminan hasil.\n\nMenjelaskan, bukan Memujuk.\n\nSimpan untuk rujukan perbualan seterusnya.",
+        "instagram": "Sasaran jualan besar. Langkah hari ini kabur.\n\nContoh situasi jualan, bukan kisah pelanggan.\n\nAngka sasaran perlu dihubungkan dengan tindakan yang boleh dibuat.\n\nCuba langkah ini: Pecahkan sasaran kepada aktiviti dan semak anggaran dengan data sebenar.\n\nContoh ayat / soalan:\n“Berapa perbualan yang mampu saya urus dengan baik minggu ini?”\n\nAnggaran ialah titik mula, bukan jaminan hasil.\n\nMenjelaskan, bukan Memujuk.\n\nSimpan untuk rujukan perbualan seterusnya.\n\n#BROSSell #Jualan #PeniagaMalaysia",
+        "tiktok": "Sasaran jualan besar. Langkah hari ini kabur.\n\nContoh situasi jualan, bukan kisah pelanggan.\n\nAngka sasaran perlu dihubungkan dengan tindakan yang boleh dibuat.\n\nPecahkan sasaran kepada aktiviti dan semak anggaran dengan data sebenar.\n\n“Berapa perbualan yang mampu saya urus dengan baik minggu ini?”\n\nAnggaran ialah titik mula, bukan jaminan hasil.\n\nMenjelaskan, bukan Memujuk.\n\nSimpan untuk rujukan perbualan seterusnya.\n\n#BROSSell #Jualan #PeniagaMalaysia"
+      },
+      "dueAt": "2026-10-11T15:00:00.000Z",
+      "test": false,
+      "urls": {
+        "portrait-1.jpg": "https://raw.githubusercontent.com/bolehejassolutions/bros-sell-web-os/263d4ac5037faf1ae921f45b96d70fa638f4905c/media/target-besar-fd7303b74d44/portrait-1.jpg",
+        "portrait-2.jpg": "https://raw.githubusercontent.com/bolehejassolutions/bros-sell-web-os/263d4ac5037faf1ae921f45b96d70fa638f4905c/media/target-besar-fd7303b74d44/portrait-2.jpg",
+        "portrait-3.jpg": "https://raw.githubusercontent.com/bolehejassolutions/bros-sell-web-os/263d4ac5037faf1ae921f45b96d70fa638f4905c/media/target-besar-fd7303b74d44/portrait-3.jpg",
+        "vertical-1.jpg": "https://raw.githubusercontent.com/bolehejassolutions/bros-sell-web-os/263d4ac5037faf1ae921f45b96d70fa638f4905c/media/target-besar-fd7303b74d44/vertical-1.jpg",
+        "vertical-2.jpg": "https://raw.githubusercontent.com/bolehejassolutions/bros-sell-web-os/263d4ac5037faf1ae921f45b96d70fa638f4905c/media/target-besar-fd7303b74d44/vertical-2.jpg",
+        "vertical-3.jpg": "https://raw.githubusercontent.com/bolehejassolutions/bros-sell-web-os/263d4ac5037faf1ae921f45b96d70fa638f4905c/media/target-besar-fd7303b74d44/vertical-3.jpg"
+      },
+      "assetHashes": {
+        "portrait-1.jpg": "0e235adf8686109e71abbbabcd6aeec644e3cffec58c31b4ce1180271b93bb6d",
+        "portrait-2.jpg": "ae65b2e92c757c20de101632b76a76a2b3cc494ed1e98d70197fb3f7cc431e23",
+        "portrait-3.jpg": "3a710d9f188873f712bf24a240909e2aae366717cb36daec59765f8e8eece2b0",
+        "vertical-1.jpg": "bc9d0a0b907b243c64032e6c7741eb3ebd0298447ca13ee665eba5273899e8c0",
+        "vertical-2.jpg": "5ed475ad136a6f9c015c30ba4f913090880ed6cc0dd70cb56b40254a7d0ad73e",
+        "vertical-3.jpg": "253362948698c36b382966793d1d261a8dbba72a346c0a2ecd6af432617a3bc4"
+      }
     }
   },
   "deliveries": {
