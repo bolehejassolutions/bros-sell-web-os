@@ -77,6 +77,44 @@
         "vertical-2.jpg": "a0279274cef764b8fc14e8ed67700b75738514c12f372b72269ff7321198ef1e",
         "vertical-3.jpg": "7c5d39094db9b410003d6588b2db4c81db39e5e5d22dfff6ad94bc7d7cf33fbd"
       }
+    },
+    "senarai-ciri": {
+      "id": "senarai-ciri",
+      "stage": "offer",
+      "promotional": false,
+      "contentHash": "77f9a6bf7d96b72e29c70e97c786fbb41f2e2a7264db5d00ace7d460f21eac1a",
+      "seed": {
+        "stage": "offer",
+        "id": "senarai-ciri",
+        "hook": "Banyak ciri. Pelanggan masih keliru.",
+        "reframe": "Senarai ciri belum menerangkan kegunaan dalam situasi pelanggan.",
+        "step": "Sambungkan satu ciri kepada satu kegunaan yang relevan.",
+        "question": "Untuk keperluan ini, ciri ini membantu dengan cara berikut...",
+        "lesson": "Terangkan kegunaan sebelum tambah maklumat."
+      },
+      "captions": {
+        "facebook": "Banyak ciri. Pelanggan masih keliru.\n\nContoh situasi jualan, bukan kisah pelanggan.\n\nSenarai ciri belum menerangkan kegunaan dalam situasi pelanggan.\n\nCuba langkah ini: Sambungkan satu ciri kepada satu kegunaan yang relevan.\n\nContoh ayat / soalan:\n“Untuk keperluan ini, ciri ini membantu dengan cara berikut...”\n\nTerangkan kegunaan sebelum tambah maklumat.\n\nMenjelaskan, bukan Memujuk.\n\nSimpan untuk rujukan perbualan seterusnya.",
+        "instagram": "Banyak ciri. Pelanggan masih keliru.\n\nContoh situasi jualan, bukan kisah pelanggan.\n\nSenarai ciri belum menerangkan kegunaan dalam situasi pelanggan.\n\nCuba langkah ini: Sambungkan satu ciri kepada satu kegunaan yang relevan.\n\nContoh ayat / soalan:\n“Untuk keperluan ini, ciri ini membantu dengan cara berikut...”\n\nTerangkan kegunaan sebelum tambah maklumat.\n\nMenjelaskan, bukan Memujuk.\n\nSimpan untuk rujukan perbualan seterusnya.\n\n#BROSSell #Jualan #PeniagaMalaysia",
+        "tiktok": "Banyak ciri. Pelanggan masih keliru.\n\nContoh situasi jualan, bukan kisah pelanggan.\n\nSenarai ciri belum menerangkan kegunaan dalam situasi pelanggan.\n\nSambungkan satu ciri kepada satu kegunaan yang relevan.\n\n“Untuk keperluan ini, ciri ini membantu dengan cara berikut...”\n\nTerangkan kegunaan sebelum tambah maklumat.\n\nMenjelaskan, bukan Memujuk.\n\nSimpan untuk rujukan perbualan seterusnya.\n\n#BROSSell #Jualan #PeniagaMalaysia"
+      },
+      "dueAt": "2026-10-10T21:00:00.000Z",
+      "test": false,
+      "urls": {
+        "portrait-1.jpg": "https://raw.githubusercontent.com/bolehejassolutions/bros-sell-web-os/bf3c55f4012c57ec6ed07186c2a1356e0b01c122/media/senarai-ciri-77f9a6bf7d96/portrait-1.jpg",
+        "portrait-2.jpg": "https://raw.githubusercontent.com/bolehejassolutions/bros-sell-web-os/bf3c55f4012c57ec6ed07186c2a1356e0b01c122/media/senarai-ciri-77f9a6bf7d96/portrait-2.jpg",
+        "portrait-3.jpg": "https://raw.githubusercontent.com/bolehejassolutions/bros-sell-web-os/bf3c55f4012c57ec6ed07186c2a1356e0b01c122/media/senarai-ciri-77f9a6bf7d96/portrait-3.jpg",
+        "vertical-1.jpg": "https://raw.githubusercontent.com/bolehejassolutions/bros-sell-web-os/bf3c55f4012c57ec6ed07186c2a1356e0b01c122/media/senarai-ciri-77f9a6bf7d96/vertical-1.jpg",
+        "vertical-2.jpg": "https://raw.githubusercontent.com/bolehejassolutions/bros-sell-web-os/bf3c55f4012c57ec6ed07186c2a1356e0b01c122/media/senarai-ciri-77f9a6bf7d96/vertical-2.jpg",
+        "vertical-3.jpg": "https://raw.githubusercontent.com/bolehejassolutions/bros-sell-web-os/bf3c55f4012c57ec6ed07186c2a1356e0b01c122/media/senarai-ciri-77f9a6bf7d96/vertical-3.jpg"
+      },
+      "assetHashes": {
+        "portrait-1.jpg": "bde6162b79cb6a3ef19db1c68417805a8741e1bfb9b3d1989822a9f8783cd59d",
+        "portrait-2.jpg": "e4a80b52a31aadaa0badc50037a5d42eb36532586707176f7fa3f754057b3c9d",
+        "portrait-3.jpg": "a26402970c7e5fecbf1aefe1c1d5946cad576a3066da1d6ff95ed1734989f447",
+        "vertical-1.jpg": "14a540ef38d1aaaf38fb041ea8dadfa446ea9fc6b5de2537306e8a394284aacd",
+        "vertical-2.jpg": "dcc0111b7a55c6f59373f0052584373bfaa3405714cff2ec0108c8218d3e83e1",
+        "vertical-3.jpg": "c1083e07d31fe3578330db42c56bae66844339f4d759620a2b10ce821f2077d6"
+      }
     }
   },
   "deliveries": {
