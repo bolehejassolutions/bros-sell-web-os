@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "deploymentStatus": "disabled-awaiting-sample-and-credential-approval",
+  "deploymentStatus": "approved-awaiting-initial-delivery-verification",
   "packages": {
     "harga-diam": {
       "id": "harga-diam",
@@ -194,7 +194,13 @@
   "initialSample": {
     "packageId": "harga-diam",
     "contentHash": "8a9ea96ef8647dc257d76b1eb5ffe6c82ab75b4f1af124b0cd99c4758c7d1da9",
-    "approvedAt": null,
-    "publicDeliveryVerified": false
+    "approvedAt": "2026-10-10T11:32:37.000Z",
+    "publicDeliveryVerified": false,
+    "approvalSource": "User confirmation: saved and approved.",
+    "platforms": [
+      "facebook",
+      "instagram",
+      "tiktok"
+    ]
   }
 }
