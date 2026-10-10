@@ -233,3 +233,6 @@ button:disabled{opacity:.45;cursor:not-allowed}
   .insight-card{min-height:96px;padding:16px}
   .insight-card strong{font-size:28px}
 }
+
+/* Customer Hub inline support link meets minimum touch-target height. */
+.hub-support-link{display:inline-flex;align-items:center;min-height:32px}

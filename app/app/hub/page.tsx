@@ -90,7 +90,7 @@ export default async function CustomerHubPage() {
           <a className="btn secondary" href={supportLink("BROS SELL - pertanyaan produk")}>Tanya soalan</a>
           <a className="btn secondary" href={supportLink("BROS SELL - maklum balas pelanggan")}>Beri maklum balas</a>
         </div>
-        <p className="field-note">Sokongan: <a href={supportLink("BROS SELL - sokongan")}>{supportEmail}</a>. Web OS ialah companion dalam talian; fail yang telah dimuat turun boleh terus digunakan secara offline.</p>
+        <p className="field-note">Sokongan: <a className="hub-support-link" href={supportLink("BROS SELL - sokongan")}>{supportEmail}</a>. Web OS ialah companion dalam talian; fail yang telah dimuat turun boleh terus digunakan secara offline.</p>
       </section>
     </main>
   );
