@@ -797,6 +797,56 @@
       "createdAt": "2026-10-10T11:46:12.797Z",
       "status": "scheduled",
       "postId": "6aca25bcc4de2d2b122685c7"
+    },
+    "eec7c6df37be477299cc960cebcdc0f9e387a2bf2a5b33a677a8b6d163ea9c18": {
+      "packageId": "follow-up-malu",
+      "channelId": "6ac9e9716a5c39ccb66e9544",
+      "service": "instagram",
+      "dueAt": "2026-10-11T09:00:00.000Z",
+      "input": {
+        "channelId": "6ac9e9716a5c39ccb66e9544",
+        "text": "Nak buat susulan, tapi rasa mengganggu.\n\nContoh situasi jualan, bukan kisah pelanggan.\n\nSusulan boleh membantu jika ada sebab dan ruang untuk menolak.\n\nCuba langkah ini: Minta izin dan tetapkan masa yang dipersetujui.\n\nContoh ayat / soalan:\n“Boleh saya hubungi semula pada hari Khamis untuk semak keputusan?”\n\nSusulan dengan izin lebih jelas tujuannya.\n\nMenjelaskan, bukan Memujuk.\n\nBROS SELL™ — Panduan & Alat Jualan Praktikal. Bantu susun cara menjual dengan lebih jelas dan teratur.\n\n#BROSSell #Jualan #PeniagaMalaysia",
+        "assets": [
+          {
+            "image": {
+              "url": "https://raw.githubusercontent.com/bolehejassolutions/bros-sell-web-os/045eff28242cced8533678c84b18b502001596cc/media/follow-up-malu-6f7441a49dc1/portrait-1.jpg",
+              "metadata": {
+                "altText": "Contoh pendidikan jualan: Nak buat susulan, tapi rasa mengganggu.. Susulan dengan izin lebih jelas tujuannya."
+              }
+            }
+          },
+          {
+            "image": {
+              "url": "https://raw.githubusercontent.com/bolehejassolutions/bros-sell-web-os/045eff28242cced8533678c84b18b502001596cc/media/follow-up-malu-6f7441a49dc1/portrait-2.jpg",
+              "metadata": {
+                "altText": "Contoh pendidikan jualan: Nak buat susulan, tapi rasa mengganggu.. Susulan dengan izin lebih jelas tujuannya."
+              }
+            }
+          },
+          {
+            "image": {
+              "url": "https://raw.githubusercontent.com/bolehejassolutions/bros-sell-web-os/045eff28242cced8533678c84b18b502001596cc/media/follow-up-malu-6f7441a49dc1/portrait-3.jpg",
+              "metadata": {
+                "altText": "Contoh pendidikan jualan: Nak buat susulan, tapi rasa mengganggu.. Susulan dengan izin lebih jelas tujuannya."
+              }
+            }
+          }
+        ],
+        "metadata": {
+          "instagram": {
+            "type": "post",
+            "shouldShareToFeed": true,
+            "isAiGenerated": true
+          }
+        },
+        "schedulingType": "automatic",
+        "mode": "customScheduled",
+        "dueAt": "2026-10-11T09:00:00.000Z",
+        "saveToDraft": false,
+        "aiAssisted": true
+      },
+      "createdAt": "2026-10-10T11:46:12.797Z",
+      "status": "submitting"
     }
   },
   "initialSample": {
