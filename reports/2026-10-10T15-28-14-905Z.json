@@ -1,0 +1,73 @@
+{
+  "at": "2026-10-10T15:28:14.905Z",
+  "timezone": "Asia/Kuala_Lumpur",
+  "mode": "production",
+  "status": "cycle_complete",
+  "published": [
+    {
+      "content": "Produk untuk semua orang?",
+      "platform": "facebook",
+      "url": "https://www.facebook.com/967812963066089/posts/968039329710119",
+      "sentAt": "2026-10-10T15:00:42.648Z",
+      "verification": "Buffer sent status + platform URL + timestamp"
+    },
+    {
+      "content": "Produk untuk semua orang?",
+      "platform": "instagram",
+      "url": "https://www.instagram.com/p/DeUW1hklfnU/",
+      "sentAt": "2026-10-10T15:01:00.020Z",
+      "verification": "Buffer sent status + platform URL + timestamp"
+    },
+    {
+      "content": "Produk untuk semua orang?",
+      "platform": "tiktok",
+      "url": "https://tiktok.com/@bros.sell/video/7695054230117289237",
+      "sentAt": "2026-10-10T15:01:44.043Z",
+      "verification": "Buffer sent status + platform URL + timestamp"
+    }
+  ],
+  "failures": [],
+  "retries": [],
+  "scheduled": [
+    {
+      "platform": "facebook",
+      "postId": "6aca5993c4de2d2b122fff13",
+      "status": "scheduled",
+      "dueAt": "2026-10-12T09:00:00.000Z",
+      "content": "Pelanggan dah bayar. Perbualan tamat?"
+    },
+    {
+      "platform": "instagram",
+      "postId": "6aca599ded92ed8fa5d288b5",
+      "status": "scheduled",
+      "dueAt": "2026-10-12T15:00:00.000Z",
+      "content": "Semua maklumat pelanggan dalam kepala."
+    },
+    {
+      "platform": "tiktok",
+      "postId": "6aca59a0bba9419ccb082836",
+      "status": "scheduled",
+      "dueAt": "2026-10-12T15:00:00.000Z",
+      "content": "Semua maklumat pelanggan dalam kepala."
+    }
+  ],
+  "capacity": [
+    {
+      "platform": "facebook",
+      "occupied": 8,
+      "free": 2
+    },
+    {
+      "platform": "instagram",
+      "occupied": 8,
+      "free": 2
+    },
+    {
+      "platform": "tiktok",
+      "occupied": 8,
+      "free": 2
+    }
+  ],
+  "contentRemaining": 50,
+  "apiCalls": 6
+}
