@@ -1373,6 +1373,54 @@
       "createdAt": "2026-10-10T11:49:45.906Z",
       "status": "scheduled",
       "postId": "6aca2682ed92ed8fa5c959e9"
+    },
+    "20396ade43fe3bea25db58b33e297763e6cbb5052263981d240a6d8d4ebd2fc5": {
+      "packageId": "nak-fikir",
+      "channelId": "6ac9e8486a5c39ccb66e8d99",
+      "service": "tiktok",
+      "dueAt": "2026-10-12T03:00:00.000Z",
+      "input": {
+        "channelId": "6ac9e8486a5c39ccb66e8d99",
+        "text": "Pelanggan kata: Saya fikir dulu.\n\nContoh situasi jualan, bukan kisah pelanggan.\n\nMungkin ada perkara untuk disemak. Jangan terus anggap alasan.\n\nTanya perkara yang masih perlu dipertimbangkan.\n\n“Ada perkara tertentu yang anda mahu semak sebelum membuat keputusan?”\n\nBantu keputusan tanpa mendesak jawapan.\n\nMenjelaskan, bukan Memujuk.\n\nSimpan untuk rujukan perbualan seterusnya.\n\n#BROSSell #Jualan #PeniagaMalaysia",
+        "assets": [
+          {
+            "image": {
+              "url": "https://raw.githubusercontent.com/bolehejassolutions/bros-sell-web-os/27c87b0b08ae7bbbe9178ad75581a96c292bd5c3/media/nak-fikir-59ad854f05d4/vertical-1.jpg",
+              "metadata": {
+                "altText": "Contoh pendidikan jualan: Pelanggan kata: Saya fikir dulu.. Bantu keputusan tanpa mendesak jawapan."
+              }
+            }
+          },
+          {
+            "image": {
+              "url": "https://raw.githubusercontent.com/bolehejassolutions/bros-sell-web-os/27c87b0b08ae7bbbe9178ad75581a96c292bd5c3/media/nak-fikir-59ad854f05d4/vertical-2.jpg",
+              "metadata": {
+                "altText": "Contoh pendidikan jualan: Pelanggan kata: Saya fikir dulu.. Bantu keputusan tanpa mendesak jawapan."
+              }
+            }
+          },
+          {
+            "image": {
+              "url": "https://raw.githubusercontent.com/bolehejassolutions/bros-sell-web-os/27c87b0b08ae7bbbe9178ad75581a96c292bd5c3/media/nak-fikir-59ad854f05d4/vertical-3.jpg",
+              "metadata": {
+                "altText": "Contoh pendidikan jualan: Pelanggan kata: Saya fikir dulu.. Bantu keputusan tanpa mendesak jawapan."
+              }
+            }
+          }
+        ],
+        "metadata": {
+          "tiktok": {
+            "title": "Pelanggan kata: Saya fikir dulu."
+          }
+        },
+        "schedulingType": "automatic",
+        "mode": "customScheduled",
+        "dueAt": "2026-10-12T03:00:00.000Z",
+        "saveToDraft": false,
+        "aiAssisted": true
+      },
+      "createdAt": "2026-10-10T11:49:45.906Z",
+      "status": "submitting"
     }
   },
   "initialSample": {
