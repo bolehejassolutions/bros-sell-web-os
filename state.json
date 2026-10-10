@@ -39,6 +39,44 @@
         "vertical-2.jpg": "9e109993560a88a7296241ca754c0a084c8eabec7e278e5a39069dcf0cbf8d3d",
         "vertical-3.jpg": "62485ccc01511ec1c6659f58d0c1060b14f7a769b49fcca57979f0eaacfd0417"
       }
+    },
+    "semua-orang": {
+      "id": "semua-orang",
+      "stage": "buyer",
+      "promotional": false,
+      "contentHash": "fd7074b2c43586be674ced9945934fe971b1a3f8cdb97b28dd109d2bc1be7392",
+      "seed": {
+        "stage": "buyer",
+        "id": "semua-orang",
+        "hook": "Produk untuk semua orang?",
+        "reframe": "Sasaran terlalu luas menyukarkan penerangan. Keperluan orang berbeza.",
+        "step": "Pilih satu kumpulan dengan satu keperluan nyata.",
+        "question": "Siapa paling perlukan penyelesaian ini, dan dalam keadaan apa?",
+        "lesson": "Sasaran yang jelas membantu mesej jadi khusus."
+      },
+      "captions": {
+        "facebook": "Produk untuk semua orang?\n\nContoh situasi jualan, bukan kisah pelanggan.\n\nSasaran terlalu luas menyukarkan penerangan. Keperluan orang berbeza.\n\nCuba langkah ini: Pilih satu kumpulan dengan satu keperluan nyata.\n\nContoh ayat / soalan:\n“Siapa paling perlukan penyelesaian ini, dan dalam keadaan apa?”\n\nSasaran yang jelas membantu mesej jadi khusus.\n\nMenjelaskan, bukan Memujuk.\n\nSimpan untuk rujukan perbualan seterusnya.",
+        "instagram": "Produk untuk semua orang?\n\nContoh situasi jualan, bukan kisah pelanggan.\n\nSasaran terlalu luas menyukarkan penerangan. Keperluan orang berbeza.\n\nCuba langkah ini: Pilih satu kumpulan dengan satu keperluan nyata.\n\nContoh ayat / soalan:\n“Siapa paling perlukan penyelesaian ini, dan dalam keadaan apa?”\n\nSasaran yang jelas membantu mesej jadi khusus.\n\nMenjelaskan, bukan Memujuk.\n\nSimpan untuk rujukan perbualan seterusnya.\n\n#BROSSell #Jualan #PeniagaMalaysia",
+        "tiktok": "Produk untuk semua orang?\n\nContoh situasi jualan, bukan kisah pelanggan.\n\nSasaran terlalu luas menyukarkan penerangan. Keperluan orang berbeza.\n\nPilih satu kumpulan dengan satu keperluan nyata.\n\n“Siapa paling perlukan penyelesaian ini, dan dalam keadaan apa?”\n\nSasaran yang jelas membantu mesej jadi khusus.\n\nMenjelaskan, bukan Memujuk.\n\nSimpan untuk rujukan perbualan seterusnya.\n\n#BROSSell #Jualan #PeniagaMalaysia"
+      },
+      "dueAt": "2026-10-10T15:00:00.000Z",
+      "test": false,
+      "urls": {
+        "portrait-1.jpg": "https://raw.githubusercontent.com/bolehejassolutions/bros-sell-web-os/86964373cdc8b93edb44e84eb9642ee4b87615c4/media/semua-orang-fd7074b2c435/portrait-1.jpg",
+        "portrait-2.jpg": "https://raw.githubusercontent.com/bolehejassolutions/bros-sell-web-os/86964373cdc8b93edb44e84eb9642ee4b87615c4/media/semua-orang-fd7074b2c435/portrait-2.jpg",
+        "portrait-3.jpg": "https://raw.githubusercontent.com/bolehejassolutions/bros-sell-web-os/86964373cdc8b93edb44e84eb9642ee4b87615c4/media/semua-orang-fd7074b2c435/portrait-3.jpg",
+        "vertical-1.jpg": "https://raw.githubusercontent.com/bolehejassolutions/bros-sell-web-os/86964373cdc8b93edb44e84eb9642ee4b87615c4/media/semua-orang-fd7074b2c435/vertical-1.jpg",
+        "vertical-2.jpg": "https://raw.githubusercontent.com/bolehejassolutions/bros-sell-web-os/86964373cdc8b93edb44e84eb9642ee4b87615c4/media/semua-orang-fd7074b2c435/vertical-2.jpg",
+        "vertical-3.jpg": "https://raw.githubusercontent.com/bolehejassolutions/bros-sell-web-os/86964373cdc8b93edb44e84eb9642ee4b87615c4/media/semua-orang-fd7074b2c435/vertical-3.jpg"
+      },
+      "assetHashes": {
+        "portrait-1.jpg": "7ababa3c1151b99173f4791772a7f0be4ae3db49fb11d2787e35dc87c0ed23da",
+        "portrait-2.jpg": "4711106fbf73ea1cd292ff280faaa5a4d024b4c520e783ce5b6308ac5e9d1df6",
+        "portrait-3.jpg": "884acf16affe0cc5591aeba9c024a817c0ac218eed80716da2bfc4c9ffc36e1f",
+        "vertical-1.jpg": "1a17beb76c16235e8ae8b7151811b3dd8f64006bda1d9f75c69454f9f6a303a4",
+        "vertical-2.jpg": "a0279274cef764b8fc14e8ed67700b75738514c12f372b72269ff7321198ef1e",
+        "vertical-3.jpg": "7c5d39094db9b410003d6588b2db4c81db39e5e5d22dfff6ad94bc7d7cf33fbd"
+      }
     }
   },
   "deliveries": {
