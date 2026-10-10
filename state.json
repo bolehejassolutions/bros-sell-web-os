@@ -1580,6 +1580,38 @@
       "status": "scheduled",
       "postId": "6aca2691f91f772d4590a77a",
       "bufferStatus": "scheduled"
+    },
+    "3527c7a041195fc66648d04990ff45f552cb6f88df555b6f7eba74fe0dfc3b8c": {
+      "packageId": "lepas-bayar",
+      "channelId": "6aca08096a5c39ccb66f7b5b",
+      "service": "facebook",
+      "dueAt": "2026-10-12T09:00:00.000Z",
+      "input": {
+        "channelId": "6aca08096a5c39ccb66f7b5b",
+        "text": "Pelanggan dah bayar. Perbualan tamat?\n\nContoh situasi jualan, bukan kisah pelanggan.\n\nPembelian memerlukan langkah serahan yang jelas.\n\nCuba langkah ini: Nyatakan apa yang diterima dan tindakan selepas bayaran.\n\nContoh ayat / soalan:\n“Ini langkah seterusnya dan cara mendapatkan bantuan jika perlu.”\n\nSerahan yang jelas ialah sebahagian cara menjual.\n\nMenjelaskan, bukan Memujuk.\n\nSimpan untuk rujukan perbualan seterusnya.",
+        "assets": [
+          {
+            "image": {
+              "url": "https://raw.githubusercontent.com/bolehejassolutions/bros-sell-web-os/0ecd29410bc50e6147bcd3e8e343d961a31115e8/media/lepas-bayar-cd14a1aaaede/portrait-1.jpg",
+              "metadata": {
+                "altText": "Contoh pendidikan jualan: Pelanggan dah bayar. Perbualan tamat?. Serahan yang jelas ialah sebahagian cara menjual."
+              }
+            }
+          }
+        ],
+        "metadata": {
+          "facebook": {
+            "type": "post"
+          }
+        },
+        "schedulingType": "automatic",
+        "mode": "customScheduled",
+        "dueAt": "2026-10-12T09:00:00.000Z",
+        "saveToDraft": false,
+        "aiAssisted": true
+      },
+      "createdAt": "2026-10-10T15:28:14.905Z",
+      "status": "submitting"
     }
   },
   "initialSample": {
