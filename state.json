@@ -1883,7 +1883,8 @@
         "aiAssisted": true
       },
       "createdAt": "2026-10-10T21:27:53.119Z",
-      "status": "submitting"
+      "status": "scheduled",
+      "postId": "6acaade4f91f772d45a8d1f1"
     }
   },
   "initialSample": {
