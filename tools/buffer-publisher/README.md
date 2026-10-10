@@ -28,7 +28,9 @@ Place the existing Buffer API key directly into GitHub Actions repository secret
 
 The workflow uses its short-lived built-in GitHub token to write only the dedicated operational branch. No stored GitHub personal token is needed. Secret-bearing execution refuses other repositories or refs. PR/push verification has no Buffer credential and cannot publish.
 
-`config.json` must retain `productionEnabled:false`, `sampleApproval:null` and `initialDeliveryVerified:false` until the user approves the exact sample and actual publication succeeds. Approval should record the sample content hash and timestamp. Only then record delivery URLs/timestamps and enable production. Manual `audit` is read-only; `drafts` creates one unscheduled test package. Manual `production` also obeys the gate.
+`config.json` must retain `productionEnabled:false`, `sampleApproval:null` and `initialDeliveryVerified:false` until the user approves the exact sample and actual publication succeeds. Approval should record the sample content hash and timestamp. Only then record delivery URLs/timestamps and enable production. Manual `audit` is read-only; `drafts` creates one draft test package with a future custom time, which cannot publish while its status remains draft. Manual `production` also obeys the gate.
+
+Live draft validation confirmed that Buffer rejects `isAiGenerated` on TikTok photo posts. TikTok inputs therefore omit that unsupported field; these assets contain educational typography and the unchanged approved logo, without realistic synthetic people or scenes. Instagram retains its supported AI disclosure flag. The generic `aiAssisted` API provenance flag remains enabled.
 
 Disabling `productionEnabled` stops replenishment. It does not cancel posts already scheduled in Buffer; pausing/cancelling those requires an explicit operational action.
 

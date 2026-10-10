@@ -47,7 +47,9 @@ export function buildInput(pkg, channel, dueAt, urls, draft=false) {
   const paths=channel.service==='facebook'?[`${shape}-1.jpg`]:[1,2,3].map(i=>`${shape}-${i}.jpg`);
   const assets=paths.map(path=>({image:{url:urls[path],metadata:{altText:`Contoh pendidikan jualan: ${pkg.seed.hook}. ${pkg.seed.lesson}`}}}));
   if(assets.some(a=>!a.image.url?.startsWith('https://'))) throw new Error('Permanent HTTPS media required');
-  const metadata=channel.service==='facebook'?{facebook:{type:'post'}}:channel.service==='instagram'?{instagram:{type:'post',shouldShareToFeed:true,isAiGenerated:true}}:{tiktok:{title:pkg.seed.hook.slice(0,90),isAiGenerated:true}};
+  // Buffer rejects AI-disclosure metadata on TikTok photo posts. These assets are
+  // plain educational typography and an unchanged official logo, with no synthetic people.
+  const metadata=channel.service==='facebook'?{facebook:{type:'post'}}:channel.service==='instagram'?{instagram:{type:'post',shouldShareToFeed:true,isAiGenerated:true}}:{tiktok:{title:pkg.seed.hook.slice(0,90)}};
   return {channelId:channel.id,text:pkg.captions[channel.service],assets,metadata,schedulingType:'automatic',mode:'customScheduled',dueAt,saveToDraft:draft,aiAssisted:true};
 }
 
@@ -61,7 +63,7 @@ export function matchIntent(intent, posts) {
 
 export function delivered(post) {
   if(post.status!=='sent' || !post.sentAt || !post.externalLink) return false;
-  const url=new URL(post.externalLink);
+  let url;try{url=new URL(post.externalLink);}catch{return false;}
   const allowed={facebook:['facebook.com','www.facebook.com','m.facebook.com'],instagram:['instagram.com','www.instagram.com'],tiktok:['tiktok.com','www.tiktok.com']}[post.channelService]??[];
   return url.protocol==='https:' && allowed.includes(url.hostname) && Number.isFinite(Date.parse(post.sentAt));
 }

@@ -35,6 +35,7 @@ test('asset adaptation produces a Facebook image and three native carousel image
  assert.equal(buildInput(pkg,base.channels[0],'2030-01-01T00:00:00Z',urls).assets.length,1);
  assert.equal(buildInput(pkg,base.channels[1],'2030-01-01T00:00:00Z',urls).assets.length,3);
  assert.ok(buildInput(pkg,base.channels[2],'2030-01-01T00:00:00Z',urls).assets.every(a=>a.image.url.includes('vertical')));
+  assert.equal(buildInput(pkg,base.channels[2],'2030-01-01T00:00:00Z',urls).metadata.tiktok.isAiGenerated,undefined);
 });
 test('queue occupancy includes unmanaged posts, drafts, errors and uncertain writes',()=>{
  const c=base.channels[0];const remote=Array.from({length:9},(_,i)=>({id:String(i),channelId:c.id,status:i?'scheduled':'draft',dueAt:'2030-01-01T00:00:00Z'}));
@@ -69,3 +70,19 @@ test('explicit rate rejection obeys retry-after without leaking tokens',async()=
 test('daily posting limit excludes a channel',async()=>{const f=fixture();const orig=f.api.snapshot;f.api.snapshot=async()=>({...await orig(),dailyPostingLimits:[{channelId:base.channels[1].id,isAtLimit:true}]});await cycle(f);assert.ok(f.remote.every(p=>p.channelId!==base.channels[1].id));});
 test('immutable-media reconciliation works when a post has moved time',()=>{const pkg=packageFor(catalog[0],0,base);const input=buildInput(pkg,base.channels[0],'2030-01-01T00:00:00Z',urls);assert.equal(matchIntent({channelId:input.channelId,dueAt:input.dueAt,input},[{id:'existing',channelId:input.channelId,text:input.text,dueAt:null,assets:[{source:input.assets[0].image.url}]}]).length,1);});
 test('GitHub conflict fails closed instead of overwriting publication history',async()=>{let mutations=0;const store=new GitHubStore(base.repository,'state','fixture',async(url,options)=>{mutations++;if(options.method==='PATCH')return new Response('{}',{status:422});return new Response(JSON.stringify({sha:'new'}));});store.head='old';store.tree='old-tree';await assert.rejects(store.save(empty()),e=>e.kind==='state');assert.equal(store.head,'old');assert.equal(mutations,3);});
+test('malformed published URL is held for verification rather than crashing the cycle',()=>{assert.equal(delivered({status:'sent',sentAt:now.toISOString(),externalLink:'not-a-url',channelService:'facebook'}),false);});
+test('temporary publication error retries the original post after backoff, with no duplicate create',async()=>{
+ const f=fixture();await cycle(f);await cycle(f);
+ const original=f.remote[0];Object.assign(original,{status:'error',error:{message:'Temporary service unavailable'}});
+ const intent=Object.values(f.state.deliveries).find(d=>d.postId===original.id);intent.createdAt='2026-10-09T00:00:00Z';
+ const count=f.remote.length;const r=await cycle(f);
+ assert.equal(f.remote.length,count);assert.equal(intent.retryCount,1);assert.equal(original.status,'scheduled');
+ assert.ok(r.retries.some(x=>x.postId===original.id&&x.outcome.includes('Same-post')));
+ assert.equal(new Set(f.remote.filter(p=>p.channelId===original.channelId).map(p=>p.dueAt)).size,8);
+});
+test('persistent publication errors stop after two attempts',async()=>{
+ const f=fixture();await cycle(f);await cycle(f);const p=f.remote[0];Object.assign(p,{status:'error',error:{message:'Temporary service unavailable'}});
+ const d=Object.values(f.state.deliveries).find(x=>x.postId===p.id);d.retryCount=2;d.createdAt='2026-10-09T00:00:00Z';
+ const r=await cycle(f);assert.equal(p.status,'error');assert.equal(r.retries.length,0);
+});
+test('missing publishing scope excludes the channel',async()=>{const f=fixture();const orig=f.api.snapshot;f.api.snapshot=async()=>{const s=await orig();s.channels[2].scopes=[];return s;};await cycle(f);assert.ok(f.remote.every(p=>p.channelId!==base.channels[2].id));});
