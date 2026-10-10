@@ -251,6 +251,38 @@
       "verifiedAt": "2026-10-10T11:42:13.883Z",
       "nativeContentVerified": true,
       "reported": true
+    },
+    "0c4d0b37ec47e5c3e82524a4f4eee48b4bafa77329a48355f2cee570ba94d408": {
+      "packageId": "semua-orang",
+      "channelId": "6aca08096a5c39ccb66f7b5b",
+      "service": "facebook",
+      "dueAt": "2026-10-10T15:00:00.000Z",
+      "input": {
+        "channelId": "6aca08096a5c39ccb66f7b5b",
+        "text": "Produk untuk semua orang?\n\nContoh situasi jualan, bukan kisah pelanggan.\n\nSasaran terlalu luas menyukarkan penerangan. Keperluan orang berbeza.\n\nCuba langkah ini: Pilih satu kumpulan dengan satu keperluan nyata.\n\nContoh ayat / soalan:\n“Siapa paling perlukan penyelesaian ini, dan dalam keadaan apa?”\n\nSasaran yang jelas membantu mesej jadi khusus.\n\nMenjelaskan, bukan Memujuk.\n\nSimpan untuk rujukan perbualan seterusnya.",
+        "assets": [
+          {
+            "image": {
+              "url": "https://raw.githubusercontent.com/bolehejassolutions/bros-sell-web-os/86964373cdc8b93edb44e84eb9642ee4b87615c4/media/semua-orang-fd7074b2c435/portrait-1.jpg",
+              "metadata": {
+                "altText": "Contoh pendidikan jualan: Produk untuk semua orang?. Sasaran yang jelas membantu mesej jadi khusus."
+              }
+            }
+          }
+        ],
+        "metadata": {
+          "facebook": {
+            "type": "post"
+          }
+        },
+        "schedulingType": "automatic",
+        "mode": "customScheduled",
+        "dueAt": "2026-10-10T15:00:00.000Z",
+        "saveToDraft": false,
+        "aiAssisted": true
+      },
+      "createdAt": "2026-10-10T11:46:12.797Z",
+      "status": "submitting"
     }
   },
   "initialSample": {
