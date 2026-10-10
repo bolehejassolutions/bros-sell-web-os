@@ -381,6 +381,44 @@
         "vertical-2.jpg": "23ac3583b67344606f0ee3d5f090985de35dfef9d5dbc5ec14759dbe68760218",
         "vertical-3.jpg": "82e43d6e3ad1d693e54ab7e748af78fac5c4127948366c8b5955666bfb375a8f"
       }
+    },
+    "mahal": {
+      "id": "mahal",
+      "stage": "value",
+      "promotional": false,
+      "contentHash": "5db2b16bf4189603e2f6cfa09b74cbc6cc48197cd52531730d4055c15e6437a3",
+      "seed": {
+        "stage": "value",
+        "id": "mahal",
+        "hook": "Pelanggan kata: Mahal.",
+        "reframe": "Harga mungkin berkait dengan bajet, perbandingan atau kesesuaian.",
+        "step": "Kenal pasti maksud mahal sebelum ubah tawaran.",
+        "question": "Adakah ia di luar bajet, atau anda sedang bandingkan pilihan lain?",
+        "lesson": "Satu perkataan boleh membawa sebab berbeza."
+      },
+      "captions": {
+        "facebook": "Pelanggan kata: Mahal.\n\nContoh situasi jualan, bukan kisah pelanggan.\n\nHarga mungkin berkait dengan bajet, perbandingan atau kesesuaian.\n\nCuba langkah ini: Kenal pasti maksud mahal sebelum ubah tawaran.\n\nContoh ayat / soalan:\n“Adakah ia di luar bajet, atau anda sedang bandingkan pilihan lain?”\n\nSatu perkataan boleh membawa sebab berbeza.\n\nMenjelaskan, bukan Memujuk.\n\nSimpan untuk rujukan perbualan seterusnya.",
+        "instagram": "Pelanggan kata: Mahal.\n\nContoh situasi jualan, bukan kisah pelanggan.\n\nHarga mungkin berkait dengan bajet, perbandingan atau kesesuaian.\n\nCuba langkah ini: Kenal pasti maksud mahal sebelum ubah tawaran.\n\nContoh ayat / soalan:\n“Adakah ia di luar bajet, atau anda sedang bandingkan pilihan lain?”\n\nSatu perkataan boleh membawa sebab berbeza.\n\nMenjelaskan, bukan Memujuk.\n\nSimpan untuk rujukan perbualan seterusnya.\n\n#BROSSell #Jualan #PeniagaMalaysia",
+        "tiktok": "Pelanggan kata: Mahal.\n\nContoh situasi jualan, bukan kisah pelanggan.\n\nHarga mungkin berkait dengan bajet, perbandingan atau kesesuaian.\n\nKenal pasti maksud mahal sebelum ubah tawaran.\n\n“Adakah ia di luar bajet, atau anda sedang bandingkan pilihan lain?”\n\nSatu perkataan boleh membawa sebab berbeza.\n\nMenjelaskan, bukan Memujuk.\n\nSimpan untuk rujukan perbualan seterusnya.\n\n#BROSSell #Jualan #PeniagaMalaysia"
+      },
+      "dueAt": "2026-10-12T21:00:00.000Z",
+      "test": false,
+      "urls": {
+        "portrait-1.jpg": "https://raw.githubusercontent.com/bolehejassolutions/bros-sell-web-os/34c5277dc25a4b5a1b6046df05f8d1beeb6af5b2/media/mahal-5db2b16bf418/portrait-1.jpg",
+        "portrait-2.jpg": "https://raw.githubusercontent.com/bolehejassolutions/bros-sell-web-os/34c5277dc25a4b5a1b6046df05f8d1beeb6af5b2/media/mahal-5db2b16bf418/portrait-2.jpg",
+        "portrait-3.jpg": "https://raw.githubusercontent.com/bolehejassolutions/bros-sell-web-os/34c5277dc25a4b5a1b6046df05f8d1beeb6af5b2/media/mahal-5db2b16bf418/portrait-3.jpg",
+        "vertical-1.jpg": "https://raw.githubusercontent.com/bolehejassolutions/bros-sell-web-os/34c5277dc25a4b5a1b6046df05f8d1beeb6af5b2/media/mahal-5db2b16bf418/vertical-1.jpg",
+        "vertical-2.jpg": "https://raw.githubusercontent.com/bolehejassolutions/bros-sell-web-os/34c5277dc25a4b5a1b6046df05f8d1beeb6af5b2/media/mahal-5db2b16bf418/vertical-2.jpg",
+        "vertical-3.jpg": "https://raw.githubusercontent.com/bolehejassolutions/bros-sell-web-os/34c5277dc25a4b5a1b6046df05f8d1beeb6af5b2/media/mahal-5db2b16bf418/vertical-3.jpg"
+      },
+      "assetHashes": {
+        "portrait-1.jpg": "4dbdfce84b185f6d72754edb63ca5392c2f4e520ea96fb5807413e2e5cfd3c6b",
+        "portrait-2.jpg": "5868fdab47692af5ba916d834a016703cc3765396da88e9a7889ae36eac6fb1d",
+        "portrait-3.jpg": "37dc48c31b79b06bdc8a8138123d01c5da7c0b05de936ea0afaa5d6296bbd966",
+        "vertical-1.jpg": "6298895de714544d9b4fe891128afbe3c1fc7aceb57eaba92e05cc050e028f41",
+        "vertical-2.jpg": "73280f07ca40c442b01c5dcabe61fba9b899cf8953761ffe9f1e408312b3565b",
+        "vertical-3.jpg": "f88d2456a01e0eb9da9ebe221ec225ad6f334f974e0a0871955a0685d6240dc9"
+      }
     }
   },
   "deliveries": {
