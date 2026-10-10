@@ -267,6 +267,44 @@
         "vertical-2.jpg": "0761422cf4301e3083a5ea2255b75b90d9c65ddcd582afeb2f0c077a7d99c86c",
         "vertical-3.jpg": "fc79547b5a26bcabaf0d1f5099e3fcbe7ac4494fc5d7873b50f5f82ea7185ced"
       }
+    },
+    "nak-fikir": {
+      "id": "nak-fikir",
+      "stage": "close",
+      "promotional": false,
+      "contentHash": "59ad854f05d4c072dd841e39011b16dc8917cdf135e9b2fef848015637cc4ef9",
+      "seed": {
+        "stage": "close",
+        "id": "nak-fikir",
+        "hook": "Pelanggan kata: Saya fikir dulu.",
+        "reframe": "Mungkin ada perkara untuk disemak. Jangan terus anggap alasan.",
+        "step": "Tanya perkara yang masih perlu dipertimbangkan.",
+        "question": "Ada perkara tertentu yang anda mahu semak sebelum membuat keputusan?",
+        "lesson": "Bantu keputusan tanpa mendesak jawapan."
+      },
+      "captions": {
+        "facebook": "Pelanggan kata: Saya fikir dulu.\n\nContoh situasi jualan, bukan kisah pelanggan.\n\nMungkin ada perkara untuk disemak. Jangan terus anggap alasan.\n\nCuba langkah ini: Tanya perkara yang masih perlu dipertimbangkan.\n\nContoh ayat / soalan:\n“Ada perkara tertentu yang anda mahu semak sebelum membuat keputusan?”\n\nBantu keputusan tanpa mendesak jawapan.\n\nMenjelaskan, bukan Memujuk.\n\nSimpan untuk rujukan perbualan seterusnya.",
+        "instagram": "Pelanggan kata: Saya fikir dulu.\n\nContoh situasi jualan, bukan kisah pelanggan.\n\nMungkin ada perkara untuk disemak. Jangan terus anggap alasan.\n\nCuba langkah ini: Tanya perkara yang masih perlu dipertimbangkan.\n\nContoh ayat / soalan:\n“Ada perkara tertentu yang anda mahu semak sebelum membuat keputusan?”\n\nBantu keputusan tanpa mendesak jawapan.\n\nMenjelaskan, bukan Memujuk.\n\nSimpan untuk rujukan perbualan seterusnya.\n\n#BROSSell #Jualan #PeniagaMalaysia",
+        "tiktok": "Pelanggan kata: Saya fikir dulu.\n\nContoh situasi jualan, bukan kisah pelanggan.\n\nMungkin ada perkara untuk disemak. Jangan terus anggap alasan.\n\nTanya perkara yang masih perlu dipertimbangkan.\n\n“Ada perkara tertentu yang anda mahu semak sebelum membuat keputusan?”\n\nBantu keputusan tanpa mendesak jawapan.\n\nMenjelaskan, bukan Memujuk.\n\nSimpan untuk rujukan perbualan seterusnya.\n\n#BROSSell #Jualan #PeniagaMalaysia"
+      },
+      "dueAt": "2026-10-12T03:00:00.000Z",
+      "test": false,
+      "urls": {
+        "portrait-1.jpg": "https://raw.githubusercontent.com/bolehejassolutions/bros-sell-web-os/27c87b0b08ae7bbbe9178ad75581a96c292bd5c3/media/nak-fikir-59ad854f05d4/portrait-1.jpg",
+        "portrait-2.jpg": "https://raw.githubusercontent.com/bolehejassolutions/bros-sell-web-os/27c87b0b08ae7bbbe9178ad75581a96c292bd5c3/media/nak-fikir-59ad854f05d4/portrait-2.jpg",
+        "portrait-3.jpg": "https://raw.githubusercontent.com/bolehejassolutions/bros-sell-web-os/27c87b0b08ae7bbbe9178ad75581a96c292bd5c3/media/nak-fikir-59ad854f05d4/portrait-3.jpg",
+        "vertical-1.jpg": "https://raw.githubusercontent.com/bolehejassolutions/bros-sell-web-os/27c87b0b08ae7bbbe9178ad75581a96c292bd5c3/media/nak-fikir-59ad854f05d4/vertical-1.jpg",
+        "vertical-2.jpg": "https://raw.githubusercontent.com/bolehejassolutions/bros-sell-web-os/27c87b0b08ae7bbbe9178ad75581a96c292bd5c3/media/nak-fikir-59ad854f05d4/vertical-2.jpg",
+        "vertical-3.jpg": "https://raw.githubusercontent.com/bolehejassolutions/bros-sell-web-os/27c87b0b08ae7bbbe9178ad75581a96c292bd5c3/media/nak-fikir-59ad854f05d4/vertical-3.jpg"
+      },
+      "assetHashes": {
+        "portrait-1.jpg": "a8d13653730e372705739a14e35e01798bbea6a641e66b7183b77dd7b13bb005",
+        "portrait-2.jpg": "04ec21586a4c391ce1d6d620e3dd1810d0f3caa7d50efeea967d9d4bb33ee691",
+        "portrait-3.jpg": "c013ef3bc55b37514971469e870f6d900a0106f6e8a65bb06493afb12a1fa12d",
+        "vertical-1.jpg": "a8a7ca69622916451dff98432e8069d5f66a8771b4555c3a340f5f7a2553b877",
+        "vertical-2.jpg": "e72a2403eba56d8eea3f2e375a6ddaa2d3eb06db60de7c35bc410d2104e8f96d",
+        "vertical-3.jpg": "deaba29ceee3dedeaf897eea7989936fff4006c65465925df77d04fe58f909e2"
+      }
     }
   },
   "deliveries": {
