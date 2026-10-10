@@ -455,6 +455,56 @@
       "createdAt": "2026-10-10T11:46:12.797Z",
       "status": "scheduled",
       "postId": "6aca259eb07d37ac976f6ae5"
+    },
+    "0980d7edf508b877978dc667e2ab1ad430c456aeb608a52ed85497571a585e80": {
+      "packageId": "senarai-ciri",
+      "channelId": "6ac9e9716a5c39ccb66e9544",
+      "service": "instagram",
+      "dueAt": "2026-10-10T21:00:00.000Z",
+      "input": {
+        "channelId": "6ac9e9716a5c39ccb66e9544",
+        "text": "Banyak ciri. Pelanggan masih keliru.\n\nContoh situasi jualan, bukan kisah pelanggan.\n\nSenarai ciri belum menerangkan kegunaan dalam situasi pelanggan.\n\nCuba langkah ini: Sambungkan satu ciri kepada satu kegunaan yang relevan.\n\nContoh ayat / soalan:\n“Untuk keperluan ini, ciri ini membantu dengan cara berikut...”\n\nTerangkan kegunaan sebelum tambah maklumat.\n\nMenjelaskan, bukan Memujuk.\n\nSimpan untuk rujukan perbualan seterusnya.\n\n#BROSSell #Jualan #PeniagaMalaysia",
+        "assets": [
+          {
+            "image": {
+              "url": "https://raw.githubusercontent.com/bolehejassolutions/bros-sell-web-os/bf3c55f4012c57ec6ed07186c2a1356e0b01c122/media/senarai-ciri-77f9a6bf7d96/portrait-1.jpg",
+              "metadata": {
+                "altText": "Contoh pendidikan jualan: Banyak ciri. Pelanggan masih keliru.. Terangkan kegunaan sebelum tambah maklumat."
+              }
+            }
+          },
+          {
+            "image": {
+              "url": "https://raw.githubusercontent.com/bolehejassolutions/bros-sell-web-os/bf3c55f4012c57ec6ed07186c2a1356e0b01c122/media/senarai-ciri-77f9a6bf7d96/portrait-2.jpg",
+              "metadata": {
+                "altText": "Contoh pendidikan jualan: Banyak ciri. Pelanggan masih keliru.. Terangkan kegunaan sebelum tambah maklumat."
+              }
+            }
+          },
+          {
+            "image": {
+              "url": "https://raw.githubusercontent.com/bolehejassolutions/bros-sell-web-os/bf3c55f4012c57ec6ed07186c2a1356e0b01c122/media/senarai-ciri-77f9a6bf7d96/portrait-3.jpg",
+              "metadata": {
+                "altText": "Contoh pendidikan jualan: Banyak ciri. Pelanggan masih keliru.. Terangkan kegunaan sebelum tambah maklumat."
+              }
+            }
+          }
+        ],
+        "metadata": {
+          "instagram": {
+            "type": "post",
+            "shouldShareToFeed": true,
+            "isAiGenerated": true
+          }
+        },
+        "schedulingType": "automatic",
+        "mode": "customScheduled",
+        "dueAt": "2026-10-10T21:00:00.000Z",
+        "saveToDraft": false,
+        "aiAssisted": true
+      },
+      "createdAt": "2026-10-10T11:46:12.797Z",
+      "status": "submitting"
     }
   },
   "initialSample": {
