@@ -62,7 +62,7 @@ try {
       await page.goto(`${base}/activate`);
       await page.getByRole('heading', { name: 'Akses akaun perlu disemak.', exact: true }).waitFor();
       assert.equal(await page.getByRole('link', { name: 'brossell@bolehejas.com', exact: true }).getAttribute('href'), 'mailto:brossell%40bolehejas.com?subject=BROS%20SELL%20access%20recovery');
-      assert.match(await page.locator('body').innerText(), /30 hari kalendar dari tarikh pembelian/);
+      assert.match(await page.locator('body').innerText(), /terma pembelian atau hak berkaitan transaksi terdahulu/);
       await layout(page, width, 'recovery');
       await page.goto(`${base}/app`);
       await page.getByRole('button', { name: 'Tentukan next move', exact: true }).waitFor();
@@ -148,6 +148,17 @@ try {
       assert.ok(libraryFollowUp);
       assert.equal(new URL(libraryFollowUp, base).searchParams.get('case'), id);
       await layout(page, width, 'library');
+      // A purchased account can see its current package and access status without exposing the ZIP publicly.
+      await page.getByRole('link', { name: 'Hub', exact: true }).click();
+      await page.getByRole('heading', { name: 'Semua akses dan rujukan anda, di satu tempat.' }).waitFor();
+      const hubBody = await page.locator('main').innerText();
+      assert.match(hubBody, /v2\.6\.1/);
+      assert.match(hubBody, /v2\.5/);
+      assert.match(hubBody, /Bantuan ZIP/);
+      assert.ok(await page.locator('a[href="/api/customer/closing-os"]').count(), 'Protected PDF link is present');
+      assert.equal(await page.locator('a[href*="drive.google.com"]').count(), 0, 'No public package link');
+      await layout(page, width, 'customer-hub');
+      await page.getByRole('link', { name: 'Library', exact: true }).click();
       if (width === 1280) {
         await page.getByText('Semua tools', { exact: true }).click();
         const toolLinks = await page.locator('.native-tool-grid a').evaluateAll(links => links.map(link => link.getAttribute('href')!));

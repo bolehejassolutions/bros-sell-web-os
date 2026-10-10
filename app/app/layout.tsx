@@ -29,7 +29,7 @@ export default async function WebOSLayout({
             <CaseLink className="nav-link" href="/app">Home</CaseLink>
             <CaseLink className="nav-link" href="/app/operator-dashboard">Cases</CaseLink>
             <CaseLink className="nav-link" href="/app/resources">Library</CaseLink>
-            <CaseLink className="nav-link" href="/app#account">Account</CaseLink>
+            <CaseLink className="nav-link" href="/app/hub">Hub</CaseLink>
           </nav>
         </div>
       </header>}>

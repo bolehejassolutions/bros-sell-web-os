@@ -42,6 +42,6 @@ test('HTTP account persistence, ownership, concurrency, input validation and ent
   assert.match(recoveryHtml,/menggunakan email pembelian/);
   assert.match(recoveryHtml,/rujukan pesanan atau resit HitPay/);
   assert.match(recoveryHtml,/Jangan hantar password, OTP atau maklumat kad/);
-  assert.match(recoveryHtml,/30 hari kalendar dari tarikh pembelian/);
+  assert.match(recoveryHtml,/terma pembelian atau hak berkaitan transaksi terdahulu/);
   assert.match(recoveryHtml,/HitPay menghantar pakej pelanggan/);
 });
