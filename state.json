@@ -506,6 +506,54 @@
       "createdAt": "2026-10-10T11:46:12.797Z",
       "status": "scheduled",
       "postId": "6aca25a1b07d37ac976f6be9"
+    },
+    "f3cac8384597c9a86b286c12d7d403708b62d1df76d49d0153b5bdbd45156d87": {
+      "packageId": "senarai-ciri",
+      "channelId": "6ac9e8486a5c39ccb66e8d99",
+      "service": "tiktok",
+      "dueAt": "2026-10-10T21:00:00.000Z",
+      "input": {
+        "channelId": "6ac9e8486a5c39ccb66e8d99",
+        "text": "Banyak ciri. Pelanggan masih keliru.\n\nContoh situasi jualan, bukan kisah pelanggan.\n\nSenarai ciri belum menerangkan kegunaan dalam situasi pelanggan.\n\nSambungkan satu ciri kepada satu kegunaan yang relevan.\n\n“Untuk keperluan ini, ciri ini membantu dengan cara berikut...”\n\nTerangkan kegunaan sebelum tambah maklumat.\n\nMenjelaskan, bukan Memujuk.\n\nSimpan untuk rujukan perbualan seterusnya.\n\n#BROSSell #Jualan #PeniagaMalaysia",
+        "assets": [
+          {
+            "image": {
+              "url": "https://raw.githubusercontent.com/bolehejassolutions/bros-sell-web-os/bf3c55f4012c57ec6ed07186c2a1356e0b01c122/media/senarai-ciri-77f9a6bf7d96/vertical-1.jpg",
+              "metadata": {
+                "altText": "Contoh pendidikan jualan: Banyak ciri. Pelanggan masih keliru.. Terangkan kegunaan sebelum tambah maklumat."
+              }
+            }
+          },
+          {
+            "image": {
+              "url": "https://raw.githubusercontent.com/bolehejassolutions/bros-sell-web-os/bf3c55f4012c57ec6ed07186c2a1356e0b01c122/media/senarai-ciri-77f9a6bf7d96/vertical-2.jpg",
+              "metadata": {
+                "altText": "Contoh pendidikan jualan: Banyak ciri. Pelanggan masih keliru.. Terangkan kegunaan sebelum tambah maklumat."
+              }
+            }
+          },
+          {
+            "image": {
+              "url": "https://raw.githubusercontent.com/bolehejassolutions/bros-sell-web-os/bf3c55f4012c57ec6ed07186c2a1356e0b01c122/media/senarai-ciri-77f9a6bf7d96/vertical-3.jpg",
+              "metadata": {
+                "altText": "Contoh pendidikan jualan: Banyak ciri. Pelanggan masih keliru.. Terangkan kegunaan sebelum tambah maklumat."
+              }
+            }
+          }
+        ],
+        "metadata": {
+          "tiktok": {
+            "title": "Banyak ciri. Pelanggan masih keliru."
+          }
+        },
+        "schedulingType": "automatic",
+        "mode": "customScheduled",
+        "dueAt": "2026-10-10T21:00:00.000Z",
+        "saveToDraft": false,
+        "aiAssisted": true
+      },
+      "createdAt": "2026-10-10T11:46:12.797Z",
+      "status": "submitting"
     }
   },
   "initialSample": {
