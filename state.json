@@ -593,6 +593,38 @@
       "createdAt": "2026-10-10T11:46:12.797Z",
       "status": "scheduled",
       "postId": "6aca25a4c4de2d2b1226833a"
+    },
+    "6b644a38f4d394b7ff9f3d1cb1a8a9509b75494ca66e84d8beae33bf58728d18": {
+      "packageId": "cepat-close",
+      "channelId": "6aca08096a5c39ccb66f7b5b",
+      "service": "facebook",
+      "dueAt": "2026-10-11T03:00:00.000Z",
+      "input": {
+        "channelId": "6aca08096a5c39ccb66f7b5b",
+        "text": "Baru bertanya. Terus minta bayar?\n\nContoh situasi jualan, bukan kisah pelanggan.\n\nMinat awal belum membuktikan tawaran sesuai.\n\nCuba langkah ini: Semak keperluan dan masa penggunaan dahulu.\n\nContoh ayat / soalan:\n“Apa yang anda mahu selesaikan, dan bila anda perlukan?”\n\nKesesuaian mendahului keputusan membeli.\n\nMenjelaskan, bukan Memujuk.\n\nSimpan untuk rujukan perbualan seterusnya.",
+        "assets": [
+          {
+            "image": {
+              "url": "https://raw.githubusercontent.com/bolehejassolutions/bros-sell-web-os/6af27c106df79bfcbc3e3eb2bd9c02ebfe233a16/media/cepat-close-73a5172b506d/portrait-1.jpg",
+              "metadata": {
+                "altText": "Contoh pendidikan jualan: Baru bertanya. Terus minta bayar?. Kesesuaian mendahului keputusan membeli."
+              }
+            }
+          }
+        ],
+        "metadata": {
+          "facebook": {
+            "type": "post"
+          }
+        },
+        "schedulingType": "automatic",
+        "mode": "customScheduled",
+        "dueAt": "2026-10-11T03:00:00.000Z",
+        "saveToDraft": false,
+        "aiAssisted": true
+      },
+      "createdAt": "2026-10-10T11:46:12.797Z",
+      "status": "submitting"
     }
   },
   "initialSample": {
