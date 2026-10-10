@@ -1763,6 +1763,38 @@
       "status": "scheduled",
       "postId": "6aca59a0bba9419ccb082836",
       "bufferStatus": "scheduled"
+    },
+    "91a4db560b2579804e3e98061fbcb85de4c416e37ec2e889209e3d9e8890c870": {
+      "packageId": "ingat-semua",
+      "channelId": "6aca08096a5c39ccb66f7b5b",
+      "service": "facebook",
+      "dueAt": "2026-10-12T15:00:00.000Z",
+      "input": {
+        "channelId": "6aca08096a5c39ccb66f7b5b",
+        "text": "Semua maklumat pelanggan dalam kepala.\n\nContoh situasi jualan, bukan kisah pelanggan.\n\nIngatan mudah tercicir apabila perbualan bertambah.\n\nCuba langkah ini: Simpan catatan ringkas fakta dan tindakan seterusnya.\n\nContoh ayat / soalan:\n“Keperluan, status, tindakan seterusnya, tarikh susulan.”\n\nCatat yang perlu. Hormati privasi pelanggan.\n\nMenjelaskan, bukan Memujuk.\n\nBROS SELL™ — Panduan & Alat Jualan Praktikal. Bantu susun cara menjual dengan lebih jelas dan teratur.\nKenali BROS SELL™: https://bros.bolehejas.com/",
+        "assets": [
+          {
+            "image": {
+              "url": "https://raw.githubusercontent.com/bolehejassolutions/bros-sell-web-os/0aa02d06e7fd1cc4b108e8319e6b99e5964f7e09/media/ingat-semua-064eef490382/portrait-1.jpg",
+              "metadata": {
+                "altText": "Contoh pendidikan jualan: Semua maklumat pelanggan dalam kepala.. Catat yang perlu. Hormati privasi pelanggan."
+              }
+            }
+          }
+        ],
+        "metadata": {
+          "facebook": {
+            "type": "post"
+          }
+        },
+        "schedulingType": "automatic",
+        "mode": "customScheduled",
+        "dueAt": "2026-10-12T15:00:00.000Z",
+        "saveToDraft": false,
+        "aiAssisted": true
+      },
+      "createdAt": "2026-10-10T21:27:53.119Z",
+      "status": "submitting"
     }
   },
   "initialSample": {
