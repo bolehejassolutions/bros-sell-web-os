@@ -1651,6 +1651,56 @@
       "createdAt": "2026-10-10T15:28:14.905Z",
       "status": "scheduled",
       "postId": "6aca5993c4de2d2b122fff13"
+    },
+    "4bf7778a137f314a518a07c70bc5e4e3b725d95f59f6fa53f158628c565f24f1": {
+      "packageId": "ingat-semua",
+      "channelId": "6ac9e9716a5c39ccb66e9544",
+      "service": "instagram",
+      "dueAt": "2026-10-12T15:00:00.000Z",
+      "input": {
+        "channelId": "6ac9e9716a5c39ccb66e9544",
+        "text": "Semua maklumat pelanggan dalam kepala.\n\nContoh situasi jualan, bukan kisah pelanggan.\n\nIngatan mudah tercicir apabila perbualan bertambah.\n\nCuba langkah ini: Simpan catatan ringkas fakta dan tindakan seterusnya.\n\nContoh ayat / soalan:\n“Keperluan, status, tindakan seterusnya, tarikh susulan.”\n\nCatat yang perlu. Hormati privasi pelanggan.\n\nMenjelaskan, bukan Memujuk.\n\nBROS SELL™ — Panduan & Alat Jualan Praktikal. Bantu susun cara menjual dengan lebih jelas dan teratur.\n\n#BROSSell #Jualan #PeniagaMalaysia",
+        "assets": [
+          {
+            "image": {
+              "url": "https://raw.githubusercontent.com/bolehejassolutions/bros-sell-web-os/0aa02d06e7fd1cc4b108e8319e6b99e5964f7e09/media/ingat-semua-064eef490382/portrait-1.jpg",
+              "metadata": {
+                "altText": "Contoh pendidikan jualan: Semua maklumat pelanggan dalam kepala.. Catat yang perlu. Hormati privasi pelanggan."
+              }
+            }
+          },
+          {
+            "image": {
+              "url": "https://raw.githubusercontent.com/bolehejassolutions/bros-sell-web-os/0aa02d06e7fd1cc4b108e8319e6b99e5964f7e09/media/ingat-semua-064eef490382/portrait-2.jpg",
+              "metadata": {
+                "altText": "Contoh pendidikan jualan: Semua maklumat pelanggan dalam kepala.. Catat yang perlu. Hormati privasi pelanggan."
+              }
+            }
+          },
+          {
+            "image": {
+              "url": "https://raw.githubusercontent.com/bolehejassolutions/bros-sell-web-os/0aa02d06e7fd1cc4b108e8319e6b99e5964f7e09/media/ingat-semua-064eef490382/portrait-3.jpg",
+              "metadata": {
+                "altText": "Contoh pendidikan jualan: Semua maklumat pelanggan dalam kepala.. Catat yang perlu. Hormati privasi pelanggan."
+              }
+            }
+          }
+        ],
+        "metadata": {
+          "instagram": {
+            "type": "post",
+            "shouldShareToFeed": true,
+            "isAiGenerated": true
+          }
+        },
+        "schedulingType": "automatic",
+        "mode": "customScheduled",
+        "dueAt": "2026-10-12T15:00:00.000Z",
+        "saveToDraft": false,
+        "aiAssisted": true
+      },
+      "createdAt": "2026-10-10T15:28:14.905Z",
+      "status": "submitting"
     }
   },
   "initialSample": {
