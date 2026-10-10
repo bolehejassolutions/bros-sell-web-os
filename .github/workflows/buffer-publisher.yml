@@ -38,7 +38,7 @@ jobs:
         with:
           node-version: '24.19.0'
       - name: Install pinned renderer
-        run: python3 -m pip install --only-binary=:all: -r requirements.txt
+        run: 'python3 -m pip install --only-binary=:all: -r requirements.txt'
       - name: Verify safety, recovery, platform formats and all editorial layouts
         run: |
           node --test-isolation=none --test publisher.test.mjs
@@ -74,7 +74,7 @@ jobs:
         with:
           node-version: '24.19.0'
       - name: Install pinned renderer
-        run: python3 -m pip install --only-binary=:all: -r requirements.txt
+        run: 'python3 -m pip install --only-binary=:all: -r requirements.txt'
       - name: Reconcile, verify and replenish
         env:
           BUFFER_API_KEY: ${{ secrets.BUFFER_API_KEY }}
