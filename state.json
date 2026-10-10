@@ -229,6 +229,44 @@
         "vertical-2.jpg": "5ed475ad136a6f9c015c30ba4f913090880ed6cc0dd70cb56b40254a7d0ad73e",
         "vertical-3.jpg": "253362948698c36b382966793d1d261a8dbba72a346c0a2ecd6af432617a3bc4"
       }
+    },
+    "banyak-enquiry": {
+      "id": "banyak-enquiry",
+      "stage": "lead",
+      "promotional": false,
+      "contentHash": "3513271aeb05c01b06526b714dc5900b7cf88b8688e8b7fe8abfd66e13cfe8c3",
+      "seed": {
+        "stage": "lead",
+        "id": "banyak-enquiry",
+        "hook": "Ramai bertanya. Semua perlu dilayan sama?",
+        "reframe": "Jumlah pertanyaan tidak sama dengan keperluan atau kesediaan membeli.",
+        "step": "Catat keperluan, masa dan tindakan seterusnya setiap lead.",
+        "question": "Apa keperluannya, bila diperlukan, dan apa langkah seterusnya?",
+        "lesson": "Utamakan berdasarkan bukti, bukan andaian."
+      },
+      "captions": {
+        "facebook": "Ramai bertanya. Semua perlu dilayan sama?\n\nContoh situasi jualan, bukan kisah pelanggan.\n\nJumlah pertanyaan tidak sama dengan keperluan atau kesediaan membeli.\n\nCuba langkah ini: Catat keperluan, masa dan tindakan seterusnya setiap lead.\n\nContoh ayat / soalan:\n“Apa keperluannya, bila diperlukan, dan apa langkah seterusnya?”\n\nUtamakan berdasarkan bukti, bukan andaian.\n\nMenjelaskan, bukan Memujuk.\n\nSimpan untuk rujukan perbualan seterusnya.",
+        "instagram": "Ramai bertanya. Semua perlu dilayan sama?\n\nContoh situasi jualan, bukan kisah pelanggan.\n\nJumlah pertanyaan tidak sama dengan keperluan atau kesediaan membeli.\n\nCuba langkah ini: Catat keperluan, masa dan tindakan seterusnya setiap lead.\n\nContoh ayat / soalan:\n“Apa keperluannya, bila diperlukan, dan apa langkah seterusnya?”\n\nUtamakan berdasarkan bukti, bukan andaian.\n\nMenjelaskan, bukan Memujuk.\n\nSimpan untuk rujukan perbualan seterusnya.\n\n#BROSSell #Jualan #PeniagaMalaysia",
+        "tiktok": "Ramai bertanya. Semua perlu dilayan sama?\n\nContoh situasi jualan, bukan kisah pelanggan.\n\nJumlah pertanyaan tidak sama dengan keperluan atau kesediaan membeli.\n\nCatat keperluan, masa dan tindakan seterusnya setiap lead.\n\n“Apa keperluannya, bila diperlukan, dan apa langkah seterusnya?”\n\nUtamakan berdasarkan bukti, bukan andaian.\n\nMenjelaskan, bukan Memujuk.\n\nSimpan untuk rujukan perbualan seterusnya.\n\n#BROSSell #Jualan #PeniagaMalaysia"
+      },
+      "dueAt": "2026-10-11T21:00:00.000Z",
+      "test": false,
+      "urls": {
+        "portrait-1.jpg": "https://raw.githubusercontent.com/bolehejassolutions/bros-sell-web-os/ce2ed221f9084dfdc4debfcf3427aa4595c55ec9/media/banyak-enquiry-3513271aeb05/portrait-1.jpg",
+        "portrait-2.jpg": "https://raw.githubusercontent.com/bolehejassolutions/bros-sell-web-os/ce2ed221f9084dfdc4debfcf3427aa4595c55ec9/media/banyak-enquiry-3513271aeb05/portrait-2.jpg",
+        "portrait-3.jpg": "https://raw.githubusercontent.com/bolehejassolutions/bros-sell-web-os/ce2ed221f9084dfdc4debfcf3427aa4595c55ec9/media/banyak-enquiry-3513271aeb05/portrait-3.jpg",
+        "vertical-1.jpg": "https://raw.githubusercontent.com/bolehejassolutions/bros-sell-web-os/ce2ed221f9084dfdc4debfcf3427aa4595c55ec9/media/banyak-enquiry-3513271aeb05/vertical-1.jpg",
+        "vertical-2.jpg": "https://raw.githubusercontent.com/bolehejassolutions/bros-sell-web-os/ce2ed221f9084dfdc4debfcf3427aa4595c55ec9/media/banyak-enquiry-3513271aeb05/vertical-2.jpg",
+        "vertical-3.jpg": "https://raw.githubusercontent.com/bolehejassolutions/bros-sell-web-os/ce2ed221f9084dfdc4debfcf3427aa4595c55ec9/media/banyak-enquiry-3513271aeb05/vertical-3.jpg"
+      },
+      "assetHashes": {
+        "portrait-1.jpg": "0b97726ef4cc316db10f24e761622c179dea0585e230874454ee88095efda242",
+        "portrait-2.jpg": "9014fca48353a4a2af9ee80e4b94b04baa6c83dfd2b7cd48dce765a5cbd8361a",
+        "portrait-3.jpg": "048c958fe6f680ac5a2701951a4c6864376c303b78b87f1488d0b827ef8f53f1",
+        "vertical-1.jpg": "4bd338fef8e3fcef1e4a706b67a4d746ffbe00d27deb55da527c170298d5e333",
+        "vertical-2.jpg": "0761422cf4301e3083a5ea2255b75b90d9c65ddcd582afeb2f0c077a7d99c86c",
+        "vertical-3.jpg": "fc79547b5a26bcabaf0d1f5099e3fcbe7ac4494fc5d7873b50f5f82ea7185ced"
+      }
     }
   },
   "deliveries": {
