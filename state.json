@@ -1322,6 +1322,56 @@
       "createdAt": "2026-10-10T11:49:45.906Z",
       "status": "scheduled",
       "postId": "6aca267fc4de2d2b122699d2"
+    },
+    "38d7ecb872377f6ea0892bc32717502cce4146e8b40b29922829c76fe98740a0": {
+      "packageId": "nak-fikir",
+      "channelId": "6ac9e9716a5c39ccb66e9544",
+      "service": "instagram",
+      "dueAt": "2026-10-12T03:00:00.000Z",
+      "input": {
+        "channelId": "6ac9e9716a5c39ccb66e9544",
+        "text": "Pelanggan kata: Saya fikir dulu.\n\nContoh situasi jualan, bukan kisah pelanggan.\n\nMungkin ada perkara untuk disemak. Jangan terus anggap alasan.\n\nCuba langkah ini: Tanya perkara yang masih perlu dipertimbangkan.\n\nContoh ayat / soalan:\n“Ada perkara tertentu yang anda mahu semak sebelum membuat keputusan?”\n\nBantu keputusan tanpa mendesak jawapan.\n\nMenjelaskan, bukan Memujuk.\n\nSimpan untuk rujukan perbualan seterusnya.\n\n#BROSSell #Jualan #PeniagaMalaysia",
+        "assets": [
+          {
+            "image": {
+              "url": "https://raw.githubusercontent.com/bolehejassolutions/bros-sell-web-os/27c87b0b08ae7bbbe9178ad75581a96c292bd5c3/media/nak-fikir-59ad854f05d4/portrait-1.jpg",
+              "metadata": {
+                "altText": "Contoh pendidikan jualan: Pelanggan kata: Saya fikir dulu.. Bantu keputusan tanpa mendesak jawapan."
+              }
+            }
+          },
+          {
+            "image": {
+              "url": "https://raw.githubusercontent.com/bolehejassolutions/bros-sell-web-os/27c87b0b08ae7bbbe9178ad75581a96c292bd5c3/media/nak-fikir-59ad854f05d4/portrait-2.jpg",
+              "metadata": {
+                "altText": "Contoh pendidikan jualan: Pelanggan kata: Saya fikir dulu.. Bantu keputusan tanpa mendesak jawapan."
+              }
+            }
+          },
+          {
+            "image": {
+              "url": "https://raw.githubusercontent.com/bolehejassolutions/bros-sell-web-os/27c87b0b08ae7bbbe9178ad75581a96c292bd5c3/media/nak-fikir-59ad854f05d4/portrait-3.jpg",
+              "metadata": {
+                "altText": "Contoh pendidikan jualan: Pelanggan kata: Saya fikir dulu.. Bantu keputusan tanpa mendesak jawapan."
+              }
+            }
+          }
+        ],
+        "metadata": {
+          "instagram": {
+            "type": "post",
+            "shouldShareToFeed": true,
+            "isAiGenerated": true
+          }
+        },
+        "schedulingType": "automatic",
+        "mode": "customScheduled",
+        "dueAt": "2026-10-12T03:00:00.000Z",
+        "saveToDraft": false,
+        "aiAssisted": true
+      },
+      "createdAt": "2026-10-10T11:49:45.906Z",
+      "status": "submitting"
     }
   },
   "initialSample": {
