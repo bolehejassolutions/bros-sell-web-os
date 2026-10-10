@@ -1,0 +1,84 @@
+name: BROS Buffer publisher
+
+on:
+  push:
+    branches: [main, buffer-autopublishing]
+    paths: ['tools/buffer-publisher/**', '.github/workflows/buffer-publisher.yml']
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: 'audit is read-only; drafts is one test package; production requires recorded approval and delivery'
+        type: choice
+        options: [audit, drafts, production]
+        default: audit
+  schedule:
+    # MYT cycles 05:00,11:00,17:00,23:00: verify after them and refill future exact slots.
+    # Buffer delivers at the exact dueAt. GitHub cron itself is best-effort.
+    - cron: '17 3,9,15,21 * * *'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: bros-buffer-publisher
+  cancel-in-progress: false
+
+jobs:
+  verify:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    defaults:
+      run:
+        working-directory: tools/buffer-publisher
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: '24.19.0'
+      - name: Install pinned renderer
+        run: python3 -m pip install --only-binary=:all: -r requirements.txt
+      - name: Verify safety, recovery, platform formats and all editorial layouts
+        run: |
+          node --test-isolation=none --test publisher.test.mjs
+          mkdir -p output
+          node --input-type=module -e "import fs from 'node:fs'; import {catalog,packageFor} from './content.mjs'; const c=JSON.parse(fs.readFileSync('./config.json')); fs.writeFileSync('./output/all-packages.json',JSON.stringify(catalog.map((s,i)=>packageFor(s,i,c))));"
+          python3 render.test.py
+          node run.mjs --mode=sample
+      - name: Read activation gate
+        id: gate
+        run: |
+          node --input-type=module -e "import fs from 'node:fs'; import {gate} from './planner.mjs'; const c=JSON.parse(fs.readFileSync('./config.json')); fs.appendFileSync(process.env.GITHUB_OUTPUT, 'enabled='+gate(c)+'\n');"
+    outputs:
+      enabled: ${{ steps.gate.outputs.enabled }}
+
+  worker:
+    needs: verify
+    if: >-
+      github.ref == 'refs/heads/main' &&
+      (github.event_name == 'workflow_dispatch' ||
+      (github.event_name == 'schedule' && needs.verify.outputs.enabled == 'true'))
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    permissions:
+      contents: write
+    defaults:
+      run:
+        working-directory: tools/buffer-publisher
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: '24.19.0'
+      - name: Install pinned renderer
+        run: python3 -m pip install --only-binary=:all: -r requirements.txt
+      - name: Reconcile, verify and replenish
+        env:
+          BUFFER_API_KEY: ${{ secrets.BUFFER_API_KEY }}
+          GITHUB_TOKEN: ${{ github.token }}
+          REPORT_WEBHOOK_URL: ${{ secrets.REPORT_WEBHOOK_URL }}
+          PUBLISHER_MODE: ${{ inputs.mode || 'production' }}
+        run: node run.mjs "--mode=$PUBLISHER_MODE"
