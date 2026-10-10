@@ -675,7 +675,8 @@
         "aiAssisted": true
       },
       "createdAt": "2026-10-10T11:46:12.797Z",
-      "status": "submitting"
+      "status": "scheduled",
+      "postId": "6aca25b0d9cab260a7c1d00e"
     }
   },
   "initialSample": {
