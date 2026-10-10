@@ -333,7 +333,8 @@
         "aiAssisted": true
       },
       "createdAt": "2026-10-10T11:46:12.797Z",
-      "status": "submitting"
+      "status": "scheduled",
+      "postId": "6aca2591ed92ed8fa5c94147"
     }
   },
   "initialSample": {
