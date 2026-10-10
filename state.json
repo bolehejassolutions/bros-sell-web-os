@@ -82,10 +82,11 @@
       "bufferStatus": "sent",
       "lastAttempt": "2026-10-10T11:36:14.620Z",
       "approvedPublicTest": true,
-      "url": "https://facebook.com/108099141072511_967888076391911",
+      "url": "https://www.facebook.com/967812963066089/posts/967888076391911",
       "sentAt": "2026-10-10T11:36:23.303Z",
       "verifiedAt": "2026-10-10T11:42:13.883Z",
-      "nativeContentVerified": true
+      "nativeContentVerified": true,
+      "reported": true
     },
     "sample-6ac9e9716a5c39ccb66e9544-8a9ea96ef864": {
       "packageId": "harga-diam",
@@ -148,7 +149,8 @@
       "url": "https://www.instagram.com/p/DeT_eYLkVF1/",
       "sentAt": "2026-10-10T11:36:53.185Z",
       "verifiedAt": "2026-10-10T11:42:13.883Z",
-      "nativeContentVerified": true
+      "nativeContentVerified": true,
+      "reported": true
     },
     "sample-6ac9e8486a5c39ccb66e8d99-8a9ea96ef864": {
       "packageId": "harga-diam",
@@ -209,7 +211,8 @@
       "url": "https://tiktok.com/@bros.sell/video/7695001694526000392",
       "sentAt": "2026-10-10T11:38:27.106Z",
       "verifiedAt": "2026-10-10T11:42:13.883Z",
-      "nativeContentVerified": true
+      "nativeContentVerified": true,
+      "reported": true
     }
   },
   "initialSample": {
