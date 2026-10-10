@@ -1511,6 +1511,54 @@
       "createdAt": "2026-10-10T11:49:45.906Z",
       "status": "scheduled",
       "postId": "6aca268ef91f772d4590a751"
+    },
+    "5c6baf238ea655f445fb07eb14f27fbee5383789388fc57b7950cd05416677ab": {
+      "packageId": "lepas-bayar",
+      "channelId": "6ac9e8486a5c39ccb66e8d99",
+      "service": "tiktok",
+      "dueAt": "2026-10-12T09:00:00.000Z",
+      "input": {
+        "channelId": "6ac9e8486a5c39ccb66e8d99",
+        "text": "Pelanggan dah bayar. Perbualan tamat?\n\nContoh situasi jualan, bukan kisah pelanggan.\n\nPembelian memerlukan langkah serahan yang jelas.\n\nNyatakan apa yang diterima dan tindakan selepas bayaran.\n\n“Ini langkah seterusnya dan cara mendapatkan bantuan jika perlu.”\n\nSerahan yang jelas ialah sebahagian cara menjual.\n\nMenjelaskan, bukan Memujuk.\n\nSimpan untuk rujukan perbualan seterusnya.\n\n#BROSSell #Jualan #PeniagaMalaysia",
+        "assets": [
+          {
+            "image": {
+              "url": "https://raw.githubusercontent.com/bolehejassolutions/bros-sell-web-os/0ecd29410bc50e6147bcd3e8e343d961a31115e8/media/lepas-bayar-cd14a1aaaede/vertical-1.jpg",
+              "metadata": {
+                "altText": "Contoh pendidikan jualan: Pelanggan dah bayar. Perbualan tamat?. Serahan yang jelas ialah sebahagian cara menjual."
+              }
+            }
+          },
+          {
+            "image": {
+              "url": "https://raw.githubusercontent.com/bolehejassolutions/bros-sell-web-os/0ecd29410bc50e6147bcd3e8e343d961a31115e8/media/lepas-bayar-cd14a1aaaede/vertical-2.jpg",
+              "metadata": {
+                "altText": "Contoh pendidikan jualan: Pelanggan dah bayar. Perbualan tamat?. Serahan yang jelas ialah sebahagian cara menjual."
+              }
+            }
+          },
+          {
+            "image": {
+              "url": "https://raw.githubusercontent.com/bolehejassolutions/bros-sell-web-os/0ecd29410bc50e6147bcd3e8e343d961a31115e8/media/lepas-bayar-cd14a1aaaede/vertical-3.jpg",
+              "metadata": {
+                "altText": "Contoh pendidikan jualan: Pelanggan dah bayar. Perbualan tamat?. Serahan yang jelas ialah sebahagian cara menjual."
+              }
+            }
+          }
+        ],
+        "metadata": {
+          "tiktok": {
+            "title": "Pelanggan dah bayar. Perbualan tamat?"
+          }
+        },
+        "schedulingType": "automatic",
+        "mode": "customScheduled",
+        "dueAt": "2026-10-12T09:00:00.000Z",
+        "saveToDraft": false,
+        "aiAssisted": true
+      },
+      "createdAt": "2026-10-10T11:49:45.906Z",
+      "status": "submitting"
     }
   },
   "initialSample": {
