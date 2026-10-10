@@ -305,6 +305,44 @@
         "vertical-2.jpg": "e72a2403eba56d8eea3f2e375a6ddaa2d3eb06db60de7c35bc410d2104e8f96d",
         "vertical-3.jpg": "deaba29ceee3dedeaf897eea7989936fff4006c65465925df77d04fe58f909e2"
       }
+    },
+    "lepas-bayar": {
+      "id": "lepas-bayar",
+      "stage": "multiply",
+      "promotional": false,
+      "contentHash": "cd14a1aaaede8128a774c34cdf2b7c117d65472e80943173e55ac86ad295f14f",
+      "seed": {
+        "stage": "multiply",
+        "id": "lepas-bayar",
+        "hook": "Pelanggan dah bayar. Perbualan tamat?",
+        "reframe": "Pembelian memerlukan langkah serahan yang jelas.",
+        "step": "Nyatakan apa yang diterima dan tindakan selepas bayaran.",
+        "question": "Ini langkah seterusnya dan cara mendapatkan bantuan jika perlu.",
+        "lesson": "Serahan yang jelas ialah sebahagian cara menjual."
+      },
+      "captions": {
+        "facebook": "Pelanggan dah bayar. Perbualan tamat?\n\nContoh situasi jualan, bukan kisah pelanggan.\n\nPembelian memerlukan langkah serahan yang jelas.\n\nCuba langkah ini: Nyatakan apa yang diterima dan tindakan selepas bayaran.\n\nContoh ayat / soalan:\n“Ini langkah seterusnya dan cara mendapatkan bantuan jika perlu.”\n\nSerahan yang jelas ialah sebahagian cara menjual.\n\nMenjelaskan, bukan Memujuk.\n\nSimpan untuk rujukan perbualan seterusnya.",
+        "instagram": "Pelanggan dah bayar. Perbualan tamat?\n\nContoh situasi jualan, bukan kisah pelanggan.\n\nPembelian memerlukan langkah serahan yang jelas.\n\nCuba langkah ini: Nyatakan apa yang diterima dan tindakan selepas bayaran.\n\nContoh ayat / soalan:\n“Ini langkah seterusnya dan cara mendapatkan bantuan jika perlu.”\n\nSerahan yang jelas ialah sebahagian cara menjual.\n\nMenjelaskan, bukan Memujuk.\n\nSimpan untuk rujukan perbualan seterusnya.\n\n#BROSSell #Jualan #PeniagaMalaysia",
+        "tiktok": "Pelanggan dah bayar. Perbualan tamat?\n\nContoh situasi jualan, bukan kisah pelanggan.\n\nPembelian memerlukan langkah serahan yang jelas.\n\nNyatakan apa yang diterima dan tindakan selepas bayaran.\n\n“Ini langkah seterusnya dan cara mendapatkan bantuan jika perlu.”\n\nSerahan yang jelas ialah sebahagian cara menjual.\n\nMenjelaskan, bukan Memujuk.\n\nSimpan untuk rujukan perbualan seterusnya.\n\n#BROSSell #Jualan #PeniagaMalaysia"
+      },
+      "dueAt": "2026-10-12T09:00:00.000Z",
+      "test": false,
+      "urls": {
+        "portrait-1.jpg": "https://raw.githubusercontent.com/bolehejassolutions/bros-sell-web-os/0ecd29410bc50e6147bcd3e8e343d961a31115e8/media/lepas-bayar-cd14a1aaaede/portrait-1.jpg",
+        "portrait-2.jpg": "https://raw.githubusercontent.com/bolehejassolutions/bros-sell-web-os/0ecd29410bc50e6147bcd3e8e343d961a31115e8/media/lepas-bayar-cd14a1aaaede/portrait-2.jpg",
+        "portrait-3.jpg": "https://raw.githubusercontent.com/bolehejassolutions/bros-sell-web-os/0ecd29410bc50e6147bcd3e8e343d961a31115e8/media/lepas-bayar-cd14a1aaaede/portrait-3.jpg",
+        "vertical-1.jpg": "https://raw.githubusercontent.com/bolehejassolutions/bros-sell-web-os/0ecd29410bc50e6147bcd3e8e343d961a31115e8/media/lepas-bayar-cd14a1aaaede/vertical-1.jpg",
+        "vertical-2.jpg": "https://raw.githubusercontent.com/bolehejassolutions/bros-sell-web-os/0ecd29410bc50e6147bcd3e8e343d961a31115e8/media/lepas-bayar-cd14a1aaaede/vertical-2.jpg",
+        "vertical-3.jpg": "https://raw.githubusercontent.com/bolehejassolutions/bros-sell-web-os/0ecd29410bc50e6147bcd3e8e343d961a31115e8/media/lepas-bayar-cd14a1aaaede/vertical-3.jpg"
+      },
+      "assetHashes": {
+        "portrait-1.jpg": "45f0f5bf4d0f0a07d69e4c6cc6f0ee7c37a77e26b9e635c150579d4468b29ccc",
+        "portrait-2.jpg": "320d3e955840ebf292674c09d6ea35095ccf753804f88ccfcc55aea14a35203b",
+        "portrait-3.jpg": "7d8e56a6ae79308b13504848dc6ea3cbb13bb9fd42d7981577866fb03e4f9308",
+        "vertical-1.jpg": "e9d2771803e81f1f0294edff510fd763463650243cc5e60f16ff2ce29af2209c",
+        "vertical-2.jpg": "777f0a0cb5fdee633a3f1f8b5bc0a21ea4154f2099bce914bdef65026e326299",
+        "vertical-3.jpg": "7de83229f81d9bada1dcfeed0f5505bdabbdab97a5833cfbf433abef01e4e42e"
+      }
     }
   },
   "deliveries": {
