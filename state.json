@@ -78,7 +78,8 @@
         "testedDueAt": "2030-01-01T21:00:00.000Z",
         "wasDraft": true,
         "clearedAfterTest": true
-      }
+      },
+      "bufferStatus": "draft"
     },
     "sample-6ac9e9716a5c39ccb66e9544-8a9ea96ef864": {
       "packageId": "harga-diam",
@@ -134,7 +135,8 @@
         "testedDueAt": "2030-01-01T21:00:00.000Z",
         "wasDraft": true,
         "clearedAfterTest": true
-      }
+      },
+      "bufferStatus": "draft"
     },
     "sample-6ac9e8486a5c39ccb66e8d99-8a9ea96ef864": {
       "packageId": "harga-diam",
@@ -188,7 +190,8 @@
         "testedDueAt": "2030-01-01T21:00:00.000Z",
         "wasDraft": true,
         "clearedAfterTest": true
-      }
+      },
+      "bufferStatus": "draft"
     }
   },
   "initialSample": {
@@ -202,5 +205,6 @@
       "instagram",
       "tiktok"
     ]
-  }
+  },
+  "lastCycle": "2026-10-10T11:35:41.638Z"
 }

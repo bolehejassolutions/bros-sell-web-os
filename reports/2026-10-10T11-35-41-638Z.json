@@ -1,0 +1,29 @@
+{
+  "at": "2026-10-10T11:35:41.638Z",
+  "timezone": "Asia/Kuala_Lumpur",
+  "mode": "audit",
+  "status": "audit_pass",
+  "published": [],
+  "failures": [],
+  "retries": [],
+  "scheduled": [],
+  "capacity": [
+    {
+      "platform": "facebook",
+      "occupied": 2,
+      "free": 8
+    },
+    {
+      "platform": "instagram",
+      "occupied": 1,
+      "free": 9
+    },
+    {
+      "platform": "tiktok",
+      "occupied": 1,
+      "free": 9
+    }
+  ],
+  "contentRemaining": 59,
+  "apiCalls": 3
+}
