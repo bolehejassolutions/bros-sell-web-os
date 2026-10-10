@@ -110,15 +110,38 @@
         ]
       }
     ],
-    "oldFacebookDraftPreserved": "6aca0d6dc4de2d2b1221b47f"
+    "oldFacebookDraftPreserved": "6aca0d6dc4de2d2b1221b47f",
+    "queue": {
+      "facebook": {
+        "drafts": 2,
+        "scheduled": 0,
+        "scheduledCapacity": 10
+      },
+      "instagram": {
+        "drafts": 1,
+        "scheduled": 0,
+        "scheduledCapacity": 10
+      },
+      "tiktok": {
+        "drafts": 1,
+        "scheduled": 0,
+        "scheduledCapacity": 10
+      }
+    }
   },
   "testing": {
     "localSafetyTests": 27,
     "renderedLayouts": 360,
-    "cloudVerification": "https://github.com/bolehejassolutions/bros-sell-web-os/actions/runs/38046227715",
+    "cloudVerification": "https://github.com/bolehejassolutions/bros-sell-web-os/actions/runs/38046716222",
     "finalRevision": "fa687c1aff757a9311877cd58655a1a102704b2d",
     "publicPublicationTested": false,
-    "serverBufferKeyConfigured": false
+    "serverBufferKeyConfigured": false,
+    "cloudActivationGate": {
+      "url": "https://github.com/bolehejassolutions/bros-sell-web-os/actions/runs/38046772899",
+      "workerSuccess": true,
+      "outcome": "awaiting_approval",
+      "BufferCalls": 0
+    }
   },
   "limits": {
     "unusedTopics": 59,
@@ -130,5 +153,12 @@
     "productionEnabled": false,
     "firstSampleApprovalRequired": true,
     "secureGitHubSecretTransferConfirmationRequired": true
+  },
+  "deployment": {
+    "codeBranch": "main",
+    "codeSha": "fa687c1aff757a9311877cd58655a1a102704b2d",
+    "workflowAvailable": true,
+    "enabled": false,
+    "stateBranch": "buffer-publisher-state"
   }
 }
