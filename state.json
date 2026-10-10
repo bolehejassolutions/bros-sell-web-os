@@ -1093,7 +1093,8 @@
       },
       "createdAt": "2026-10-10T11:49:45.906Z",
       "status": "scheduled",
-      "postId": "6aca2663c4de2d2b122695ff"
+      "postId": "6aca2663c4de2d2b122695ff",
+      "bufferStatus": "scheduled"
     },
     "f4f8b47bddc03a579524886050e0c7f28af23b457c8d78b23644b164850241d7": {
       "packageId": "target-besar",
@@ -1144,7 +1145,8 @@
       },
       "createdAt": "2026-10-10T11:49:45.906Z",
       "status": "scheduled",
-      "postId": "6aca2665b07d37ac976f800a"
+      "postId": "6aca2665b07d37ac976f800a",
+      "bufferStatus": "scheduled"
     },
     "a8ee07dac394b80783030b3f4fcb6b93dda21d54766db123f2251260841bf545": {
       "packageId": "target-besar",
@@ -1193,7 +1195,8 @@
       },
       "createdAt": "2026-10-10T11:49:45.906Z",
       "status": "scheduled",
-      "postId": "6aca2668b07d37ac976f805d"
+      "postId": "6aca2668b07d37ac976f805d",
+      "bufferStatus": "scheduled"
     },
     "9fe7b84e678c1d9d0eadb019ec1b1c94d68957671623f690b5f01c99a725b0fb": {
       "packageId": "banyak-enquiry",
@@ -1226,7 +1229,8 @@
       },
       "createdAt": "2026-10-10T11:49:45.906Z",
       "status": "scheduled",
-      "postId": "6aca2671b07d37ac976f814d"
+      "postId": "6aca2671b07d37ac976f814d",
+      "bufferStatus": "scheduled"
     },
     "9c35f2fc9d3d0fd9eaa8d2bd3ccb097869ae0fc0c150a91f9a073bbc70353128": {
       "packageId": "banyak-enquiry",
@@ -1277,7 +1281,8 @@
       },
       "createdAt": "2026-10-10T11:49:45.906Z",
       "status": "scheduled",
-      "postId": "6aca2674ed92ed8fa5c95875"
+      "postId": "6aca2674ed92ed8fa5c95875",
+      "bufferStatus": "scheduled"
     },
     "9f8eca92951ffa4f982cdb74aaa17b166696ba8d3e177ef6ff982e9e36dc8149": {
       "packageId": "banyak-enquiry",
@@ -1326,7 +1331,8 @@
       },
       "createdAt": "2026-10-10T11:49:45.906Z",
       "status": "scheduled",
-      "postId": "6aca2677ed92ed8fa5c958f4"
+      "postId": "6aca2677ed92ed8fa5c958f4",
+      "bufferStatus": "scheduled"
     },
     "3f9c25e1a5f05e775621183977724dfe27e7edcdd3b6be82ac1c0816930ea48c": {
       "packageId": "nak-fikir",
@@ -1359,7 +1365,8 @@
       },
       "createdAt": "2026-10-10T11:49:45.906Z",
       "status": "scheduled",
-      "postId": "6aca267fc4de2d2b122699d2"
+      "postId": "6aca267fc4de2d2b122699d2",
+      "bufferStatus": "scheduled"
     },
     "38d7ecb872377f6ea0892bc32717502cce4146e8b40b29922829c76fe98740a0": {
       "packageId": "nak-fikir",
@@ -1410,7 +1417,8 @@
       },
       "createdAt": "2026-10-10T11:49:45.906Z",
       "status": "scheduled",
-      "postId": "6aca2682ed92ed8fa5c959e9"
+      "postId": "6aca2682ed92ed8fa5c959e9",
+      "bufferStatus": "scheduled"
     },
     "20396ade43fe3bea25db58b33e297763e6cbb5052263981d240a6d8d4ebd2fc5": {
       "packageId": "nak-fikir",
@@ -1459,7 +1467,8 @@
       },
       "createdAt": "2026-10-10T11:49:45.906Z",
       "status": "scheduled",
-      "postId": "6aca2685c4de2d2b12269a8a"
+      "postId": "6aca2685c4de2d2b12269a8a",
+      "bufferStatus": "scheduled"
     },
     "3027c265728b5c8b23042895402d782143e47696ca4b60ed77274eb1b1878247": {
       "packageId": "lepas-bayar",
@@ -1510,7 +1519,8 @@
       },
       "createdAt": "2026-10-10T11:49:45.906Z",
       "status": "scheduled",
-      "postId": "6aca268ef91f772d4590a751"
+      "postId": "6aca268ef91f772d4590a751",
+      "bufferStatus": "scheduled"
     },
     "5c6baf238ea655f445fb07eb14f27fbee5383789388fc57b7950cd05416677ab": {
       "packageId": "lepas-bayar",
@@ -1559,7 +1569,8 @@
       },
       "createdAt": "2026-10-10T11:49:45.906Z",
       "status": "scheduled",
-      "postId": "6aca2691f91f772d4590a77a"
+      "postId": "6aca2691f91f772d4590a77a",
+      "bufferStatus": "scheduled"
     }
   },
   "initialSample": {
