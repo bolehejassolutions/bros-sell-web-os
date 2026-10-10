@@ -1,0 +1,35 @@
+{
+  "cycle": "approved-initial-public-sample",
+  "completedAt": "2026-10-10T11:42:13.883Z",
+  "approval": "2026-10-10T11:32:37.000Z",
+  "packageId": "harga-diam",
+  "contentHash": "8a9ea96ef8647dc257d76b1eb5ffe6c82ab75b4f1af124b0cd99c4758c7d1da9",
+  "published": [
+    {
+      "service": "facebook",
+      "postId": "6aca17e9bba9419ccbfbba67",
+      "url": "https://facebook.com/108099141072511_967888076391911",
+      "status": "sent",
+      "sentAt": "2026-10-10T11:36:23.303Z",
+      "nativeContentVerified": true
+    },
+    {
+      "service": "instagram",
+      "postId": "6aca1839b07d37ac976cb199",
+      "url": "https://www.instagram.com/p/DeT_eYLkVF1/",
+      "status": "sent",
+      "sentAt": "2026-10-10T11:36:53.185Z",
+      "nativeContentVerified": true
+    },
+    {
+      "service": "tiktok",
+      "postId": "6aca1940f91f772d458de76a",
+      "url": "https://tiktok.com/@bros.sell/video/7695001694526000392",
+      "status": "sent",
+      "sentAt": "2026-10-10T11:38:27.106Z",
+      "nativeContentVerified": true
+    }
+  ],
+  "failures": [],
+  "verification": "Buffer sent status, native HTTPS URLs, sentAt timestamps, and visible native captions and brand assets verified."
+}

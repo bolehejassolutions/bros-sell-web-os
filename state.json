@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "deploymentStatus": "approved-awaiting-initial-delivery-verification",
+  "deploymentStatus": "initial-delivery-verified-awaiting-activation",
   "packages": {
     "harga-diam": {
       "id": "harga-diam",
@@ -71,7 +71,7 @@
         "aiAssisted": true
       },
       "postId": "6aca17e9bba9419ccbfbba67",
-      "status": "scheduled",
+      "status": "sent",
       "createdAt": "2026-10-10T10:48:09.224Z",
       "draftVerifiedAt": "2026-10-10T10:57:13.769Z",
       "scheduleValidation": {
@@ -79,9 +79,13 @@
         "wasDraft": true,
         "clearedAfterTest": true
       },
-      "bufferStatus": "scheduled",
+      "bufferStatus": "sent",
       "lastAttempt": "2026-10-10T11:36:14.620Z",
-      "approvedPublicTest": true
+      "approvedPublicTest": true,
+      "url": "https://facebook.com/108099141072511_967888076391911",
+      "sentAt": "2026-10-10T11:36:23.303Z",
+      "verifiedAt": "2026-10-10T11:42:13.883Z",
+      "nativeContentVerified": true
     },
     "sample-6ac9e9716a5c39ccb66e9544-8a9ea96ef864": {
       "packageId": "harga-diam",
@@ -130,7 +134,7 @@
         "aiAssisted": true
       },
       "postId": "6aca1839b07d37ac976cb199",
-      "status": "scheduled",
+      "status": "sent",
       "createdAt": "2026-10-10T10:49:29.728Z",
       "draftVerifiedAt": "2026-10-10T10:57:13.769Z",
       "scheduleValidation": {
@@ -138,9 +142,13 @@
         "wasDraft": true,
         "clearedAfterTest": true
       },
-      "bufferStatus": "scheduled",
+      "bufferStatus": "sent",
       "lastAttempt": "2026-10-10T11:36:14.620Z",
-      "approvedPublicTest": true
+      "approvedPublicTest": true,
+      "url": "https://www.instagram.com/p/DeT_eYLkVF1/",
+      "sentAt": "2026-10-10T11:36:53.185Z",
+      "verifiedAt": "2026-10-10T11:42:13.883Z",
+      "nativeContentVerified": true
     },
     "sample-6ac9e8486a5c39ccb66e8d99-8a9ea96ef864": {
       "packageId": "harga-diam",
@@ -187,7 +195,7 @@
         "aiAssisted": true
       },
       "postId": "6aca1940f91f772d458de76a",
-      "status": "scheduled",
+      "status": "sent",
       "createdAt": "2026-10-10T10:53:52.037Z",
       "draftVerifiedAt": "2026-10-10T10:57:13.770Z",
       "scheduleValidation": {
@@ -195,21 +203,52 @@
         "wasDraft": true,
         "clearedAfterTest": true
       },
-      "bufferStatus": "scheduled",
+      "bufferStatus": "sent",
       "lastAttempt": "2026-10-10T11:36:14.620Z",
-      "approvedPublicTest": true
+      "approvedPublicTest": true,
+      "url": "https://tiktok.com/@bros.sell/video/7695001694526000392",
+      "sentAt": "2026-10-10T11:38:27.106Z",
+      "verifiedAt": "2026-10-10T11:42:13.883Z",
+      "nativeContentVerified": true
     }
   },
   "initialSample": {
     "packageId": "harga-diam",
     "contentHash": "8a9ea96ef8647dc257d76b1eb5ffe6c82ab75b4f1af124b0cd99c4758c7d1da9",
     "approvedAt": "2026-10-10T11:32:37.000Z",
-    "publicDeliveryVerified": false,
+    "publicDeliveryVerified": true,
     "approvalSource": "User confirmation: saved and approved.",
     "platforms": [
       "facebook",
       "instagram",
       "tiktok"
+    ],
+    "verifiedAt": "2026-10-10T11:42:13.883Z",
+    "deliveries": [
+      {
+        "service": "facebook",
+        "postId": "6aca17e9bba9419ccbfbba67",
+        "url": "https://facebook.com/108099141072511_967888076391911",
+        "status": "sent",
+        "sentAt": "2026-10-10T11:36:23.303Z",
+        "nativeContentVerified": true
+      },
+      {
+        "service": "instagram",
+        "postId": "6aca1839b07d37ac976cb199",
+        "url": "https://www.instagram.com/p/DeT_eYLkVF1/",
+        "status": "sent",
+        "sentAt": "2026-10-10T11:36:53.185Z",
+        "nativeContentVerified": true
+      },
+      {
+        "service": "tiktok",
+        "postId": "6aca1940f91f772d458de76a",
+        "url": "https://tiktok.com/@bros.sell/video/7695001694526000392",
+        "status": "sent",
+        "sentAt": "2026-10-10T11:38:27.106Z",
+        "nativeContentVerified": true
+      }
     ]
   },
   "lastCycle": "2026-10-10T11:35:41.638Z"
