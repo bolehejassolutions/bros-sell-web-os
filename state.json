@@ -153,6 +153,44 @@
         "vertical-2.jpg": "e2b3cff7419aa9c3d46a8e6ca47f0e042b399b13aec84e0ae895c826fd221d62",
         "vertical-3.jpg": "1fde31c579ccf859a6dbc7a7e944b6b990414f515d4199c207d4cf466033b414"
       }
+    },
+    "follow-up-malu": {
+      "id": "follow-up-malu",
+      "stage": "follow-up",
+      "promotional": true,
+      "contentHash": "6f7441a49dc158b1bf82ac2d0a266a1eb481914c46dbf0dcacd1851856d75b75",
+      "seed": {
+        "stage": "follow-up",
+        "id": "follow-up-malu",
+        "hook": "Nak buat susulan, tapi rasa mengganggu.",
+        "reframe": "Susulan boleh membantu jika ada sebab dan ruang untuk menolak.",
+        "step": "Minta izin dan tetapkan masa yang dipersetujui.",
+        "question": "Boleh saya hubungi semula pada hari Khamis untuk semak keputusan?",
+        "lesson": "Susulan dengan izin lebih jelas tujuannya."
+      },
+      "captions": {
+        "facebook": "Nak buat susulan, tapi rasa mengganggu.\n\nContoh situasi jualan, bukan kisah pelanggan.\n\nSusulan boleh membantu jika ada sebab dan ruang untuk menolak.\n\nCuba langkah ini: Minta izin dan tetapkan masa yang dipersetujui.\n\nContoh ayat / soalan:\n“Boleh saya hubungi semula pada hari Khamis untuk semak keputusan?”\n\nSusulan dengan izin lebih jelas tujuannya.\n\nMenjelaskan, bukan Memujuk.\n\nBROS SELL™ — Panduan & Alat Jualan Praktikal. Bantu susun cara menjual dengan lebih jelas dan teratur.\nKenali BROS SELL™: https://bros.bolehejas.com/",
+        "instagram": "Nak buat susulan, tapi rasa mengganggu.\n\nContoh situasi jualan, bukan kisah pelanggan.\n\nSusulan boleh membantu jika ada sebab dan ruang untuk menolak.\n\nCuba langkah ini: Minta izin dan tetapkan masa yang dipersetujui.\n\nContoh ayat / soalan:\n“Boleh saya hubungi semula pada hari Khamis untuk semak keputusan?”\n\nSusulan dengan izin lebih jelas tujuannya.\n\nMenjelaskan, bukan Memujuk.\n\nBROS SELL™ — Panduan & Alat Jualan Praktikal. Bantu susun cara menjual dengan lebih jelas dan teratur.\n\n#BROSSell #Jualan #PeniagaMalaysia",
+        "tiktok": "Nak buat susulan, tapi rasa mengganggu.\n\nContoh situasi jualan, bukan kisah pelanggan.\n\nSusulan boleh membantu jika ada sebab dan ruang untuk menolak.\n\nMinta izin dan tetapkan masa yang dipersetujui.\n\n“Boleh saya hubungi semula pada hari Khamis untuk semak keputusan?”\n\nSusulan dengan izin lebih jelas tujuannya.\n\nMenjelaskan, bukan Memujuk.\n\nBROS SELL™ — Panduan & Alat Jualan Praktikal. Bantu susun cara menjual dengan lebih jelas dan teratur.\n\n#BROSSell #Jualan #PeniagaMalaysia"
+      },
+      "dueAt": "2026-10-11T09:00:00.000Z",
+      "test": false,
+      "urls": {
+        "portrait-1.jpg": "https://raw.githubusercontent.com/bolehejassolutions/bros-sell-web-os/045eff28242cced8533678c84b18b502001596cc/media/follow-up-malu-6f7441a49dc1/portrait-1.jpg",
+        "portrait-2.jpg": "https://raw.githubusercontent.com/bolehejassolutions/bros-sell-web-os/045eff28242cced8533678c84b18b502001596cc/media/follow-up-malu-6f7441a49dc1/portrait-2.jpg",
+        "portrait-3.jpg": "https://raw.githubusercontent.com/bolehejassolutions/bros-sell-web-os/045eff28242cced8533678c84b18b502001596cc/media/follow-up-malu-6f7441a49dc1/portrait-3.jpg",
+        "vertical-1.jpg": "https://raw.githubusercontent.com/bolehejassolutions/bros-sell-web-os/045eff28242cced8533678c84b18b502001596cc/media/follow-up-malu-6f7441a49dc1/vertical-1.jpg",
+        "vertical-2.jpg": "https://raw.githubusercontent.com/bolehejassolutions/bros-sell-web-os/045eff28242cced8533678c84b18b502001596cc/media/follow-up-malu-6f7441a49dc1/vertical-2.jpg",
+        "vertical-3.jpg": "https://raw.githubusercontent.com/bolehejassolutions/bros-sell-web-os/045eff28242cced8533678c84b18b502001596cc/media/follow-up-malu-6f7441a49dc1/vertical-3.jpg"
+      },
+      "assetHashes": {
+        "portrait-1.jpg": "5a90409433a3f5475773749e3dcdd1b8863d4241ad9a2f319b4acae89fc88824",
+        "portrait-2.jpg": "d71545fe89952ef6625ce8a886609008ca722bd796fca4dd35a70d547ecd2de3",
+        "portrait-3.jpg": "97eed7b3d79898f39851d62d79e6d7923b6c7ec618d7aa9652bf5fc0fe5d77d8",
+        "vertical-1.jpg": "95c7b84f4369994b7d48250abc1da640419aad1d7ef05fdc9c4c970acb985d37",
+        "vertical-2.jpg": "35d9e48809b3403559ed116bae56c91711c93b019d5564b4d58e44bf6feb3bd1",
+        "vertical-3.jpg": "327349f2150f71940cc4943f12e7d805024adf7a94533ca40a88e60f97f4a335"
+      }
     }
   },
   "deliveries": {
