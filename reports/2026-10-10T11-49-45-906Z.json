@@ -1,0 +1,107 @@
+{
+  "at": "2026-10-10T11:49:45.906Z",
+  "timezone": "Asia/Kuala_Lumpur",
+  "mode": "production",
+  "status": "cycle_complete",
+  "published": [],
+  "failures": [],
+  "retries": [],
+  "scheduled": [
+    {
+      "platform": "facebook",
+      "postId": "6aca2663c4de2d2b122695ff",
+      "status": "scheduled",
+      "dueAt": "2026-10-11T15:00:00.000Z",
+      "content": "Sasaran jualan besar. Langkah hari ini kabur."
+    },
+    {
+      "platform": "instagram",
+      "postId": "6aca2665b07d37ac976f800a",
+      "status": "scheduled",
+      "dueAt": "2026-10-11T15:00:00.000Z",
+      "content": "Sasaran jualan besar. Langkah hari ini kabur."
+    },
+    {
+      "platform": "tiktok",
+      "postId": "6aca2668b07d37ac976f805d",
+      "status": "scheduled",
+      "dueAt": "2026-10-11T15:00:00.000Z",
+      "content": "Sasaran jualan besar. Langkah hari ini kabur."
+    },
+    {
+      "platform": "facebook",
+      "postId": "6aca2671b07d37ac976f814d",
+      "status": "scheduled",
+      "dueAt": "2026-10-11T21:00:00.000Z",
+      "content": "Ramai bertanya. Semua perlu dilayan sama?"
+    },
+    {
+      "platform": "instagram",
+      "postId": "6aca2674ed92ed8fa5c95875",
+      "status": "scheduled",
+      "dueAt": "2026-10-11T21:00:00.000Z",
+      "content": "Ramai bertanya. Semua perlu dilayan sama?"
+    },
+    {
+      "platform": "tiktok",
+      "postId": "6aca2677ed92ed8fa5c958f4",
+      "status": "scheduled",
+      "dueAt": "2026-10-11T21:00:00.000Z",
+      "content": "Ramai bertanya. Semua perlu dilayan sama?"
+    },
+    {
+      "platform": "facebook",
+      "postId": "6aca267fc4de2d2b122699d2",
+      "status": "scheduled",
+      "dueAt": "2026-10-12T03:00:00.000Z",
+      "content": "Pelanggan kata: Saya fikir dulu."
+    },
+    {
+      "platform": "instagram",
+      "postId": "6aca2682ed92ed8fa5c959e9",
+      "status": "scheduled",
+      "dueAt": "2026-10-12T03:00:00.000Z",
+      "content": "Pelanggan kata: Saya fikir dulu."
+    },
+    {
+      "platform": "tiktok",
+      "postId": "6aca2685c4de2d2b12269a8a",
+      "status": "scheduled",
+      "dueAt": "2026-10-12T03:00:00.000Z",
+      "content": "Pelanggan kata: Saya fikir dulu."
+    },
+    {
+      "platform": "instagram",
+      "postId": "6aca268ef91f772d4590a751",
+      "status": "scheduled",
+      "dueAt": "2026-10-12T09:00:00.000Z",
+      "content": "Pelanggan dah bayar. Perbualan tamat?"
+    },
+    {
+      "platform": "tiktok",
+      "postId": "6aca2691f91f772d4590a77a",
+      "status": "scheduled",
+      "dueAt": "2026-10-12T09:00:00.000Z",
+      "content": "Pelanggan dah bayar. Perbualan tamat?"
+    }
+  ],
+  "capacity": [
+    {
+      "platform": "facebook",
+      "occupied": 8,
+      "free": 2
+    },
+    {
+      "platform": "instagram",
+      "occupied": 8,
+      "free": 2
+    },
+    {
+      "platform": "tiktok",
+      "occupied": 8,
+      "free": 2
+    }
+  ],
+  "contentRemaining": 51,
+  "apiCalls": 14
+}
