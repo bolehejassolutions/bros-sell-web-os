@@ -1,0 +1,27 @@
+{
+  "date": "2026-10-11",
+  "project": "BROS SELL™ — Closing OS",
+  "version": "v1.1",
+  "status": "TECHNICAL_QA_PASS_EDITORIAL_DUPLICATE_HOLD",
+  "tests": {
+    "passed": 9,
+    "failed": 0,
+    "driveDownloadedFilesVerified": 11,
+    "liveDuplicateDetection": "PASS"
+  },
+  "collision": {
+    "candidate": "BROS-IMG-2026-10-11-001",
+    "publishedSeedId": "nak-fikir",
+    "dueAtUTC": "2026-10-12T03:00:00Z",
+    "dueAtMYT": "2026-10-12 11:00"
+  },
+  "noGitHubMarketingImageUpload": true,
+  "noBufferPostCreated": true,
+  "canonicalDriveFolder": "https://drive.google.com/drive/folders/1wyqJflM6x_pkDhabQP_o8OWyu2Ip2H65",
+  "componentHashes": {
+    "verify_archive.py": "d2189a9a519d0356af0f449ec29a775bb56e712d7dba914a9807f39010a73910",
+    "test_verify_archive.py": "985bc63e984d3229fdefd45159dbdc3cd85ca30fb1e644cf89f32af45eeef5f4",
+    "RELEASE_GATE_V1_1.md": "4c4ccb03e9531b434b453712b1de9e34df1355b262a85c886264688d44986f20",
+    "EDITORIAL_DUPLICATE_HOLD_2026-10-11.md": "22e97e80981b1a9d217743129c7adbed233ba70d26584ef4108fa641037f863f"
+  }
+}
