@@ -1,0 +1,72 @@
+{
+  "at": "2026-10-11T15:29:17.954Z",
+  "timezone": "Asia/Kuala_Lumpur",
+  "mode": "production",
+  "status": "cycle_complete",
+  "published": [
+    {
+      "content": "Nak buat susulan, tapi rasa mengganggu.",
+      "platform": "facebook",
+      "url": "https://www.facebook.com/967812963066089/posts/968703892976996",
+      "sentAt": "2026-10-11T09:00:41.656Z",
+      "verification": "Buffer sent status + platform URL + timestamp"
+    },
+    {
+      "content": "Nak buat susulan, tapi rasa mengganggu.",
+      "platform": "instagram",
+      "url": "https://www.instagram.com/p/DeWSbMblnij/",
+      "sentAt": "2026-10-11T09:00:56.137Z",
+      "verification": "Buffer sent status + platform URL + timestamp"
+    },
+    {
+      "content": "Nak buat susulan, tapi rasa mengganggu.",
+      "platform": "tiktok",
+      "url": "https://tiktok.com/@bros.sell/video/7695332554123037959",
+      "sentAt": "2026-10-11T09:02:18.772Z",
+      "verification": "Buffer sent status + platform URL + timestamp"
+    },
+    {
+      "content": "Sasaran jualan besar. Langkah hari ini kabur.",
+      "platform": "facebook",
+      "url": "https://www.facebook.com/967812963066089/posts/968971246283594",
+      "sentAt": "2026-10-11T15:00:59.434Z",
+      "verification": "Buffer sent status + platform URL + timestamp"
+    },
+    {
+      "content": "Sasaran jualan besar. Langkah hari ini kabur.",
+      "platform": "instagram",
+      "url": "https://www.instagram.com/p/DeW7slcFqAP/",
+      "sentAt": "2026-10-11T15:01:33.595Z",
+      "verification": "Buffer sent status + platform URL + timestamp"
+    },
+    {
+      "content": "Sasaran jualan besar. Langkah hari ini kabur.",
+      "platform": "tiktok",
+      "url": "https://tiktok.com/@bros.sell/video/7695425624759979271",
+      "sentAt": "2026-10-11T15:03:13.105Z",
+      "verification": "Buffer sent status + platform URL + timestamp"
+    }
+  ],
+  "failures": [],
+  "retries": [],
+  "scheduled": [],
+  "capacity": [
+    {
+      "platform": "facebook",
+      "occupied": 17,
+      "free": 0
+    },
+    {
+      "platform": "instagram",
+      "occupied": 17,
+      "free": 0
+    },
+    {
+      "platform": "tiktok",
+      "occupied": 17,
+      "free": 0
+    }
+  ],
+  "contentRemaining": 49,
+  "apiCalls": 3
+}
