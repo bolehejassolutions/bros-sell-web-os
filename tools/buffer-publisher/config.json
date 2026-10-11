@@ -13,7 +13,7 @@
   "stateBranch": "buffer-publisher-state",
   "repository": "bolehejassolutions/bros-sell-web-os",
   "landingUrl": "https://bros.bolehejas.com/",
-  "productionEnabled": true,
+  "productionEnabled": false,
   "sampleApproval": {
     "approvedAt": "2026-10-10T11:32:37.000Z",
     "contentHash": "8a9ea96ef8647dc257d76b1eb5ffe6c82ab75b4f1af124b0cd99c4758c7d1da9",
