@@ -1,0 +1,36 @@
+{
+  "schemaVersion": 1,
+  "id": "BROS-IMG-2026-10-11-001",
+  "status": "STAGED_LIBRARY_NOT_IMPORTED_TO_GITHUB_PUBLISHER",
+  "libraryFolder": "/BROS SELL™ — Closing OS/Content Intake/BROS-IMG-2026-10-11-001",
+  "archive": "BROS_SELL_CONTENT_INTAKE_2026-10-11_001.zip",
+  "archiveSha256": "e73372c877410fef2b9b83b9c71db4c7354eed1e18fb50a487e934bf51ac8e87",
+  "media": [
+    {
+      "file": "BROS_SELL_IG_FB_1080x1350.jpg",
+      "sha256": "fb9177791f553b66a94a78024043ef03d1270526e9b68dcec2974aaa1e335339",
+      "width": 1080,
+      "height": 1350
+    },
+    {
+      "file": "BROS_SELL_TIKTOK_1080x1920.jpg",
+      "sha256": "8168992c6d12ea3db6a835bf433231807febef25862ae3774abd550c6eceb897",
+      "width": 1080,
+      "height": 1920
+    }
+  ],
+  "officialLogoSha256": "3ce931c79be005ed0fcbb513a14c169364e67bfa17073e068483eebb28584647",
+  "purpose": "chatgpt_image_pillow_manual_staging",
+  "topic": "Pelanggan nak fikir dulu lalu senyap",
+  "platformTargets": [
+    "facebook",
+    "instagram",
+    "tiktok"
+  ],
+  "captionStatus": "TEST_DRAFT_ONLY",
+  "reviewStatus": "TECHNICAL_QA_PASS_EDITORIAL_AND_PLATFORM_RELEASE_UNAPPROVED",
+  "visualDiversity6of10": "NOT_YET_VERIFIED_AGAINST_FIVE_LIVE_CREATIVES",
+  "githubMediaUploaded": false,
+  "bufferPostCreated": false,
+  "productionUnchanged": true
+}
