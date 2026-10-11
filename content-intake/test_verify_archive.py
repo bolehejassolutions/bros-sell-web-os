@@ -10,7 +10,7 @@ import zipfile
 from pathlib import Path
 
 from PIL import Image
-from verify_archive import EXPECTED_FILES, EXPECTED_LOGO, batch_check, approval_check, digest
+from verify_archive import EXPECTED_FILES, EXPECTED_LOGO, batch_check, approval_check, digest, inspect_live_inventory
 
 TEST_ID = 'BROS-IMG-2026-10-11-001'
 
@@ -109,6 +109,31 @@ class TestReleaseGate(unittest.TestCase):
         d=json.loads(f.read_text());d['id']='BROS-IMG-2026-10-11-999';f.write_text(json.dumps(d))
         with self.assertRaisesRegex(ValueError,'ID mismatch'):
             batch_check(self.root)
+
+    def test_known_fikir_dulu_duplication_is_held(self):
+        from datetime import datetime, timezone
+        r=batch_check(self.root)
+        r['topic']='Pelanggan kata nak fikir dulu, kemudian senyap'
+        f=Path(self.tmp.name)/'live.json'
+        f.write_text(json.dumps({'source':'github-buffer-publisher-state',
+            'observedAt':datetime.now(timezone.utc).strftime('%Y-%m-%dT%H:%M:%SZ'),
+            'packages':[{'id':'nak-fikir','hook':'Pelanggan kata: Saya fikir dulu.',
+                         'dueAt':'2026-10-12T03:00:00Z'}]}))
+        result=inspect_live_inventory(r,f)
+        self.assertEqual(result['inventoryCheckStatus'],'DUPLICATE_HOLD')
+        self.assertEqual(result['editorialDuplicates'][0]['id'],'nak-fikir')
+
+    def test_unrelated_idea_does_not_false_match(self):
+        from datetime import datetime, timezone
+        r=batch_check(self.root)
+        r['topic']='Pelanggan kata nak fikir dulu, kemudian senyap'
+        f=Path(self.tmp.name)/'live.json'
+        f.write_text(json.dumps({'source':'github-buffer-publisher-state',
+            'observedAt':datetime.now(timezone.utc).strftime('%Y-%m-%dT%H:%M:%SZ'),
+            'packages':[{'id':'harga-mahal','hook':'Harga barang ini mahal.',
+                         'dueAt':'2026-10-12T03:00:00Z'}]}))
+        result=inspect_live_inventory(r,f)
+        self.assertEqual(result['inventoryCheckStatus'],'NO_STRONG_MATCH_NEEDS_HUMAN_REVIEW')
 
     def test_drive_archive_integration_when_available(self):
         batch=os.environ.get('BROS_DRIVE_BATCH_DIR')
