@@ -914,9 +914,12 @@
         "aiAssisted": true
       },
       "createdAt": "2026-10-10T11:46:12.797Z",
-      "status": "scheduled",
+      "status": "sent",
       "postId": "6aca25adbba9419ccbfe9e9f",
-      "bufferStatus": "scheduled"
+      "bufferStatus": "sent",
+      "url": "https://www.facebook.com/967812963066089/posts/968473663000019",
+      "sentAt": "2026-10-11T03:00:39.584Z",
+      "reported": true
     },
     "966ce4c3de818478d0e5ef0fd14b91af272bcbe08f11dc70ae40355cfb19d53e": {
       "packageId": "cepat-close",
@@ -966,9 +969,12 @@
         "aiAssisted": true
       },
       "createdAt": "2026-10-10T11:46:12.797Z",
-      "status": "scheduled",
+      "status": "sent",
       "postId": "6aca25b0d9cab260a7c1d00e",
-      "bufferStatus": "scheduled"
+      "bufferStatus": "sent",
+      "url": "https://www.instagram.com/p/DeVpNimlcJt/",
+      "sentAt": "2026-10-11T03:00:48.326Z",
+      "reported": true
     },
     "ad24ebd594928a1ec89101007ba0973379939bbbb7423cd77153cc024359c60e": {
       "packageId": "cepat-close",
@@ -1016,9 +1022,12 @@
         "aiAssisted": true
       },
       "createdAt": "2026-10-10T11:46:12.797Z",
-      "status": "scheduled",
+      "status": "sent",
       "postId": "6aca25b3b07d37ac976f6e0f",
-      "bufferStatus": "scheduled"
+      "bufferStatus": "sent",
+      "url": "https://tiktok.com/@bros.sell/video/7695239768359243015",
+      "sentAt": "2026-10-11T03:02:11.425Z",
+      "reported": true
     },
     "a6d19bd8ab494009b63ed118ab1039a20480ea4fb16443602a9cb69fae08bcc9": {
       "packageId": "follow-up-malu",
@@ -1833,7 +1842,8 @@
       },
       "createdAt": "2026-10-10T21:27:53.119Z",
       "status": "scheduled",
-      "postId": "6acaaddcb07d37ac97881058"
+      "postId": "6acaaddcb07d37ac97881058",
+      "bufferStatus": "scheduled"
     },
     "99747f8830b6afb8a7eac17fd8b48b28945f34c375dfe34175d21a098a3df4f6": {
       "packageId": "mahal",
@@ -1884,7 +1894,8 @@
       },
       "createdAt": "2026-10-10T21:27:53.119Z",
       "status": "scheduled",
-      "postId": "6acaade4f91f772d45a8d1f1"
+      "postId": "6acaade4f91f772d45a8d1f1",
+      "bufferStatus": "scheduled"
     },
     "9724c37418a0dc20e6b643fe80790c6514c0fe6efe67ed2aa7184ce7edc3f1c0": {
       "packageId": "mahal",
@@ -1933,7 +1944,8 @@
       },
       "createdAt": "2026-10-10T21:27:53.119Z",
       "status": "scheduled",
-      "postId": "6acaade7bba9419ccb169d7d"
+      "postId": "6acaade7bba9419ccb169d7d",
+      "bufferStatus": "scheduled"
     }
   },
   "initialSample": {
