@@ -1,5 +1,7 @@
 # BROS SELL Buffer publishing worker
 
+> **Current editorial governance (11 Oct 2026):** [CONTENT_GENERATION_STANDARD.md](./CONTENT_GENERATION_STANDARD.md) is the latest approved creative/voice/replenishment **standard for new assets** and replaces older visual-generation prompts. This is a quality target, **not** a claim that this worker now generates open-ended AI content or real-world production-session imagery. The present finite seed bank and black typography-card renderer are unchanged. Do not change existing approved or scheduled posts, the 13–24 Oct Millennial/Gen Z A/B schedule, or the four daily time slots to apply the new standard.
+
 Status: production enabled after owner approval on 10 Oct 2026. The encrypted server-side credential passed a hosted API audit. The first sample was published and its native Facebook, Instagram and TikTok content, URLs and timestamps were verified.
 
 This isolated worker lives in the existing SELL repository. It does not call the Web OS database, alter customer entitlements, change the public landing page, revive CONTENT Supabase, or modify other products.
