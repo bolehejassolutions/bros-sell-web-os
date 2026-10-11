@@ -29,8 +29,9 @@ export function selectSlots(config, now, remote, state) {
   const times=slotsFrom(now,12,config.hours);
   for(const channel of config.channels) {
     const posts=remote.filter(p=>p.channelId===channel.id);
-    // Treat drafts/errors conservatively as capacity too; sending posts still reserve a slot.
-    const occupied=posts.filter(p=>['draft','needs_approval','scheduled','sending','error'].includes(p.status)).length;
+    // Buffer Free's queue cap applies to scheduled/sending posts, not unlimited drafts.
+    // Preserve unresolved write intents as separate safety reservations below.
+    const occupied=posts.filter(p=>['scheduled','sending'].includes(p.status)).length;
     const intents=Object.values(state.deliveries??{}).filter(d=>d.channelId===channel.id && ['submitting','uncertain','blocked'].includes(d.status) && !posts.some(p=>p.id===d.postId)).length;
     const capacity=Math.max(0,Math.min(config.queueTarget-occupied-intents,config.queueLimit-occupied-intents));
     const reservations = new Set([
