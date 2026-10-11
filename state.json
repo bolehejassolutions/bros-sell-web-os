@@ -1059,9 +1059,12 @@
         "aiAssisted": true
       },
       "createdAt": "2026-10-10T11:46:12.797Z",
-      "status": "scheduled",
+      "status": "sent",
       "postId": "6aca25bcc4de2d2b122685c7",
-      "bufferStatus": "scheduled"
+      "bufferStatus": "sent",
+      "url": "https://www.facebook.com/967812963066089/posts/968703892976996",
+      "sentAt": "2026-10-11T09:00:41.656Z",
+      "reported": true
     },
     "eec7c6df37be477299cc960cebcdc0f9e387a2bf2a5b33a677a8b6d163ea9c18": {
       "packageId": "follow-up-malu",
@@ -1111,9 +1114,12 @@
         "aiAssisted": true
       },
       "createdAt": "2026-10-10T11:46:12.797Z",
-      "status": "scheduled",
+      "status": "sent",
       "postId": "6aca25c0d9cab260a7c1d226",
-      "bufferStatus": "scheduled"
+      "bufferStatus": "sent",
+      "url": "https://www.instagram.com/p/DeWSbMblnij/",
+      "sentAt": "2026-10-11T09:00:56.137Z",
+      "reported": true
     },
     "a529913aa4798053e5cd91061ca5ee65e49337008eb11430021aca9c658d41e5": {
       "packageId": "follow-up-malu",
@@ -1161,9 +1167,12 @@
         "aiAssisted": true
       },
       "createdAt": "2026-10-10T11:46:12.797Z",
-      "status": "scheduled",
+      "status": "sent",
       "postId": "6aca25c3bba9419ccbfea0ef",
-      "bufferStatus": "scheduled"
+      "bufferStatus": "sent",
+      "url": "https://tiktok.com/@bros.sell/video/7695332554123037959",
+      "sentAt": "2026-10-11T09:02:18.772Z",
+      "reported": true
     },
     "75662e575634829af95ff4534ee59fbd6a7c545fd7c397ed7ef06fd79292b961": {
       "packageId": "target-besar",
@@ -1195,9 +1204,12 @@
         "aiAssisted": true
       },
       "createdAt": "2026-10-10T11:49:45.906Z",
-      "status": "scheduled",
+      "status": "sent",
       "postId": "6aca2663c4de2d2b122695ff",
-      "bufferStatus": "scheduled"
+      "bufferStatus": "sent",
+      "url": "https://www.facebook.com/967812963066089/posts/968971246283594",
+      "sentAt": "2026-10-11T15:00:59.434Z",
+      "reported": true
     },
     "f4f8b47bddc03a579524886050e0c7f28af23b457c8d78b23644b164850241d7": {
       "packageId": "target-besar",
@@ -1247,9 +1259,12 @@
         "aiAssisted": true
       },
       "createdAt": "2026-10-10T11:49:45.906Z",
-      "status": "scheduled",
+      "status": "sent",
       "postId": "6aca2665b07d37ac976f800a",
-      "bufferStatus": "scheduled"
+      "bufferStatus": "sent",
+      "url": "https://www.instagram.com/p/DeW7slcFqAP/",
+      "sentAt": "2026-10-11T15:01:33.595Z",
+      "reported": true
     },
     "a8ee07dac394b80783030b3f4fcb6b93dda21d54766db123f2251260841bf545": {
       "packageId": "target-besar",
@@ -1297,9 +1312,12 @@
         "aiAssisted": true
       },
       "createdAt": "2026-10-10T11:49:45.906Z",
-      "status": "scheduled",
+      "status": "sent",
       "postId": "6aca2668b07d37ac976f805d",
-      "bufferStatus": "scheduled"
+      "bufferStatus": "sent",
+      "url": "https://tiktok.com/@bros.sell/video/7695425624759979271",
+      "sentAt": "2026-10-11T15:03:13.105Z",
+      "reported": true
     },
     "9fe7b84e678c1d9d0eadb019ec1b1c94d68957671623f690b5f01c99a725b0fb": {
       "packageId": "banyak-enquiry",
