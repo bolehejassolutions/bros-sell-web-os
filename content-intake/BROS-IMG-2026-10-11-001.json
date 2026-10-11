@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "id": "BROS-IMG-2026-10-11-001",
-  "status": "STAGED_LIBRARY_NOT_IMPORTED_TO_GITHUB_PUBLISHER",
+  "status": "STAGED_PRIVATE_GOOGLE_DRIVE_NOT_IMPORTED_TO_GITHUB_PUBLISHER",
   "libraryFolder": "/BROS SELL™ — Closing OS/Content Intake/BROS-IMG-2026-10-11-001",
   "archive": "BROS_SELL_CONTENT_INTAKE_2026-10-11_001.zip",
   "archiveSha256": "e73372c877410fef2b9b83b9c71db4c7354eed1e18fb50a487e934bf51ac8e87",
@@ -32,5 +32,20 @@
   "visualDiversity6of10": "NOT_YET_VERIFIED_AGAINST_FIVE_LIVE_CREATIVES",
   "githubMediaUploaded": false,
   "bufferPostCreated": false,
-  "productionUnchanged": true
+  "productionUnchanged": true,
+  "canonicalStorage": "Google Drive (private, permanent)",
+  "driveFolderUrl": "https://drive.google.com/drive/folders/1wyqJflM6x_pkDhabQP_o8OWyu2Ip2H65",
+  "driveFolderPath": "/Google Drive/BOLEHEJAS/BROS/SELL/Creative Content Bank/BROS-IMG-2026-10-11-001",
+  "driveFilesVerified": true,
+  "driveVerificationMethod": "JPG+ZIP downloaded back from Drive; original and returned SHA256 equal; ZIP CRC PASS",
+  "binaryBridgeProof": {
+    "status": "PASSED_NEUTRAL_TEST_JPEG_ONLY",
+    "githubRepoPublic": true,
+    "sourceDriveFileId": "12WoXEtGyPWYD4wgY_cawV09CuLPyz7gz",
+    "githubTestFile": "content-intake/bridge-tests/BROS_SELL_DRIVE_GITHUB_BRIDGE_TEST_1080x1350.jpg",
+    "sha256": "126616ae698ef559a849a1bd0d5db01beb7a6183627be125a7deccb87a05b650",
+    "verifiedBase64ByteEquality": true
+  },
+  "approvedForPublicDistribution": false,
+  "autoDeletionPolicy": "never_delete_Drive_originals_after_GitHub_or_Buffer"
 }
