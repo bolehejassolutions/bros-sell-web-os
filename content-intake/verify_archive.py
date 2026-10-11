@@ -104,9 +104,45 @@ def batch_check(root):
     checks = manifest.get('checks', {})
     require(all(v == 'PASS' for v in checks.values()) and len(checks) >= 7, 'Intake QA evidence missing')
     return {'status': 'TECHNICAL_QA_PASS_NOT_APPROVED_FOR_PUBLICATION', 'contentId': content_id,
+            'topic': manifest.get('topic', ''),
             'verifiedFiles': count, 'verifiedMedia': list(EXPECTED_FILES),
             'archiveSha256': digest(archive), 'canonicalStorage': 'Google Drive (private, permanent)',
             'publicGithubUploadAllowed': False, 'bufferPublishingAllowed': False}
+
+
+# Editorial novelty is a separate check; technical hashes do not establish originality.
+STOPWORDS = {'pelanggan', 'kata', 'saya', 'aku', 'nak', 'yang', 'dan', 'itu', 'ini',
+             'dia', 'bila', 'untuk', 'sebab', 'lepas', 'kemudian', 'dengan', 'ada'}
+
+
+def keyword_set(text):
+    return set(re.findall(r'[a-z0-9]+', (text or '').lower())) - STOPWORDS
+
+
+def inspect_live_inventory(summary, inventory_file):
+    """Only a freshly retrieved snapshot; flags a likely same-idea collision conservatively."""
+    require(inventory_file is not None and inventory_file.is_file(),
+            'BLOCKED: fresh publisher inventory required for release')
+    inv = json.loads(inventory_file.read_text(encoding='utf-8-sig'))
+    require(inv.get('source') == 'github-buffer-publisher-state' and isinstance(inv.get('packages'), list),
+            'BLOCKED: unverified inventory format')
+    now = datetime.now(timezone.utc)
+    observed = datetime.fromisoformat(inv['observedAt'].replace('Z', '+00:00'))
+    require(observed <= now and (now - observed).total_seconds() <= 6*3600,
+            'BLOCKED: inventory older than six hours')
+    candidate = keyword_set(summary.get('topic', ''))
+    duplicates=[]
+    for p in inv['packages']:
+        keywords = keyword_set(p.get('hook',''))
+        if len(candidate) >= 2 and len(keywords) >= 2:
+            overlap = len(candidate & keywords) / min(len(candidate), len(keywords))
+            if overlap >= .75 and len(candidate & keywords) >= 2:
+                duplicates.append({'id':p.get('id'),'hook':p.get('hook'),
+                                   'dueAt':p.get('dueAt'),'overlap':round(overlap,3)})
+    summary['editorialDuplicates'] = duplicates
+    summary['inventoryCheckedAt'] = inv['observedAt']
+    summary['inventoryCheckStatus'] = 'DUPLICATE_HOLD' if duplicates else 'NO_STRONG_MATCH_NEEDS_HUMAN_REVIEW'
+    return summary
 
 
 def approval_check(summary, file):
@@ -136,11 +172,16 @@ def main():
     p = argparse.ArgumentParser()
     p.add_argument('--batch-dir', type=Path, required=True)
     p.add_argument('--release-approval', type=Path)
+    p.add_argument('--live-inventory', type=Path, help='Fresh JSON snapshot of GitHub Buffer state, read-only')
     a = p.parse_args()
     root = a.batch_dir.resolve(strict=True)
     try:
         result = batch_check(root)
+        if a.live_inventory is not None:
+            result = inspect_live_inventory(result, a.live_inventory)
         if a.release_approval is not None:
+            require(a.live_inventory is not None, 'BLOCKED: release requires fresh live inventory')
+            require(not result.get('editorialDuplicates'), 'BLOCKED: overlaps already queued/published content')
             result = approval_check(result, a.release_approval)
         print(json.dumps(result, ensure_ascii=False, indent=2))
     except (ValueError, OSError, KeyError, TypeError, zipfile.BadZipFile) as e:
