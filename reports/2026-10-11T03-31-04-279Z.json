@@ -1,0 +1,51 @@
+{
+  "at": "2026-10-11T03:31:04.279Z",
+  "timezone": "Asia/Kuala_Lumpur",
+  "mode": "production",
+  "status": "cycle_complete",
+  "published": [
+    {
+      "content": "Baru bertanya. Terus minta bayar?",
+      "platform": "facebook",
+      "url": "https://www.facebook.com/967812963066089/posts/968473663000019",
+      "sentAt": "2026-10-11T03:00:39.584Z",
+      "verification": "Buffer sent status + platform URL + timestamp"
+    },
+    {
+      "content": "Baru bertanya. Terus minta bayar?",
+      "platform": "instagram",
+      "url": "https://www.instagram.com/p/DeVpNimlcJt/",
+      "sentAt": "2026-10-11T03:00:48.326Z",
+      "verification": "Buffer sent status + platform URL + timestamp"
+    },
+    {
+      "content": "Baru bertanya. Terus minta bayar?",
+      "platform": "tiktok",
+      "url": "https://tiktok.com/@bros.sell/video/7695239768359243015",
+      "sentAt": "2026-10-11T03:02:11.425Z",
+      "verification": "Buffer sent status + platform URL + timestamp"
+    }
+  ],
+  "failures": [],
+  "retries": [],
+  "scheduled": [],
+  "capacity": [
+    {
+      "platform": "facebook",
+      "occupied": 19,
+      "free": 0
+    },
+    {
+      "platform": "instagram",
+      "occupied": 19,
+      "free": 0
+    },
+    {
+      "platform": "tiktok",
+      "occupied": 19,
+      "free": 0
+    }
+  ],
+  "contentRemaining": 49,
+  "apiCalls": 3
+}
