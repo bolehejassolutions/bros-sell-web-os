@@ -11,7 +11,7 @@ export default function ActivatePage() {
       <p>Untuk pemulihan akses, hubungi <a href={`mailto:${encodeURIComponent(email)}?subject=BROS%20SELL%20access%20recovery`}>{email}</a> menggunakan email pembelian. Anda boleh sertakan rujukan pesanan atau resit HitPay.</p>
       <p>Jangan hantar password, OTP atau maklumat kad.</p>
       <p>HitPay menghantar pakej pelanggan yang boleh dimuat turun secara berasingan. Akses Web OS dikaitkan dengan email pembelian; Web OS ialah companion online yang diselenggara.</p>
-      <p>Permohonan refund boleh dibuat dalam 30 hari kalendar dari tarikh pembelian melalui {email}, menggunakan email pembelian.</p>
+      <p>Untuk pertanyaan tentang terma pembelian atau hak berkaitan transaksi terdahulu, hubungi {email} menggunakan emel pembelian. Terma yang terpakai bergantung pada tarikh dan syarat pembelian masing-masing.</p>
       <div className="case-actions">
         <a className="btn" href={`mailto:${encodeURIComponent(email)}?subject=BROS%20SELL%20access%20recovery`}>Hubungi sokongan</a>
         <Link className="btn secondary" href="/login">Kembali ke login</Link>
