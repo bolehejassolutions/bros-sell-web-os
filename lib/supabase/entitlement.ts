@@ -1,6 +1,8 @@
 import { createClient } from "@/lib/supabase/server";
 
-export async function hasWebOSAccess(client?: Awaited<ReturnType<typeof createClient>>) {
+type ServerClient = Awaited<ReturnType<typeof createClient>>;
+
+export async function hasWebOSAccess(client?: ServerClient) {
   const supabase = client ?? await createClient();
   const { data: canonical, error: canonicalError } = await supabase.rpc("has_active_bros_sell_entitlement", {
     p_product_code: "BROS_SELL_CORE",
@@ -15,3 +17,21 @@ export async function hasWebOSAccess(client?: Awaited<ReturnType<typeof createCl
   if (legacyError) return false;
   return Boolean(legacy);
 }
+
+export async function claimPaidBrosSellOrders(client?: ServerClient) {
+  const supabase = client ?? await createClient();
+  const { data, error } = await supabase.rpc("claim_bros_sell_paid_orders");
+  // Keep access recovery backward-compatible if the automation migration has not
+  // reached a deployment yet. The manual recovery page remains the fallback.
+  if (error) return 0;
+  const claimed = Number(data ?? 0);
+  return Number.isFinite(claimed) ? claimed : 0;
+}
+
+export async function activatePaidBrosSellOnboarding(client: ServerClient) {
+  const { data, error } = await client.rpc('activate_bros_sell_onboarding');
+  if (error) return 0; // Payment access remains usable before optional onboarding rollout.
+  const count = Number(data ?? 0);
+  return Number.isFinite(count) ? count : 0;
+}
+

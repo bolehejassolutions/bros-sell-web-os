@@ -56,13 +56,21 @@ try {
     page.on('console', message => {
       if (message.type() === 'error') consoleErrors.push({ text: message.text(), url: message.location().url });
     });
-    await context.addCookies([{ ...fixtureCookie('a'), url: base, sameSite: 'Lax' }]);
     const title = `RM500 customer journey ${width}`;
     try {
+      await page.goto(`${base}/login`);
+      const magicSubmit = page.getByRole('button', { name: 'Hantar Magic Link', exact: true });
+      await magicSubmit.waitFor({ state: 'visible' });
+      assert.equal(await magicSubmit.isEnabled(), true, 'Initial email login must have a usable submit action');
+      assert.equal(await page.getByRole('button', { name: 'Continue with Google', exact: true }).isEnabled(), true);
+      await layout(page, width, 'login');
+      await context.addCookies([{ ...fixtureCookie('a'), url: base, sameSite: 'Lax' }]);
       await page.goto(`${base}/activate`);
       await page.getByRole('heading', { name: 'Akses akaun perlu disemak.', exact: true }).waitFor();
       assert.equal(await page.getByRole('link', { name: 'brossell@bolehejas.com', exact: true }).getAttribute('href'), 'mailto:brossell%40bolehejas.com?subject=BROS%20SELL%20access%20recovery');
-      assert.match(await page.locator('body').innerText(), /terma pembelian atau hak berkaitan transaksi terdahulu/);
+      const recoveryText = await page.locator('body').innerText();
+      assert.match(recoveryText, /terma pembelian|tarikh dan syarat pembelian/i);
+      assert.doesNotMatch(recoveryText, /30 hari kalendar dari tarikh pembelian/i);
       await layout(page, width, 'recovery');
       await page.goto(`${base}/app`);
       await page.getByRole('button', { name: 'Tentukan next move', exact: true }).waitFor();
@@ -282,7 +290,7 @@ try {
       // Only deliberately exercised save-failure/conflict network errors are expected.
       const unexpectedConsole = consoleErrors.filter(e => !(width === 1280 && e.url.includes(`/api/sales-cases/${id}`) && /^Failed to load resource: the server responded with a status of (503|409)\b/.test(e.text)));
       assert.deepEqual(unexpectedConsole, [], 'No unexpected browser console errors');
-      results.push({ width, passed: ['onboarding', 'user-created RM500 case', 'evidence and WHAT/WHY/NEXT', 'native-tool shared state', 'action/outcome and recomputation', 'dashboard priorities', 'refresh persistence', 'reciprocal fixture-account isolation', 'controls/navigation/forms/overflow', ...(width === 1280 ? ['save failure/retry and preserved draft', 'actual HTTP 409 and draft export'] : [])] });
+      results.push({ width, passed: ['initial login actions', 'onboarding', 'user-created RM500 case', 'evidence and WHAT/WHY/NEXT', 'native-tool shared state', 'action/outcome and recomputation', 'dashboard priorities', 'refresh persistence', 'reciprocal fixture-account isolation', 'controls/navigation/forms/overflow', ...(width === 1280 ? ['save failure/retry and preserved draft', 'actual HTTP 409 and draft export'] : [])] });
       console.log(`Release browser coverage passed at ${width}px (synthetic fixture sessions).`);
     } catch (error) {
       await page.screenshot({ path: `test-results/failure-${width}.png`, fullPage: true });
@@ -298,3 +306,4 @@ try {
   await writeFile('test-results/browser-coverage.json', JSON.stringify({ authEvidence: 'Synthetic fixture sessions only; not hosted Supabase Auth', results, failures }, null, 2));
   await browser.close();
 }
+

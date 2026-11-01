@@ -49,7 +49,10 @@ test('capture validates signatures and merchant identity without exposing buyer 
   assert.equal(incomplete.captureOnly, true);
   assert.equal(incomplete.mapped.buyerIdentity, false);
   assert.equal(incomplete.mapped.productIdentity, false);
-  // Capture-only release must not accidentally include the grant-capable route.
+  // This branch includes the grant route, but it must fail closed when the
+  // authenticated merchant webhook salt and Supabase admin key are absent.
+  // The capture fixture must never grant customer access.
   const grant = await fetch(`${base}/api/webhooks/hitpay`, { method: 'POST', body: raw });
-  assert.equal(grant.status, 404);
+  assert.equal(grant.status, 503);
+  assert.deepEqual(await grant.json(), { error: 'Webhook unavailable.' });
 });
