@@ -6,7 +6,7 @@ import { createClient } from "@/lib/supabase/client";
 type Mode = "google" | "password" | "magic";
 
 export default function LoginForm() {
-  const [mode, setMode] = useState<Mode>("google");
+  const [mode, setMode] = useState<Mode>("magic");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [sent, setSent] = useState(false);
