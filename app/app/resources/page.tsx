@@ -1,6 +1,8 @@
 import { redirect } from "next/navigation";
 import { hasWebOSAccess } from "@/lib/supabase/entitlement";
 import CaseLink from '../case-link';
+import Link from "next/link";
+import { CUSTOMER_RELEASE } from "@/lib/bros-sell/customer-release";
 
 const nativeTools = [
   ["/app/target-calculator","Sasaran jualan","Kira sasaran dan operating volume."],
@@ -32,10 +34,10 @@ export default async function ResourcesPage() {
         <article className="card compact-home-card">
           <div>
             <div className="eyebrow">BELAJAR LEBIH MENDALAM</div>
-            <h2>Closing OS</h2>
-            <p className="muted">Closing OS v2.5 · rujukan metodologi untuk memahami logik BROS SELL dengan lebih mendalam.</p>
+            <h2>Buku Closing OS</h2>
+            <p className="muted">Buku PDF {CUSTOMER_RELEASE.bookVersion} (104 halaman, 36 bab). Pakej pelanggan terkini ialah {CUSTOMER_RELEASE.packageVersion} dan mengandungi panduan serta alat tambahan.</p>
           </div>
-          <a className="btn" href="/api/customer/closing-os">Buka Closing OS</a>
+          <div className="resource-actions"><a className="btn" href="/api/customer/closing-os">Buka buku PDF</a><Link className="btn secondary" href="/app/hub">Pakej & kemas kini</Link></div>
         </article>
 
         <article className="card compact-home-card">

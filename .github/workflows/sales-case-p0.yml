@@ -47,6 +47,8 @@ jobs:
         run: npm run typecheck
       - name: Deterministic and SQL/RLS tests
         run: npm test
+      - name: Read-only Supabase keepalive unit checks
+        run: node --experimental-strip-types --test tests/infra-keepalive.test.mjs
       - name: Normal production build
         run: npm run build
       - name: Install locked Playwright Chromium
