@@ -36,6 +36,14 @@ SMTP does not automatically append mail to Webmail Sent. Use cPanel Track Delive
 
 The owner confirmed the application credential is not stored yet. Never paste it into chat, GitHub, command arguments, logs or .env.example.
 
+Before hosted payment/claim tests, verify that the Preview's Supabase URL and
+server key belong to an isolated non-Production test database. Scoping an admin
+key to a Vercel Preview branch does not isolate the database it can modify.
+The 2 November 2026 readback found no SELL Supabase DEV branches; environment
+metadata alone does not prove an isolated test target. Keep payment fixtures,
+claims and test entitlements out of Production. Until a test target is verified,
+use the existing isolated CI SQL/Auth/SMTP fixtures and report them as synthetic.
+
 1. Open PowerShell in this checkout and run `./scripts/smtp-check.ps1`. Its masked prompt holds the password only in process memory, passes it via the child environment and removes/restores it in finally. The default diagnostic verifies TLS/auth without sending and accesses no database, webhook, queue or entitlement API. Output is allowlisted status only.
 2. After auth succeeds, `./scripts/smtp-check.ps1 -SelfTest` sends one labelled test only to `brossell@bolehejas.com` with the required From/Reply-To. Read its received headers/Message-ID. SMTP acceptance alone does not pass inbox E2E.
 3. Use a separately approved controlled external mailbox to verify Inbox/Spam, replies, SPF/DKIM/DMARC alignment and private delivery tracking. Do not use a customer address or change already-valid DNS.
@@ -66,3 +74,4 @@ All five exact server flags must be true: `BROS_ONBOARDING_ENABLED`, `BROS_ONBOA
 Queue RPCs are service-role-only. Self-activation requires the confirmed owner and linked active entitlement. The SMTP worker contains no entitlement-grant call.
 
 Official references: [SMTP](https://nodemailer.com/smtp), [message options](https://nodemailer.com/message), [Supabase Auth SMTP](https://supabase.com/docs/guides/auth/auth-smtp), [Send Email Hook](https://supabase.com/docs/guides/auth/auth-hooks/send-email-hook), [Cron](https://supabase.com/docs/guides/cron/quickstart).
+
