@@ -13,39 +13,6 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  lockfile-candidate:
-    runs-on: ubuntu-24.04
-    timeout-minutes: 10
-    steps:
-      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
-        with:
-          persist-credentials: false
-      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
-        with:
-          node-version: '24.19.0'
-      - name: Resolve compatible dependency patches without lifecycle scripts
-        run: |
-          npm install --global npm@11.9.0
-          npm install --package-lock-only --ignore-scripts --no-audit
-          refresh_status=0
-          npm audit fix --package-lock-only --ignore-scripts --audit-level=high > dependency-refresh.log 2>&1 || refresh_status=$?
-          cat dependency-refresh.log
-          echo "Lock candidate refresh status: $refresh_status"
-          node -e "const p=require('./package.json');require('node:assert/strict').equal(p.dependencies.next,'16.4.3');require('node:assert/strict').equal(p.devDependencies['eslint-config-next'],'16.4.3')"
-          npm audit --json > dependency-candidate-audit.json || true
-      - name: Retain dependency candidate for review before committing the lock
-        if: always()
-        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
-        with:
-          name: sell-security-lock-candidate
-          path: |
-            package.json
-            package-lock.json
-            dependency-refresh.log
-            dependency-candidate-audit.json
-          if-no-files-found: error
-          retention-days: 3
-
   verify:
     runs-on: ubuntu-24.04
     timeout-minutes: 20
