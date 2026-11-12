@@ -38,10 +38,24 @@ test('asset adaptation produces a Facebook image and three native carousel image
  assert.ok(buildInput(pkg,base.channels[2],'2030-01-01T00:00:00Z',urls).assets.every(a=>a.image.url.includes('vertical')));
   assert.equal(buildInput(pkg,base.channels[2],'2030-01-01T00:00:00Z',urls).metadata.tiktok.isAiGenerated,undefined);
 });
-test('queue occupancy includes unmanaged posts, drafts, errors and uncertain writes',()=>{
- const c=base.channels[0];const remote=Array.from({length:9},(_,i)=>({id:String(i),channelId:c.id,status:i?'scheduled':'draft',dueAt:'2030-01-01T00:00:00Z'}));
+test('queue occupancy counts only scheduled/sending posts and unresolved write intents',()=>{
+ const c=base.channels[0];
+ const remote=['draft','error','needs_approval','scheduled','sending'].map((status,i)=>({id:String(i),channelId:c.id,status,dueAt:'2030-01-01T00:00:00Z'}));
  const state=empty();state.deliveries.x={channelId:c.id,status:'uncertain',dueAt:'2030-01-02T00:00:00Z'};
- assert.equal(selectSlots(base,now,remote,state)[0].capacity,0);
+ const result=selectSlots(base,now,remote,state)[0];
+ assert.equal(result.occupied,2);
+ assert.equal(result.capacity,5); // target 8 - two real queue posts - one unresolved intent
+});
+test('A/B drafts do not block queue replenishment under Buffer Free',()=>{
+ const c=base.channels[0];
+ const remote=[
+   ...Array.from({length:30},(_,i)=>({id:`ab-${i}`,channelId:c.id,status:'draft',dueAt:null})),
+   ...Array.from({length:7},(_,i)=>({id:`queue-${i}`,channelId:c.id,status:'scheduled',dueAt:'2030-01-01T00:00:00Z'}))
+ ];
+ const result=selectSlots(base,now,remote,empty())[0];
+ assert.equal(result.occupied,7);
+ assert.equal(result.capacity,1); // queue target 8, not 37 posts counted
+ assert.equal(result.slots.length,1);
 });
 test('production is disabled until both approval and real delivery are recorded',()=>{assert.equal(gate(disabled),false);assert.equal(gate({...approved,sampleApproval:null}),false);assert.equal(gate({...approved,initialDeliveryVerified:false}),false);assert.equal(gate(approved),true);});
 test('disabled mode makes zero external calls',async()=>{const f=fixture();f.config=disabled;f.api.snapshot=()=>{throw Error('Must not call');};assert.equal((await cycle(f)).status,'awaiting_approval');});
