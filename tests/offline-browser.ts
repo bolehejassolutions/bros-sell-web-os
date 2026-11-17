@@ -117,7 +117,10 @@ try {
   page.once('dialog', dialog => void dialog.accept());
   await page.getByRole('button', { name: 'Padam semua data offline akaun ini' }).click();
   await page.getByText('Simpanan offline akaun telah dipadam', { exact: false }).waitFor();
-  await page.reload();
+  // The previous SW fallback displayed the offline editor at /app.
+  // After reconnect, /app serves the authenticated Next.js page, so explicitly
+  // open the offline editor route to validate IndexedDB deletion.
+  await page.goto(base + '/offline.html');
   await waitUntil(async () => (await page.locator('#account option').first().textContent())?.includes('Tiada simpanan offline') ?? false,
     'deleted vault must not appear in account selector');
   assert.equal(await page.locator('#unlockButton').isDisabled(), true);
