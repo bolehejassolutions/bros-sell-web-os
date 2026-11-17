@@ -15,7 +15,7 @@ export default async function AppHome(){
   return (
     <main className="container simplified-home">
       <SalesCaseWorkspace />
-      <OfflineControls userId={user.id} />
+      <OfflineControls key={user.id} userId={user.id} />
 
       <section className="secondary-home-grid">
         <article className="card compact-home-card">
