@@ -59,6 +59,39 @@ export function inspectCharge(rawBody, expectedChargeId) {
   };
 }
 
+
+/**
+ * Current RM100 checkout verification is a separate profile from historical
+ * Order #1007. The expected order UUID must come from the authenticated
+ * merchant record. Product identity must come from the individual charge's
+ * nested order line item; a catalogue or aggregated sales ID is insufficient.
+ *
+ * This analyzer does not authenticate API transport or assert webhook HMAC.
+ * Even a complete report MUST NOT grant customer access.
+ */
+export function inspectCurrentCharge(rawBody, expectedChargeId, expectedOrderId) {
+  const charge = object(JSON.parse(rawBody));
+  const nestedOrder = object(charge.order);
+  const actualChargeOrder = text(charge.order_id);
+  const actualNestedOrder = text(nestedOrder.id);
+  const expected = text(expectedOrderId);
+  const amount = typeof charge.amount === 'number' ? charge.amount
+    : typeof charge.amount === 'string' && /^\\d+(\\.\\d+)?$/.test(charge.amount) ? Number(charge.amount) : null;
+  const historical = inspectCharge(rawBody, expectedChargeId);
+  const { historicalOrder1007AmountMyr50: _historicalAmount, ...checks } = historical.checks;
+  checks.currentRm100Amount = amount === 100;
+  checks.currentOrderUuidMatches = Boolean(expected
+    && /^[0-9a-f]{8}-(?:[0-9a-f]{4}-){3}[0-9a-f]{12}$/i.test(expected)
+    && (actualChargeOrder === expected || actualNestedOrder === expected)
+    && !(actualChargeOrder && actualNestedOrder && actualChargeOrder !== actualNestedOrder));
+  return {
+    ...historical,
+    purpose: 'current_rm100_order_read_only_verification',
+    checks,
+    completeChargeEvidence: Object.values(checks).every(Boolean),
+  };
+}
+
 if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
   try {
     let input = '';
@@ -67,7 +100,12 @@ if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) 
       if (input.length > 2_000_000) throw new Error('Oversized input');
     }
     const request = JSON.parse(input);
-    process.stdout.write(JSON.stringify(inspectCharge(request.rawBody, request.chargeId), null, 2) + '\n');
+    const mode = request.mode ?? 'historical_1007';
+    if (mode !== 'historical_1007' && mode !== 'current_rm100') throw new Error('Unsupported verification mode');
+    const report = mode === 'current_rm100'
+      ? inspectCurrentCharge(request.rawBody, request.chargeId, request.orderId)
+      : inspectCharge(request.rawBody, request.chargeId);
+    process.stdout.write(JSON.stringify(report, null, 2) + '\n');
   } catch {
     process.stderr.write('Charge evidence could not be inspected. No response data was printed.\n');
     process.exitCode = 1;
