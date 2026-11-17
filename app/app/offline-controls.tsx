@@ -70,11 +70,12 @@ export default function OfflineControls({ userId }: { userId: string }) {
 
   useEffect(() => {
     let mounted = true;
-    setUnlocked(false);
+    // The authenticated layout remounts this control for each account.
+    // Avoid synchronous state writes in mount effect.
     vaultRef.current = null;
     if (!('indexedDB' in window) || !('crypto' in window) ||
       !window.crypto.subtle || !('serviceWorker' in navigator)) {
-      setSupported(false);
+      void Promise.resolve().then(() => { if (mounted) setSupported(false); });
       return;
     }
     void loadOfflineApi()
