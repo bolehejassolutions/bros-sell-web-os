@@ -76,7 +76,7 @@ export function inspectCurrentCharge(rawBody, expectedChargeId, expectedOrderId)
   const actualNestedOrder = text(nestedOrder.id);
   const expected = text(expectedOrderId);
   const amount = typeof charge.amount === 'number' ? charge.amount
-    : typeof charge.amount === 'string' && /^\\d+(\\.\\d+)?$/.test(charge.amount) ? Number(charge.amount) : null;
+    : typeof charge.amount === 'string' && /^\d+(\.\d+)?$/.test(charge.amount) ? Number(charge.amount) : null;
   const historical = inspectCharge(rawBody, expectedChargeId);
   const { historicalOrder1007AmountMyr50: _historicalAmount, ...checks } = historical.checks;
   checks.currentRm100Amount = amount === 100;
