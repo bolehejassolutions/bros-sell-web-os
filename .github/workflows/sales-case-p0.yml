@@ -2,7 +2,7 @@ name: Sales Case P0 verification
 
 on:
   pull_request:
-    branches: [main]
+    branches: [main, feat/hitpay-entitlement-automation]
     types: [opened, synchronize, reopened]
 
 permissions:

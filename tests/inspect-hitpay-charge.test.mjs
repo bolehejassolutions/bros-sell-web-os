@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { inspectCharge } from '../scripts/inspect-hitpay-charge.mjs';
+import { inspectCharge, inspectCurrentCharge } from '../scripts/inspect-hitpay-charge.mjs';
 
 function fixture() {
   return { id: 'fixture-charge', business_id: 'a089a95e-7d0e-4f1b-8d85-425f3c82f460', status: 'succeeded',
@@ -64,3 +64,50 @@ test('malformed email and non-scalar values are rejected without leaking them', 
   assert.ok(!JSON.stringify(report).includes('secret'));
 });
 
+
+const chargeUuid = 'ba17a6e4-a088-4f69-b938-983251a52f63';
+const orderUuid = 'e9275173-139b-493e-b5f3-72dd4dfb9611';
+function currentFixture() {
+  const value = fixture();
+  value.id = chargeUuid;
+  value.amount = 100;
+  value.order_id = orderUuid;
+  value.order.id = orderUuid;
+  return value;
+}
+const inspectCurrent = (value, expectedOrder = orderUuid) =>
+  inspectCurrentCharge(JSON.stringify(value), chargeUuid, expectedOrder);
+
+test('current RM100 proof requires individual order and line-item evidence; no grant follows', () => {
+  const report = inspectCurrent(currentFixture());
+  assert.equal(report.completeChargeEvidence, true);
+  assert.equal(report.purpose, 'current_rm100_order_read_only_verification');
+  assert.equal(report.checks.currentRm100Amount, true);
+  assert.equal(report.checks.currentOrderUuidMatches, true);
+  assert.equal(report.checks.exactProductLineItems, true);
+  assert.equal(report.webhookSignatureEvidence, 'NOT_OBSERVED_BY_CHARGE_API');
+  assert.match(report.releaseGate, /^CLOSED_/);
+  const redacted = JSON.stringify(report);
+  for (const secret of [chargeUuid, orderUuid, 'private-buyer@example.com']) {
+    assert.equal(redacted.includes(secret), false);
+  }
+});
+
+test('current RM100 verification fails closed on mismatched charge/order, wrong amount or absent line', () => {
+  const cases = [
+    [x => { x.id = 'other-charge'; }, 'requestedChargeMatches'],
+    [x => { x.order_id = 'other-order'; }, 'orderIdentityPresentAndConsistent'],
+    [x => { x.amount = 50; }, 'currentRm100Amount'],
+    [x => { x.order.line_items = []; }, 'exactProductLineItems'],
+    [x => { x.order.line_items[0].related_id = 'a2cfb307-366d-4ebc-9ff4-68b6c718e7d6'; }, 'exactProductLineItems'],
+  ];
+  for (const [change, check] of cases) {
+    const value = currentFixture();
+    change(value);
+    const report = inspectCurrent(value);
+    assert.equal(report.checks[check], false, check);
+    assert.equal(report.completeChargeEvidence, false, check);
+  }
+  assert.equal(inspectCurrent(currentFixture(), 'wrong-order').checks.currentOrderUuidMatches, false);
+  assert.equal(inspectCurrent(currentFixture(), 'wrong-order').completeChargeEvidence, false);
+});
