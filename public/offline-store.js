@@ -52,6 +52,26 @@
       });
     } finally { db.close(); }
   }
+  // A single readwrite IndexedDB transaction avoids stale cross-tab overwrites.
+  async function updateStoredCase(account, id, transform) {
+    const db = await open();
+    let written = false;
+    try {
+      await new Promise((resolve, reject) => {
+        const tx = db.transaction('cases', 'readwrite');
+        const store = tx.objectStore('cases');
+        const req = store.get([account, id]);
+        req.onsuccess = () => {
+          const next = transform(req.result);
+          if (next) { store.put(next); written = true; }
+        };
+        tx.oncomplete = resolve;
+        tx.onerror = () => reject(tx.error);
+        tx.onabort = () => reject(tx.error);
+      });
+      return written;
+    } finally { db.close(); }
+  }
   async function removeAccount(account) {
     const db = await open();
     try {
@@ -169,11 +189,13 @@
       if (!Array.isArray(rows) || rows.some(row => !validCase(row))) throw new Error('Data server tidak sah.');
       let updated = 0, retained = 0;
       for (const row of rows) {
-        const previous = await get('cases', [account, row.id]);
-        if (previous?.dirty || previous?.conflict) { retained++; continue; }
-        await put('cases', { account, id: row.id, dirty: false, conflict: false, localVersion: (previous?.localVersion || 0) + 1,
-          encrypted: await seal(key, row, recordContext(row.id)) });
-        updated++;
+        const encrypted = await seal(key, row, recordContext(row.id));
+        const applied = await updateStoredCase(account, row.id, previous =>
+          previous?.dirty || previous?.conflict ? null : {
+            account, id: row.id, dirty: false, conflict: false,
+            localVersion: (previous?.localVersion || 0) + 1, encrypted
+          });
+        if (applied) updated++; else retained++;
       }
       return { updated, retained };
     }
@@ -196,8 +218,8 @@
           });
         } catch { results.pending++; continue; }
         if (response.status === 409 || response.status === 404) {
-          const current = await get('cases', [account, row.id]);
-          if (current) await put('cases', { ...current, conflict: true, dirty: true });
+          await updateStoredCase(account, row.id, current =>
+            current ? { ...current, conflict: true, dirty: true } : null);
           results.conflict++;
           continue;
         }
@@ -208,7 +230,8 @@
         const current = await get('cases', [account, row.id]);
         if (!current) continue;
         if (current.localVersion !== row.localVersion) {
-          await put('cases', { ...current, conflict: true, dirty: true });
+          await updateStoredCase(account, row.id, latest =>
+            latest ? { ...latest, conflict: true, dirty: true } : null);
           results.conflict++;
           continue;
         }
