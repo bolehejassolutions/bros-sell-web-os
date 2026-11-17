@@ -118,7 +118,9 @@ try {
   await page.getByRole('button', { name: 'Padam semua data offline akaun ini' }).click();
   await page.getByText('Simpanan offline akaun telah dipadam', { exact: false }).waitFor();
   await page.reload();
-  await page.getByText('Tiada simpanan offline', { exact: false }).waitFor();
+  await waitUntil(async () => (await page.locator('#account option').first().textContent())?.includes('Tiada simpanan offline') ?? false,
+    'deleted vault must not appear in account selector');
+  assert.equal(await page.locator('#unlockButton').isDisabled(), true);
   assert.deepEqual(errors, []);
   console.log('Offline browser PASS: enrollment, encrypted local save, offline refresh/fallback, sync, revision conflict, account isolation, explicit deletion');
 } finally {
