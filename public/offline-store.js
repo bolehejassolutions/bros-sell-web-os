@@ -72,7 +72,13 @@
       });
     } finally { db.close(); }
   }
-  const encode = bytes => btoa(String.fromCharCode(...bytes));
+  const encode = bytes => {
+    let binary = '';
+    for (let offset = 0; offset < bytes.length; offset += 32768) {
+      binary += String.fromCharCode(...bytes.subarray(offset, offset + 32768));
+    }
+    return btoa(binary);
+  };
   const decode = value => Uint8Array.from(atob(value), char => char.charCodeAt(0));
   async function keyFromPassword(password, salt) {
     if (!crypto?.subtle) throw new Error('Peranti ini tidak menyokong penyulitan selamat.');
@@ -137,9 +143,26 @@
       if (!previous) throw new Error('Case perlu dimuat turun ketika online dahulu.');
       if (expectedVersion !== previous.localVersion) throw new Error('Draft telah dikemas kini dalam tab lain. Muat semula sebelum mengubah.');
       const existing = await unseal(key, previous.encrypted, recordContext(id));
-      const nextVersion = previous.localVersion + 1;
-      await put('cases', { ...previous, localVersion: nextVersion, dirty: true,
-        encrypted: await seal(key, { ...existing, document }, recordContext(id)) });
+      const encrypted = await seal(key, { ...existing, document }, recordContext(id));
+      const db = await open();
+      const nextVersion = expectedVersion + 1;
+      try {
+        await new Promise((resolve, reject) => {
+          const tx = db.transaction('cases', 'readwrite');
+          const store = tx.objectStore('cases');
+          const req = store.get([account, id]);
+          req.onsuccess = () => {
+            if (!req.result || req.result.localVersion !== expectedVersion) {
+              tx.abort();
+              return;
+            }
+            store.put({ ...req.result, localVersion: nextVersion, dirty: true, encrypted });
+          };
+          tx.oncomplete = resolve;
+          tx.onerror = () => reject(tx.error);
+          tx.onabort = () => reject(new Error('Case diubah dalam tab lain. Buka semula sebelum menyimpan.'));
+        });
+      } finally { db.close(); }
       return nextVersion;
     }
     async function mergeRemote(rows) {
@@ -185,15 +208,30 @@
         const current = await get('cases', [account, row.id]);
         if (!current) continue;
         if (current.localVersion !== row.localVersion) {
-          const currentData = await unseal(key, current.encrypted, recordContext(row.id));
-          await put('cases', { ...current, encrypted: await seal(key,
-            { ...currentData, revision: result.case.revision }, recordContext(row.id)) });
-          results.pending++;
+          await put('cases', { ...current, conflict: true, dirty: true });
+          results.conflict++;
           continue;
         }
-        await put('cases', { ...current, dirty: false, conflict: false, localVersion: current.localVersion + 1,
-          encrypted: await seal(key, result.case, recordContext(row.id)) });
-        results.synced++;
+        const encrypted = await seal(key, result.case, recordContext(row.id));
+        const db = await open();
+        try {
+          const committed = await new Promise((resolve, reject) => {
+            let updated = false;
+            const tx = db.transaction('cases', 'readwrite');
+            const store = tx.objectStore('cases');
+            const req = store.get([account, row.id]);
+            req.onsuccess = () => {
+              if (!req.result || req.result.localVersion !== row.localVersion) return;
+              store.put({ ...req.result, dirty: false, conflict: false,
+                localVersion: row.localVersion + 1, encrypted });
+              updated = true;
+            };
+            tx.oncomplete = () => resolve(updated);
+            tx.onerror = () => reject(tx.error);
+            tx.onabort = () => reject(tx.error);
+          });
+          if (committed) results.synced++; else results.conflict++;
+        } finally { db.close(); }
       }
       return results;
     }
