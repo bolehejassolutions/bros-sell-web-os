@@ -29,7 +29,12 @@ try {
   } catch { throw 'Authenticated Charge API GET failed. No provider response, credential or identifier was printed.' }
   if ($CurrentRm100) {
     $orderId = [System.Net.NetworkCredential]::new('', $orderSecure).Password.Trim()
-    if ($orderId -notmatch '^[0-9a-fA-F]{8}-([0-9a-fA-F]{4}-){3}[0-9a-fA-F]{12} -ne 200 -or $response.Content.Length -gt 1000000) { throw 'Charge API response was not accepted.' }
+    if ($orderId -notmatch '^[0-9a-fA-F]{8}-([0-9a-fA-F]{4}-){3}[0-9a-fA-F]{12}$') {
+      throw 'Private current order UUID is invalid.'
+    }
+  }
+  $apiKey = $null
+  if ($response.StatusCode -ne 200 -or $response.Content.Length -gt 1000000) { throw 'Charge API response was not accepted.' }
   $rawBody = [string]$response.Content
   $null = $rawBody | ConvertFrom-Json
   $evidenceDirectory = Join-Path ([System.IO.Path]::GetTempPath()) ('BROS-SELL-Charge-Evidence-' + [guid]::NewGuid().ToString('N'))
@@ -59,38 +64,5 @@ try {
   $orderId = $null
   $keySecure.Dispose(); $chargeSecure.Dispose()
   if ($null -ne $orderSecure) { $orderSecure.Dispose() }
-}
-
-) {
-      throw 'Private current order UUID is invalid.'
-    }
-  }
-  $apiKey = $null
-  if ($response.StatusCode -ne 200 -or $response.Content.Length -gt 1000000) { throw 'Charge API response was not accepted.' }
-  $rawBody = [string]$response.Content
-  $null = $rawBody | ConvertFrom-Json
-  $evidenceDirectory = Join-Path ([System.IO.Path]::GetTempPath()) ('BROS-SELL-Charge-Evidence-' + [guid]::NewGuid().ToString('N'))
-  $null = New-Item -ItemType Directory -Path $evidenceDirectory
-  # Customer data stays outside the repository and is encrypted for this Windows account.
-  $encryptedBody = ConvertTo-SecureString -String $rawBody -AsPlainText -Force | ConvertFrom-SecureString
-  Set-Content -LiteralPath (Join-Path $evidenceDirectory 'response.dpapi') -Value $encryptedBody -Encoding utf8
-  $inspectionInput = @{ rawBody = $rawBody; chargeId = $chargeId } | ConvertTo-Json -Compress
-  $reportLines = $inspectionInput | & $nodeCommand.Source $analyzerPath
-  if ($LASTEXITCODE -ne 0) { throw 'Private response was retained, but redacted inspection failed.' }
-  $reportObject = ($reportLines -join [Environment]::NewLine) | ConvertFrom-Json
-  $reportObject.evidenceSource = 'authenticated_hitpay_charge_api'
-  $reportObject.transportEvidence = 'HTTPS_200_FIXED_PROVIDER_ENDPOINT_NO_REDIRECTS'
-  $reportObject | Add-Member -NotePropertyName retrievedAtUtc -NotePropertyValue ([DateTime]::UtcNow.ToString('o'))
-  $redactedReport = $reportObject | ConvertTo-Json -Depth 8
-  Set-Content -LiteralPath (Join-Path $evidenceDirectory 'report.json') -Value $redactedReport -Encoding utf8
-  Write-Output $redactedReport
-  Write-Output ('Private evidence directory: ' + $evidenceDirectory)
-  Write-Output 'The response is encrypted for this Windows account. This operation does not enable grants or email.'
-} catch {
-  Write-Error 'Verification stopped. No customer data or secrets were printed. Check private inputs and the official API access.'
-  exit 1
-} finally {
-  $apiKey = $null; $chargeId = $null; $rawBody = $null; $response = $null; $inspectionInput = $null
-  $keySecure.Dispose(); $chargeSecure.Dispose()
 }
 
