@@ -1,6 +1,6 @@
 # BROS SELL Web OS — Offline Sales Case V1 (development candidate)
 
-Status: **Feature branch only. Not a Production / customer-available promise until validated and released.** This is an optional **offline Sales Case editor**, not an offline copy of the full Web OS.
+Status: **Offline Sales Case V1 implementation accepted in isolated CI on 17 Nov 2026** (GitHub Actions [44064804476](https://github.com/bolehejassolutions/bros-sell-web-os/actions/runs/44064804476): unit, API, browser offline/online/sync, typecheck, lint, build and security audit PASS). Production availability must still be confirmed against the active deployment. This is an optional **offline Sales Case editor**, not an offline copy of the full Web OS.
 
 ## Approved scope
 
@@ -10,7 +10,7 @@ Status: **Feature branch only. Not a Production / customer-available promise unt
 - After first online setup, `/offline.html` can be loaded and used without internet. A tightly scoped service worker redirects failed offline navigation to `/app` to the static editor but **never caches** authenticated /app SSR pages, API responses, sessions, credentials, paid PDF/ZIP resources, /login or /activate.
 - The offline editor can **edit existing Sales Cases only**: title, situation, evidence, channel, buyer and offer. Other CaseDocument fields remain intact. Creating cases, running complex tools, downloading the paid Library, initial login, resetting the passphrase and entitlement verification require internet.
 - Edits persist encrypted in the browser vault. The user must re-enter their local passphrase after a page reload; offline drafts survive reload. Browser sync requires the **fresh server-side** `/api/offline/identity` entitlement check, then updates via the existing row-owner-gated, revision-checked `/api/sales-cases/:id` PUT API.
-- HTTP 409/404 conflicts are **retained locally** and never silently overwrittten. The editor offers a JSON draft download (unencrypted — label prominently). The user must inspect/reconcile conflicting changes manually. Duplicate retries do not create new Cases because only updates are supported, and row revision protects concurrent writes.
+- HTTP 409/404 conflicts are **retained locally** and never silently overwritten. The editor offers a JSON draft download (unencrypted — label prominently). The user must inspect/reconcile conflicting changes manually. Duplicate retries do not create new Cases because only updates are supported, and row revision protects concurrent writes.
 - Browser online events can initiate sync **only while the vault is unlocked in that tab**; after a restart, the customer must unlock and sync. Unmatched sessions/user IDs are rejected. Failures leave the draft locally pending and should never be labelled synced.
 - Deleting offline data is explicit and account-scoped. Logging out does **not** auto-delete encrypted drafts; this avoids silent loss of pending changes. Advise deleting offline data before handing over or disposing of a device.
 - Offline data remains accessible to someone knowing the local passphrase even if online entitlement later expires or is revoked. Revocations are enforced at **online synchronization**, not during disconnected local reading. This limitation must be communicated without calling the full Web OS offline-entitled.
