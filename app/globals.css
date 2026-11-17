@@ -236,3 +236,14 @@ button:disabled{opacity:.45;cursor:not-allowed}
 
 /* Customer Hub inline support link meets minimum touch-target height. */
 .hub-support-link{display:inline-flex;align-items:center;min-height:32px}
+
+/* Optional offline vault controls are separate from the primary selling workflow. */
+.offline-controls{margin-top:18px}
+.offline-controls h2{font-size:19px;margin:8px 0}
+.offline-controls>.input,.offline-controls>input{max-width:440px;display:block;margin:0 0 10px}
+.offline-controls>.field-label{margin:10px 0 5px}
+.offline-controls .case-actions{margin-top:10px;display:flex;flex-wrap:wrap;gap:8px}
+.offline-controls .case-actions>*{flex:0 1 auto}
+.offline-controls p[role="alert"]{color:#fca5a5}
+.offline-controls p[role="status"]{color:#a7f3d0}
+@media(max-width:700px){.offline-controls .case-actions>*{width:100%;margin:0}}
