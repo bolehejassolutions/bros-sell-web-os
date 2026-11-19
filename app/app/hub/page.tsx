@@ -56,6 +56,14 @@ export default async function CustomerHubPage() {
         </article>
       </section>
 
+      <section className="card hub-section" aria-label="Mod offline Sales Case">
+        <div className="eyebrow">MOD OFFLINE · PILIHAN</div>
+        <h2>Sunting Sales Case tanpa internet</h2>
+        <p className="muted">Sediakan salinan tersulit daripada Web OS semasa anda online dan akses akaun aktif. Selepas itu, anda boleh mengemas kini maklumat asas case pada peranti ini walaupun internet terputus. Sync hanya apabila login dan akses disahkan semula.</p>
+        <p className="field-note">Bukan keseluruhan Web OS boleh digunakan offline. Cipta case baharu, login, alat interaktif dan fail Library masih memerlukan internet. Draft yang konflik tidak menimpa versi server.</p>
+        <Link className="btn secondary" href="/app">Sediakan offline di Home</Link>
+      </section>
+
       <section className="card hub-section" aria-label="Kandungan pakej">
         <div className="eyebrow">APA YANG ANDA TERIMA</div>
         <h2>Pakej {release.packageVersion} bukan versi buku {release.bookVersion}</h2>

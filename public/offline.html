@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="ms">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<meta name="theme-color" content="#111827">
+<title>BROS SELL — Draft Offline</title>
+<style>
+:root{color-scheme:dark;font-family:system-ui,-apple-system,"Segoe UI",sans-serif;background:#0c111c;color:#f5f4ed}
+*{box-sizing:border-box}body{margin:0;min-height:100vh}main{width:min(900px,calc(100% - 32px));margin:0 auto;padding:36px 0 64px}
+header{display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #33394a;padding:0 0 22px;gap:20px;flex-wrap:wrap}
+.brand{font-size:21px;font-weight:800;letter-spacing:.05em;color:#f6df9a}h1{font-size:clamp(27px,5vw,36px);line-height:1.15;margin:30px 0 9px}h2{font-size:21px;margin:0 0 15px}
+p{line-height:1.65;color:#c8cbd7}.muted{color:#a4abba;font-size:14px}.card{background:#171d2a;border:1px solid #33394a;border-radius:16px;padding:24px;margin-top:22px}
+label{display:block;font-size:14px;font-weight:650;margin:12px 0 6px}
+input,select,textarea{width:100%;min-height:46px;border:1px solid #535e73;border-radius:10px;padding:11px 13px;background:#0b1422;color:#fff;font:inherit}
+textarea{min-height:106px;resize:vertical}input:focus,select:focus,textarea:focus{outline:2px solid #dabb6a;outline-offset:2px}
+button,.button{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:10px 16px;margin:10px 8px 0 0;border:1px solid #a78d56;border-radius:10px;background:#e0c382;color:#111827;font:inherit;font-weight:800;text-decoration:none;cursor:pointer}
+button.secondary,.button.secondary{background:transparent;color:#f1d997}button.danger{border-color:#e6a2a2;color:#ffbcbc;background:transparent}
+button:disabled{opacity:.55;cursor:not-allowed}.row{display:flex;flex-wrap:wrap;gap:8px}.row>*{flex:1 1 170px}
+.note{padding:12px 14px;background:#243043;border-left:3px solid #e0c382;border-radius:8px}
+#error{color:#ffc1c1;white-space:pre-wrap}#status{color:#bce7c6;white-space:pre-wrap}
+[hidden]{display:none!important}
+footer{margin-top:36px;border-top:1px solid #33394a;padding-top:18px;color:#9aa3b7;font-size:13px}
+a{color:#e0c382}strong{color:#fff}fieldset{border:0;padding:0;margin:0}
+@media(max-width:640px){main{width:min(100% - 22px,900px);padding-top:18px}.card{padding:17px}button,.button{width:100%;margin:9px 0 0}}
+</style>
+<script src="/offline-store.js" defer></script>
+<script src="/offline-app.js" defer></script>
+</head>
+<body>
+<main>
+<header><div class="brand">BROS SELL</div><a href="/app" class="button secondary">Buka Web OS (online)</a></header>
+<h1>Sales Case — Mod Offline</h1>
+<p>Teruskan menyunting case yang telah dimuat turun semasa akaun anda disahkan online. Perubahan disulitkan pada peranti ini dan boleh disegerakkan selepas anda log masuk semula.</p>
+<p class="note"><strong>Had penting:</strong> Ciptaan case baharu, login pertama, Library dan pengesahan hak akses memerlukan internet. Frasa laluan offline tidak boleh dipulihkan jika terlupa. Jangan gunakan peranti awam.</p>
+<section class="card" id="unlockPanel">
+<h2>Buka simpanan offline</h2>
+<p class="muted">Pilih rekod akaun yang pernah menyediakan offline di peranti ini.</p>
+<label for="account">Akaun</label><select id="account"><option value="">Memuatkan akaun...</option></select>
+<label for="password">Frasa laluan offline</label><input id="password" type="password" autocomplete="off" minlength="10" placeholder="Frasa laluan semasa persediaan">
+<button id="unlockButton">Buka case</button>
+</section>
+<section id="workspace" hidden>
+<div class="card">
+<h2>Case disimpan pada peranti</h2>
+<label for="cases">Pilih case</label><select id="cases"><option value="">Pilih case</option></select>
+<p class="muted" id="caseMeta"></p>
+<div class="row">
+<button id="sync" class="secondary">Segerakkan perubahan (online)</button>
+<button id="export" class="secondary">Muat turun JSON draft</button>
+</div>
+</div>
+<div class="card" id="editor" hidden>
+<h2>Sunting case</h2>
+<form id="caseForm">
+<label for="title">Tajuk</label><input id="title" maxlength="160" required>
+<label for="situation">Apa yang berlaku?</label><textarea id="situation" maxlength="20000"></textarea>
+<label for="evidence">Kata-kata atau tindakan pelanggan (bukti sebenar)</label><textarea id="evidence" maxlength="20000"></textarea>
+<div class="row">
+<div><label for="channel">Saluran</label><input id="channel" maxlength="80"></div>
+<div><label for="buyer">Pembeli / konteks</label><input id="buyer" maxlength="400"></div>
+<div><label for="offer">Tawaran</label><input id="offer" maxlength="400"></div>
+</div>
+<p class="muted">Medan lain dalam dokumen asal dikekalkan. Alat diagnosis interaktif dan keputusan automatik memerlukan Web OS online.</p>
+<button type="submit">Simpan ke peranti ini</button>
+</form>
+</div>
+<div class="card">
+<h2>Urus simpanan setempat</h2>
+<p class="muted">Log keluar daripada Web OS tidak membuang salinan tersulit ini secara automatik. Padam di sini apabila menggunakan peranti kongsi. Pemadaman tidak boleh dibatalkan.</p>
+<button id="delete" class="danger">Padam semua data offline akaun ini</button>
+</div>
+</section>
+<p id="status" role="status" aria-live="polite"></p>
+<p id="error" role="alert"></p>
+<footer>BOLEHEJAS Solutions · BROS SELL · Menjelaskan, bukan Memujuk. · <a href="mailto:brossell@bolehejas.com">Sokongan</a></footer>
+</main>
+</body></html>

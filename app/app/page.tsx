@@ -2,6 +2,7 @@ import { createClient } from "@/lib/supabase/server";
 import { hasWebOSAccess } from "@/lib/supabase/entitlement";
 import { redirect } from "next/navigation";
 import SalesCaseWorkspace from './sales-case-workspace';
+import OfflineControls from './offline-controls';
 import Link from 'next/link';
 import { CUSTOMER_RELEASE } from "@/lib/bros-sell/customer-release";
 
@@ -14,6 +15,7 @@ export default async function AppHome(){
   return (
     <main className="container simplified-home">
       <SalesCaseWorkspace />
+      <OfflineControls key={user.id} userId={user.id} />
 
       <section className="secondary-home-grid">
         <article className="card compact-home-card">
