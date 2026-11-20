@@ -3,24 +3,35 @@ import { createServer } from 'node:http';
 import { readFileSync } from 'node:fs';
 import { PGlite } from '@electric-sql/pglite';
 
-export const FIXTURE_USERS = {
-  a: {id:'11111111-1111-4111-8111-111111111111',email:'a@example.test'},
-  b: {id:'22222222-2222-4222-8222-222222222222',email:'b@example.test'},
-  c: {id:'33333333-3333-4333-8333-333333333333',email:'c@example.test'},
-};
+import { fixtureUsers } from './session.ts';
+
 const db = new PGlite();
-await db.exec(`create role authenticated; create role anon; create schema auth; create table auth.users(id uuid primary key);
-  insert into auth.users values ${Object.values(FIXTURE_USERS).map(u=>`('${u.id}')`).join(',')};
-  create function auth.uid() returns uuid language sql stable as $$ select nullif(current_setting('request.jwt.claim.sub',true),'')::uuid $$;
-  grant usage on schema auth to authenticated,anon;
-  create table public.fixture_entitlements(owner_id uuid, product text, active boolean);
-  insert into public.fixture_entitlements values ('${FIXTURE_USERS.a.id}','BROS_SELL_CORE',true),('${FIXTURE_USERS.b.id}','BROS_SELL_WEB_OS',true);
+const fixtureAdminKey = 'local-fixture-payment-admin';
+await db.exec(readFileSync(new URL('./payment-schema.sql', import.meta.url), 'utf8'));
+await db.exec(readFileSync(new URL('../../supabase/migrations/20261007103000_hitpay_entitlement_automation.sql', import.meta.url), 'utf8'));
+await db.exec(readFileSync(new URL('../../supabase/sql/onboarding.sql', import.meta.url), 'utf8'));
+for (const [key, user] of Object.entries(fixtureUsers)) {
+  // The paid buyer creates their confirmed fixture account after checkout.
+  if (key !== 'paid') await db.query('insert into auth.users(id,email) values($1,$2)', [user.id, user.email]);
+}
+await db.exec(`
+  insert into public.products(code,name) values ('BROS_SELL_WEB_OS','Legacy');
+  insert into public.entitlements(user_id,product_id)
+    select '${fixtureUsers.a.id}', id from public.products where code='BROS_SELL_CORE';
+  insert into public.entitlements(user_id,product_id)
+    select '${fixtureUsers.b.id}', id from public.products where code='BROS_SELL_WEB_OS';
+  insert into public.bros_sell_offers(code,product_code,amount_myr,provider_product_id,active)
+    values ('FIXTURE','BROS_SELL_CORE',100,'fixture-product',true);
   create function public.has_active_bros_sell_entitlement(p_product_code text,p_access_level text) returns boolean
-  language sql stable security definer set search_path='' as $$ select exists(select 1 from public.fixture_entitlements where owner_id=auth.uid() and product=p_product_code and active and p_access_level='core') $$;`);
+  language sql stable security definer set search_path='' as $$
+    select exists(select 1 from public.entitlements e join public.products p on p.id=e.product_id
+      where e.user_id=auth.uid() and p.code=p_product_code and e.access_level=p_access_level
+      and p.active and e.status='active' and (e.expires_at is null or e.expires_at>now()))
+  $$;`);
 await db.exec(readFileSync(new URL('../../supabase/migrations/20261002055316_sales_case_operating_loop.sql',import.meta.url),'utf8'));
 
 function tokenUser(token: string) {
-  try { const key=JSON.parse(Buffer.from(token.split('.')[1],'base64url').toString()).fixture; return FIXTURE_USERS[key as keyof typeof FIXTURE_USERS]; } catch { return undefined; }
+  try { const key=JSON.parse(Buffer.from(token.split('.')[1],'base64url').toString()).fixture; return fixtureUsers[key as keyof typeof fixtureUsers]; } catch { return undefined; }
 }
 const columns='id,revision,created_at,updated_at,document';
 const server = createServer(async (req,res) => {
@@ -30,13 +41,40 @@ const server = createServer(async (req,res) => {
     const user=tokenUser((req.headers.authorization??'').replace(/^Bearer /,''));
     const url=new URL(req.url??'/', 'http://127.0.0.1:54329');
     if(url.pathname==='/health') return send(200,{fixture:true});
-    if(!user) return send(401,{code:'bad_jwt',message:'Fixture auth rejected token'});
-    if(url.pathname==='/auth/v1/user') return send(200,{...user,aud:'authenticated',role:'authenticated',app_metadata:{provider:'email'},user_metadata:{},created_at:'2026-10-01T00:00:00Z'});
-    if(url.pathname==='/auth/v1/logout') {res.statusCode=204;res.end();return;}
     let raw=''; for await(const chunk of req) raw+=chunk;
     const body=raw?JSON.parse(raw):{};
+    if(req.method === 'POST' && url.pathname === '/rest/v1/rpc/process_bros_sell_hitpay_event'
+      && req.headers.authorization === `Bearer ${fixtureAdminKey}`) {
+      const result = await db.transaction(async tx => {
+        await tx.exec('set local role service_role');
+        return tx.query<{result:unknown}>('select public.process_bros_sell_hitpay_event($1,$2,$3,$4,$5,$6,$7,$8,$9) as result',
+          [body.p_event_key,body.p_provider_payment_id,body.p_provider_reference,body.p_status,body.p_amount,
+            body.p_currency,body.p_purchase_email,body.p_product_ids,JSON.stringify(body.p_payload)]);
+      });
+      return send(200, result.rows[0].result);
+    }
+    if(!user) return send(401,{code:'bad_jwt',message:'Fixture auth rejected token'});
+    if(url.pathname==='/auth/v1/user') {
+      if (user.id === fixtureUsers.paid.id) {
+        await db.query('insert into auth.users(id,email) values($1,$2) on conflict do nothing', [user.id,user.email]);
+      }
+      return send(200,{...user,aud:'authenticated',role:'authenticated',app_metadata:{provider:'email'},user_metadata:{},created_at:'2026-10-01T00:00:00Z'});
+    }
+    if(url.pathname==='/auth/v1/logout') {res.statusCode=204;res.end();return;}
     const result=await db.transaction(async tx => {
       await tx.exec('set local role authenticated'); await tx.query("select set_config('request.jwt.claim.sub',$1,true)",[user.id]);
+      if (url.pathname === '/rest/v1/bros_sell_payment_orders' && req.method === 'GET') {
+        const orders = await tx.query('select status, entitlement_id from public.bros_sell_payment_orders');
+        return {status:200,data:orders.rows};
+      }
+      if (url.pathname === '/rest/v1/rpc/claim_bros_sell_paid_orders') {
+        const claim = await tx.query<{count:number}>('select public.claim_bros_sell_paid_orders() as count');
+        return {status:200,data:claim.rows[0].count};
+      }
+      if (url.pathname === '/rest/v1/rpc/activate_bros_sell_onboarding') {
+        const activation = await tx.query<{count:number}>('select public.activate_bros_sell_onboarding() as count');
+        return {status:200,data:activation.rows[0].count};
+      }
       if(url.pathname.endsWith('/rpc/has_active_bros_sell_entitlement')) {
         const value=await tx.query<{active:boolean}>('select public.has_active_bros_sell_entitlement($1,$2) as active',[body.p_product_code,body.p_access_level]);
         return {status:200,data:value.rows[0].active};

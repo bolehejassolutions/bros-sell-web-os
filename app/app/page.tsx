@@ -1,16 +1,11 @@
-import { createClient } from "@/lib/supabase/server";
-import { hasWebOSAccess } from "@/lib/supabase/entitlement";
-import { redirect } from "next/navigation";
+import { requireWorkspaceUser } from "@/lib/supabase/workspace-user";
 import SalesCaseWorkspace from './sales-case-workspace';
 import OfflineControls from './offline-controls';
 import Link from 'next/link';
 import { CUSTOMER_RELEASE } from "@/lib/bros-sell/customer-release";
 
 export default async function AppHome(){
-  const supabase=await createClient();
-  const {data:{user}}=await supabase.auth.getUser();
-  if(!user) redirect("/login");
-  if(!(await hasWebOSAccess())) redirect("/activate");
+  const { user } = await requireWorkspaceUser();
 
   return (
     <main className="container simplified-home">

@@ -16,7 +16,7 @@ test("Customer Hub release distinguishes package from book", () => {
 
 test("Customer Hub does not falsely promise a hosted ZIP download", () => {
   const hub = readFileSync("app/app/hub/page.tsx", "utf8");
-  assert.match(hub, /hasWebOSAccess\(supabase\)/);
+  assert.match(hub, /requireWorkspaceUser\(\)/);
   assert.match(hub, /api\/customer\/closing-os/);
   assert.match(hub, /ZIP lengkap tidak disimpan dalam Web OS/);
   assert.doesNotMatch(hub, /drive\.google\.com\/file\/d\//);

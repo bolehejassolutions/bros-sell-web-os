@@ -2,7 +2,7 @@ name: Sales Case P0 verification
 
 on:
   pull_request:
-    branches: [main]
+    branches: [main, feat/hitpay-entitlement-automation]
     types: [opened, synchronize, reopened]
 
 permissions:
@@ -79,6 +79,10 @@ jobs:
           }
           start_servers
           npm run test:api 2>&1 | tee test-results/http-api.log
+          # The grant-enabled fixture uses a separate database and loopback-only keys.
+          stop_servers
+          BROS_FIXTURE_PAYMENT=1 start_servers
+          node --experimental-strip-types --test tests/paid-access-api.test.ts 2>&1 | tee test-results/paid-access.log
           # Browser onboarding gets a fresh database, independent of API test data.
           stop_servers
           start_servers

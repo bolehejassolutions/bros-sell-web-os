@@ -84,6 +84,31 @@ test("non-product line items never become entitlement product identifiers", () =
   assert.deepEqual(event.productIds, ["product_1"]);
 });
 
+test("merchant-observed product line identity stays distinct from the catalogue editor identity", () => {
+  // Structure derived from the authenticated merchant Request view for #1007.
+  // Purchase identifiers/email are synthetic; this is not the original body
+  // and carries no original signature or authenticated API provenance.
+  const event = normalizeHitPayStoreEvent({
+    id: "redacted-charge",
+    business_id: "a089a95e-7d0e-4f1b-8d85-425f3c82f460",
+    status: "succeeded",
+    customer: { email: "redacted@example.com" },
+    currency: "myr", amount: 50, order_id: "redacted-order",
+    order: {
+      id: "redacted-order", order_display_number: 1007,
+      business_id: "a089a95e-7d0e-4f1b-8d85-425f3c82f460",
+      status: "completed", payment_status: "paid",
+      customer: { email: "redacted@example.com" }, currency: "myr",
+      line_items: [{ item_type: "product", related_id: "a2cfb307-df19-4a44-91ea-1a5ac1b64dc1", quantity: 1, unit_price: 50 }],
+    },
+  });
+  assert.deepEqual(event.productIds, ["a2cfb307-df19-4a44-91ea-1a5ac1b64dc1"]);
+  assert.ok(!event.productIds.includes("a2cfb307-366d-4ebc-9ff4-68b6c718e7d6"));
+  assert.equal(event.providerReference, "redacted-order");
+  assert.equal(event.purchaseEmail, "redacted@example.com");
+  assert.equal(event.amount, 50);
+});
+
 test("nested order customer is accepted when the charge customer is absent", () => {
   const event = normalizeHitPayStoreEvent({
     id: "charge_123",
@@ -123,4 +148,24 @@ test("capture evidence hashes buyer identity and records structure without value
   assert.ok(shape.includes("$.customer.email:string"));
   assert.ok(shape.includes("$.order.line_items[]:object"));
   assert.ok(!shape.some(item => item.includes("buyer@example.com") || item.includes("product_1")));
+});
+
+test("conflicting charge and nested order fields cannot be used as settlement evidence", () => {
+  const charge = {
+    data: {
+      id: "charge", order_id: "order", amount: "100.00", currency: "myr", customer: {email: "Buyer@example.test"},
+      order: {id: "order", amount: 100, currency: "MYR", customer: {email: "buyer@example.test"}},
+    },
+  };
+  assert.equal(normalizeHitPayStoreEvent(charge).amount, 100);
+  assert.equal(normalizeHitPayStoreEvent(charge).purchaseEmail, "buyer@example.test");
+  assert.equal(normalizeHitPayStoreEvent({...charge.data, amount: [100]}).amount, null);
+  assert.equal(normalizeHitPayStoreEvent({...charge.data, amount: 50}).amount, null);
+  assert.equal(normalizeHitPayStoreEvent({...charge.data, currency: "SGD"}).currency, null);
+  assert.equal(normalizeHitPayStoreEvent({...charge.data, customer: {email: "invalid"}}).purchaseEmail, null);
+  assert.deepEqual(normalizeHitPayStoreEvent({
+    ...charge.data, order: {...charge.data.order, line_items: [
+      {item_type: "product", related_id: "matched"}, {item_type: "product"},
+    ]},
+  }).productIds, []);
 });

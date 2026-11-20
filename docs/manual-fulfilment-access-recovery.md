@@ -1,6 +1,8 @@
 # BROS SELL manual fulfilment and access-recovery handoff
 
-Approved operating decisions supplied by the owner on 3 October 2026. Applies to BROS SELL Web OS project `cyryoirzxpvummckegyh` and PR #11. This is the existing manual operating path, not a claim that automatic HitPay provisioning exists.
+Manual operating flow approved on 3 October 2026; commercial-terms wording aligned on 1 November 2026 with the later Primary Drive owner decisions of 11 and 25 October. Applies to BROS SELL Web OS project `cyryoirzxpvummckegyh`. This is the existing manual operating path, not a claim that automatic HitPay provisioning exists.
+
+Current commercial authority: [Primary owner-confirmed HitPay closure and 25 October supersession](https://docs.google.com/document/d/19dUqbfmSqAcNgj5FiFbPMAZfeLFtArewWWuc-Zi1I9s/edit) and the current authenticated merchant fields. Do not restore a retired blanket 30-day marketing promise from this historical handoff. Preserve the terms and rights applicable to each earlier purchase.
 
 ## Responsibilities and customer surfaces
 
@@ -47,9 +49,9 @@ Recovery contact is visible on /activate even if BROS_SUPPORT_EMAIL is not confi
 
 ## Refund requests
 
-Customers may request a refund **within 30 calendar days of purchase**, via **brossell@bolehejas.com**, using the purchase email. Verify the purchase date/reference and retain the request in the existing private support record.
+Direct questions about purchase terms or refunds to **brossell@bolehejas.com**, using the purchase email. Verify the actual purchase date/reference and the terms accepted for that transaction; retain the request in the existing private support record.
 
-This is the approved request window and contact. Do not represent a request as an automatically approved refund, invent additional eligibility conditions or perform a refund/payment/configuration change during release verification. Process any approved refund through the existing authorized process.
+The earlier blanket 30-day statement is historical and must not be applied automatically to every new purchase. Later owner decisions discontinued that voluntary marketing promise for new purchases and made newly edited merchant fields authoritative. Earlier customers' applicable terms and rights remain intact. Do not invent a new refund window, a universal no-refund rule, automatic refund approval or additional eligibility conditions. Process any approved refund through the existing authorized process; release verification does not perform a refund or alter a purchase.
 
 ## Customer message for manual access confirmation
 
@@ -59,7 +61,7 @@ Send this only after verifying the customer's grant/recovery result. Use the cur
 
 ## Customer message for recovery/refund requests
 
-> Untuk pemulihan akses, email brossell@bolehejas.com menggunakan email pembelian. Anda boleh sertakan rujukan pesanan atau resit HitPay. Permohonan refund boleh dibuat dalam 30 hari kalendar dari tarikh pembelian melalui email yang sama. Jangan hantar password, OTP atau maklumat kad.
+> Untuk pemulihan akses atau pertanyaan tentang terma pembelian, email brossell@bolehejas.com menggunakan email pembelian. Anda boleh sertakan rujukan pesanan atau resit HitPay. Terma yang terpakai bergantung pada tarikh dan syarat pembelian masing-masing. Jangan hantar password, OTP atau maklumat kad.
 
 ## Execution record and evidence boundary
 

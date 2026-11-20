@@ -68,7 +68,9 @@ try {
       await page.goto(`${base}/activate`);
       await page.getByRole('heading', { name: 'Akses akaun perlu disemak.', exact: true }).waitFor();
       assert.equal(await page.getByRole('link', { name: 'brossell@bolehejas.com', exact: true }).getAttribute('href'), 'mailto:brossell%40bolehejas.com?subject=BROS%20SELL%20access%20recovery');
-      assert.match(await page.locator('body').innerText(), /terma pembelian atau hak berkaitan transaksi terdahulu/);
+      const recoveryText = await page.locator('body').innerText();
+      assert.match(recoveryText, /terma pembelian|tarikh dan syarat pembelian/i);
+      assert.doesNotMatch(recoveryText, /30 hari kalendar dari tarikh pembelian/i);
       await layout(page, width, 'recovery');
       await page.goto(`${base}/app`);
       await page.getByRole('button', { name: 'Tentukan next move', exact: true }).waitFor();
@@ -304,3 +306,4 @@ try {
   await writeFile('test-results/browser-coverage.json', JSON.stringify({ authEvidence: 'Synthetic fixture sessions only; not hosted Supabase Auth', results, failures }, null, 2));
   await browser.close();
 }
+

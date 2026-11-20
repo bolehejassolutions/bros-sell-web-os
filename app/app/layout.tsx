@@ -1,6 +1,7 @@
-import { createClient } from "@/lib/supabase/server";
-import { hasWebOSAccess } from "@/lib/supabase/entitlement";
-import { redirect } from "next/navigation";
+import { requireWorkspaceUser } from "@/lib/supabase/workspace-user";
+import { activatePaidBrosSellOnboarding } from "@/lib/supabase/entitlement";
+import { after } from 'next/server';
+import { dispatchOnboardingSafely } from '@/lib/onboarding/dispatch';
 import SalesCaseProvider from './sales-case-provider';
 import CaseToolFooter from './case-tool-footer';
 import CaseLink from './case-link';
@@ -8,11 +9,11 @@ import CaseLink from './case-link';
 export default async function WebOSLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
-  const supabase = await createClient();
-  const { data: { user } } = await supabase.auth.getUser();
+  const { user, supabase } = await requireWorkspaceUser();
 
-  if (!user) redirect("/login");
-  if (!(await hasWebOSAccess(supabase))) redirect("/activate");
+  if (await activatePaidBrosSellOnboarding(supabase)) {
+    after(dispatchOnboardingSafely);
+  }
 
   return (
     <SalesCaseProvider key={user.id} userId={user.id} navigation={
@@ -38,3 +39,5 @@ export default async function WebOSLayout({
     </SalesCaseProvider>
   );
 }
+
+

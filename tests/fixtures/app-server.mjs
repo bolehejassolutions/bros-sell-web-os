@@ -3,5 +3,10 @@ import next from 'next';
 import http from 'node:http';
 process.env.NEXT_PUBLIC_SUPABASE_URL = 'http://127.0.0.1:54329';
 process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY = 'local-fixture-publishable-key';
+if (process.env.BROS_FIXTURE_PAYMENT === '1') {
+  process.env.SUPABASE_SECRET_KEY = 'local-fixture-payment-admin';
+  process.env.HITPAY_WEBHOOK_SALT = 'local-fixture-grant-salt';
+  process.env.HITPAY_BUSINESS_ID = 'fixture-business';
+}
 const app = next({ dev: process.env.BROS_FIXTURE_PRODUCTION !== '1', hostname: '127.0.0.1', port: 3007 });
 app.prepare().then(() => http.createServer(app.getRequestHandler()).listen(3007, '127.0.0.1', () => console.log('Fixture app ready: http://127.0.0.1:3007'))).catch(error => { console.error(error); process.exitCode=1; });

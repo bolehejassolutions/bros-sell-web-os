@@ -1,5 +1,4 @@
-import { redirect } from "next/navigation";
-import { hasWebOSAccess } from "@/lib/supabase/entitlement";
+import { requireWorkspaceUser } from "@/lib/supabase/workspace-user";
 import CaseLink from '../case-link';
 import Link from "next/link";
 import { CUSTOMER_RELEASE } from "@/lib/bros-sell/customer-release";
@@ -20,7 +19,7 @@ const nativeTools = [
 ] as const;
 
 export default async function ResourcesPage() {
-  if (!(await hasWebOSAccess())) redirect("/activate");
+  await requireWorkspaceUser();
 
   return (
     <main className="container library-page">

@@ -14,16 +14,13 @@ export type NormalizedHitPayEvent = {
 };
 
 function clean(value: unknown) {
-  if (value === null || value === undefined) return null;
-  const text = String(value).trim();
-  return text || null;
+  return typeof value === "string" ? value.trim() || null : null;
 }
 
-function numberValue(value: unknown) {
-  const text = clean(value);
-  if (!text) return null;
-  const parsed = Number(text);
-  return Number.isFinite(parsed) ? parsed : null;
+function amountValue(value: unknown) {
+  const amount = typeof value === "number" ? value
+    : typeof value === "string" && /^\d+(?:\.\d+)?$/.test(value) ? Number(value) : NaN;
+  return Number.isFinite(amount) ? amount : null;
 }
 
 function objectValue(value: unknown): HitPayPayload | null {
@@ -32,56 +29,47 @@ function objectValue(value: unknown): HitPayPayload | null {
     : null;
 }
 
-function customerEmail(source: HitPayPayload) {
-  return clean(objectValue(source.customer)?.email)?.toLowerCase() ?? null;
+// A charge and its own order may repeat a field. A supplied malformed or
+// contradictory value cannot be replaced with the more convenient copy.
+function consistent<T>(charge: unknown, order: unknown, parse: (value: unknown) => T | null) {
+  if (charge == null) return parse(order);
+  if (order == null) return parse(charge);
+  const value = parse(charge);
+  return value === parse(order) ? value : null;
 }
 
-function collectLineItemProductIds(source: HitPayPayload) {
+function emailValue(value: unknown) {
+  const email = clean(value)?.toLowerCase();
+  return email && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) ? email : null;
+}
+
+function orderProductIds(items: unknown) {
+  if (!Array.isArray(items)) return [];
   const ids = new Set<string>();
-  const scanLineItems = (value: unknown) => {
-    const items = Array.isArray(value) ? value : [];
-    for (const raw of items) {
-      const item = objectValue(raw);
-      if (!item) continue;
-      const itemType = clean(item.item_type)?.toLowerCase();
-      const relatedId = clean(item.related_id);
-      if (itemType === "product" && relatedId) ids.add(relatedId);
-    }
-  };
-
-  scanLineItems(source.line_items);
-  const order = objectValue(source.order);
-  if (order) scanLineItems(order.line_items);
-
+  for (const raw of items) {
+    const line = objectValue(raw);
+    const type = clean(line?.item_type);
+    if (!type) return [];
+    if (type.toLowerCase() !== "product") continue;
+    const id = clean(line?.related_id);
+    if (!id) return [];
+    ids.add(id);
+  }
   return [...ids];
 }
 
 export function normalizeHitPayStoreEvent(payload: HitPayPayload): NormalizedHitPayEvent {
-  const data = objectValue(payload.data);
-  const source = data ?? payload;
-  const order = objectValue(source.order) ?? objectValue(payload.order);
-
+  const charge = objectValue(payload.data) ?? payload;
+  const order = objectValue(charge.order);
   return {
-    status: (clean(source.status) ?? clean(payload.status) ?? "").toLowerCase(),
-    providerPaymentId:
-      clean(source.id) ??
-      clean(payload.id),
-    providerReference:
-      clean(source.order_id) ??
-      clean(order?.id) ??
-      clean(source.reference_number) ??
-      clean(payload.reference_number),
-    businessId:
-      clean(source.business_id) ??
-      clean(order?.business_id) ??
-      clean(payload.business_id),
-    amount: numberValue(source.amount ?? order?.amount ?? payload.amount),
-    currency: clean(source.currency ?? order?.currency ?? payload.currency)?.toUpperCase() ?? null,
-    purchaseEmail:
-      customerEmail(source) ??
-      (order ? customerEmail(order) : null) ??
-      customerEmail(payload),
-    productIds: collectLineItemProductIds(source),
+    status: clean(charge.status)?.toLowerCase() ?? "",
+    providerPaymentId: clean(charge.id),
+    providerReference: consistent(charge.order_id, order?.id, clean),
+    businessId: consistent(charge.business_id, order?.business_id, clean),
+    amount: consistent(charge.amount, order?.amount, amountValue),
+    currency: consistent(charge.currency, order?.currency, value => clean(value)?.toUpperCase() ?? null),
+    purchaseEmail: consistent(objectValue(charge.customer)?.email, objectValue(order?.customer)?.email, emailValue),
+    productIds: orderProductIds(order?.line_items),
   };
 }
 
