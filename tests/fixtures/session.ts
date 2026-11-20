@@ -1,6 +1,7 @@
 export const fixtureUsers = {
   a: {id:'11111111-1111-4111-8111-111111111111',email:'a@example.test'},
   b: {id:'22222222-2222-4222-8222-222222222222',email:'b@example.test'},
+  paid: {id:'44444444-4444-4444-8444-444444444444',email:'paid@example.test'},
   c: {id:'33333333-3333-4333-8333-333333333333',email:'c@example.test'},
 };
 export function fixtureCookie(key: keyof typeof fixtureUsers) {

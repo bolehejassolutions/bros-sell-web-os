@@ -25,3 +25,11 @@ The existing charge verifier now supports optional `current_rm100` analysis whil
 5. Keep optional SMTP/onboarding off until separately accepted. Never charge again to obtain a test.
 
 This record describes developer evidence, not a new commercial or pricing decision. The Primary Drive commercial source governs any pricing changes.
+
+## 20 November 2026 DEV acceptance
+
+The authenticated merchant readback still shows order #1008 completed and its matching RM100 charge succeeded. The returned fields omit the individual product line and original webhook signature. Continue the approved purchase-email manual fulfilment procedure.
+
+The integration branch combines main `cbd3b12`, payment draft #12 `81568f3` and evidence draft #23 `7d27f5e`. The production-bundle test `node --experimental-strip-types --test tests/paid-access-api.test.ts` passes against the loopback SQL fixture with `BROS_FIXTURE_PAYMENT=1`. It sends a locally signed charge, reads back a single paid order and entitlement through the buyer's database role, verifies another account sees no orders, then follows the buyer's first library visit to a signed book redirect. Repeated delivery, conflicting order, merchant and buyer fields, missing nested product line and expired sign-in recovery are covered. A real hosted account, original HitPay event, production book bytes and outbound delivery each need their own evidence.
+
+Rollback before release is to retain the current production deployment and manual fulfilment path. Discarding this DEV branch needs no database rollback. Hosted payment fixtures require a separately isolated non-production database.

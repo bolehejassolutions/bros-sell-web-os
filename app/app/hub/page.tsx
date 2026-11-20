@@ -1,17 +1,12 @@
+import { requireWorkspaceUser } from "@/lib/supabase/workspace-user";
 import Link from "next/link";
-import { redirect } from "next/navigation";
-import { createClient } from "@/lib/supabase/server";
-import { hasWebOSAccess } from "@/lib/supabase/entitlement";
 import { CUSTOMER_RELEASE as release } from "@/lib/bros-sell/customer-release";
 
 const supportEmail = "brossell@bolehejas.com";
 const supportLink = (subject: string) => `mailto:${supportEmail}?subject=${encodeURIComponent(subject)}`;
 
 export default async function CustomerHubPage() {
-  const supabase = await createClient();
-  const { data: { user } } = await supabase.auth.getUser();
-  if (!user) redirect("/login");
-  if (!(await hasWebOSAccess(supabase))) redirect("/activate");
+  const { user } = await requireWorkspaceUser();
 
   return (
     <main className="container library-page" aria-label="BROS SELL Customer Hub">

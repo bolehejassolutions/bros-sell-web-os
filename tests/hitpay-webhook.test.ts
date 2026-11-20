@@ -149,3 +149,23 @@ test("capture evidence hashes buyer identity and records structure without value
   assert.ok(shape.includes("$.order.line_items[]:object"));
   assert.ok(!shape.some(item => item.includes("buyer@example.com") || item.includes("product_1")));
 });
+
+test("conflicting charge and nested order fields cannot be used as settlement evidence", () => {
+  const charge = {
+    data: {
+      id: "charge", order_id: "order", amount: "100.00", currency: "myr", customer: {email: "Buyer@example.test"},
+      order: {id: "order", amount: 100, currency: "MYR", customer: {email: "buyer@example.test"}},
+    },
+  };
+  assert.equal(normalizeHitPayStoreEvent(charge).amount, 100);
+  assert.equal(normalizeHitPayStoreEvent(charge).purchaseEmail, "buyer@example.test");
+  assert.equal(normalizeHitPayStoreEvent({...charge.data, amount: [100]}).amount, null);
+  assert.equal(normalizeHitPayStoreEvent({...charge.data, amount: 50}).amount, null);
+  assert.equal(normalizeHitPayStoreEvent({...charge.data, currency: "SGD"}).currency, null);
+  assert.equal(normalizeHitPayStoreEvent({...charge.data, customer: {email: "invalid"}}).purchaseEmail, null);
+  assert.deepEqual(normalizeHitPayStoreEvent({
+    ...charge.data, order: {...charge.data.order, line_items: [
+      {item_type: "product", related_id: "matched"}, {item_type: "product"},
+    ]},
+  }).productIds, []);
+});
