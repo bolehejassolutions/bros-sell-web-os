@@ -45,11 +45,11 @@ Privileged operations stay in the existing secure admin environment. Never put s
 
 Recovery contact is visible on /activate even if BROS_SUPPORT_EMAIL is not configured: the approved default is brossell@bolehejas.com. The page asks for the purchase email, permits an optional HitPay reference and explicitly excludes passwords, OTPs and card information.
 
-## Refund requests
+## Refund enquiries and purchase terms
 
-Customers may request a refund **within 30 calendar days of purchase**, via **brossell@bolehejas.com**, using the purchase email. Verify the purchase date/reference and retain the request in the existing private support record.
+The voluntary 30-day money-back guarantee was retired for new purchases effective 10 October 2026, reconfirmed by the owner on 24 November 2026. For enquiries, contact **brossell@bolehejas.com** using the purchase email. Verify the purchase date, reference and terms applicable to that transaction; retain the enquiry in the existing private support record.
 
-This is the approved request window and contact. Do not represent a request as an automatically approved refund, invent additional eligibility conditions or perform a refund/payment/configuration change during release verification. Process any approved refund through the existing authorized process.
+Preserve prior contractual obligations and applicable consumer rights. Do not advertise the retired guarantee, claim that all refunds are excluded, represent a request as automatically approved, invent eligibility conditions or perform a refund/payment/configuration change during release verification. Process any approved refund through the existing authorized process. See the [current commercial decision](https://docs.google.com/document/d/1wVdWTtxspBgTnJ31zHSX_mgC7HCGRV0N/edit).
 
 ## Customer message for manual access confirmation
 
@@ -59,7 +59,7 @@ Send this only after verifying the customer's grant/recovery result. Use the cur
 
 ## Customer message for recovery/refund requests
 
-> Untuk pemulihan akses, email brossell@bolehejas.com menggunakan email pembelian. Anda boleh sertakan rujukan pesanan atau resit HitPay. Permohonan refund boleh dibuat dalam 30 hari kalendar dari tarikh pembelian melalui email yang sama. Jangan hantar password, OTP atau maklumat kad.
+> Untuk pemulihan akses, email brossell@bolehejas.com menggunakan email pembelian. Anda boleh sertakan rujukan pesanan atau resit HitPay. Untuk pertanyaan tentang terma pembelian atau hak berkaitan transaksi, gunakan email pembelian yang sama. Terma yang terpakai bergantung pada tarikh dan syarat pembelian masing-masing. Jangan hantar password, OTP atau maklumat kad.
 
 ## Execution record and evidence boundary
 
