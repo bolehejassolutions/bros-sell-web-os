@@ -1,5 +1,7 @@
 # Draft PR: Make Sales Case the shared BROS SELL operating loop
 
+> **Historical record — 3 October 2026.** References to the 30-day refund request window describe the decision at that date. The voluntary money-back guarantee was retired for new purchases effective 10 October 2026 (owner reconfirmed 24 November 2026). Follow the current commercial decision and preserve earlier contractual obligations and applicable consumer rights. See [current operating context](https://docs.google.com/document/d/1pEZbe-u_hCzhsn_2_nlKTQ0H9e5rTHDP/edit) and [10 October decision](https://docs.google.com/document/d/1wVdWTtxspBgTnJ31zHSX_mgC7HCGRV0N/edit).
+
 Updated: 3 October 2026. [PR #11](https://github.com/bolehejassolutions/bros-sell-web-os/pull/11).
 Base: main at `56f89fbc2d19406efd7f1ef075646446787555cb`.
 Branch: feat/sales-case-operating-loop. Validated application/handoff source: `3eb2747cef49f74d653f8648320017678a673189`.
