@@ -30,7 +30,7 @@ Follow docs/manual-fulfilment-access-recovery.md:
 - Verify successful HitPay payment/reference and match purchase email to the account.
 - New grants use BROS_SELL_CORE / core, source manual, through existing secure admin access.
 - HitPay sends the downloadable package separately. Web OS is the maintained online companion; do not promise lifetime hosted access.
-- Recovery/support and 30-calendar-day refund requests use brossell@bolehejas.com from the purchase email; optional HitPay reference; never passwords, OTPs or card information.
+- Recovery/support and enquiries about applicable purchase terms use brossell@bolehejas.com from the purchase email; optional HitPay reference; never passwords, OTPs or card information. The voluntary 30-day guarantee was retired for new purchases effective 10 October 2026. Preserve prior contractual obligations and applicable consumer rights; see the current manual fulfilment guide.
 - Record real per-customer actions and post-grant /app/resource checks privately. Do not publish customer evidence or privileged keys in GitHub.
 
 Do not perform a new payment, automatic provisioning simulation, refund or entitlement change merely to manufacture release evidence.
@@ -39,6 +39,6 @@ Do not perform a new payment, automatic provisioning simulation, refund or entit
 
 Read the current assessment. READY WITH KNOWN LIMITATION records accepted customer checks, passing application/live checks and permitted manual fulfilment; it is not authorization to merge or deploy Production.
 
-Keep PR #11 Draft and unmerged until separately instructed. A merge, Ready-for-Review transition or Production deployment is a separate action. Preserve pricing, HitPay commercial configuration and the approved refund-request decisions.
+Keep PR #11 Draft and unmerged until separately instructed. A merge, Ready-for-Review transition or Production deployment is a separate action. Preserve pricing, HitPay commercial configuration and the current purchase-date-specific terms.
 
 If an eventual authorized application release needs rollback, restore the previous app deployment and preserve Sales Case data. No migration rollback or destructive customer-data operation is part of this handoff.
