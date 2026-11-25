@@ -1,5 +1,7 @@
 # Sales Case operating loop - release assessment
 
+> **Historical record — 3 October 2026.** References to the 30-day refund request window describe the decision at that date. The voluntary money-back guarantee was retired for new purchases effective 10 October 2026 (owner reconfirmed 24 November 2026). Follow the current commercial decision and preserve earlier contractual obligations and applicable consumer rights. See [current operating context](https://docs.google.com/document/d/1pEZbe-u_hCzhsn_2_nlKTQ0H9e5rTHDP/edit) and [10 October decision](https://docs.google.com/document/d/1wVdWTtxspBgTnJ31zHSX_mgC7HCGRV0N/edit).
+
 Updated: 3 October 2026. PR #11 P0 release status: **READY WITH KNOWN LIMITATION**.
 
 The approved manual fulfilment/access-recovery handoff is closed. Account A/B, customer isolation and signed-download testing are **accepted by the user as previously tested**. They were not repeated or represented as newly observed by the agent. Linux application/build/browser checks and the current live Preview recovery/anonymous checks passed.
